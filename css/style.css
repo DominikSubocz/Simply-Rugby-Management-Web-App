@@ -333,12 +333,15 @@ input:not(input.button) {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     border:1px black solid;
   }
 
   .card-container{
     width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: .5px 0 0 #000;
   }
 
