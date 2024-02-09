@@ -1,7 +1,7 @@
 <?php
 
 class Utils {
-  public static $projectFilePath = "http://localhost/bookstore";
+  public static $projectFilePath = "http://localhost/Simply-Rugby-Management-Web-App";
   public static $defaultBookCover = "default.png";
 
   /**

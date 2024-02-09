@@ -1,26 +1,43 @@
+$(document).ready(function(){
+  var currentDate = new Date();
 
-    const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  function displayCalendar(date){
+    $('.days').empty();
+    $('.timeslots').empty();
 
-    const d = new Date("2021-03-25");
-    let month = months[d.getMonth()];
-    document.getElementById("demo").innerHTML = month;
 
-    function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-      }
+    for(var hour = 0; hour < 24; hour++){
+      var timeSlot = ('0' + hour).slice(-2) + ':00';
+      $('.timeslots').append('<div class="timeslot">' + timeSlot + '</div>');
+    }
 
-      
-      
-      // Close the dropdown if the user clicks outside of it
-      window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-          var dropdowns = document.getElementsByClassName("dropdown-content");
-          var i;
-          for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-              openDropdown.classList.remove('show');
-            }
-          }
-        }
-      }
+    var currentWeekStart = new Date();
+    currentWeekStart.setDate(currentWeekStart.getDate() - currentWeekStart.getDay());
+
+
+    for (var i = 0; i < 7; i++){
+      var day = new Date(currentWeekStart);
+      day.setDate(currentWeekStart.getDate() + i );
+      var weekday = day.toLocaleDateString('en-US', {weekday: 'short'});
+      var dayOfMonth = day.getDate();
+      $('.weekdays').append('<div class="weekday">' + weekday + ' ' + dayOfMonth + '</div>');
+    }
+  }
+
+
+  displayCalendar(currentDate);
+
+  $('#prevWeek').click(function(){
+    var currentWeek = $('.weekdays .weekday::first-child').text().split(' ')[1];
+    var prevWeekStart = new Date(currentWeekStart);
+    prevWeekStart.setDate(prevWeekStart.getDate() - 7);
+    displayCalendar(prevWeekStart);
+  });
+  $('#nextWeek').click(function(){
+    var currentWeek = $('.weekdays .weekday::first-child').text().split(' ')[1];
+    var prevWeekStart = new Date(currentWeekStart);
+    prevWeekStart.setDate(prevWeekStart.getDate() + 7);
+    displayCalendar(prevWeekStart);
+  });
+
+});

@@ -59,3 +59,7 @@ CREATE TABLE bookstore.orders (
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (postcode) REFERENCES postcodes(postcode)
 );
+
+UPDATE bookstore.users
+SET user_role = "Admin"
+WHERE username = "admin";
