@@ -63,3 +63,19 @@ CREATE TABLE bookstore.orders (
 UPDATE bookstore.users
 SET user_role = "Admin"
 WHERE username = "admin";
+
+CREATE TABLE bookstore.events(
+  id int(11) PRIMARY KEY AUTO_INCREMENT,
+  name text,
+  start datetime DEFAULT NULL,
+  end datetime DEFAULT NULL,
+  color varchar(30),
+  resource_id int(11) DEFAULT NULL
+);
+
+CREATE TABLE bookstore.resources (
+  id int(11) PRIMARY KEY AUTO_INCREMENT,
+  name varchar(200) DEFAULT NULL
+);
+
+INSERT INTO bookstore.resources (name) VALUES (:name)
