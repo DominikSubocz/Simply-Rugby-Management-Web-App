@@ -134,7 +134,6 @@ input.button {
   flex: 1;
   margin: 0 auto 32px;
   max-width: 300px;
-  padding-top: 16px;
   text-align: center;
   text-decoration: none;
 }
@@ -380,7 +379,7 @@ input:not(input.button) {
   
   .book-card {
     margin:0 auto;
-    max-width: 1750px;
+    max-width: 1950px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -396,21 +395,49 @@ input:not(input.button) {
     box-shadow: .5px 0 0 #000;
   }
 
-  .name-container{
-    width: 600px;
+  .id-container{
+    width: fit-content;
+    padding:0 25px;
   }
 
-  .some-container{
-    width: 200px;
+  .firstN-container{
+    width: fit-content;
+    padding:0 25px;
   }
 
-  .some-container2{
-    width: 800px;
+  .lastN-container{
+    width: fit-content;
+    padding:0 25px;
+  }
+
+  .sru-container{
+    width: fit-content;
+    padding:0 15px;
+  }
+
+  .dob-container{
+    width: fit-content;
+    padding:0 65px;
+  }
+
+  .contactNo-container{
+    width: fit-content;
+    padding:0 15px;
+  }
+
+  .email-container{
+    width: fit-content;
+    padding:0 25px;
+  }
+
+  .pfp-container{
+    width: fit-content;
+    padding:0 15px;
   }
 
   .profile-img{
     height: 300px;
-    width: 200px;
+    width: 300px;
   }
 
   .book-image {

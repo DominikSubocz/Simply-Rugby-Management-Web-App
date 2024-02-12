@@ -1,36 +1,16 @@
-DROP DATABASE IF EXISTS bookstore;
-CREATE DATABASE bookstore;
+DROP DATABASE IF EXISTS simplyrugby;
+CREATE DATABASE simplyrugby;
 
-CREATE TABLE bookstore.books (
-  book_id INT PRIMARY KEY AUTO_INCREMENT,
-  title VARCHAR(128) NOT NULL,
-  author VARCHAR(48) NOT NULL,
-  price DECIMAL(8, 2) NOT NULL,
-  filename VARCHAR(64)
+CREATE TABLE simplyrugby.addresses (
+  address_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  address_line VARCHAR(48) NOT NULL,
+  address_line2 VARCHAR(48) NOT NULL,
+  city varchar(40) NOT NULL,
+  county varchar(40) NOT NULL,
+  postcode varchar(10) NOT NULL
 );
 
-INSERT INTO bookstore.books (title, author, price, filename) VALUES
-("Complete Fairy Tales", "Hans Christian Andersen", 8.99, "fairy-tales.jpg"),
-("Faust", "Johann Wolfgang von Goethe", 10.49, "faust.jpg"),
-("Great Expectations", "Charles Dickens", 7.99, "great-expectations.jpg"),
-("Gulliver's Travels", "Jonathan Swift", 8.49, "gullivers-travels.jpg"),
-("Hamlet", "William Shakespeare", 7.49, "hamlet.jpg"),
-("History: A Novel", "Elsa Morante", 9.99, "history.jpg"),
-("Hunger", "Knut Hamsun", 6.99, "hunger.jpg"),
-("Independent People", "Halldor Laxness", 8.99, "independent-people.jpg"),
-("Invisible Man", "Ralph Ellison", 7.99, "invisible-man.jpg"),
-("King Lear", "William Shakespeare", 8.99, "king-lear.jpg"),
-("Leaves of Grass", "Walt Whitman", 8.49, "leaves-of-grass.jpg"),
-("Love in the Time of Cholera", "Gabriel Garcia Marquez", 9.49, "love-in-the-time-of-cholera.jpg"),
-("Medea", "Euripedes", 6.99, "medea.jpg"),
-("Memoirs of Hadrian", "Marguerite Yourcenar", 7.99, "memoirs-of-hadrian.jpg"),
-("Middlemarch", "George Eliot", 9.99, "middlemarch.jpg"),
-("Midnight's Children", "Salman Rushdie", 10.49, "midnights-children.jpg"),
-("Moby Dick", "Herman Melville", 8.49, "moby-dick.jpg"),
-("Mrs Dalloway", "Virginia Woolf", 9.99, "mrs-dalloway.jpg"),
-("Nineteen Eighty-Four", "George Orwell", 8.99, "nineteen-eighty-four.jpg");
-
-CREATE TABLE bookstore.users (
+CREATE TABLE simplyrugby.users (
   user_id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(32) UNIQUE NOT NULL,
   email VARCHAR(128) NOT NULL,
@@ -38,44 +18,46 @@ CREATE TABLE bookstore.users (
   user_role VARCHAR(24) NOT NULL DEFAULT "Member"
 );
 
-CREATE TABLE bookstore.postcodes (
-  postcode VARCHAR(8) PRIMARY KEY,
-  town VARCHAR(32) NOT NULL,
-  county VARCHAR(32) NOT NULL
+CREATE TABLE simplyrugby.doctors(
+doctor_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+address_id INT NOT NULL,
+first_name  varchar(32) NOT NULL,
+last_name  varchar(32) NOT NULL,
+contact_no  varchar(40) NOT NULL,
+FOREIGN KEY (address_id) REFERENCES simplyrugby.addresses (address_id)
+
 );
 
-CREATE TABLE bookstore.orders (
-  order_id INT NOT NULL,
-  book_id INT NOT NULL,
-  user_id INT NOT NULL,
-  quantity INT NOT NULL,
-  order_date DATETIME NOT NULL,
-  address_line VARCHAR(64) NOT NULL,
-  postcode VARCHAR(8) NOT NULL,
+CREATE TABLE simplyrugby.players (
+player_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+address_id INT NOT NULL,
+user_id INT DEFAULT NULL,
+doctor_id int NOT NULL,
+first_name  varchar(32) NOT NULL,
+last_name  varchar(32) NOT NULL,
+dob DATE,
+sru_no  INT NOT NULL,
+contact_no  varchar(40) NOT NULL,
+mobile_no  varchar(40),
+email_address varchar(45),
+next_of_kin varchar(32),
+kin_contact_no  varchar(40) NOT NULL,
+health_issues TEXT,
+filename VARCHAR(64),
+FOREIGN KEY (address_id) REFERENCES simplyrugby.addresses (address_id),
+FOREIGN KEY (user_id) REFERENCES simplyrugby.users (user_id),
+FOREIGN KEY (doctor_id) REFERENCES simplyrugby.doctors (doctor_id)
 
-  PRIMARY KEY(order_id, book_id, user_id),
-
-  FOREIGN KEY (book_id) REFERENCES books(book_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id),
-  FOREIGN KEY (postcode) REFERENCES postcodes(postcode)
 );
 
-UPDATE bookstore.users
-SET user_role = "Admin"
-WHERE username = "admin";
+INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
+VALUES ('123 Rugby Rd', 'Apt 4', 'Sportstown', 'Gameshire', 'SG11 2DZ');
 
-CREATE TABLE bookstore.events(
-  id int(11) PRIMARY KEY AUTO_INCREMENT,
-  name text,
-  start datetime DEFAULT NULL,
-  end datetime DEFAULT NULL,
-  color varchar(30),
-  resource_id int(11) DEFAULT NULL
-);
+-- Assuming you have an entry in addresses with address_id = 1
+-- Inserting into doctors
+INSERT INTO simplyrugby.doctors (address_id, first_name, last_name, contact_no)
+VALUES (1, 'John', 'Doe', '0123456789');
 
-CREATE TABLE bookstore.resources (
-  id int(11) PRIMARY KEY AUTO_INCREMENT,
-  name varchar(200) DEFAULT NULL
-);
 
-INSERT INTO bookstore.resources (name) VALUES (:name)
+INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
+VALUES (1, 1, 'Jane', 'Doe', '1995-05-15', 123456789, '0987654321', '07123456789', 'jane.doe@example.com', 'Jim Doe', '0987654321', 'None','michael.png');

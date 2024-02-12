@@ -2,27 +2,33 @@
   <img src="images/<?php echo $filename; ?>" alt="Cover of <?php echo $title; ?>" class="profile-img">
 
   <div class="book-info">
-    <h2><?php echo $title; ?></h2>
+    <h2><?php echo $firstName, ' ', $lastName; ?></h2>
 
-    <h3><?php echo $author; ?></h3>
+    <h3><?php echo 'SRU:', $sruNumber; ?></h3>
 
-    <p class="book-price">£<?php echo $price; ?></p>
+    <p class="book-price"><?php echo 'Contact Number: ', $contactNumber; ?></p>
 
-    <form
-      method="POST"
-      action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $bookId; ?>&action=add"
-      class="button-form"
-    >
-      <input class="button" value="Add to Basket">
-    </form>
+    <p class="book-price"><?php echo 'Mobile Number: ', $mobileNumber; ?></p>
 
-    <p class="description">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-      Vero illo et sit aliquam quae dolore tempore debitis alias
-      explicabo. Nostrum, eum amet sed necessitatibus harum quae
-      reprehenderit, tempora minima voluptatem aliquam ducimus!
-      Perspiciatis repudiandae aliquid fuga voluptates ipsum aliquam
-      nulla.
-    </p>
+    <p class="book-price"><?php echo 'Email: ', $emailAddress; ?></p>
+
+    <p class="book-price"><?php echo 'Known Health Issues: ', $healthIssues; ?></p>
+
+    <p class="book-price"><?php echo 'Next of Kin: ', $nextOfKin; ?></p>
+
+    <p class="book-price"><?php echo 'Contact Number: ', $kinContactNumber; ?></p>
+
+    <h2> Address </h2>
+
+    <p class="book-price"><?php echo 'Address Line 1: ', $address1; ?></p>
+
+    <p class="book-price"><?php echo 'Address Line 2: ', $address2; ?></p>
+
+    <p class="book-price"><?php echo 'City: ', $city; ?></p>
+
+    <p class="book-price"><?php echo 'County: ', $county; ?></p>
+
+    <p class="book-price"><?php echo 'Postcode: ', $postcode; ?></p>
+
   </div>
 </div>

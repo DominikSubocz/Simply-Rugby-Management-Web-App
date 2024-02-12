@@ -19,7 +19,7 @@ $book = Book::getBook($_GET["id"]);
 $pageTitle = "Book not found";
 
 if (!empty($book)) {
-  $pageTitle = $book["title"] . " - " . $book["author"];
+  $pageTitle = $book["first_name"];
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);

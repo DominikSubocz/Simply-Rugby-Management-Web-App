@@ -27,11 +27,23 @@ class Components {
     if (!empty($books)) {
       // Output a book card for each book in the $books array
       foreach ($books as $book) {
-        $bookId = Utils::escape($book["book_id"]);
-        $title = Utils::escape($book["title"]);
-        $author = Utils::escape($book["author"]);
-        $price = Utils::escape($book["price"]);
+        $player_id = Utils::escape($book["player_id"]);
+        $address_id = Utils::escape($book["address_id"]);
+        $user_id = Utils::escape($book["user_id"]);
+        $doctor_id = Utils::escape($book["doctor_id"]);
+        $firstName = Utils::escape($book["first_name"]);
+        $lastName = Utils::escape($book["last_name"]);
+        $dob = Utils::escape($book["dob"]);
+        $sruNumber = Utils::escape($book["sru_no"]);
+        $contactNumber = Utils::escape($book["contact_no"]);
+        $mobileNumber = Utils::escape($book["mobile_no"]);
+        $emailAddress = Utils::escape($book["email_address"]);
+        $nextOfKin = Utils::escape($book["next_of_kin"]);
+        $kinContactNumber = Utils::escape($book["kin_contact_no"]);
+        $healthIssues = Utils::escape($book["health_issues"]);
         $filename = Utils::escape($book["filename"]);
+
+
 
         require("components/book-card.php");
       }
@@ -47,11 +59,27 @@ class Components {
   public static function singleBook($book)
   {
     if (!empty($book)) {
-      $bookId = Utils::escape($book["book_id"]);
-      $title = Utils::escape($book["title"]);
-      $author = Utils::escape($book["author"]);
-      $price = Utils::escape($book["price"]);
+      $player_id = Utils::escape($book["player_id"]);
+      $address_id = Utils::escape($book["address_id"]);
+      $user_id = Utils::escape($book["user_id"]);
+      $doctor_id = Utils::escape($book["doctor_id"]);
+      $firstName = Utils::escape($book["first_name"]);
+      $lastName = Utils::escape($book["last_name"]);
+      $sruNumber = Utils::escape($book["sru_no"]);
+      $contactNumber = Utils::escape($book["contact_no"]);
+      $mobileNumber = Utils::escape($book["mobile_no"]);
+      $emailAddress = Utils::escape($book["email_address"]);
+      $nextOfKin = Utils::escape($book["next_of_kin"]);
+      $kinContactNumber = Utils::escape($book["kin_contact_no"]);
+      $healthIssues = Utils::escape($book["health_issues"]);
       $filename = Utils::escape($book["filename"]);
+
+      $address1 = Utils::escape($book["address_line"]);
+      $address2 = Utils::escape($book["address_line2"]);
+      $city = Utils::escape($book["city"]);
+      $county = Utils::escape($book["county"]);
+      $postcode = Utils::escape($book["postcode"]);
+
 
       // Output information on a single book
       require("components/book-single.php");
