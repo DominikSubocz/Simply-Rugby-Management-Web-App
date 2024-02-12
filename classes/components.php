@@ -122,18 +122,17 @@ class Components {
   public static function singleJunior($junior)
   {
     if (!empty($junior)) {
-      $junior_id = Utils::escape($junior["player_id"]);
+      $junior_id = Utils::escape($junior["junior_id"]);
       $address_id = Utils::escape($junior["address_id"]);
       $user_id = Utils::escape($junior["user_id"]);
-      $doctor_id = Utils::escape($junior["doctor_id"]);
       $firstName = Utils::escape($junior["first_name"]);
       $lastName = Utils::escape($junior["last_name"]);
       $sruNumber = Utils::escape($junior["sru_no"]);
       $contactNumber = Utils::escape($junior["contact_no"]);
       $mobileNumber = Utils::escape($junior["mobile_no"]);
       $emailAddress = Utils::escape($junior["email_address"]);
-      $healthIssues = Utils::escape($book["health_issues"]);
-      $filename = Utils::escape($book["filename"]);
+      $healthIssues = Utils::escape($junior["health_issues"]);
+      $filename = Utils::escape($junior["filename"]);
 
       $address1 = Utils::escape($junior["address_line"]);
       $address2 = Utils::escape($junior["address_line2"]);

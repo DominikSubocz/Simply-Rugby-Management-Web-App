@@ -1,4 +1,4 @@
-<a class="book-card" href="junior.php?id=<?php echo $junior_id; ?>">
+<a class="book-card" href="junior-page.php?id=<?php echo $junior_id; ?>">
   <div class="id-container card-container">
       <h3><?php echo $junior_id; ?></h3>
   </div>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="pfp-container card-container">
-    <img src="images/<?php echo $filename; ?>" alt="Cover for <?php echo $title; ?>" class="book-image">
+    <img src="images/<?php echo $filename; ?>" alt="Cover for <?php echo $firstName; ?>" class="book-image">
  </div>
 
 

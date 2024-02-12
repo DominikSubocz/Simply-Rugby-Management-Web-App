@@ -10,7 +10,7 @@ require("classes/junior.php");
   to book list page.
 */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-  header("Location: " . Utils::$projectFilePath . "/book-list.php");
+  header("Location: " . Utils::$projectFilePath . "/junior-list.php");
 }
 
 $junior = Junior::getJunior($_GET["id"]);
@@ -23,7 +23,7 @@ if (!empty($junior)) {
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
-Components::singleBook($junior);
+Components::singleJunior($junior);
 Components::pageFooter();
 
 ?>

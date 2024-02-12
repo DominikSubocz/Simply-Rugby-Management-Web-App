@@ -31,4 +31,5 @@
     <p class="book-price"><?php echo 'Postcode: ', $postcode; ?></p>
 
   </div>
+
 </div>

@@ -51,7 +51,8 @@ input.button {
 
 /* HEADER, NAVIGATION, FOOTER */
 .page-header {
-  background-color: orange;
+  background-color: black;
+  color: #fff;
 }
 
 .page-footer {
@@ -103,7 +104,7 @@ input.button {
 }
 
 .nav-links a {
-  color: black;
+  color: #fff;
   display: block;
   font-weight: bold;
   font-size: 20px;
@@ -146,6 +147,8 @@ input.button {
   width: 100%;
   object-fit: cover;
 }
+
+
 
 
 .book-price {
@@ -403,6 +406,10 @@ input:not(input.button) {
   .firstN-container{
     width: fit-content;
     padding:0 25px;
+  }
+
+  .pfp-container{
+    height: fit-content;
   }
 
   .lastN-container{
