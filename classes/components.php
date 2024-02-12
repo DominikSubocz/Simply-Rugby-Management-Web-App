@@ -69,11 +69,10 @@ class Components {
       $contactNumber = Utils::escape($book["contact_no"]);
       $mobileNumber = Utils::escape($book["mobile_no"]);
       $emailAddress = Utils::escape($book["email_address"]);
-      $nextOfKin = Utils::escape($book["next_of_kin"]);
-      $kinContactNumber = Utils::escape($book["kin_contact_no"]);
       $healthIssues = Utils::escape($book["health_issues"]);
       $filename = Utils::escape($book["filename"]);
-
+      $nextOfKin = Utils::escape($book["next_of_kin"]);
+      $kinContactNumber = Utils::escape($book["kin_contact_no"]);
       $address1 = Utils::escape($book["address_line"]);
       $address2 = Utils::escape($book["address_line2"]);
       $city = Utils::escape($book["city"]);
@@ -83,6 +82,68 @@ class Components {
 
       // Output information on a single book
       require("components/book-single.php");
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-single-book-found.php");
+    }
+  }
+
+  public static function allJuniors($juniors)
+  {
+    if (!empty($juniors)) {
+      // Output a book card for each book in the $books array
+      foreach ($juniors as $junior) {
+        $junior_id = Utils::escape($junior["junior_id"]);
+        $address_id = Utils::escape($junior["address_id"]);
+        $user_id = Utils::escape($junior["user_id"]);
+        $firstName = Utils::escape($junior["first_name"]);
+        $lastName = Utils::escape($junior["last_name"]);
+        $dob = Utils::escape($junior["dob"]);
+        $sruNumber = Utils::escape($junior["sru_no"]);
+        $contactNumber = Utils::escape($junior["contact_no"]);
+        $mobileNumber = Utils::escape($junior["mobile_no"]);
+        $emailAddress = Utils::escape($junior["email_address"]);
+        $healthIssues = Utils::escape($junior["health_issues"]);
+        $filename = Utils::escape($junior["filename"]);
+
+
+
+        require("components/junior-card.php");
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+  /**
+   * Renders a book array to the page.
+   */
+  public static function singleJunior($junior)
+  {
+    if (!empty($junior)) {
+      $junior_id = Utils::escape($junior["player_id"]);
+      $address_id = Utils::escape($junior["address_id"]);
+      $user_id = Utils::escape($junior["user_id"]);
+      $doctor_id = Utils::escape($junior["doctor_id"]);
+      $firstName = Utils::escape($junior["first_name"]);
+      $lastName = Utils::escape($junior["last_name"]);
+      $sruNumber = Utils::escape($junior["sru_no"]);
+      $contactNumber = Utils::escape($junior["contact_no"]);
+      $mobileNumber = Utils::escape($junior["mobile_no"]);
+      $emailAddress = Utils::escape($junior["email_address"]);
+      $healthIssues = Utils::escape($book["health_issues"]);
+      $filename = Utils::escape($book["filename"]);
+
+      $address1 = Utils::escape($junior["address_line"]);
+      $address2 = Utils::escape($junior["address_line2"]);
+      $city = Utils::escape($junior["city"]);
+      $county = Utils::escape($junior["county"]);
+      $postcode = Utils::escape($junior["postcode"]);
+
+
+      // Output information on a single book
+      require("components/junior-single.php");
     } else {
       // Output a message if the $books array is empty
       require("components/no-single-book-found.php");

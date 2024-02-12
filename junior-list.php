@@ -3,7 +3,7 @@
 session_start();
 
 require("classes/components.php");
-require("classes/player.php");
+require("classes/junior.php");
 
 // Output page header with a given title, stylesheet, and script
 Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
@@ -16,8 +16,8 @@ Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
   <?php
 
   // Get all books from the database and output list of books
-  $books = Book::getAllBooks();
-  Components::allBooks($books);
+  $books = Junior::getAllJuniors();
+  Components::allJuniors($books);
 
   ?>
 </div>
