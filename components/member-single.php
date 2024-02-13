@@ -4,9 +4,8 @@
 
   <div class="pfp-container">
     <img src="images/<?php echo $filename; ?>" alt="Cover of <?php echo $firstName; ?>" class="profile-img">
-    <div><button class="button profile-btn" onclick="displayTabs(0)">Personal Information</button></div>
-    <div><button class="button profile-btn" onclick="displayTabs(1)">Guardian Information</button></div>
-    <div><button class="button profile-btn" onclick="myFunction()">Skills</button></div>
+    <div><button onclick="displayTabs(0)">Personal Information</button></div>
+    <div><button onclick="displayTabs(1)">Guardian Information</button></div>
   </div>
 
 
@@ -18,7 +17,6 @@
       <p class="book-price"><?php echo 'Contact Number: ', $contactNumber; ?></p>
       <p class="book-price"><?php echo 'Mobile Number: ', $mobileNumber; ?></p>
       <p class="book-price"><?php echo 'Email: ', $emailAddress; ?></p>
-      <p class="book-price"><?php echo 'Known Health Issues: ', $healthIssues; ?></p>
       <h2> Address </h2>
       <p class="book-price"><?php echo 'Address Line 1: ', $address1; ?></p>
       <p class="book-price"><?php echo 'Address Line 2: ', $address2; ?></p>
@@ -32,16 +30,9 @@
       <p class="book-price"><?php echo 'Contact Number: ', $contactNumber; ?></p>
       <p class="book-price"><?php echo 'Mobile Number: ', $mobileNumber; ?></p>
       <p class="book-price"><?php echo 'Email: ', $emailAddress; ?></p>
-      <p class="book-price"><?php echo 'Known Health Issues: ', $healthIssues; ?></p>
-
-
-    </div>
-
-    <p class="book-price"><?php echo 'Email: ', $skillCategory; ?></p>
-      <p class="book-price"><?php echo 'Known Health Issues: ', $skills[4]; ?></p>
-      <p class="book-price"><?php echo 'Known Health Issues: ', $skillLevel; ?></p>
 
       
+    </div>
     <script>
 
 var currentTab = 0; // Current tab is set to be the first tab (0)

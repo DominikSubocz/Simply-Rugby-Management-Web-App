@@ -140,9 +140,81 @@ class Components {
       $county = Utils::escape($junior["county"]);
       $postcode = Utils::escape($junior["postcode"]);
 
+      $skillCategory = Utils::escape($junior["category"]);
+      $skill = Utils::escape($junior["skill_name"]);
+      $skillLevel = Utils::escape($junior["skill_level"]);
+
+      // Retrieve skills information from the junior_skills table
+      $skills = [];
+  
+      // Assuming $junior["skills"] is an array containing skill information
+      $skills = $skill;
+
 
       // Output information on a single book
       require("components/junior-single.php");
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-single-book-found.php");
+    }
+  }
+
+  public static function allMembers($members)
+  {
+    if (!empty($members)) {
+      // Output a book card for each book in the $books array
+      foreach ($members as $member) {
+        $member_id = Utils::escape($member["member_id"]);
+        $address_id = Utils::escape($member["address_id"]);
+        $user_id = Utils::escape($member["user_id"]);
+        $firstName = Utils::escape($member["first_name"]);
+        $lastName = Utils::escape($member["last_name"]);
+        $dob = Utils::escape($member["dob"]);
+        $sruNumber = Utils::escape($member["sru_no"]);
+        $contactNumber = Utils::escape($member["contact_no"]);
+        $mobileNumber = Utils::escape($member["mobile_no"]);
+        $emailAddress = Utils::escape($member["email_address"]);
+        $filename = Utils::escape($member["filename"]);
+
+
+
+
+
+
+        require("components/member-card.php");
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+  /**
+   * Renders a book array to the page.
+   */
+  public static function singleMember($member)
+  {
+    if (!empty($member)) {
+      $member_id = Utils::escape($member["member_id"]);
+      $address_id = Utils::escape($member["address_id"]);
+      $user_id = Utils::escape($member["user_id"]);
+      $firstName = Utils::escape($member["first_name"]);
+      $lastName = Utils::escape($member["last_name"]);
+      $sruNumber = Utils::escape($member["sru_no"]);
+      $contactNumber = Utils::escape($member["contact_no"]);
+      $mobileNumber = Utils::escape($member["mobile_no"]);
+      $emailAddress = Utils::escape($member["email_address"]);
+      $filename = Utils::escape($member["filename"]);
+
+      $address1 = Utils::escape($member["address_line"]);
+      $address2 = Utils::escape($member["address_line2"]);
+      $city = Utils::escape($member["city"]);
+      $county = Utils::escape($member["county"]);
+      $postcode = Utils::escape($member["postcode"]);
+
+
+      // Output information on a single book
+      require("components/member-single.php");
     } else {
       // Output a message if the $books array is empty
       require("components/no-single-book-found.php");

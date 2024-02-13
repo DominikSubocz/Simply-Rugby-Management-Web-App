@@ -2,7 +2,7 @@
 
 require("classes/components.php");
 require("classes/utils.php");
-require("classes/player.php");
+require("classes/member.php");
 
 /*
   Attempt to get the id from the URL parameter.
@@ -10,20 +10,20 @@ require("classes/player.php");
   to book list page.
 */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-  header("Location: " . Utils::$projectFilePath . "/book-list.php");
+  header("Location: " . Utils::$projectFilePath . "/junior-list.php");
 }
 
-$book = Book::getBook($_GET["id"]);
+$member = Member::getMember($_GET["id"]);
 
 // Set the document title to the title and author of the book if it exists
 $pageTitle = "Book not found";
 
-if (!empty($book)) {
-  $pageTitle = $book["first_name"];
+if (!empty($member)) {
+  $pageTitle = $member["first_name"];
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
-Components::singleMember($book);
+Components::singleMember($member);
 Components::pageFooter();
 
 ?>
