@@ -140,15 +140,26 @@ class Components {
       $county = Utils::escape($junior["county"]);
       $postcode = Utils::escape($junior["postcode"]);
 
-      $skillCategory = Utils::escape($junior["category"]);
-      $skill = Utils::escape($junior["skill_name"]);
-      $skillLevel = Utils::escape($junior["skill_level"]);
+
 
       // Retrieve skills information from the junior_skills table
-      $skills = [];
-  
-      // Assuming $junior["skills"] is an array containing skill information
-      $skills = $skill;
+        $groupedSkills = [];
+
+        foreach ($junior as $skill){
+          $skillCategory = Utils::escape($junior["category"]);
+          $skill = Utils::escape($junior["skill_name"]);
+          $skillLevel = Utils::escape($junior["skill_level"]);
+          $comment = Utils::escape($junior["comment"]);
+
+          $groupedSkills[$skillCategory][] = [
+            'name' => $skill,
+            'level' => $skillLevel,
+            'comment' => $comment
+        ];
+        }
+
+    // Group skills by category
+
 
 
       // Output information on a single book

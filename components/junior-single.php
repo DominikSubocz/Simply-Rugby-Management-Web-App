@@ -37,9 +37,19 @@
 
     </div>
 
-    <p class="book-price"><?php echo 'Email: ', $skillCategory; ?></p>
-      <p class="book-price"><?php echo 'Known Health Issues: ', $skills[4]; ?></p>
-      <p class="book-price"><?php echo 'Known Health Issues: ', $skillLevel; ?></p>
+
+    <div class="junior-container">
+    <!-- Output other details of the junior here -->
+
+    <?php foreach ($groupedSkills as $category => $skills) : ?>
+        <h2><?php echo $category; ?></h2>
+        <?php foreach ($skills as $skill) : ?>
+            <p><?php echo $skill['name'] . ' - Level: ' . $skill['level']; ?></p>
+            <p><?php echo $skill['comment']; ?></p>
+            
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+</div>
 
       
     <script>
