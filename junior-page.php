@@ -15,6 +15,8 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 
 $junior = Junior::getJunior($_GET["id"]);
 
+
+
 // Set the document title to the title and author of the book if it exists
 $pageTitle = "Book not found";
 

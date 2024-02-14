@@ -6,7 +6,7 @@
     <img src="images/<?php echo $filename; ?>" alt="Cover of <?php echo $firstName; ?>" class="profile-img">
     <div><button class="button profile-btn" onclick="displayTabs(0)">Personal Information</button></div>
     <div><button class="button profile-btn" onclick="displayTabs(1)">Guardian Information</button></div>
-    <div><button class="button profile-btn" onclick="myFunction()">Skills</button></div>
+    <div><button class="button profile-btn" onclick="displayTabs(2)">Skills</button></div>
   </div>
 
 
@@ -33,22 +33,49 @@
       <p class="book-price"><?php echo 'Mobile Number: ', $mobileNumber; ?></p>
       <p class="book-price"><?php echo 'Email: ', $emailAddress; ?></p>
       <p class="book-price"><?php echo 'Known Health Issues: ', $healthIssues; ?></p>
+    </div>
+    <div id="skills-info" class="idk-info tab">
+      <h2>Skills</h2>
+      <table>
+        <tr>
+          <th>Category</th>
+          <th>Skill</th>
+          <th>Level</th>
+          <th>Comment</th>
+        </tr>
+      
+        <tr>
+          <td rowspan="6">Passing</td>
+        </tr>
 
+          <?php
+              $skill = Junior::getJuniorSkills($_GET["id"]);
+              Components::juniorPassingSkill($skill);
+              ?>
+        </tr>
 
+        <tr>
+          <td rowspan="8">Tackling</td>
+        </tr>
+
+          <?php
+              $skill = Junior::getJuniorSkills($_GET["id"]);
+              Components::juniorTacklingSkill($skill);
+              ?>
+        </tr>
+
+        <tr>
+          <td rowspan="8">Kicking</td>
+        </tr>
+
+          <?php
+              $skill = Junior::getJuniorSkills($_GET["id"]);
+              Components::juniorKickingSkill($skill);
+              ?>
+        </tr>
+      </table>
     </div>
 
-
-    <div class="junior-container">
-    <!-- Output other details of the junior here -->
-
-    <?php foreach ($groupedSkills as $category => $skills) : ?>
-        <h2><?php echo $category; ?></h2>
-        <?php foreach ($skills as $skill) : ?>
-            <p><?php echo $skill['name'] . ' - Level: ' . $skill['level']; ?></p>
-            <p><?php echo $skill['comment']; ?></p>
-            
-        <?php endforeach; ?>
-    <?php endforeach; ?>
 </div>
 
       
@@ -58,22 +85,35 @@ var currentTab = 0; // Current tab is set to be the first tab (0)
 
 x = document.getElementById("book-info");
 y = document.getElementById("abc-info");
+s = document.getElementById("skills-info");
 
 if (currentTab == 0){
     x.style.display = "block";
     y.style.display = "none";
+    s.style.display = "none";
 }
 
 function displayTabs(t){
 
   if (t == 1){
-    x.style.display = "none";
     y.style.display = "block";
+    s.style.display = "none";
+    x.style.display = "none";
+
+
+  }
+
+  else if (t == 2){
+    s.style.display = "block";
+    x.style.display = "none";
+    y.style.display = "none";
+
   }
 
   else{
     x.style.display = "block";
     y.style.display = "none";
+    s.style.display = "none";
   }
 
 }

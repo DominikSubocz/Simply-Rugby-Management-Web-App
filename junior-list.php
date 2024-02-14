@@ -22,6 +22,7 @@ Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
   ?>
 </div>
 
+
 <?php
 
 Components::pageFooter();

@@ -116,6 +116,75 @@ class Components {
     }
   }
 
+  public static function juniorPassingSkill($juniors)
+  {
+    if (!empty($juniors)) {
+      // Output a book card for each book in the $books array
+      foreach ($juniors as $junior) {
+        $skillCategory = Utils::escape($junior["category"]);
+        $skillName = Utils::escape($junior["skill_name"]);
+        $skillLevel = Utils::escape($junior["skill_level"]);
+        $comment = Utils::escape($junior["comment"]);
+
+        if($skillCategory == "Passing"){
+          require("components/junior-skill.php");
+        }
+
+
+
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+  public static function juniorTacklingSkill($juniors)
+  {
+    if (!empty($juniors)) {
+      // Output a book card for each book in the $books array
+      foreach ($juniors as $junior) {
+        $skillCategory = Utils::escape($junior["category"]);
+        $skillName = Utils::escape($junior["skill_name"]);
+        $skillLevel = Utils::escape($junior["skill_level"]);
+        $comment = Utils::escape($junior["comment"]);
+
+        if($skillCategory == "Tackling"){
+          require("components/junior-skill.php");
+        }
+
+
+
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+  public static function juniorKickingSkill($juniors)
+  {
+    if (!empty($juniors)) {
+      // Output a book card for each book in the $books array
+      foreach ($juniors as $junior) {
+        $skillCategory = Utils::escape($junior["category"]);
+        $skillName = Utils::escape($junior["skill_name"]);
+        $skillLevel = Utils::escape($junior["skill_level"]);
+        $comment = Utils::escape($junior["comment"]);
+
+        if($skillCategory == "Kicking"){
+          require("components/junior-skill.php");
+        }
+
+
+
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
   /**
    * Renders a book array to the page.
    */
@@ -139,26 +208,6 @@ class Components {
       $city = Utils::escape($junior["city"]);
       $county = Utils::escape($junior["county"]);
       $postcode = Utils::escape($junior["postcode"]);
-
-
-
-      // Retrieve skills information from the junior_skills table
-        $groupedSkills = [];
-
-        foreach ($junior as $skill){
-          $skillCategory = Utils::escape($junior["category"]);
-          $skill = Utils::escape($junior["skill_name"]);
-          $skillLevel = Utils::escape($junior["skill_level"]);
-          $comment = Utils::escape($junior["comment"]);
-
-          $groupedSkills[$skillCategory][] = [
-            'name' => $skill,
-            'level' => $skillLevel,
-            'comment' => $comment
-        ];
-        }
-
-    // Group skills by category
 
 
 

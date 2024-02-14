@@ -148,6 +148,14 @@ INSERT INTO simplyrugby.squads (squad_name, squad_level) VALUES
 
 -- Inserting junior skills into the simplyrugby.junior_skills table
 INSERT INTO simplyrugby.junior_skills (junior_id, skill_id, squad_id, skill_level, comment) VALUES
-(1, 1, 3, 4, 'Good passer'),
-(1, 2, 3, 3, 'Needs improvement on spin pass'),
-(1, 3, 3, 5, 'Excellent pop pass');
+(1, 1, 1, 4, 'Good passer'),
+(1, 2, 1, 3, 'Needs improvement on spin pass'),
+(1, 3, 1, 5, 'Excellent pop pass'),
+(1, 4, 1, 4, 'Great passing skills'),
+(1, 5, 1, 3, 'Average tackling technique'),
+(1, 6, 1, 5, 'Exceptional scrabble ability'),
+(1, 7, 1, 5, 'Outstanding kicking accuracy'),
+(1, 8, 1, 4, 'Impressive drop kick technique'),
+(1, 9, 1, 3, 'Room for improvement in punting'),
+(1, 10, 1, 5, 'Superb goal-kicking proficiency'),
+(1, 11, 1, 5, 'Top-notch leadership qualities');

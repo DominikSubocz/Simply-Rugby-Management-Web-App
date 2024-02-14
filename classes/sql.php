@@ -22,6 +22,11 @@ class SQL {
   public static $getUser = "SELECT user_id, username, password, user_role FROM users WHERE username = ?";
   public static $createUser = "INSERT INTO users (username, email, password) VALUES (?,?,?)";
 
+  public static $getJuniorSkills = "SELECT j.*, s.category, s.skill_name, js.skill_level, js.comment
+  FROM simplyrugby.juniors j 
+  LEFT JOIN simplyrugby.junior_skills js ON j.junior_id = js.junior_id 
+  LEFT JOIN simplyrugby.skills s ON js.skill_id = s.skill_id 
+  WHERE j.junior_id = ?";
 
   
 }
