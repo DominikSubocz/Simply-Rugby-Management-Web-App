@@ -40,6 +40,12 @@ class SQL {
   LEFT JOIN simplyrugby.positions p ON jp.position_id = p.position_id
   WHERE j.junior_id = ?";
 
+  public static $getPlayerPositions = "SELECT pl.*, p.position
+  FROM simplyrugby.players pl
+  LEFT JOIN simplyrugby.player_positions pp ON pl.player_id = pp.player_id
+  LEFT JOIN simplyrugby.positions p ON pp.position_id = p.position_id
+  WHERE pl.player_id = ?";
+
 
 
   

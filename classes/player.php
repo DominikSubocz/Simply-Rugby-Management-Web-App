@@ -40,4 +40,32 @@ class Book
 
     return $book;
   }
+
+  public static function getPlayerPositions($bookId)
+  {
+    $conn = Connection::connect();
+
+    // Prepare and execute the query and get the results
+    $stmt = $conn->prepare(SQL::$getPlayerPositions);
+    $stmt->execute([$bookId]);
+    $books = $stmt->fetchAll();
+
+    // Null the connection object when we no longer need it
+    $conn = null;
+
+    return $books;
+  }
+
+  public static function getPlayerSkills($bookId)
+  {
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$getPlayerSkills);
+    $stmt->execute([$bookId]);
+    $books = $stmt->fetchAll();
+
+    $conn = null;
+
+    return $books;
+  }
 }

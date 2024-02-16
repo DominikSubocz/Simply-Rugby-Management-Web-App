@@ -133,6 +133,15 @@ CREATE TABLE simplyrugby.junior_positions (
   FOREIGN KEY (junior_id) REFERENCES simplyrugby.juniors (junior_id)
 );
 
+CREATE TABLE simplyrugby.player_positions (
+  position_id int NOT NULL,
+  player_id int NOT NULL,
+  
+  PRIMARY KEY(position_id, player_id),
+  FOREIGN KEY (position_id) REFERENCES simplyrugby.positions (position_id),
+  FOREIGN KEY (player_id) REFERENCES simplyrugby.players (player_id)
+);
+
 INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
 VALUES ('123 Rugby Rd', 'Apt 4', 'Sportstown', 'Gameshire', 'SG11 2DZ');
 
@@ -214,3 +223,8 @@ INSERT INTO simplyrugby.junior_positions (position_id,junior_id) VALUES
 (1,1),
 (3,1),
 (7,1);
+
+INSERT INTO simplyrugby.player_positions (position_id,player_id) VALUES
+(4,1),
+(6,1),
+(2,1);

@@ -185,12 +185,101 @@ class Components {
     }
   }
 
+  public static function playerPassingSkill($books)
+  {
+    if (!empty($books)) {
+      // Output a book card for each book in the $books array
+      foreach ($books as $book) {
+        $skillCategory = Utils::escape($book["category"]);
+        $skillName = Utils::escape($book["skill_name"]);
+        $skillLevel = Utils::escape($book["skill_level"]);
+        $comment = Utils::escape($book["comment"]);
+
+        if($skillCategory == "Passing"){
+          require("components/junior-skill.php");
+        }
+
+
+
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+  public static function playerTacklingSkill($books)
+  {
+    if (!empty($books)) {
+      // Output a book card for each book in the $books array
+      foreach ($books as $book) {
+        $skillCategory = Utils::escape($book["category"]);
+        $skillName = Utils::escape($book["skill_name"]);
+        $skillLevel = Utils::escape($book["skill_level"]);
+        $comment = Utils::escape($book["comment"]);
+
+        if($skillCategory == "Tackling"){
+          require("components/junior-skill.php");
+        }
+
+
+
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+  public static function playerKickingSkill($books)
+  {
+    if (!empty($books)) {
+      // Output a book card for each book in the $books array
+      foreach ($books as $book) {
+        $skillCategory = Utils::escape($book["category"]);
+        $skillName = Utils::escape($book["skill_name"]);
+        $skillLevel = Utils::escape($book["skill_level"]);
+        $comment = Utils::escape($book["comment"]);
+
+        if($skillCategory == "Kicking"){
+          require("components/junior-skill.php");
+        }
+
+
+
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
   public static function juniorPositions($juniors)
   {
     if (!empty($juniors)) {
       // Output a book card for each book in the $books array
       foreach ($juniors as $junior) {
         $position = Utils::escape($junior["position"]);
+
+
+        require("components/junior-positions.php");
+
+
+
+
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+  public static function playerPositions($books)
+  {
+    if (!empty($books)) {
+      // Output a book card for each book in the $books array
+      foreach ($books as $book) {
+        $position = Utils::escape($book["position"]);
 
 
         require("components/junior-positions.php");
