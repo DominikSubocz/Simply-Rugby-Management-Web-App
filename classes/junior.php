@@ -41,6 +41,21 @@ class Junior
     return $juniors;
   }
 
+  public static function getJuniorPositions($bookId)
+  {
+    $conn = Connection::connect();
+
+    // Prepare and execute the query and get the results
+    $stmt = $conn->prepare(SQL::$getJuniorPositions);
+    $stmt->execute([$bookId]);
+    $juniors = $stmt->fetchAll();
+
+    // Null the connection object when we no longer need it
+    $conn = null;
+
+    return $juniors;
+  }
+
   /**
    * Get a book with a specific ID from the database.
    */

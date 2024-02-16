@@ -108,6 +108,31 @@ CREATE TABLE simplyrugby.junior_skills (
   FOREIGN KEY (skill_id) REFERENCES skills(skill_id)
 );
 
+CREATE TABLE simplyrugby.player_skills (
+  player_id INT NOT NULL,
+  skill_id INT NOT NULL,
+  squad_id INT NOT NULL,
+  skill_level INT NOT NULL,
+  comment TEXT,
+  PRIMARY KEY (player_id, skill_id),
+  FOREIGN KEY (player_id) REFERENCES simplyrugby.players(player_id),
+  FOREIGN KEY (skill_id) REFERENCES skills(skill_id)
+);
+
+CREATE TABLE simplyrugby.positions (
+  position_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  position varchar(45)
+);
+
+CREATE TABLE simplyrugby.junior_positions (
+  position_id int NOT NULL,
+  junior_id int NOT NULL,
+  
+  PRIMARY KEY(position_id, junior_id),
+  FOREIGN KEY (position_id) REFERENCES simplyrugby.positions (position_id),
+  FOREIGN KEY (junior_id) REFERENCES simplyrugby.juniors (junior_id)
+);
+
 INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
 VALUES ('123 Rugby Rd', 'Apt 4', 'Sportstown', 'Gameshire', 'SG11 2DZ');
 
@@ -115,7 +140,6 @@ VALUES ('123 Rugby Rd', 'Apt 4', 'Sportstown', 'Gameshire', 'SG11 2DZ');
 -- Inserting into doctors
 INSERT INTO simplyrugby.doctors (address_id, first_name, last_name, contact_no)
 VALUES (1, 'John', 'Doe', '0123456789');
-
 
 INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
 VALUES (1, 1, 'Jane', 'Doe', '1995-05-15', 123456789, '0987654321', '07123456789', 'jane.doe@example.com', 'Jim Doe', '0987654321', 'None','michael.png');
@@ -159,3 +183,34 @@ INSERT INTO simplyrugby.junior_skills (junior_id, skill_id, squad_id, skill_leve
 (1, 9, 1, 3, 'Room for improvement in punting'),
 (1, 10, 1, 5, 'Superb goal-kicking proficiency'),
 (1, 11, 1, 5, 'Top-notch leadership qualities');
+
+INSERT INTO simplyrugby.player_skills (player_id, skill_id, squad_id, skill_level, comment) 
+VALUES
+(1, 1, 1, 4, 'Good passer'),
+(1, 2, 1, 3, 'Needs improvement on spin pass'),
+(1, 3, 1, 5, 'Excellent pop pass'),
+(1, 4, 1, 4, 'Good passer'),
+(1, 5, 1, 3, 'Needs improvement on spin pass'),
+(1, 6, 1, 5, 'Excellent pop pass'),
+(1, 7, 1, 5, 'Excellent pop pass'),
+(1, 8, 1, 4, 'Good passer'),
+(1, 9, 1, 3, 'Needs improvement on spin pass'),
+(1, 10, 1, 5, 'Excellent pop pass'),
+(1, 11, 1, 5, 'Excellent pop pass');
+
+
+INSERT INTO simplyrugby.positions (position) VALUES
+("Full back"),
+("Wing"),
+("Centre"),
+("Fly half"),
+("Scrum half"),
+("Hooker"),
+("Prop"),
+("2nd row"),
+("Back Row");
+
+INSERT INTO simplyrugby.junior_positions (position_id,junior_id) VALUES
+(1,1),
+(3,1),
+(7,1);

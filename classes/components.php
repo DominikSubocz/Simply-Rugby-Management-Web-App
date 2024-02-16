@@ -185,6 +185,26 @@ class Components {
     }
   }
 
+  public static function juniorPositions($juniors)
+  {
+    if (!empty($juniors)) {
+      // Output a book card for each book in the $books array
+      foreach ($juniors as $junior) {
+        $position = Utils::escape($junior["position"]);
+
+
+        require("components/junior-positions.php");
+
+
+
+
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
   /**
    * Renders a book array to the page.
    */

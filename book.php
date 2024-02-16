@@ -23,7 +23,7 @@ if (!empty($book)) {
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
-Components::singleMember($book);
+Components::singleBook($book);
 Components::pageFooter();
 
 ?>

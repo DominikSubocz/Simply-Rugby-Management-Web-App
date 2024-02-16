@@ -28,5 +28,19 @@ class SQL {
   LEFT JOIN simplyrugby.skills s ON js.skill_id = s.skill_id 
   WHERE j.junior_id = ?";
 
+  public static $getPlayerSkills = "SELECT p.*, s.category, s.skill_name, ps.skill_level, ps.comment
+  FROM simplyrugby.players p 
+  LEFT JOIN simplyrugby.player_skills ps ON p.player_id = ps.player_id 
+  LEFT JOIN simplyrugby.skills s ON ps.skill_id = s.skill_id 
+  WHERE p.player_id = ?";
+
+  public static $getJuniorPositions = "SELECT j.*, p.position
+  FROM simplyrugby.juniors j 
+  LEFT JOIN simplyrugby.junior_positions jp ON j.junior_id = jp.junior_id
+  LEFT JOIN simplyrugby.positions p ON jp.position_id = p.position_id
+  WHERE j.junior_id = ?";
+
+
+
   
 }

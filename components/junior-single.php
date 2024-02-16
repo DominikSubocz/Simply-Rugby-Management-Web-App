@@ -36,6 +36,19 @@
     </div>
     <div id="skills-info" class="idk-info tab">
       <h2>Skills</h2>
+
+      <table>
+
+        <tr>
+            <th>Positions</th>
+          </tr>
+          
+          <?php
+              $skill = Junior::getJuniorPositions($_GET["id"]);
+              Components::juniorPositions($skill);
+              ?>
+
+      </table>
       <table>
         <tr>
           <th>Category</th>
@@ -52,7 +65,7 @@
               $skill = Junior::getJuniorSkills($_GET["id"]);
               Components::juniorPassingSkill($skill);
               ?>
-        </tr>
+
 
         <tr>
           <td rowspan="8">Tackling</td>
@@ -62,19 +75,22 @@
               $skill = Junior::getJuniorSkills($_GET["id"]);
               Components::juniorTacklingSkill($skill);
               ?>
-        </tr>
+
 
         <tr>
           <td rowspan="8">Kicking</td>
-        </tr>
+
 
           <?php
               $skill = Junior::getJuniorSkills($_GET["id"]);
               Components::juniorKickingSkill($skill);
               ?>
-        </tr>
+
       </table>
-    </div>
+
+
+
+
 
 </div>
 
