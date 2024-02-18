@@ -313,6 +313,25 @@ input:not(input.button) {
   background-color: gray;
 }
 
+#level-bar-Front{
+  background-color: yellow;
+}
+
+#level-bar-Rear{
+  background-color: purple;
+}
+
+#level-bar-Side{
+  background-color: rgb(0, 255, 234);
+}
+
+#level-bar-Scrabble{
+  background-color: rgb(9, 255, 0);
+}
+
+.level-bar{
+  background-color: gray;
+}
 
 
 
@@ -560,9 +579,12 @@ input:not(input.button) {
     flex-direction: row;
   }
 
-  .level-bar, .level-bar-container{
-    width: 250px;
+  .level-bar{
+    height: 10px;
+    margin-bottom:-10px;
   }
+
+  
 
 
 

@@ -1,7 +1,9 @@
 <div class="skills-card skill-card">
     <div><?php echo $skillName; ?></div>
     <div class="level-bar-container">
-        <div class="level-bar">
+        <div>
+            <div class="level-bar">
+            </div>
             <div id="level-bar-<?php echo $skillName; ?>"></div>
         </div>
         <p class="level-rating"><?php echo $skillLevel; ?>/5</p>

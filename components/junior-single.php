@@ -65,6 +65,21 @@
 
       </div>
 
+      <div class="skills-card tackling-card">
+        <div>
+          <div>Passing</div>
+          <br>
+        </div>
+
+          <?php
+              $skill = Junior::getJuniorSkills($_GET["id"]);
+              Components::juniorTacklingSkill($skill);
+              ?>
+
+
+
+      </div>
+
 
 
 
