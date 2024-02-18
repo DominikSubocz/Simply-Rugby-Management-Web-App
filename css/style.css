@@ -297,6 +297,22 @@ input:not(input.button) {
   text-align: center;
 }
 
+#level-bar-Standard{
+  background-color: red;
+}
+
+#level-bar-Spin{
+  background-color: green;
+}
+
+#level-bar-Pop{
+  background-color: blue;
+}
+
+.level-bar{
+  background-color: gray;
+}
+
 
 
 
@@ -534,4 +550,20 @@ input:not(input.button) {
     height: 280px;
     width: 300px;
   }
+
+  .level-rating{
+    margin:0 15px;
+  }
+
+  .level-bar-container{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .level-bar, .level-bar-container{
+    width: 250px;
+  }
+
+
+
 }

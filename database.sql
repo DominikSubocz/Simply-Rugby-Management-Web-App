@@ -4,9 +4,9 @@ CREATE DATABASE simplyrugby;
 CREATE TABLE simplyrugby.addresses (
   address_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   address_line VARCHAR(48) NOT NULL,
-  address_line2 VARCHAR(48) NOT NULL,
+  address_line2 VARCHAR(48),
   city varchar(40) NOT NULL,
-  county varchar(40) NOT NULL,
+  county varchar(40),
   postcode varchar(10) NOT NULL
 );
 

@@ -37,29 +37,24 @@
     <div id="skills-info" class="idk-info tab">
       <h2>Skills</h2>
 
-      <table>
+      <div class="skills-card-container">
 
-        <tr>
+        <div class="skills-card positions-card">
             <th>Positions</th>
-          </tr>
+          </div>
           
           <?php
               $skill = Junior::getJuniorPositions($_GET["id"]);
               Components::juniorPositions($skill);
-              ?>
+          ?>
 
-      </table>
-      <table>
-        <tr>
-          <th>Category</th>
-          <th>Skill</th>
-          <th>Level</th>
-          <th>Comment</th>
-        </tr>
-      
-        <tr>
-          <td rowspan="6">Passing</td>
-        </tr>
+      </div>
+      <br>
+      <div class="skills-card passing-card">
+        <div>
+          <div>Passing</div>
+          <br>
+        </div>
 
           <?php
               $skill = Junior::getJuniorSkills($_GET["id"]);
@@ -67,26 +62,8 @@
               ?>
 
 
-        <tr>
-          <td rowspan="8">Tackling</td>
-        </tr>
 
-          <?php
-              $skill = Junior::getJuniorSkills($_GET["id"]);
-              Components::juniorTacklingSkill($skill);
-              ?>
-
-
-        <tr>
-          <td rowspan="8">Kicking</td>
-
-
-          <?php
-              $skill = Junior::getJuniorSkills($_GET["id"]);
-              Components::juniorKickingSkill($skill);
-              ?>
-
-      </table>
+      </div>
 
 
 
@@ -134,7 +111,5 @@ function displayTabs(t){
 
 }
 </script>
-  
-
 
 </div>
