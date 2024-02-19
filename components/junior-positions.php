@@ -1,3 +1,3 @@
-<tr>
-    <td><?php echo $position; ?></td>
-<tr>
+<div>
+    <div><?php echo $position; ?></div>
+<div>

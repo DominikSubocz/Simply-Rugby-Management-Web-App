@@ -46,7 +46,7 @@
               
             }
 
-            echo "<li><a href='timetable.php'>Timetable</a></li>
+            echo "<li><a href='timetable.html'>Timetable</a></li>
             <li><a href='profile.php'>Profile</a></li>
             <li><a href='logout.php'>Logout</a></li>";
             

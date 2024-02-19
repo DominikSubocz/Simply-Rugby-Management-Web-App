@@ -39,8 +39,8 @@
 
       <div class="skills-card-container">
 
-        <div class="skills-card positions-card">
-            <th>Positions</th>
+        <div class="positions-card">
+            <h3>Positions</h3>
           </div>
           
           <?php
@@ -52,23 +52,20 @@
       <br>
       <div class="skills-card passing-card">
         <div>
-          <div>Passing</div>
           <br>
+          <h3>Passing</h3>
         </div>
 
           <?php
               $skill = Junior::getJuniorSkills($_GET["id"]);
               Components::juniorPassingSkill($skill);
               ?>
-
-
-
       </div>
 
       <div class="skills-card tackling-card">
         <div>
-          <div>Passing</div>
-          <br>
+        <br>
+          <h3>Tackling</h3>
         </div>
 
           <?php
@@ -78,12 +75,22 @@
 
 
 
+        </div>
+
+        <div class="skills-card tackling-card">
+        <div>
+        <br>
+          <h3>Kicking</h3>
+        </div>
+
+          <?php
+              $skill = Junior::getJuniorSkills($_GET["id"]);
+              Components::juniorKickingSkill($skill);
+              ?>
+
+
+
       </div>
-
-
-
-
-
 </div>
 
       

@@ -11,11 +11,6 @@ require("classes/components.php");
  */
 require("classes/utils.php");
 
-// Redirect user from this page if they're already logged in
-if (isset($_SESSION["loggedIn"])) {
-    header("Location: " . Utils::$projectFilePath . "/book-list.php");
-}
-
 $output = "";
 
 // Detect if this page has received a POST request
@@ -28,20 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (isset($_POST["registerSubmit"])) {
         $output = User::register();
     }
-
-    if ($output) {
-        header("Location: " . Utils::$projectFilePath . "/book-list.php");
-    } else if (isset($_POST["registerSubmit"])) {
-        $output = User::register();
-    }
-
-    if ($output) {
-        $_SESSION["successMessage"] = "Registration Successful!";
-        header("Location: " . Utils::$projectFilePath . "/success.php");
-    }
 }
-
-
 
 Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
@@ -49,7 +31,7 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
 <h2>Register a new account</h2>
 
-<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="form">
+<form method="POST" action="" class="form">
     <label>Username</label>
     <input
         type="text"

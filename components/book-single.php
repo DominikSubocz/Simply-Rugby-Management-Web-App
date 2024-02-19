@@ -28,63 +28,62 @@
       <p class="book-price"><?php echo 'Postcode: ', $postcode; ?></p>
     </div>
     <div id="skills-info" class="idk-info tab">
-      <h2>Skills</h2>
+    <h2>Skills</h2>
 
-      <table>
+<div class="skills-card-container">
 
-        <tr>
-            <th>Positions</th>
-          </tr>
-          
-          <?php
-              $skill = Book::getPlayerPositions($_GET["id"]);
-              Components::playerPositions($skill);
-              ?>
+  <div class="positions-card">
+      <h3>Positions</h3>
+    </div>
+    
+    <?php
+        // $skill = Book::getJuniorPositions($_GET["id"]);
+        // Components::juniorPositions($skill);
+    ?>
 
-      </table>
-      <table>
-        <tr>
-          <th>Category</th>
-          <th>Skill</th>
-          <th>Level</th>
-          <th>Comment</th>
-        </tr>
-      
-        <tr>
-          <td rowspan="6">Passing</td>
-        </tr>
+</div>
+<br>
+<div class="skills-card passing-card">
+  <div>
+    <br>
+    <h3>Passing</h3>
+  </div>
 
-          <?php
-              $skill = Book::getPlayerSkills($_GET["id"]);
-              Components::playerPassingSkill($skill);
-              ?>
+    <?php
+        $skill = Book::getPlayerSkills($_GET["id"]);
+        Components::playerPassingSkill($skill);
+        ?>
+</div>
 
+<div class="skills-card tackling-card">
+  <div>
+  <br>
+    <h3>Tackling</h3>
+  </div>
 
-        <tr>
-          <td rowspan="8">Tackling</td>
-        </tr>
-
-          <?php
-              $skill = Book::getPlayerSkills($_GET["id"]);
-              Components::playerTacklingSkill($skill);
-              ?>
-
-
-        <tr>
-          <td rowspan="8">Kicking</td>
-
-
-          <?php
-              $skill = Book::getPlayerSkills($_GET["id"]);
-              Components::playerKickingSkill($skill);
-              ?>
-
-      </table>
+    <?php
+        $skill = Book::getPlayerSkills($_GET["id"]);
+        Components::playerTacklingSkill($skill);
+        ?>
 
 
 
+  </div>
+
+  <div class="skills-card tackling-card">
+  <div>
+  <br>
+    <h3>Kicking</h3>
+  </div>
+
+    <?php
+        $skill = Book::getPlayerSkills($_GET["id"]);
+        Components::playerKickingSkill($skill);
+        ?>
 
 
+
+</div>
 </div>
 
       

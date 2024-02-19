@@ -302,11 +302,11 @@ input:not(input.button) {
 }
 
 #level-bar-Spin{
-  background-color: green;
+  background-color: orange;
 }
 
 #level-bar-Pop{
-  background-color: blue;
+  background-color: yellow;
 }
 
 .level-bar{
@@ -314,24 +314,47 @@ input:not(input.button) {
 }
 
 #level-bar-Front{
-  background-color: yellow;
+  background-color: lime;
 }
 
 #level-bar-Rear{
-  background-color: purple;
+  background-color: green;
 }
 
 #level-bar-Side{
-  background-color: rgb(0, 255, 234);
+  background-color: cyan;
 }
 
 #level-bar-Scrabble{
-  background-color: rgb(9, 255, 0);
+  background-color: blue;
 }
 
 .level-bar{
   background-color: gray;
 }
+
+#level-bar-Drop{
+  background-color: purple;
+}
+
+#level-bar-Punt{
+  background-color:blueviolet;
+}
+
+#level-bar-Grubber{
+  background-color: violet;
+}
+
+#level-bar-Goal{
+  background-color: pink;
+}
+
+.skills-card{
+  background-color: #b6b6b6;
+  border-radius: 20px;
+
+}
+
 
 
 
@@ -571,17 +594,32 @@ input:not(input.button) {
   }
 
   .level-rating{
-    margin:0 15px;
+    margin:-30px 0 0 230px;
   }
 
-  .level-bar-container{
-    display: flex;
-    flex-direction: row;
+  .skill-comment{
+    margin-left:325px;
   }
+
+  .skill-name-container{
+    margin-top:15px;
+   }
 
   .level-bar{
     height: 10px;
     margin-bottom:-10px;
+    max-width: 250px;
+  }
+  
+
+  .skill-card{
+    width: 650px;
+    margin:20px 0;
+  }
+
+  .skills-card{
+    padding:2px 5px;
+    margin: 10px 0;
   }
 
   

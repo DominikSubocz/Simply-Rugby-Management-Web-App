@@ -1,5 +1,5 @@
 <div class="skills-card skill-card">
-    <div><?php echo $skillName; ?></div>
+    <div class="skill-name-container"><?php echo $skillName; ?></div>
     <div class="level-bar-container">
         <div>
             <div class="level-bar">
@@ -9,7 +9,7 @@
         <p class="level-rating"><?php echo $skillLevel; ?>/5</p>
         <div class="skill-comment">Comment: <?php echo $comment; ?></div>
     </div>
-<div>
+</div>
 
 <script>
 // Select the level-bar element using a unique id for each row

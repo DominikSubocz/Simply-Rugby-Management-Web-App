@@ -77,6 +77,7 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
     <?php if ($output && isset($_POST["loginSubmit"])) { echo $output; } ?>
 </form>
 
+<a href="register.php"> Don't have an account? Click this link to register!</a>
 
 
 <?php
