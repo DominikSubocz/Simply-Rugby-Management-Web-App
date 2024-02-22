@@ -4,6 +4,7 @@
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 body, button, input, textarea, select {
@@ -150,11 +151,6 @@ input.button {
 
 
 
-
-.book-price {
-  color: crimson;
-  font-weight: bold;
-}
 
 /* BOOK TABLE */
 table {
@@ -349,48 +345,35 @@ input:not(input.button) {
   background-color: pink;
 }
 
-.skills-card{
-  background-color: #b6b6b6;
+.skill-card-container{
   border-radius: 20px;
 
 }
 
-
-
-
-
-/* MOBILE AND TABLET */
-@media screen and (max-width: 949px) {
-  /* 
-    Lets us show elements that may be hidden 
-    (i.e., display: none;) on mobile by default, 
-    such as the page navigation.
-  */
-  .show-on-mobile {
-    display: block;
+@media screen and (max-width:949px){
+  .book-container p{
+    font-size: 14px;
   }
 
-  /* DIALOGUE BUTTONS */
-  .button-group {
-    display: flex;
-    justify-content: space-between;
-    gap: 32px;
+  .book-container .pfp-container >img{
+    width: 225px;
+    height: 250px;
+    object-fit: cover;
   }
 
-  .button-group > .button {
-    flex: 1;
-    text-align: center;
+  .skill-card{
+    margin:15px 0;
+    padding:15px;
   }
 
-  /* TABLE */
-  .buttons-cell {
-    width: 20%;
-  }
-
-  .basket-controls a {
-    padding: 12px 36px;
+  .level-bar{
+    height: 10px;
+    margin-bottom:-10px;
   }
 }
+
+
+
 
 /* DESKTOP */
 @media screen and (min-width: 950px) {
@@ -467,6 +450,7 @@ input:not(input.button) {
   }
 
   .pfp-container{
+    margin-top:20px;
     height: fit-content;
   }
 
@@ -513,6 +497,7 @@ input:not(input.button) {
   /* BOOK */
   .book-container {
     display: flex;
+    justify-content: center;
     gap: 16px;
   }
 
@@ -535,8 +520,7 @@ input:not(input.button) {
   }
 
   .profile-btn{
-    margin:5px 0;
-    width: 250px;;
+   display: none;
   }
   /* LOGIN / REGISTER FORMS */
 
@@ -598,7 +582,8 @@ input:not(input.button) {
   }
 
   .skill-comment{
-    margin-left:325px;
+    margin-top:22px;
+    font-weight: bold;
   }
 
   .skill-name-container{
@@ -608,7 +593,7 @@ input:not(input.button) {
   .level-bar{
     height: 10px;
     margin-bottom:-10px;
-    max-width: 250px;
+    max-width: 325px;
   }
   
 
@@ -617,10 +602,53 @@ input:not(input.button) {
     margin:20px 0;
   }
 
-  .skills-card{
-    padding:2px 5px;
+  .passing-card{
+    margin-bottom:5px;
+  }
+
+  .tackling-card, .kicking-card{
     margin: 10px 0;
   }
+
+  .skills-card{
+    padding:10px 2px;
+    width: 345px;
+  }
+
+  #skills-info{
+    display: flex;
+    flex-wrap: wrap;
+    order:3;
+  }
+
+  .level-bar-container{
+    width: 325px;
+  }
+
+  .player-container{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .player-info-card{
+    display: flex;
+    gap:16px;
+  }
+
+  #player-info{
+    display: flex;
+    gap:16px;
+  }
+
+  .profile-card, .skill-card-container{
+    box-shadow: black 0px 0px 6px 0px;
+    border-radius: 5px;
+  }
+
+  .basic-info-card{
+    width: 300px;
+  }
+
 
   
 
