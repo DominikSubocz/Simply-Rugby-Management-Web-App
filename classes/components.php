@@ -79,6 +79,9 @@ class Components {
       $county = Utils::escape($book["county"]);
       $postcode = Utils::escape($book["postcode"]);
 
+      $doctorFirstName = Utils::escape($book["doctor_first_name"]);
+      $doctorLastName = Utils::escape($book["doctor_last_name"]);
+      $doctorContact = Utils::escape($book["doctor_contact_no"]);
 
       // Output information on a single book
       require("components/book-single.php");

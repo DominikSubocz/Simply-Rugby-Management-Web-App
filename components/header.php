@@ -60,4 +60,3 @@
     </div>
   </header>
 
-  <main class="content-wrapper main-content">

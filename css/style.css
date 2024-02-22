@@ -350,6 +350,249 @@ input:not(input.button) {
 
 }
 
+@media screen and (max-width:320px){
+
+  .profile-content-container{
+    margin:15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-items{
+    width: 195px;
+    margin: 0 auto;
+  }
+
+  .profile-img{
+    width:150px;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  p,  .skills-card div{
+    font-size: 8px;
+  }
+
+  h2{
+    font-size: 12px;
+  }
+
+  h3{
+    font-size: 10px;
+  }
+
+  .profile-items, .skills-card{
+    margin:5px;
+    padding:5px;
+    border-radius: 5px;
+    box-shadow: black 0 0 5px 0px;
+  }
+
+  .level-rating{
+    margin-top:-20px;
+    margin-left:145px;
+  }
+
+  .skill-comment{
+    margin-top:20px;
+  }
+
+  .book-card {
+    margin:0 auto;
+    max-width: 1950px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    border:1px black solid;
+  }
+
+  .card-container{
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: .5px 0 0 #000;
+  }
+
+  .id-container{
+    width: fit-content;
+    padding:0 5px;
+  }
+
+  .firstN-container{
+    width: fit-content;
+    padding:0 5px;
+  }
+
+  .pfp-container{
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .pfp-container img{
+    width: 50px;
+  }
+
+  .lastN-container{
+    width: fit-content;
+    padding:0 5px;
+  }
+
+  .sru-container{
+    width: fit-content;
+    padding:0 5px;
+  }
+
+  .dob-container{
+    width: fit-content;
+    padding:0 5px;
+  }
+
+  .contactNo-container{
+    display: none;
+  }
+
+  .email-container{
+    display: none;
+  }
+
+  .junior-pfp{
+    padding:0 5px;
+  }
+
+}
+
+@media screen and (min-width:320px){
+  .profile-content-container{
+    margin:15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-items{
+    width: 355px;
+    margin: 0 auto;
+  }
+
+  .profile-img{
+    width:355px;
+    height: 350px;
+    object-fit: cover;
+  }
+
+  p,  .skills-card div{
+    font-size: 16px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+
+  h3{
+    font-size: 18px;
+  }
+
+  .profile-items, .skills-card{
+    margin:5px;
+    padding:5px;
+    border-radius: 5px;
+    box-shadow: black 0 0 5px 0px;
+  }
+
+
+
+  .level-rating{
+    margin-top:-30px;
+    margin-left:285px;
+  }
+
+  .skill-level-container{
+    height: 5px;
+  }
+
+
+  .skill-comment{
+    margin-top:20px;
+  }
+
+  .book-card {
+    margin:0 auto;
+    max-width: 1950px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    border:1px black solid;
+  }
+
+  .card-container{
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: .5px 0 0 #000;
+  }
+
+  .id-container{
+    width: fit-content;
+    padding:0 10px;
+  }
+
+  .firstN-container{
+    width: fit-content;
+    padding:0 10px;
+  }
+
+  .pfp-container{
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .pfp-container img{
+    width: 50px;
+  }
+
+  .lastN-container{
+    width: fit-content;
+    padding:0 10px;
+  }
+
+  .sru-container{
+    width: fit-content;
+    padding:0 10px;
+  }
+
+  .dob-container{
+    width: fit-content;
+    padding:0 10px;
+  }
+
+  .contactNo-container{
+    display: none;
+  }
+
+  .email-container{
+    display: none;
+  }
+
+  .junior-pfp{
+    padding:0 5px;
+  }
+
+  .junior-pfp img{
+    object-fit: cover;
+    width: 50px;
+    height: 75px;
+  }
+
+
+
+  
+}
+
 @media screen and (max-width:949px){
   .book-container p{
     font-size: 14px;
@@ -359,6 +602,7 @@ input:not(input.button) {
     width: 225px;
     height: 250px;
     object-fit: cover;
+
   }
 
   .skill-card{
@@ -485,8 +729,9 @@ input:not(input.button) {
   }
 
   .profile-img{
-    height: 300px;
+    height: 500px;
     width: 300px;
+    object-fit: cover;
   }
 
   .book-image {
@@ -625,29 +870,96 @@ input:not(input.button) {
     width: 325px;
   }
 
-  .player-container{
+
+  .profile-content{
+    width: 100%;
+  }
+
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+  }
+  
+  .profile-items:nth-child(1) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  
+  .profile-items:nth-child(2) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  
+  .profile-items:nth-child(3) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  
+  .profile-items:nth-child(4) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+  
+  .profile-items:nth-child(5) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    order: 0;
+  }
+
+  .profile-content-container{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    gap:16px;
+  }
+
+  .skills-card-container{
     display: flex;
     flex-direction: column;
   }
 
-  .player-info-card{
-    display: flex;
-    gap:16px;
-  }
-
-  #player-info{
-    display: flex;
-    gap:16px;
-  }
-
-  .profile-card, .skill-card-container{
-    box-shadow: black 0px 0px 6px 0px;
+  .profile-items, .skills-card{
+    margin:5px;
+    padding:5px;
     border-radius: 5px;
+    box-shadow: black 0 0 5px 0px;
   }
 
-  .basic-info-card{
-    width: 300px;
+  .passing-card h3{
+    margin-top:0;
   }
+
+  .junior-pfp img{
+    width: 200px;
+    height: 75px;
+    object-position: 15% 30%;
+
+  }
+
 
 
   

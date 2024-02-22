@@ -26,7 +26,7 @@
       <p class="book-price"><?php echo $emailAddress; ?></p>
   </div>
 
-  <div class="pfp-container card-container">
+  <div class="pfp-container junior-pfp card-container">
     <img src="images/<?php echo $filename; ?>" alt="Cover for <?php echo $firstName; ?>" class="book-image">
  </div>
 

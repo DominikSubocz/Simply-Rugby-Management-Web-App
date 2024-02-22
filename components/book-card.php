@@ -18,6 +18,14 @@
       <p class="book-price"><?php echo $dob; ?></p>
   </div>
 
+  <div class="contactNo-container card-container">
+      <p class="book-price"><?php echo $contactNumber; ?></p>
+  </div>
+
+  <div class="email-container card-container">
+      <p class="book-price"><?php echo $emailAddress; ?></p>
+  </div>
+
   <div class="pfp-container card-container">
     <img src="images/<?php echo $filename; ?>" alt="Cover for <?php echo $title; ?>" class="book-image">
  </div>

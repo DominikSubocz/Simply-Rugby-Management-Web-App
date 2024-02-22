@@ -21,9 +21,9 @@ CREATE TABLE simplyrugby.users (
 CREATE TABLE simplyrugby.doctors(
 doctor_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 address_id INT NOT NULL,
-first_name  varchar(32) NOT NULL,
-last_name  varchar(32) NOT NULL,
-contact_no  varchar(40) NOT NULL,
+doctor_first_name  varchar(32) NOT NULL,
+doctor_last_name  varchar(32) NOT NULL,
+doctor_contact_no  varchar(40) NOT NULL,
 FOREIGN KEY (address_id) REFERENCES simplyrugby.addresses (address_id)
 
 );
@@ -45,6 +45,25 @@ FOREIGN KEY (address_id) REFERENCES simplyrugby.addresses (address_id),
 FOREIGN KEY (user_id) REFERENCES simplyrugby.users (user_id)
 );
 
+CREATE TABLE simplyrugby.guardians(
+  guardian_id INT AUTO_INCREMENT PRIMARY KEY,
+  address_id INT NOT NULL,
+  guardian_first_name varchar(48) NOT NULL,
+  guardian_last_name varchar(48) NOT NULL,
+  contact_no int NOT NULL,
+  relationship varchar(35) NOT NULL,
+  FOREIGN KEY (address_id) REFERENCES addresses(address_id)
+);
+
+CREATE TABLE simplyrugby.junior_associations(
+  association_id INT AUTO_INCREMENT PRIMARY KEY,
+  junior_id INT NOT NULL,
+  guardian_id INT NOT NULL,
+  doctor_id INT NOT NULL,
+  FOREIGN KEY (junior_id) REFERENCES juniors(junior_id),
+  FOREIGN KEY (guardian_id) REFERENCES guardians(guardian_id),
+  FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+);
 
 
 CREATE TABLE simplyrugby.players (
@@ -143,21 +162,48 @@ CREATE TABLE simplyrugby.player_positions (
 );
 
 INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
-VALUES ('123 Rugby Rd', 'Apt 4', 'Sportstown', 'Gameshire', 'SG11 2DZ');
+VALUES 
+('456 Rugby St', 'Apt 3', 'Sportstown', 'Gameshire', 'SG11 3AA'),
+('789 Rugby Ave', NULL, 'Sportsville', 'Gameshire', 'SG11 4BB'),
+('1010 Rugby Blvd', 'Unit 8', 'Athleticsburg', 'Gameshire', 'SG11 5CC'),
+('1111 Rugby Rd', 'Suite 12', 'Fitness City', 'Gameshire', 'SG11 6DD'),
+('1313 Rugby Lane', NULL, 'Healthytown', 'Gameshire', 'SG11 7EE');
 
--- Assuming you have an entry in addresses with address_id = 1
--- Inserting into doctors
-INSERT INTO simplyrugby.doctors (address_id, first_name, last_name, contact_no)
-VALUES (1, 'John', 'Doe', '0123456789');
+-- Sample data for simplyrugby.doctors table
+INSERT INTO simplyrugby.doctors (address_id, doctor_first_name, doctor_last_name, doctor_contact_no)
+VALUES 
+(2, 'Michael', 'Jordan', '0123456789'),
+(3, 'LeBron', 'James', '9876543210'),
+(4, 'Serena', 'Williams', '1112223333'),
+(5, 'Rafael', 'Nadal', '4445556666'),
+(1, 'Roger', 'Federer', '7778889999');
 
 INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
-VALUES (1, 1, 'Jane', 'Doe', '1995-05-15', 123456789, '0987654321', '07123456789', 'jane.doe@example.com', 'Jim Doe', '0987654321', 'None','michael.png');
+VALUES 
+(1, 2, 'John', 'Doe', '1995-05-15', 123456789, '0987654321', '07123456789', 'john.doe@example.com', 'Jim Doe', '0987654321', 'None', 'john.jpg'),
+(3, 1, 'Jane', 'Smith', '1990-10-20', 987654321, '0123456789', '07123456789', 'jane.smith@example.com', 'Alice Smith', '0123456789', 'Asthma', 'jane.jpg'),
+(2, 3, 'Michael', 'Brown', '2002-08-05', 543216789, '0198765432', '07123456789', 'michael.brown@example.com', 'Emma Brown', '0198765432', 'None', 'michael.jpg'),
+(4, 1, 'Sarah', 'Johnson', '1998-03-30', 654321789, '0147852369', '07123456789', 'sarah.johnson@example.com', 'David Johnson', '0147852369', 'None', 'sarah.jpg'),
+(5, 5, 'David', 'Wilson', '2005-12-12', 234567891, '0157842369', '07123456789', 'david.wilson@example.com', 'Emma Wilson', '0157842369', 'None', 'david.jpg');
 
+
+-- Sample data for simplyrugby.juniors table
 INSERT INTO simplyrugby.juniors (address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, health_issues, filename)
-VALUES (1, 'John', 'Doe', '2008-03-15', 987654321, '0123456789', '07123456789', 'john.doe@example.com', 'None', 'john.jpg');
+VALUES 
+(1, 'John', 'Doe', '2008-03-15', 123456, '0123456789', '07123456789', 'john.doe@example.com', 'None', 'john.jpg'),
+(2, 'Jane', 'Smith', '2009-05-20', 789012, '9876543210', '07987654321', 'jane.smith@example.com', 'Asthma', 'jane.jpg'),
+(3, 'David', 'Jones', '2010-07-25', 345678, '5554443333', '07555444333', 'david.jones@example.com', 'None', 'david.jpg'),
+(4, 'Emily', 'Brown', '2011-09-30', 901234, '3332221111', '07333221111', 'emily.brown@example.com', 'Food Allergy', 'emily.jpg'),
+(5, 'Sarah', 'Johnson', '2012-11-05', 567890, '1112223333', '07111222333', 'sarah.johnson@example.com', 'None', 'sarah.jpg');
 
+-- Sample data for simplyrugby.members table
 INSERT INTO simplyrugby.members (address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, filename)
-VALUES (1, 'Johnatan', 'Banks', '1965-04-25', 987654321, '0123456789', '07123456789', 'johnatanbanks@yahoo.com', 'johnatan.jpg');
+VALUES (1, 'Johnatan', 'Banks', '1965-04-25', 987654321, '0123456789', '07123456789', 'johnatanbanks@yahoo.com', 'johnatan.jpg'),
+        (2, 'Laura', 'Taylor', '1978-04-15', 678901, '7778889999', '07778889999', 'laura.taylor@example.com', 'laura.jpg'),
+        (3, 'Steven', 'Williams', '1990-06-20', 123456, '9998887777', '07999888777', 'steven.williams@example.com', 'steven.jpg'),
+        (4, 'Jessica', 'Martinez', '1993-08-25', 789012, '6667778888', '07666777888', 'jessica.martinez@example.com', 'jessica.jpg'),
+        (5, 'Daniel', 'Anderson', '1980-10-30', 567890, '4445556666', '07444556666', 'daniel.anderson@example.com', 'daniel.jpg');
+        
 
 INSERT INTO simplyrugby.skills (category, skill_name) VALUES
 ('Passing', 'Standard'),
@@ -181,17 +227,65 @@ INSERT INTO simplyrugby.squads (squad_name, squad_level) VALUES
 
 -- Inserting junior skills into the simplyrugby.junior_skills table
 INSERT INTO simplyrugby.junior_skills (junior_id, skill_id, squad_id, skill_level, comment) VALUES
-(1, 1, 1, 4, 'Good passer'),
-(1, 2, 1, 3, 'Needs improvement on spin pass'),
-(1, 3, 1, 5, 'Excellent pop pass'),
-(1, 4, 1, 4, 'Great passing skills'),
-(1, 5, 1, 3, 'Average tackling technique'),
-(1, 6, 1, 5, 'Exceptional scrabble ability'),
-(1, 7, 1, 5, 'Outstanding kicking accuracy'),
-(1, 8, 1, 4, 'Impressive drop kick technique'),
-(1, 9, 1, 3, 'Room for improvement in punting'),
-(1, 10, 1, 5, 'Superb goal-kicking proficiency'),
-(1, 11, 1, 5, 'Top-notch leadership qualities');
+(1, 1, 3, 4, 'Good passer'),
+(1, 2, 3, 3, 'Needs improvement on spin pass'),
+(1, 3, 3, 5, 'Excellent pop pass'),
+(1, 4, 3, 4, 'Great passing skills'),
+(1, 5, 3, 3, 'Average tackling technique'),
+(1, 6, 3, 5, 'Exceptional scrabble ability'),
+(1, 7, 3, 5, 'Outstanding kicking accuracy'),
+(1, 8, 3, 4, 'Impressive drop kick technique'),
+(1, 9, 3, 3, 'Room for improvement in punting'),
+(1, 10, 3, 5, 'Superb goal-kicking proficiency'),
+(1, 11, 3, 5, 'Top-notch leadership qualities'),
+
+(2, 1, 4, 4, 'Good passer'),
+(2, 2, 4, 3, 'Needs improvement on spin pass'),
+(2, 3, 4, 5, 'Excellent pop pass'),
+(2, 4, 4, 4, 'Great passing skills'),
+(2, 5, 4, 3, 'Average tackling technique'),
+(2, 6, 4, 5, 'Exceptional scrabble ability'),
+(2, 7, 4, 5, 'Outstanding kicking accuracy'),
+(2, 8, 4, 4, 'Impressive drop kick technique'),
+(2, 9, 4, 3, 'Room for improvement in punting'),
+(2, 10, 4, 5, 'Superb goal-kicking proficiency'),
+(2, 11, 4, 5, 'Top-notch leadership qualities'),
+
+(3, 1, 4, 4, 'Good passer'),
+(3, 2, 4, 3, 'Needs improvement on spin pass'),
+(3, 3, 4, 5, 'Excellent pop pass'),
+(3, 4, 4, 4, 'Great passing skills'),
+(3, 5, 4, 3, 'Average tackling technique'),
+(3, 6, 4, 5, 'Exceptional scrabble ability'),
+(3, 7, 4, 5, 'Outstanding kicking accuracy'),
+(3, 8, 4, 4, 'Impressive drop kick technique'),
+(3, 9, 4, 3, 'Room for improvement in punting'),
+(3, 10, 4, 5, 'Superb goal-kicking proficiency'),
+(3, 11, 4, 5, 'Top-notch leadership qualities'),
+
+(4, 1, 3, 4, 'Good passer'),
+(4, 2, 3, 3, 'Needs improvement on spin pass'),
+(4, 3, 3, 5, 'Excellent pop pass'),
+(4, 4, 3, 4, 'Great passing skills'),
+(4, 5, 3, 3, 'Average tackling technique'),
+(4, 6, 3, 5, 'Exceptional scrabble ability'),
+(4, 7, 3, 5, 'Outstanding kicking accuracy'),
+(4, 8, 3, 4, 'Impressive drop kick technique'),
+(4, 9, 3, 3, 'Room for improvement in punting'),
+(4, 10, 3, 5, 'Superb goal-kicking proficiency'),
+(4, 11, 3, 5, 'Top-notch leadership qualities'),
+
+(5, 1, 3, 4, 'Good passer'),
+(5, 2, 3, 3, 'Needs improvement on spin pass'),
+(5, 3, 3, 5, 'Excellent pop pass'),
+(5, 4, 3, 4, 'Great passing skills'),
+(5, 5, 3, 3, 'Average tackling technique'),
+(5, 6, 3, 5, 'Exceptional scrabble ability'),
+(5, 7, 3, 5, 'Outstanding kicking accuracy'),
+(5, 8, 3, 4, 'Impressive drop kick technique'),
+(5, 9, 3, 3, 'Room for improvement in punting'),
+(5, 10, 3, 5, 'Superb goal-kicking proficiency'),
+(5, 11, 3, 5, 'Top-notch leadership qualities');
 
 INSERT INTO simplyrugby.player_skills (player_id, skill_id, squad_id, skill_level, comment) 
 VALUES
@@ -205,7 +299,56 @@ VALUES
 (1, 8, 1, 4, 'Good passer'),
 (1, 9, 1, 3, 'Needs improvement on spin pass'),
 (1, 10, 1, 5, 'Excellent pop pass'),
-(1, 11, 1, 5, 'Excellent pop pass');
+(1, 11, 1, 5, 'Excellent pop pass'),
+
+(2, 1, 1, 4, 'Good passer'),
+(2, 2, 1, 3, 'Needs improvement on spin pass'),
+(2, 3, 1, 5, 'Excellent pop pass'),
+(2, 4, 1, 4, 'Good passer'),
+(2, 5, 1, 3, 'Needs improvement on spin pass'),
+(2, 6, 1, 5, 'Excellent pop pass'),
+(2, 7, 1, 5, 'Excellent pop pass'),
+(2, 8, 1, 4, 'Good passer'),
+(2, 9, 1, 3, 'Needs improvement on spin pass'),
+(2, 10, 1, 5, 'Excellent pop pass'),
+(2, 11, 1, 5, 'Excellent pop pass'),
+
+(3, 1, 2, 4, 'Good passer'),
+(3, 2, 2, 3, 'Needs improvement on spin pass'),
+(3, 3, 2, 5, 'Excellent pop pass'),
+(3, 4, 2, 4, 'Good passer'),
+(3, 5, 2, 3, 'Needs improvement on spin pass'),
+(3, 6, 2, 5, 'Excellent pop pass'),
+(3, 7, 2, 5, 'Excellent pop pass'),
+(3, 8, 2, 4, 'Good passer'),
+(3, 9, 2, 3, 'Needs improvement on spin pass'),
+(3, 10,2, 5, 'Excellent pop pass'),
+(3, 11, 2, 5, 'Excellent pop pass'),
+
+(4, 1, 2, 4, 'Good passer'),
+(4, 2, 2, 3, 'Needs improvement on spin pass'),
+(4, 3, 2, 5, 'Excellent pop pass'),
+(4, 4, 2, 4, 'Good passer'),
+(4, 5, 2, 3, 'Needs improvement on spin pass'),
+(4, 6, 2, 5, 'Excellent pop pass'),
+(4, 7, 2, 5, 'Excellent pop pass'),
+(4, 8, 2, 4, 'Good passer'),
+(4, 9, 2, 3, 'Needs improvement on spin pass'),
+(4, 10, 2, 5, 'Excellent pop pass'),
+(4, 11, 2, 5, 'Excellent pop pass'),
+
+(5, 1, 1, 4, 'Good passer'),
+(5, 2, 1, 3, 'Needs improvement on spin pass'),
+(5, 3, 1, 5, 'Excellent pop pass'),
+(5, 4, 1, 4, 'Good passer'),
+(5, 5, 1, 3, 'Needs improvement on spin pass'),
+(5, 6, 1, 5, 'Excellent pop pass'),
+(5, 7, 1, 5, 'Excellent pop pass'),
+(5, 8, 1, 4, 'Good passer'),
+(5, 9, 1, 3, 'Needs improvement on spin pass'),
+(5, 10, 1, 5, 'Excellent pop pass'),
+(5, 11, 1, 5, 'Excellent pop pass');
+
 
 
 INSERT INTO simplyrugby.positions (position) VALUES
@@ -222,9 +365,53 @@ INSERT INTO simplyrugby.positions (position) VALUES
 INSERT INTO simplyrugby.junior_positions (position_id,junior_id) VALUES
 (1,1),
 (3,1),
-(7,1);
+(7,1),
+(1,2),
+(3,2),
+(7,2),
+(1,3),
+(3,3),
+(7,3),
+(1,4),
+(3,4),
+(7,4),
+(1,5),
+(3,5),
+(7,5);
+
 
 INSERT INTO simplyrugby.player_positions (position_id,player_id) VALUES
 (4,1),
 (6,1),
-(2,1);
+(2,1),
+(4,2),
+(6,2),
+(2,2),
+(4,3),
+(6,3),
+(2,3),
+(4,4),
+(6,4),
+(2,4),
+(4,5),
+(6,5),
+(2,5);
+
+INSERT INTO simplyrugby.guardians (address_id, guardian_first_name, guardian_last_name, contact_no, relationship)
+VALUES 
+(1, 'Michael', 'Smith', 5556667777, 'Parent'),
+(2, 'Laura', 'Taylor', 7778889999, 'Aunt'),
+(3, 'Steven', 'Williams', 9998887777, 'Uncle'),
+(4, 'Jessica', 'Martinez', 6667778888, 'Parent'),
+(5, 'Daniel', 'Anderson', 4445556666, 'Parent');
+
+
+-- Sample data for simplyrugby.junior_associations table
+INSERT INTO simplyrugby.junior_associations (junior_id, guardian_id, doctor_id) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5);
+
+-- (1, 'Michael', 'Smith', '1985-02-10', 654321, '5556667777', '07555667777', 'michael.smith@example.com', 'michael.jpg'),
