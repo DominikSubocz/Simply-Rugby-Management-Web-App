@@ -67,20 +67,15 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
   <input type="submit" name="submit" value="Submit">  
 
 </form>
-</main>
 
 <script>
 
     var currentTab = 0;
     const pDetails = document.getElementById("personal-details-form");
     const aDetails = document.getElementById("address-details-form");
-
-
-    function firstTab(){
-        if ( currentTab == 0){
+    if ( currentTab == 0){
         pDetails.style.display = "block";
         aDetails.style.display = "none";
-    }
     }
 
     function nextTab(){
@@ -101,6 +96,7 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 
 
 </script>
+</main>
 
 <?php
 components::pageFooter();
