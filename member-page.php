@@ -4,6 +4,9 @@ require("classes/components.php");
 require("classes/utils.php");
 require("classes/member.php");
 
+session_start();
+
+
 /*
   Attempt to get the id from the URL parameter.
   If it isn't set or it isn't a number, redirect
