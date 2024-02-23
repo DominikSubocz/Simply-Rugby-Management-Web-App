@@ -8,6 +8,12 @@ require("classes/player.php");
 // Output page header with a given title, stylesheet, and script
 Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
 
+if(!isset($_SESSION["loggedIn"])){
+
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+
+}
+
 ?>
 
 <h2>Book List</h2>

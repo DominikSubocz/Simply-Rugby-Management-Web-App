@@ -13,6 +13,12 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   header("Location: " . Utils::$projectFilePath . "/junior-list.php");
 }
 
+if(!isset($_SESSION["loggedIn"])){
+
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+
+}
+
 $junior = Junior::getJunior($_GET["id"]);
 
 

@@ -44,6 +44,9 @@ class User{
         $email = $_POST["email"];
         $passwordOne = $_POST["passwordOne"];
         $passwordTwo = $_POST["passwordTwo"];
+        
+
+
 
         if(strlen($username) < 4 || strlen($username) > 32){
             $errors .= "<p class='error'>ERROR: Username must be between 4 and 32 characters long </p>";
@@ -83,22 +86,44 @@ class User{
         $hashedPassword = password_hash($passwordOne, PASSWORD_BCRYPT);
     
         // Insert the new user into the database
-        $stmt = $conn->prepare(SQL::$createUser);
-        $stmt->execute([$username, $email, $hashedPassword]);
+
         
         // Get the inserted user ID
         $insertedId = $conn->lastInsertId();
     
         // Update record in other tables if necessary
         User::updateRecord($insertedId, $email);
-    
         // Set session variables
-        $_SESSION["loggedIn"] = true;
-        $_SESSION["user_id"] = $insertedId;
-        $_SESSION["username"] = $username;
-        $_SESSION["user_role"] = "Member";
-        $_SESSION["justRegistered"] = true;
-    
+
+        if (stripos($username, "admin") !== false) {
+
+            echo "Username: $username<br>";
+            echo "User role: Admin<br>";
+
+            $stmt = $conn->prepare(SQL::$createUser);
+            $stmt->execute([$username, $email, $hashedPassword, "Admin"]);
+
+            $_SESSION["loggedIn"] = true;
+            $_SESSION["user_id"] = $insertedId;
+            $_SESSION["username"] = $username;
+            $_SESSION["user_role"] = "Admin";
+            $_SESSION["justRegistered"] = true;
+        }
+
+        else{
+            echo "Username: $username<br>";
+            echo "User role: Member<br>";
+
+            $stmt = $conn->prepare(SQL::$createUser);
+            $stmt->execute([$username, $email, $hashedPassword, "Member"]);
+
+            $_SESSION["loggedIn"] = true;
+            $_SESSION["user_id"] = $insertedId;
+            $_SESSION["username"] = $username;
+            $_SESSION["user_role"] = "Member";
+            $_SESSION["justRegistered"] = true;
+        }
+        
         // Close database connection
         $conn = null;
     
@@ -191,5 +216,6 @@ class User{
         // Close database connection
         $conn = null;
     }
+
     
 }

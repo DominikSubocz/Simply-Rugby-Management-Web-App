@@ -13,6 +13,12 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   header("Location: " . Utils::$projectFilePath . "/junior-list.php");
 }
 
+if(!isset($_SESSION["loggedIn"])){
+
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+
+}
+
 $member = Member::getMember($_GET["id"]);
 
 // Set the document title to the title and author of the book if it exists

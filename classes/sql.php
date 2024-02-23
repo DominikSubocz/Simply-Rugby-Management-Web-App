@@ -19,7 +19,7 @@ class SQL {
    public static $getMember =   "SELECT m.*, a.* FROM simplyrugby.members m LEFT JOIN simplyrugby.addresses a ON m.address_id = a.address_id WHERE m.member_id = ?";
   public static $getBook = "SELECT p.*, a.*, d.* FROM simplyrugby.players p LEFT JOIN simplyrugby.addresses a ON p.address_id = a.address_id LEFT JOIN simplyrugby.doctors d ON p.doctor_id = d.doctor_id WHERE p.player_id = ?";
   public static $getUser = "SELECT user_id, username, password, user_role FROM users WHERE username = ?";
-  public static $createUser = "INSERT INTO users (username, email, password) VALUES (?,?,?)";
+  public static $createUser = "INSERT INTO users (username, email, password, user_role) VALUES (?,?,?,?)";
 
   public static $getJuniorSkills = "SELECT j.*, s.category, s.skill_name, js.skill_level, js.comment
   FROM simplyrugby.juniors j 

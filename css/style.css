@@ -149,6 +149,10 @@ input.button {
   object-fit: cover;
 }
 
+.menu-dashboard-container a{
+  color: #fff;
+}
+
 
 
 
@@ -208,6 +212,10 @@ input:not(input.button) {
   font-weight: bold;
   padding: 8px;
   text-align: center;
+}
+
+.error:empty{
+  display: none;
 }
 
 /* ORDERS */
@@ -350,6 +358,35 @@ input:not(input.button) {
 
 }
 
+.menu-dashboard-item:nth-child(1){
+  width: fit-content;
+  background-color: rgb(216, 14, 216);
+}
+
+.menu-dashboard-item:nth-child(2){
+  width: fit-content;
+  background-color: rgb(14, 209, 216);
+}
+
+.menu-dashboard-item:nth-child(3){
+  width: fit-content;
+  background-color: rgb(14, 68, 216);
+}
+
+.menu-dashboard-item:nth-child(4){
+  width: fit-content;
+  background-color: rgb(216, 162, 14);
+}
+
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
 @media screen and (max-width:320px){
 
   .profile-content-container{
@@ -417,18 +454,17 @@ input:not(input.button) {
   }
 
   .id-container{
-    width: fit-content;
+    width: 100px;
     padding:0 5px;
   }
 
   .firstN-container{
-    width: fit-content;
+    width: 100px;
     padding:0 5px;
   }
 
   .pfp-container{
-    height: fit-content;
-    width: fit-content;
+    width: 100px;
   }
 
   .pfp-container img{
@@ -436,17 +472,17 @@ input:not(input.button) {
   }
 
   .lastN-container{
-    width: fit-content;
+    width: 100px;
     padding:0 5px;
   }
 
   .sru-container{
-    width: fit-content;
+    width: 100px;
     padding:0 5px;
   }
 
   .dob-container{
-    width: fit-content;
+    width: 100px;
     padding:0 5px;
   }
 
@@ -460,6 +496,41 @@ input:not(input.button) {
 
   .junior-pfp{
     padding:0 5px;
+  }
+
+  .menu-dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: stretch
+  }
+  .menu-dashboard-container:after {
+    display: block;
+    content: " placeholder ";
+    margin: 2px;
+    flex: 999 999 auto;
+  }
+  .menu-dashboard-item {
+    flex: 1 0 auto;
+    margin: 2px;
+  }
+
+  .menu-dashboard-item:nth-child(1){
+    padding:25px;
+  }
+
+  .menu-dashboard-item:nth-child(2){
+    padding:25px;
+  }
+
+  .menu-dashboard-item:nth-child(3){
+    padding:25px;
+  }
+
+  .menu-dashboard-item:nth-child(4){
+    padding:25px;
   }
 
 }
@@ -484,7 +555,7 @@ input:not(input.button) {
   }
 
   p,  .skills-card div{
-    font-size: 16px;
+    font-size: 15px;
   }
 
   h2{
@@ -537,17 +608,17 @@ input:not(input.button) {
   }
 
   .id-container{
-    width: fit-content;
+    width: 25px;
     padding:0 10px;
   }
 
   .firstN-container{
-    width: fit-content;
+    width: 70px;
     padding:0 10px;
   }
 
   .pfp-container{
-    height: fit-content;
+    width: 100px;
     width: fit-content;
   }
 
@@ -556,17 +627,16 @@ input:not(input.button) {
   }
 
   .lastN-container{
-    width: fit-content;
+    width: 75px;
     padding:0 10px;
   }
 
   .sru-container{
-    width: fit-content;
-    padding:0 10px;
+    display: none;
   }
 
   .dob-container{
-    width: fit-content;
+    width: 100px;
     padding:0 10px;
   }
 
@@ -586,6 +656,45 @@ input:not(input.button) {
     object-fit: cover;
     width: 50px;
     height: 75px;
+  }
+
+  .profile-list-content{
+    width: 100%;
+  }
+
+  .menu-dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: stretch
+  }
+  .menu-dashboard-container:after {
+    display: block;
+    content: " placeholder ";
+    margin: 2px;
+    flex: 999 999 auto;
+  }
+  .menu-dashboard-item {
+    flex: 1 0 auto;
+    margin: 2px;
+  }
+
+  .menu-dashboard-item:nth-child(1){
+    padding:35px;
+  }
+
+  .menu-dashboard-item:nth-child(2){
+    padding:35px;
+  }
+
+  .menu-dashboard-item:nth-child(3){
+    padding:35px;
+  }
+
+  .menu-dashboard-item:nth-child(4){
+    padding:35px;
   }
 
 
@@ -684,47 +793,47 @@ input:not(input.button) {
   }
 
   .id-container{
-    width: fit-content;
+    width: 100px;
     padding:0 25px;
   }
 
   .firstN-container{
-    width: fit-content;
+    width: 100px;
     padding:0 25px;
   }
 
   .pfp-container{
     margin-top:20px;
-    height: fit-content;
+    width: 100px;
   }
 
   .lastN-container{
-    width: fit-content;
+    width: 100px;
     padding:0 25px;
   }
 
   .sru-container{
-    width: fit-content;
+    width: 100px;
     padding:0 15px;
   }
 
   .dob-container{
-    width: fit-content;
+    width: 100px;
     padding:0 65px;
   }
 
   .contactNo-container{
-    width: fit-content;
+    width: 100px;
     padding:0 15px;
   }
 
   .email-container{
-    width: fit-content;
+    width: 300px;    
     padding:0 25px;
   }
 
   .pfp-container{
-    width: fit-content;
+    width: 100px;
     padding:0 15px;
   }
 
@@ -960,6 +1069,41 @@ input:not(input.button) {
 
   }
 
+  .menu-dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: stretch;
+    gap:4px;
+  }
+  .menu-dashboard-container:after {
+    display: block;
+    content: " placeholder ";
+    margin: 2px;
+    flex: 999 999 auto;
+  }
+  .menu-dashboard-item {
+    flex: 1 0 auto;
+    margin: 2px;
+  }
+
+  .menu-dashboard-item:nth-child(1){
+    padding:35px;
+  }
+
+  .menu-dashboard-item:nth-child(2){
+    padding:35px;
+  }
+
+  .menu-dashboard-item:nth-child(3){
+    padding:35px;
+  }
+
+  .menu-dashboard-item:nth-child(4){
+    padding:35px;
+  }
 
 
   

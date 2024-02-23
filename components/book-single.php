@@ -21,6 +21,13 @@
         <p><?php echo 'Known Health Issues: ', $healthIssues; ?></p>
       </div>
       <div class="profile-items">
+        <h2>Address Details</h2>
+        <p><?php echo 'Address Line1: ', $address1; ?></p>
+        <p><?php echo 'Address Line 2: ', $address2; ?></p>
+        <p><?php echo 'City: ', $city; ?></p>
+        <p><?php echo 'County: ', $county; ?></p>
+      </div>
+      <div class="profile-items">
         <h2>Emergency Contact Details</h2>
         <p><?php echo 'Name: ', $nextOfKin?></p>
         <p><?php echo 'Contact Number: ', $kinContactNumber; ?></p>

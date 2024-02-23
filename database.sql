@@ -180,25 +180,25 @@ VALUES
 
 INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
 VALUES 
-(1, 2, 'John', 'Doe', '1995-05-15', 123456789, '0987654321', '07123456789', 'john.doe@example.com', 'Jim Doe', '0987654321', 'None', 'john.jpg'),
-(3, 1, 'Jane', 'Smith', '1990-10-20', 987654321, '0123456789', '07123456789', 'jane.smith@example.com', 'Alice Smith', '0123456789', 'Asthma', 'jane.jpg'),
+(1, 2, 'John', 'Doe', '1995-05-15', 123456789, '0987654321', '07123456789', 'john.doe@example.com', 'Jim Doe', '0987654321', 'None', 'johndoe_player.jpg'),
+(3, 1, 'Jane', 'Smith', '1990-10-20', 987654321, '0123456789', '07123456789', 'jane.smith@example.com', 'Alice Smith', '0123456789', 'Asthma', 'janedoe_player.jpg'),
 (2, 3, 'Michael', 'Brown', '2002-08-05', 543216789, '0198765432', '07123456789', 'michael.brown@example.com', 'Emma Brown', '0198765432', 'None', 'michael.jpg'),
-(4, 1, 'Sarah', 'Johnson', '1998-03-30', 654321789, '0147852369', '07123456789', 'sarah.johnson@example.com', 'David Johnson', '0147852369', 'None', 'sarah.jpg'),
+(4, 1, 'Sarah', 'Johnson', '1998-03-30', 654321789, '0147852369', '07123456789', 'sarah.johnson@example.com', 'David Johnson', '0147852369', 'None', 'sarahplayer.jpg'),
 (5, 5, 'David', 'Wilson', '2005-12-12', 234567891, '0157842369', '07123456789', 'david.wilson@example.com', 'Emma Wilson', '0157842369', 'None', 'david.jpg');
 
 
 -- Sample data for simplyrugby.juniors table
 INSERT INTO simplyrugby.juniors (address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, health_issues, filename)
 VALUES 
-(1, 'John', 'Doe', '2008-03-15', 123456, '0123456789', '07123456789', 'john.doe@example.com', 'None', 'john.jpg'),
-(2, 'Jane', 'Smith', '2009-05-20', 789012, '9876543210', '07987654321', 'jane.smith@example.com', 'Asthma', 'jane.jpg'),
-(3, 'David', 'Jones', '2010-07-25', 345678, '5554443333', '07555444333', 'david.jones@example.com', 'None', 'david.jpg'),
-(4, 'Emily', 'Brown', '2011-09-30', 901234, '3332221111', '07333221111', 'emily.brown@example.com', 'Food Allergy', 'emily.jpg'),
-(5, 'Sarah', 'Johnson', '2012-11-05', 567890, '1112223333', '07111222333', 'sarah.johnson@example.com', 'None', 'sarah.jpg');
+(1, 'Jamie', 'Doe', '2008-03-15', 123456, '0123456789', '07123456789', 'jamie.doe@example.com', 'None', 'jamiedoe_junior.jpg'),
+(2, 'Jack', 'Jeff', '2009-05-20', 789012, '9876543210', '07987654321', 'jack.jeff@example.com', 'Asthma', 'jackjeff_junior.jpg'),
+(3, 'Xi', 'Jin', '2010-07-25', 345678, '5554443333', '07555444333', 'xi.jin@example.com', 'None', 'xijin_junior.jpg'),
+(4, 'Emily', 'Brown', '2011-09-30', 901234, '3332221111', '07333221111', 'emily.brown@example.com', 'Food Allergy', 'emilybrown_junior.jpg'),
+(5, 'Alex', 'Smith', '2012-11-05', 567890, '1112223333', '07111222333', 'alex.smith@example.com', 'None', 'alexsmith_junior.jpg');
 
 -- Sample data for simplyrugby.members table
 INSERT INTO simplyrugby.members (address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, filename)
-VALUES (1, 'Johnatan', 'Banks', '1965-04-25', 987654321, '0123456789', '07123456789', 'johnatanbanks@yahoo.com', 'johnatan.jpg'),
+VALUES (1, 'Johnatan', 'Banks', '1965-04-25', 987654321, '0123456789', '07123456789', 'johnatanbanks@yahoo.com', 'johnatanbanks_member.jpg'),
         (2, 'Laura', 'Taylor', '1978-04-15', 678901, '7778889999', '07778889999', 'laura.taylor@example.com', 'laura.jpg'),
         (3, 'Steven', 'Williams', '1990-06-20', 123456, '9998887777', '07999888777', 'steven.williams@example.com', 'steven.jpg'),
         (4, 'Jessica', 'Martinez', '1993-08-25', 789012, '6667778888', '07666777888', 'jessica.martinez@example.com', 'jessica.jpg'),

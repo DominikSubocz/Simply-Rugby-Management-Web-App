@@ -1,17 +1,17 @@
 <a class="book-card" href="junior-page.php?id=<?php echo $junior_id; ?>">
   <div class="id-container card-container">
-      <h3><?php echo $junior_id; ?></h3>
+      <p><?php echo $junior_id; ?></p>
   </div>
 
   <div class="firstN-container card-container">
-      <h3><?php echo $firstName; ?></h3>
+      <p><?php echo $firstName; ?></p>
   </div>
   <div class="lastN-container card-container">
       <p><?php echo $lastName; ?></p>
   </div>
 
   <div class="sru-container card-container">
-      <p class="book-price">SRU:<?php echo $sruNumber; ?></p>
+      <p class="book-price"><?php echo $sruNumber; ?></p>
   </div>
   
   <div class="dob-container card-container">

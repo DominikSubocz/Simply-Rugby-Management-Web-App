@@ -42,7 +42,11 @@ class Components {
         $kinContactNumber = Utils::escape($book["kin_contact_no"]);
         $healthIssues = Utils::escape($book["health_issues"]);
         $filename = Utils::escape($book["filename"]);
-
+        $address1 = Utils::escape($book["address_line"]);
+        $address2 = Utils::escape($book["address_line2"]);
+        $city = Utils::escape($book["city"]);
+        $county = Utils::escape($book["county"]);
+        $postcode = Utils::escape($book["postcode"]);
 
 
         require("components/book-card.php");
