@@ -60,6 +60,7 @@ class Components {
     if (!empty($book)) {
       $player_id = Utils::escape($book["player_id"]);
       $address_id = Utils::escape($book["address_id"]);
+      $dob = Utils::escape($book["dob"]);
       $user_id = Utils::escape($book["user_id"]);
       $doctor_id = Utils::escape($book["doctor_id"]);
       $firstName = Utils::escape($book["first_name"]);
@@ -110,6 +111,65 @@ class Components {
 
 
         require("components/junior-card.php");
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+    /**
+   * Renders a book array to the page.
+   */
+  public static function singleJunior($junior)
+  {
+    if (!empty($junior)) {
+      $junior_id = Utils::escape($junior["junior_id"]);
+      $address_id = Utils::escape($junior["address_id"]);
+      $user_id = Utils::escape($junior["user_id"]);
+      $firstName = Utils::escape($junior["first_name"]);
+      $lastName = Utils::escape($junior["last_name"]);
+      $sruNumber = Utils::escape($junior["sru_no"]);
+      $contactNumber = Utils::escape($junior["contact_no"]);
+      $mobileNumber = Utils::escape($junior["mobile_no"]);
+      $emailAddress = Utils::escape($junior["email_address"]);
+      $healthIssues = Utils::escape($junior["health_issues"]);
+      $filename = Utils::escape($junior["filename"]);
+
+      $address1 = Utils::escape($junior["address_line"]);
+      $address2 = Utils::escape($junior["address_line2"]);
+      $city = Utils::escape($junior["city"]);
+      $county = Utils::escape($junior["county"]);
+      $postcode = Utils::escape($junior["postcode"]);
+
+      $doctorFirstName = Utils::escape($junior["doctor_first_name"]);
+      $doctorLastName = Utils::escape($junior["doctor_last_name"]);
+      $doctorContact = Utils::escape($junior["doctor_contact_no"]);
+
+
+      // Output information on a single book
+      require("components/junior-single.php");
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-single-book-found.php");
+    }
+  }
+
+  public static function juniorGuardians($juniors)
+  {
+    if (!empty($juniors)) {
+      // Output a book card for each book in the $books array
+      foreach ($juniors as $junior) {
+        $guardianFirstName = Utils::escape($junior["guardian_first_name"]);
+        $guardianLastName = Utils::escape($junior["guardian_last_name"]);
+        $guardianContactNum = Utils::escape($junior["guardian_contact_no"]);
+        $relationship = Utils::escape($junior["relationship"]);
+
+        require("components/guardian-single.php");
+
+
+
+
       }
     } else {
       // Output a message if the $books array is empty
@@ -295,39 +355,7 @@ class Components {
     }
   }
 
-  /**
-   * Renders a book array to the page.
-   */
-  public static function singleJunior($junior)
-  {
-    if (!empty($junior)) {
-      $junior_id = Utils::escape($junior["junior_id"]);
-      $address_id = Utils::escape($junior["address_id"]);
-      $user_id = Utils::escape($junior["user_id"]);
-      $firstName = Utils::escape($junior["first_name"]);
-      $lastName = Utils::escape($junior["last_name"]);
-      $sruNumber = Utils::escape($junior["sru_no"]);
-      $contactNumber = Utils::escape($junior["contact_no"]);
-      $mobileNumber = Utils::escape($junior["mobile_no"]);
-      $emailAddress = Utils::escape($junior["email_address"]);
-      $healthIssues = Utils::escape($junior["health_issues"]);
-      $filename = Utils::escape($junior["filename"]);
 
-      $address1 = Utils::escape($junior["address_line"]);
-      $address2 = Utils::escape($junior["address_line2"]);
-      $city = Utils::escape($junior["city"]);
-      $county = Utils::escape($junior["county"]);
-      $postcode = Utils::escape($junior["postcode"]);
-
-
-
-      // Output information on a single book
-      require("components/junior-single.php");
-    } else {
-      // Output a message if the $books array is empty
-      require("components/no-single-book-found.php");
-    }
-  }
 
   public static function allMembers($members)
   {

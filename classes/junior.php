@@ -71,4 +71,17 @@ class Junior
 
     return $junior;
   }
+
+  public static function getGuardians($bookId)
+  {
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$getJuniorGuardians);
+    $stmt->execute([$bookId]);
+    $juniors = $stmt->fetchAll();
+
+    $conn = null;
+
+    return $juniors;
+  }
 }

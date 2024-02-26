@@ -1,10 +1,12 @@
 <?php
 
 // Define variables and initialize them
-$nameErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = "";
+$nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
-$name = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues = "";
+$kinErr = $kinContactErr = $doctorNameErr = $doctorContactErr = "";
+$name = $dob = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues = "";
 $address1 = $address2 = $city = $county = $postcode = "";
+$kin = $kinContact = $doctorName = $doctorContact = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
@@ -37,6 +39,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sru = test_input($_POST["sru"]);
         if (!preg_match("/^\d+$/", $sru)) {
             $sruErr = "Only digits allowed";
+        }
+    }
+
+    if (empty($_POST["dob"])){
+        $dobErr = "Date of birth is required";
+
+
+    } else {
+        $dob = test_input($_POST["dob"]);
+        if (!preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $dob)) {
+            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
         }
     }
 
@@ -98,12 +111,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+ 
+
+
+    // Emergency Contact Details
+
+    if (empty($_POST["kin"])) {
+        $kinErr = "Name is required";
+    } else {
+        $kin = test_input($_POST["kin"]);
+        // Check if name only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $kin)) {
+            $kinErr = "Only letters and white space allowed";
+        }
+    }
+
+    if(empty($_POST["kinContact"])){
+        $kinContactErr = "Contact Number is required";
+
+    } else {
+        $kinContact = test_input($_POST["kinContact"]);
+        if (!preg_match("/^\d+$/", $kinContact)) {
+            $kinContactErr = "Only digits allowed";
+        }
+    }
+
+    // Doctor Details
+
+    // Validate name
+    if (empty($_POST["doctorName"])) {
+        $doctorNameErr = "Doctor's name is required";
+    } else {
+        $doctorName = test_input($_POST["doctorName"]);
+        // Check if name only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
+            $doctorNameErr = "Only letters and white space allowed";
+        }
+    }
+
+    if(empty($_POST["doctorContact"])){
+        $doctorContacteRR = "Contact Number is required";
+
+    } else {
+        $doctorContact = test_input($_POST["doctorContact"]);
+        if (!preg_match("/^\d+$/", $kinContact)) {
+            $doctorContactErr = "Only digits allowed";
+        }
+    }
 
     
 
     // If there are no errors, redirect to success page
-    if (empty($nameErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) 
-    && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)) {
+    if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) 
+    && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
+    && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr)) {
         $_SESSION["successMessage"] = "Your message has been submitted successfully!";
         header("Location: success.php");
         exit();

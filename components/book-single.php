@@ -12,6 +12,8 @@
         <h2>Player Info</h2>
         <p><?php echo 'Name: ', $firstName, ' ', $lastName; ?></p>
         <p><?php echo 'SRU:', $sruNumber; ?></p>
+        <p><?php echo 'Date of Birth:', $dob; ?></p>
+
       </div>
       <div class="profile-items">
         <h2>Personal Details</h2>

@@ -21,9 +21,13 @@
         <p><?php echo 'Known Health Issues: ', $healthIssues; ?></p>
       </div>
       <div class="profile-items">
-        <h2>Guardian Contact Details</h2>
-        <p><?php echo 'Name: ', $nextOfKin?></p>
-        <p><?php echo 'Contact Number: ', $kinContactNumber; ?></p>
+      <h2>Guardian Contact Details</h2>
+
+      <?php
+          $skill = Junior::getGuardians($_GET["id"]);
+          Components::juniorGuardians($skill);
+          ?>
+
       </div>
       <div class="profile-items">
         <h2>Doctor Information</h2>

@@ -389,6 +389,10 @@ input.invalid {
 
 @media screen and (max-width:320px){
 
+  .show-on-mobile {
+    display: block;
+  }
+
   .profile-content-container{
     margin:15px 0;
     display: flex;
@@ -536,6 +540,11 @@ input.invalid {
 }
 
 @media screen and (min-width:320px){
+
+  .show-on-mobile {
+    display: block;
+  }
+  
   .profile-content-container{
     margin:15px 0;
     display: flex;
@@ -1103,6 +1112,11 @@ input.invalid {
 
   .menu-dashboard-item:nth-child(4){
     padding:35px;
+  }
+
+  .add-form-section > div{
+    display: flex;
+    gap:16px;
   }
 
 

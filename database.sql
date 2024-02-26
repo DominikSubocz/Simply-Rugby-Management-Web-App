@@ -50,7 +50,7 @@ CREATE TABLE simplyrugby.guardians(
   address_id INT NOT NULL,
   guardian_first_name varchar(48) NOT NULL,
   guardian_last_name varchar(48) NOT NULL,
-  contact_no int NOT NULL,
+  guardian_contact_no int NOT NULL,
   relationship varchar(35) NOT NULL,
   FOREIGN KEY (address_id) REFERENCES addresses(address_id)
 );
@@ -397,18 +397,19 @@ INSERT INTO simplyrugby.player_positions (position_id,player_id) VALUES
 (6,5),
 (2,5);
 
-INSERT INTO simplyrugby.guardians (address_id, guardian_first_name, guardian_last_name, contact_no, relationship)
+INSERT INTO simplyrugby.guardians (address_id, guardian_first_name, guardian_last_name, guardian_contact_no, relationship)
 VALUES 
-(1, 'Michael', 'Smith', 5556667777, 'Parent'),
+(1, 'Michael', 'Smith', 5556667777, 'Father'),
 (2, 'Laura', 'Taylor', 7778889999, 'Aunt'),
 (3, 'Steven', 'Williams', 9998887777, 'Uncle'),
-(4, 'Jessica', 'Martinez', 6667778888, 'Parent'),
-(5, 'Daniel', 'Anderson', 4445556666, 'Parent');
+(4, 'Jessica', 'Martinez', 6667778888, 'Mother'),
+(5, 'Daniel', 'Anderson', 4445556666, 'Father');
 
 
 -- Sample data for simplyrugby.junior_associations table
 INSERT INTO simplyrugby.junior_associations (junior_id, guardian_id, doctor_id) VALUES
 (1, 1, 1),
+(1, 2, 1),
 (2, 2, 2),
 (3, 3, 3),
 (4, 4, 4),

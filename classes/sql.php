@@ -10,13 +10,24 @@ class SQL {
    * The ? indicates a placeholder value which we will supply 
    * when executing the statement.
    */
-  public static $getJunior = "SELECT j.*, a.*, s.category, s.skill_name, js.skill_level, js.comment
+  public static $getJunior = "SELECT j.*, a.*, d.*, s.category, s.skill_name, js.skill_level, js.comment
   FROM simplyrugby.juniors j 
   LEFT JOIN simplyrugby.addresses a ON j.address_id = a.address_id 
   LEFT JOIN simplyrugby.junior_skills js ON j.junior_id = js.junior_id 
-  LEFT JOIN simplyrugby.skills s ON js.skill_id = s.skill_id 
+  LEFT JOIN simplyrugby.skills s ON js.skill_id = s.skill_id
+  LEFT JOIN simplyrugby.junior_associations ja ON j.junior_id = ja.junior_id 
+  LEFT JOIN simplyrugby.doctors d ON d.doctor_id = ja.doctor_id 
   WHERE j.junior_id = ?";
-   public static $getMember =   "SELECT m.*, a.* FROM simplyrugby.members m LEFT JOIN simplyrugby.addresses a ON m.address_id = a.address_id WHERE m.member_id = ?";
+
+public static $getJuniorGuardians = "SELECT j.*, g.*
+FROM simplyrugby.juniors j 
+LEFT JOIN simplyrugby.junior_associations ja ON ja.junior_id = j.junior_id
+LEFT JOIN simplyrugby.guardians g ON g.guardian_id = ja.guardian_id  
+WHERE j.junior_id = ?";
+
+
+  
+  public static $getMember =   "SELECT m.*, a.* FROM simplyrugby.members m LEFT JOIN simplyrugby.addresses a ON m.address_id = a.address_id WHERE m.member_id = ?";
   public static $getBook = "SELECT p.*, a.*, d.* FROM simplyrugby.players p LEFT JOIN simplyrugby.addresses a ON p.address_id = a.address_id LEFT JOIN simplyrugby.doctors d ON p.doctor_id = d.doctor_id WHERE p.player_id = ?";
   public static $getUser = "SELECT user_id, username, password, user_role FROM users WHERE username = ?";
   public static $createUser = "INSERT INTO users (username, email, password, user_role) VALUES (?,?,?,?)";
