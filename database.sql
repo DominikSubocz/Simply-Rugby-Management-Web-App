@@ -20,12 +20,9 @@ CREATE TABLE simplyrugby.users (
 
 CREATE TABLE simplyrugby.doctors(
 doctor_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-address_id INT NOT NULL,
 doctor_first_name  varchar(32) NOT NULL,
 doctor_last_name  varchar(32) NOT NULL,
-doctor_contact_no  varchar(40) NOT NULL,
-FOREIGN KEY (address_id) REFERENCES simplyrugby.addresses (address_id)
-
+doctor_contact_no  varchar(40) NOT NULL
 );
 
 CREATE TABLE simplyrugby.juniors(
@@ -170,13 +167,13 @@ VALUES
 ('1313 Rugby Lane', NULL, 'Healthytown', 'Gameshire', 'SG11 7EE');
 
 -- Sample data for simplyrugby.doctors table
-INSERT INTO simplyrugby.doctors (address_id, doctor_first_name, doctor_last_name, doctor_contact_no)
+INSERT INTO simplyrugby.doctors (doctor_first_name, doctor_last_name, doctor_contact_no)
 VALUES 
-(2, 'Michael', 'Jordan', '0123456789'),
-(3, 'LeBron', 'James', '9876543210'),
-(4, 'Serena', 'Williams', '1112223333'),
-(5, 'Rafael', 'Nadal', '4445556666'),
-(1, 'Roger', 'Federer', '7778889999');
+('Michael', 'Jordan', '0123456789'),
+('LeBron', 'James', '9876543210'),
+('Serena', 'Williams', '1112223333'),
+('Rafael', 'Nadal', '4445556666'),
+('Roger', 'Federer', '7778889999');
 
 INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
 VALUES 

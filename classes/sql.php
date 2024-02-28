@@ -43,8 +43,29 @@ class SQL {
 
   public static $doctorExists = "SELECT * FROM doctors 
   WHERE doctor_first_name = ? AND doctor_last_name = ? AND doctor_contact_no = ?";
-  
 
+  public static $getExistingDoctorId = "SELECT doctor_id 
+  FROM doctors 
+  WHERE doctor_first_name = ? 
+  AND doctor_last_name = ? 
+  AND doctor_contact_no = ?";
+  
+  public static $getExistingAddressId = "SELECT address_id 
+  FROM addresses 
+  WHERE address_line = ? 
+  AND address_line2 = ? 
+  AND city = ? 
+  AND county = ? 
+  AND postcode = ?";
+
+  public static $createNewAddress = "INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
+  VALUES  (?, ?, ?, ?, ?)";
+
+  public static $createNewDoctor = "INSERT INTO simplyrugby.doctors (doctor_first_name, doctor_last_name, doctor_contact_no)
+  VALUES (?, ?, ?)";
+
+  public static $createNewPlayer ="INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   public static $getJuniorSkills = "SELECT j.*, s.category, s.skill_name, js.skill_level, js.comment
   FROM simplyrugby.juniors j 

@@ -5,16 +5,19 @@ require_once("classes/connection.php");
 
 
 // Define variables and initialize them
-$nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = "";
+$nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $kinErr = $kinContactErr = $doctorNameErr = $doctorContactErr = "";
 $genuineErr = "";
 
+$doctorId = $addressId = "";
 
-$name = $dob = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues = "";
+
+$name = $dob = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues = $profileImage = "";
 $firstName = $lastName = "";
 $address1 = $address2 = $city = $county = $postcode = "";
 $kin = $kinContact = $doctorName = $doctorContact = "";
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
@@ -128,6 +131,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    if(empty($_POST["profileImage"])){
+        $profileImageErr = "Profile Image is required";
+    }
+
+
  
 
 
@@ -185,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     // If there are no errors, redirect to success page
-    if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) 
+    if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
 
@@ -212,15 +220,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $existingAddress = $stmt->fetch();
 
         if($existingAddress){
-            var_dump("Address already exists, using existing id");
+
+            $stmt = $conn->prepare(SQL::$getExistingAddressId);
+            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
+            $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
         }
 
         else{
-           var_dump("Address does not exist, creating new address");
 
-            // $_SESSION["successMessage"] = "Your message has been submitted successfully!";
-            // header("Location: success.php");
-            // exit();
+            $stmt = $conn->prepare(SQL::$createNewAddress);
+            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
+
+            $stmt = $conn->prepare(SQL::$getExistingAddressId);
+            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
+            $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
 
         }
 
@@ -228,16 +241,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
         $existingDoctor = $stmt->fetch();
 
-        var_dump($doctorFirstName, $doctorLastName, $doctorContact);
-
         if($existingDoctor){
-            var_dump("Doctor exists, using existing id");
+            $stmt = $conn->prepare(SQL::$getExistingDoctorId);
+            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
+            $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
         }
 
         else{
-            var_dump("Doctor doesn't exist, creating new doctor");
+            $stmt = $conn->prepare(SQL::$createNewDoctor);
+            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
+
+            $stmt = $conn->prepare(SQL::$getExistingDoctorId);
+            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
+            $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
         }
 
+        if(empty($genuineErr)){
+            var_dump($addressId);
+            var_dump($doctorId);
+            $stmt = $conn->prepare(SQL::$createNewPlayer);
+            $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $profileImage]);
+        }
 
     }
 

@@ -53,6 +53,10 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
       <input type="text" name="healthIssues" value="<?php echo $healthIssues;?>">
       <p class="error"><?php echo $healthIssuesErr;?></p><br>
 
+      <label>Profile image</label>
+      <input type="file" name="profileImage" value="<?php echo $profileImage;?>">
+      <p class="error"><?php echo $profileImageErr;?></p><br>
+
 
       <input type="button" value="Next" onclick="nextTab()">
   </div>
