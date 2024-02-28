@@ -124,7 +124,6 @@ input.button {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  gap: 16px;
 }
 
 .book-container {
@@ -134,7 +133,6 @@ input.button {
 .book-card {
   color: black;
   flex: 1;
-  margin: 0 auto 32px;
   max-width: 300px;
   text-align: center;
   text-decoration: none;
@@ -153,6 +151,9 @@ input.button {
   color: #fff;
 }
 
+.column-headings div{
+  font-weight: bold;
+}
 
 
 
@@ -537,6 +538,10 @@ input.invalid {
     padding:25px;
   }
 
+  .loginRegister-content{
+    width: 90%;
+  }
+
 }
 
 @media screen and (min-width:320px){
@@ -598,10 +603,13 @@ input.invalid {
     margin-top:20px;
   }
 
+  .book-list{
+    align-items: center;
+  }
+
   .book-card {
-    margin:0 auto;
-    max-width: 1950px;
     display: flex;
+    max-width: 90%;
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
@@ -618,17 +626,14 @@ input.invalid {
 
   .id-container{
     width: 25px;
-    padding:0 10px;
   }
 
   .firstN-container{
     width: 70px;
-    padding:0 10px;
   }
 
   .pfp-container{
     width: 100px;
-    width: fit-content;
   }
 
   .pfp-container img{
@@ -637,7 +642,6 @@ input.invalid {
 
   .lastN-container{
     width: 75px;
-    padding:0 10px;
   }
 
   .sru-container{
@@ -646,7 +650,6 @@ input.invalid {
 
   .dob-container{
     width: 100px;
-    padding:0 10px;
   }
 
   .contactNo-container{
@@ -657,9 +660,6 @@ input.invalid {
     display: none;
   }
 
-  .junior-pfp{
-    padding:0 5px;
-  }
 
   .junior-pfp img{
     object-fit: cover;
@@ -706,6 +706,16 @@ input.invalid {
     padding:35px;
   }
 
+  .loginRegister-content{
+    width: 90%;
+  }
+
+  .contact-content{
+    width: 90%;
+  }
+
+  
+
 
 
   
@@ -731,6 +741,10 @@ input.invalid {
   .level-bar{
     height: 10px;
     margin-bottom:-10px;
+  }
+
+  .contact-content{
+    width: 90%;
   }
 }
 
@@ -812,7 +826,6 @@ input.invalid {
   }
 
   .pfp-container{
-    margin-top:20px;
     width: 100px;
   }
 
@@ -896,7 +909,7 @@ input.invalid {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 100%;
   }
 
   .inline-inputs input {

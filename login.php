@@ -45,40 +45,43 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
 ?>
 
-<h2>Log in to an existing account</h2>
+<main class="content-wrapper loginRegister-content">
 
-<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="form">
-    <label>Username</label>
-    <input
-        type="text"
-        name="username"
-        value="<?php
+    <h2>Log in to an existing account</h2>
 
-        /**
-         * If there is an error, then the login form was submitted and the username
-         * exists, so we can preserve the username in the form.
-         *
-         * We need to check if the username is set since the previous form
-         * submission may have omitted it.
-         */
-        if ($output && isset($_POST["loginSubmit"]) && isset($_POST["username"])) {
-            echo Utils::escape($_POST["username"]);
-        }
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="form">
+        <label>Username</label>
+        <input
+            type="text"
+            name="username"
+            value="<?php
 
-        ?>"
-    >
+            /**
+             * If there is an error, then the login form was submitted and the username
+             * exists, so we can preserve the username in the form.
+             *
+             * We need to check if the username is set since the previous form
+             * submission may have omitted it.
+             */
+            if ($output && isset($_POST["loginSubmit"]) && isset($_POST["username"])) {
+                echo Utils::escape($_POST["username"]);
+            }
 
-    <label>Password</label>
-    <input type="password" name="password">
+            ?>"
+        >
 
-    <input class="button" type="submit" name="loginSubmit" value="Log in">
+        <label>Password</label>
+        <input type="password" name="password">
 
-    <!-- Only output if there is an error in the registration form -->
-    <?php if ($output && isset($_POST["loginSubmit"])) { echo $output; } ?>
-</form>
+        <input class="button" type="submit" name="loginSubmit" value="Log in">
 
-<a href="register.php"> Don't have an account? Click this link to register!</a>
+        <!-- Only output if there is an error in the registration form -->
+        <?php if ($output && isset($_POST["loginSubmit"])) { echo $output; } ?>
+    </form>
 
+    <a href="register.php"> Don't have an account? Click this link to register!</a>
+
+</main>
 
 <?php
 

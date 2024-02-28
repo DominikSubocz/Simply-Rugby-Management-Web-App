@@ -36,18 +36,22 @@
 
       <nav class="page-navigation" id="nav-list">
         <ul class="nav-links">
-          <li><a href="book-list.php">Books</a></li>
 
           <?php
 
           if(isset($_SESSION["loggedIn"])){
             if($_SESSION["user_role"] === "Admin"){
-              echo "<li><a href='add-book.php'>Add Book</a></li>";
-              
+              echo "<li><a href='book-list.php'>Players</a></li>
+              <li><a href='add-book.php'>Add Player</a></li>
+              <li><a href='junior-list.php'>Junior Players</a></li>
+              <li><a href='member-list.php'>Members</a></li>";
+            }
+
+            if($_SESSION["user_role"] === "Player"){
+              echo "<li><a href='profile.php'>Profile</a></li>";
             }
 
             echo "<li><a href='timetable.html'>Timetable</a></li>
-            <li><a href='profile.php'>Profile</a></li>
             <li><a href='logout.php'>Logout</a></li>";
             
           } else {

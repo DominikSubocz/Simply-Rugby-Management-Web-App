@@ -29,46 +29,51 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
 ?>
 
-<h2>Register a new account</h2>
+<main class="content-wrapper loginRegister-content">
 
-<form method="POST" action="" class="form">
-    <label>Username</label>
-    <input
-        type="text"
-        name="username"
-        value="<?php
 
-        if ($output && isset($_POST["registerSubmit"]) && isset($_POST["username"])) {
-            echo Utils::escape($_POST["username"]);
-        }
+    <h2>Register a new account</h2>
 
-        ?>"
-    >
+    <form method="POST" action="" class="form">
+        <label>Username</label>
+        <input
+            type="text"
+            name="username"
+            value="<?php
 
-    <label>Email address</label>
-    <input
-        type="email"
-        name="email"
-        value="<?php
+            if ($output && isset($_POST["registerSubmit"]) && isset($_POST["username"])) {
+                echo Utils::escape($_POST["username"]);
+            }
 
-        if ($output && isset($_POST["registerSubmit"]) && isset($_POST["email"])) {
-            echo Utils::escape($_POST["email"]);
-        }
+            ?>"
+        >
 
-        ?>"
-    >
+        <label>Email address</label>
+        <input
+            type="email"
+            name="email"
+            value="<?php
 
-    <label>Password</label>
-    <input type="password" name="passwordOne">
+            if ($output && isset($_POST["registerSubmit"]) && isset($_POST["email"])) {
+                echo Utils::escape($_POST["email"]);
+            }
 
-    <label>Password (retype)</label>
-    <input type="password" name="passwordTwo">
+            ?>"
+        >
 
-    <input class="button" type="submit" name="registerSubmit" value="Register account">
+        <label>Password</label>
+        <input type="password" name="passwordOne">
 
-    <!-- Only output if there is an error in the registration form -->
-    <?php if ($output && isset($_POST["registerSubmit"])) { echo $output; } ?>
-</form>
+        <label>Password (retype)</label>
+        <input type="password" name="passwordTwo">
+
+        <input class="button" type="submit" name="registerSubmit" value="Register account">
+
+        <!-- Only output if there is an error in the registration form -->
+        <?php if ($output && isset($_POST["registerSubmit"])) { echo $output; } ?>
+    </form>
+
+</main>
 
 <?php
 

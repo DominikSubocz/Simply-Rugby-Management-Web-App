@@ -19,11 +19,11 @@ class SQL {
   LEFT JOIN simplyrugby.doctors d ON d.doctor_id = ja.doctor_id 
   WHERE j.junior_id = ?";
 
-public static $getJuniorGuardians = "SELECT j.*, g.*
-FROM simplyrugby.juniors j 
-LEFT JOIN simplyrugby.junior_associations ja ON ja.junior_id = j.junior_id
-LEFT JOIN simplyrugby.guardians g ON g.guardian_id = ja.guardian_id  
-WHERE j.junior_id = ?";
+  public static $getJuniorGuardians = "SELECT j.*, g.*
+  FROM simplyrugby.juniors j 
+  LEFT JOIN simplyrugby.junior_associations ja ON ja.junior_id = j.junior_id
+  LEFT JOIN simplyrugby.guardians g ON g.guardian_id = ja.guardian_id  
+  WHERE j.junior_id = ?";
 
 
   
@@ -31,6 +31,20 @@ WHERE j.junior_id = ?";
   public static $getBook = "SELECT p.*, a.*, d.* FROM simplyrugby.players p LEFT JOIN simplyrugby.addresses a ON p.address_id = a.address_id LEFT JOIN simplyrugby.doctors d ON p.doctor_id = d.doctor_id WHERE p.player_id = ?";
   public static $getUser = "SELECT user_id, username, password, user_role FROM users WHERE username = ?";
   public static $createUser = "INSERT INTO users (username, email, password, user_role) VALUES (?,?,?,?)";
+
+
+  public static $playerExists = "SELECT * FROM players 
+  WHERE first_name = ? AND last_name = ? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";
+  
+
+  public static $addressExists = "SELECT * FROM addresses 
+  WHERE address_line = ? AND address_line2 = ? AND city = ? AND county = ? AND postcode = ?";
+
+
+  public static $doctorExists = "SELECT * FROM doctors 
+  WHERE doctor_first_name = ? AND doctor_last_name = ? AND doctor_contact_no = ?";
+  
+
 
   public static $getJuniorSkills = "SELECT j.*, s.category, s.skill_name, js.skill_level, js.comment
   FROM simplyrugby.juniors j 

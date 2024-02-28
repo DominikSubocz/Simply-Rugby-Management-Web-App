@@ -1,10 +1,18 @@
 <?php
 
+require("classes/sql.php");
+require_once("classes/connection.php");
+
+
 // Define variables and initialize them
 $nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $kinErr = $kinContactErr = $doctorNameErr = $doctorContactErr = "";
+$genuineErr = "";
+
+
 $name = $dob = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues = "";
+$firstName = $lastName = "";
 $address1 = $address2 = $city = $county = $postcode = "";
 $kin = $kinContact = $doctorName = $doctorContact = "";
 
@@ -18,6 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
             $nameErr = "Only letters and white space allowed";
         }
+
+        $nameParts = explode(" ", $name);
+
+        // Extract the first and last names
+        $firstName = $nameParts[0];
+        $lastName = end($nameParts);
     }
 
     // Validate email
@@ -51,6 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $dob)) {
             $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
         }
+
+        $dateTime = DateTime::createFromFormat('d/m/Y', $dob);
+        $sqlDate = $dateTime->format('Y-m-d');
     }
 
     if(empty($_POST["contactNo"])){
@@ -106,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
         $postcode = test_input($_POST["postcode"]);
-        if ((strlen($postcode)<6) || (strlen($postcode) > 7)){
+        if ((strlen($postcode)<6) || (strlen($postcode) > 8)){
             $postcodeErr = "Postcode must be 6 characters long!";
         }
     }
@@ -147,10 +164,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
             $doctorNameErr = "Only letters and white space allowed";
         }
+
+        $doctorNameParts = explode(" ", $doctorName);
+
+        // Extract the first and last names
+        $doctorFirstName = $doctorNameParts[0];
+        $doctorLastName = end($doctorNameParts);
     }
 
     if(empty($_POST["doctorContact"])){
-        $doctorContacteRR = "Contact Number is required";
+        $doctorContactErr = "Contact Number is required";
 
     } else {
         $doctorContact = test_input($_POST["doctorContact"]);
@@ -164,10 +187,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If there are no errors, redirect to success page
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
-    && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr)) {
-        $_SESSION["successMessage"] = "Your message has been submitted successfully!";
-        header("Location: success.php");
-        exit();
+    && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
+
+        $conn = Connection::connect();
+
+        $stmt = $conn->prepare(SQL::$playerExists);
+        $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
+        $existingUser = $stmt->fetch();
+
+
+        if($existingUser){
+            $genuineErr = "ERROR: Player already exists!";
+        }
+
+        else{
+            // $_SESSION["successMessage"] = "Your message has been submitted successfully!";
+            // header("Location: success.php");
+            // exit();
+
+        }
+
+        $stmt = $conn->prepare(SQL::$addressExists);
+        $stmt->execute([$address1, $address2, $city, $county, $postcode]);
+        $existingAddress = $stmt->fetch();
+
+        if($existingAddress){
+            var_dump("Address already exists, using existing id");
+        }
+
+        else{
+           var_dump("Address does not exist, creating new address");
+
+            // $_SESSION["successMessage"] = "Your message has been submitted successfully!";
+            // header("Location: success.php");
+            // exit();
+
+        }
+
+        $stmt = $conn->prepare(SQL::$doctorExists);
+        $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
+        $existingDoctor = $stmt->fetch();
+
+        var_dump($doctorFirstName, $doctorLastName, $doctorContact);
+
+        if($existingDoctor){
+            var_dump("Doctor exists, using existing id");
+        }
+
+        else{
+            var_dump("Doctor doesn't exist, creating new doctor");
+        }
+
+
+    }
+
+    else{
+        $genuineErr = "ERROR: Not all form inputs filled/correct!";
     }
 
 }

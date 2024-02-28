@@ -2,7 +2,6 @@
 session_start();
 
 require("classes/components.php");
-require("classes/utils.php");
 require("classes/form-validation.php");
 
 // TO DO:
@@ -21,35 +20,38 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 
 <h2>Add New Player</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+  <p class="error"><?php echo $genuineErr;?></p><br>
+
   
   <div id="personal-details-form">
       <label for="name">Name:</label><br>
       <input type="text" name="name" value="<?php echo $name;?>">
-      <span class="error"><?php echo $nameErr;?></span><br>
+      <p class="error"><?php echo $nameErr;?></p><br>
 
       <label for="sru">SRU Number:</label><br>
       <input type="text" name="sru" value="<?php echo $sru;?>">
-      <span class="error"><?php echo $sruErr;?></span><br>
+      <p class="error"><?php echo $sruErr;?></p><br>
 
       <label for="dob">Date of Birth:</label><br>
       <input type="text" name="dob" value="<?php echo $dob;?>">
-      <span class="error"><?php echo $dobErr;?></span><br>
+      <p class="error"><?php echo $dobErr;?></p><br>
 
       <label for="email">Email:</label><br>
       <input type="text" name="email" value="<?php echo $email;?>">
-      <span class="error"><?php echo $emailErr;?></span><br>
+      <p class="error"><?php echo $emailErr;?></p><br>
 
       <label for="contactNo">Contact Number:</label><br>
       <input type="text" name="contactNo" value="<?php echo $contactNo;?>">
-      <span class="error"><?php echo $contactNoErr;?></span><br>
+      <p class="error"><?php echo $contactNoErr;?></p><br>
 
       <label for="mobileNo">Mobile Number:</label><br>
       <input type="text" name="mobileNo" value="<?php echo $mobileNo;?>">
-      <span class="error"><?php echo $mobileNoErr;?></span><br>
+      <p class="error"><?php echo $mobileNoErr;?></p><br>
 
       <label for="healthIssues">Health Issues:</label><br>
       <input type="text" name="healthIssues" value="<?php echo $healthIssues;?>">
-      <span class="error"><?php echo $healthIssuesErr;?></span><br>
+      <p class="error"><?php echo $healthIssuesErr;?></p><br>
 
 
       <input type="button" value="Next" onclick="nextTab()">
@@ -58,23 +60,23 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
   <div id="address-details-form" class="add-form-section">
     <label for="address1">Address Line 1:</label><br>
         <input type="text" name="address1" value="<?php echo $address1;?>">
-        <span class="error"><?php echo $address1Err;?></span><br>
+        <p class="error"><?php echo $address1Err;?></p><br>
 
     <label for="address2">Address Line 2:</label><br>
         <input type="text" name="address2" value="<?php echo $address2;?>">
-        <span class="error"><?php echo $address2Err;?></span><br>   
+        <p class="error"><?php echo $address2Err;?></p><br>   
 
     <label for="city">City:</label><br>
         <input type="text" name="city" value="<?php echo $city;?>">
-        <span class="error"><?php echo $cityErr;?></span><br>  
+        <p class="error"><?php echo $cityErr;?></p><br>  
 
     <label for="county">County:</label><br>
         <input type="text" name="county" value="<?php echo $county;?>">
-        <span class="error"><?php echo $countyErr;?></span><br>  
+        <p class="error"><?php echo $countyErr;?></p><br>  
 
     <label for="postcode">Postcode:</label><br>
         <input type="text" name="postcode" value="<?php echo $postcode;?>">
-        <span class="error"><?php echo $postcodeErr;?></span><br>  
+        <p class="error"><?php echo $postcodeErr;?></p><br>  
         <div>
             <input type="button" value="Previous" onclick="prevTab()">
             <input type="button" value="Next" onclick="nextTab()">
@@ -85,11 +87,11 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
  <div id="kin-details-form" class="add-form-section">
     <label for="kin">Next of Kin:</label><br>
         <input type="text" name="kin" value="<?php echo $kin;?>">
-        <span class="error"><?php echo $kinErr;?></span><br>
+        <p class="error"><?php echo $kinErr;?></p><br>
 
     <label for="kinContact">Contact Number:</label><br>
         <input type="text" name="kinContact" value="<?php echo $kinContact;?>">
-        <span class="error"><?php echo $kinContactErr;?></span><br>   
+        <p class="error"><?php echo $kinContactErr;?></p><br>   
         <div>
             <input type="button" value="Previous" onclick="prevTab()">
             <input type="button" value="Next" onclick="nextTab()">
@@ -99,11 +101,11 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
  <div id="doctor-details-form">
     <label for="doctorName">Doctor Name:</label><br>
         <input type="text" name="doctorName" value="<?php echo $doctorName;?>">
-        <span class="error"><?php echo $doctorNameErr;?></span><br>
+        <p class="error"><?php echo $doctorNameErr;?></p><br>
 
     <label for="doctorContact">Contact Number:</label><br>
         <input type="text" name="doctorContact" value="<?php echo $doctorContact;?>">
-        <span class="error"><?php echo $doctorContactErr;?></span><br>   
+        <p class="error"><?php echo $doctorContactErr;?></p><br>   
         <input type="button" value="Previous" onclick="prevTab()">
  </div>
 
