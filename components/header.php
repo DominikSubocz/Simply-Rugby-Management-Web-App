@@ -47,8 +47,9 @@
               <li><a href='member-list.php'>Members</a></li>";
             }
 
-            if($_SESSION["user_role"] === "Player"){
-              echo "<li><a href='profile.php'>Profile</a></li>";
+            if($_SESSION["user_role"] === "Member"){
+              $profileId = $_SESSION["profileId"];
+              echo "<li><a href='book.php?id=$profileId'>Profile</a></li>";
             }
 
             echo "<li><a href='timetable.html'>Timetable</a></li>

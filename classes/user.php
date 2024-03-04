@@ -87,14 +87,6 @@ class User{
     
         // Insert the new user into the database
 
-        
-        // Get the inserted user ID
-        $insertedId = $conn->lastInsertId();
-    
-        // Update record in other tables if necessary
-        User::updateRecord($insertedId, $email);
-        // Set session variables
-
         if (stripos($username, "admin") !== false) {
 
             echo "Username: $username<br>";
@@ -103,26 +95,45 @@ class User{
             $stmt = $conn->prepare(SQL::$createUser);
             $stmt->execute([$username, $email, $hashedPassword, "Admin"]);
 
+            $insertedId = $conn->lastInsertId();
+
+            $profileId = User::checkIfUserExists($email);
+
+            var_dump($profileId);
+
             $_SESSION["loggedIn"] = true;
             $_SESSION["user_id"] = $insertedId;
+            $_SESSION["profileId"] = $profileId;
             $_SESSION["username"] = $username;
             $_SESSION["user_role"] = "Admin";
             $_SESSION["justRegistered"] = true;
         }
 
         else{
-            echo "Username: $username<br>";
-            echo "User role: Member<br>";
+
+            
 
             $stmt = $conn->prepare(SQL::$createUser);
             $stmt->execute([$username, $email, $hashedPassword, "Member"]);
 
+
+            $insertedId = $conn->lastInsertId();
+
+            $profileId = User::checkIfUserExists($filteredEmail);
+            
+            if($profileId > 0){
+            User::updateRecord($insertedId, $filteredEmail);
+            }
+
+
             $_SESSION["loggedIn"] = true;
             $_SESSION["user_id"] = $insertedId;
+            $_SESSION["profileId"] = $profileId;
             $_SESSION["username"] = $username;
             $_SESSION["user_role"] = "Member";
             $_SESSION["justRegistered"] = true;
         }
+
         
         // Close database connection
         $conn = null;
@@ -130,7 +141,7 @@ class User{
         return "";
     }
 
-    public static function checkIfUserExists($filteredEmail){
+    public static function checkIfUserExists($filteredEmail): ?int{
         $conn = Connection::connect();
     
         $sql_players = "SELECT * FROM players WHERE email_address = ?";
@@ -138,32 +149,46 @@ class User{
         $stmt_players->bindValue(1, $filteredEmail);
         $stmt_players->execute();
         $result_players = $stmt_players->fetchAll();
+
     
         $sql_juniors = "SELECT * FROM juniors WHERE email_address = ?";
         $stmt_juniors = $conn->prepare($sql_juniors);
         $stmt_juniors->bindValue(1, $filteredEmail);
         $stmt_juniors->execute();
         $result_juniors = $stmt_juniors->fetchAll();
+
+
     
         $sql_members = "SELECT * FROM members WHERE email_address = ?";
         $stmt_members = $conn->prepare($sql_members);
         $stmt_members->bindValue(1, $filteredEmail);
         $stmt_members->execute();
         $result_members = $stmt_members->fetchAll();
+
+        if (!empty($result_players)) {
+            $playerId = $result_players[0]['player_id'];
+            return $playerId;
+        }
+    
+        if (!empty($result_juniors)) {
+            $juniorId = $result_juniors[0]['junior_id'];
+            return $juniorId;
+        }
+    
+        if (!empty($result_members)) {
+            $memberId = $result_members[0]['member_id'];
+            return $memberId;
+        }
     
         // Check if the email exists in any of the tables
-        if (!empty($result_players) || !empty($result_members) || !empty($result_juniors)) {
+        if (empty($result_players) || empty($result_members) || empty($result_juniors)) {
             // Close database connections and return true if the email exists
             $conn = null;
-            return true;
-        } else {
-            // Close database connections and return false if the email doesn't exist
-            $conn = null;
-            return false;
+            return 0;
         }
     }
 
-    public static function updateRecord($userId, $filteredEmail) {  
+    public static function updateRecord($insertedId, $filteredEmail) {  
         // Establish database connection
         $conn = Connection::connect();
     
@@ -198,22 +223,19 @@ class User{
             $tableName = 'members';
         }
     
-        // Similarly, check for members and juniors tables
-    
         // Update the record in the corresponding table
         if (!empty($tableName)) {
-            $sql_update = "UPDATE $tableName SET user_id = :user_id WHERE email_address = :email";
-            $stmt_update = $conn->prepare($sql_update);
-            $stmt_update->bindParam(':user_id', $userId);
-            $stmt_update->bindParam(':email', $filteredEmail);
+            $sql = sprintf(SQL::$assignUserId, $tableName);
+            $stmt_update = $conn->prepare($sql);
+            $stmt_update->bindParam(1, $insertedId);
+            $stmt_update->bindParam(2, $filteredEmail);
             $stmt_update->execute();
             $stmt_update->closeCursor(); // Close cursor to release the connection
         } else {
             // Handle the case where the email address does not exist in any table
             echo "Email address does not exist in any table.";
         }
-    
-        // Close database connection
+
         $conn = null;
     }
 
