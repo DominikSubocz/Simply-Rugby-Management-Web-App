@@ -7,18 +7,13 @@ require_once("classes/connection.php");
 
 
 // Define variables and initialize them
-$nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
+$nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
-$kinErr = $kinContactErr = $doctorNameErr = $doctorContactErr = "";
 $genuineErr = "";
 
-$doctorId = $addressId = "";
-
-
-$name = $dob = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues = $profileImage = "";
-$firstName = $lastName = "";
+$name = $dob = $email = $sru = $contactNo = $mobileNo = $profileImage = "";
 $address1 = $address2 = $city = $county = $postcode = "";
-$kin = $kinContact = $doctorName = $doctorContact = "";
+$firstName = $lastName = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -85,6 +80,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    if(!empty($_POST["mobileNo"])){
+        $mobileNo = test_input($_POST["mobileNo"]);
+        if (!preg_match("/^\d+$/", $mobileNo)) {
+            $mobileNoErr = "Only digits allowed";
+        }
+    } 
+
     if(empty($_POST["address1"])){
         $address1Err = "Address Line 1 is required";
 
@@ -98,13 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(!empty($_POST["address2"])){
         $address2 = test_input($_POST["address2"]);
     }
-
-    if(!empty($_POST["mobileNo"])){
-        $mobileNo = test_input($_POST["mobileNo"]);
-        if (!preg_match("/^\d+$/", $mobileNo)) {
-            $mobileNoErr = "Only digits allowed";
-        }
-    } 
 
     if(empty($_POST["city"])){
         $cityErr = "City is required";
@@ -137,71 +132,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $profileImageErr = "Profile Image is required";
     }
 
-
- 
-
-
-    // Emergency Contact Details
-
-    if (empty($_POST["kin"])) {
-        $kinErr = "Name is required";
-    } else {
-        $kin = test_input($_POST["kin"]);
-        // Check if name only contains letters and whitespace
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $kin)) {
-            $kinErr = "Only letters and white space allowed";
-        }
-    }
-
-    if(empty($_POST["kinContact"])){
-        $kinContactErr = "Contact Number is required";
-
-    } else {
-        $kinContact = test_input($_POST["kinContact"]);
-        if (!preg_match("/^\d+$/", $kinContact)) {
-            $kinContactErr = "Only digits allowed";
-        }
-    }
-
-    // Doctor Details
-
-    // Validate name
-    if (empty($_POST["doctorName"])) {
-        $doctorNameErr = "Doctor's name is required";
-    } else {
-        $doctorName = test_input($_POST["doctorName"]);
-        // Check if name only contains letters and whitespace
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
-            $doctorNameErr = "Only letters and white space allowed";
-        }
-
-        $doctorNameParts = explode(" ", $doctorName);
-
-        // Extract the first and last names
-        $doctorFirstName = $doctorNameParts[0];
-        $doctorLastName = end($doctorNameParts);
-    }
-
-    if(empty($_POST["doctorContact"])){
-        $doctorContactErr = "Contact Number is required";
-
-    } else {
-        $doctorContact = test_input($_POST["doctorContact"]);
-        if (!preg_match("/^\d+$/", $kinContact)) {
-            $doctorContactErr = "Only digits allowed";
-        }
-    }
-
-    
-
     // If there are no errors, redirect to success page
-    if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
+    if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
-    && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
+    && empty ($genuineErr)) {
 
         $conn = Connection::connect();
 
-        $stmt = $conn->prepare(SQL::$playerExists);
+        $stmt = $conn->prepare(SQL::$memberExists);
         $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
         $existingUser = $stmt->fetch();
 
@@ -238,31 +176,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
 
         }
-
-        $stmt = $conn->prepare(SQL::$doctorExists);
-        $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-        $existingDoctor = $stmt->fetch();
-
-        if($existingDoctor){
-            $stmt = $conn->prepare(SQL::$getExistingDoctorId);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-            $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
-        }
-
-        else{
-            $stmt = $conn->prepare(SQL::$createNewDoctor);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-
-            $stmt = $conn->prepare(SQL::$getExistingDoctorId);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-            $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
-        }
-
         if(empty($genuineErr)){
-            var_dump($addressId);
-            var_dump($doctorId);
-            $stmt = $conn->prepare(SQL::$createNewPlayer);
-            $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $profileImage]);
+            $stmt = $conn->prepare(SQL::$createNewMember);
+            $stmt->execute([$addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $profileImage]);
         }
 
     }
@@ -279,23 +195,6 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
-
-// TO DO:
-
-// 1. Check if player's personal details (name, sru, dob, contact details) are 100% identical with any record in database
-// If it matches 100% throw error: "player already exists"
-// 2. Check if address is already in database, if 100% match just assign the new player with existing address id and don't add new address. Else add new doctor.
-// 3. Not rly much for next of kin, after all they don't have a table so idk.
-// 4. Check if doctor is already in database, if 100% match just assign the new player with existing doctor id and don't add new address. Else add new doctor.
-
-// TO DO:
-
-// 1. Check if player's personal details (name, sru, dob, contact details) are 100% identical with any record in database
-// If it matches 100% throw error: "player already exists"
-// 2. Check if address is already in database, if 100% match just assign the new player with existing address id and don't add new address. Else add new doctor.
-// 3. Not rly much for next of kin, after all they don't have a table so idk.
-// 4. Check if doctor is already in database, if 100% match just assign the new player with existing doctor id and don't add new address. Else add new doctor.
-
 
 components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 ?>
@@ -333,16 +232,13 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
       <input type="text" name="mobileNo" value="<?php echo $mobileNo;?>">
       <p class="error"><?php echo $mobileNoErr;?></p><br>
 
-      <label for="healthIssues">Health Issues:</label><br>
-      <input type="text" name="healthIssues" value="<?php echo $healthIssues;?>">
-      <p class="error"><?php echo $healthIssuesErr;?></p><br>
-
       <label>Profile image</label>
       <input type="file" name="profileImage" value="<?php echo $profileImage;?>">
       <p class="error"><?php echo $profileImageErr;?></p><br>
 
-
       <input type="button" value="Next" onclick="nextTab()">
+
+
   </div>
 
   <div id="address-details-form" class="add-form-section">
@@ -367,37 +263,17 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
         <p class="error"><?php echo $postcodeErr;?></p><br>  
         <div>
             <input type="button" value="Previous" onclick="prevTab()">
-            <input type="button" value="Next" onclick="nextTab()">
+            <input type="submit" name="submit" value="Submit">  
         </div>
 
  </div>
 
- <div id="kin-details-form" class="add-form-section">
-    <label for="kin">Next of Kin:</label><br>
-        <input type="text" name="kin" value="<?php echo $kin;?>">
-        <p class="error"><?php echo $kinErr;?></p><br>
 
-    <label for="kinContact">Contact Number:</label><br>
-        <input type="text" name="kinContact" value="<?php echo $kinContact;?>">
-        <p class="error"><?php echo $kinContactErr;?></p><br>   
-        <div>
-            <input type="button" value="Previous" onclick="prevTab()">
-            <input type="button" value="Next" onclick="nextTab()">
-        </div>
- </div>
 
- <div id="doctor-details-form">
-    <label for="doctorName">Doctor Name:</label><br>
-        <input type="text" name="doctorName" value="<?php echo $doctorName;?>">
-        <p class="error"><?php echo $doctorNameErr;?></p><br>
 
-    <label for="doctorContact">Contact Number:</label><br>
-        <input type="text" name="doctorContact" value="<?php echo $doctorContact;?>">
-        <p class="error"><?php echo $doctorContactErr;?></p><br>   
-        <input type="button" value="Previous" onclick="prevTab()">
- </div>
 
-  <input type="submit" name="submit" value="Submit">  
+
+
 
 </form>
 
@@ -406,8 +282,6 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
     var currentTab = 0;
     const pDetails = document.getElementById("personal-details-form");
     const aDetails = document.getElementById("address-details-form");
-    const kDetails = document.getElementById("kin-details-form");
-    const dDetails = document.getElementById("doctor-details-form");
 
     showTab();
 
@@ -425,34 +299,12 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
         if ( currentTab == 0){
             pDetails.style.display = "block";
             aDetails.style.display = "none";
-            kDetails.style.display = "none";
-            dDetails.style.display = "none";
-
-        }
-
-        else if (currentTab == 1){
-            pDetails.style.display = "none";
-            aDetails.style.display = "block";
-            kDetails.style.display = "none";
-            dDetails.style.display = "none";
-
-        }
-
-        else if (currentTab == 2) {
-            pDetails.style.display = "none";
-            aDetails.style.display = "none";
-            kDetails.style.display = "block";
-            dDetails.style.display = "none";
 
         }
 
         else{
             pDetails.style.display = "none";
-            aDetails.style.display = "none";
-            kDetails.style.display = "none";
-            dDetails.style.display = "block";
-
-
+            aDetails.style.display = "block";
 
         }
     }

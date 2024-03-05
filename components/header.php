@@ -49,7 +49,9 @@
 
             if($_SESSION["user_role"] === "Member"){
               $profileId = $_SESSION["profileId"];
-              echo "<li><a href='book.php?id=$profileId'>Profile</a></li>";
+              echo "<li><a href='$profileId'>Profile</a></li>";
+
+
             }
 
             echo "<li><a href='timetable.html'>Timetable</a></li>

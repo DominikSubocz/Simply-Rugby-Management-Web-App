@@ -22,23 +22,10 @@ $output = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require("classes/user.php");
 
-    // Determine which form to work with using the submit button's name
-    if (isset($_POST["loginSubmit"])) {
+    if(isset($_POST["loginSubmit"])){
         $output = User::login();
-    } elseif (isset($_POST["registerSubmit"])) {
-        $output = User::register();
     }
 
-    if ($output) {
-        header("Location: " . Utils::$projectFilePath . "/book-list.php");
-    } else if (isset($_POST["registerSubmit"])) {
-        $output = User::register();
-    }
-
-    if ($output) {
-        $_SESSION["successMessage"] = "Registration Successful!";
-        header("Location: " . Utils::$projectFilePath . "/success.php");
-    }
 }
 
 Components::pageHeader("Login", ["style"], ["mobile-nav"]);

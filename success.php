@@ -10,8 +10,22 @@ if (isset($_SESSION["successMessage"])) {
     $message = $_SESSION["successMessage"];
     unset($_SESSION["successMessage"]); // Remove the session variable
 } else {
-    header("Location: " . Utils::$projectFilePath . "/pet-list.php");
-    $message = "Success message not found."; // Default message
+
+
+
+    if(isset($_SESSION["loggedIn"])){
+      if($_SESSION["user_role"] === "Admin"){
+        header("Location: " . Utils::$projectFilePath . "/index.php");
+        $message = "Success message not found."; // Default message
+      }
+
+      else{
+        header("Location: " . Utils::$projectFilePath . "/pet-list.php");
+        $message = "Success message not found."; // Default message
+      }
+    }
+
+
 }
 
 // Include success page content

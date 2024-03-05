@@ -35,6 +35,9 @@ class SQL {
 
   public static $playerExists = "SELECT * FROM players 
   WHERE first_name = ? AND last_name = ? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";
+
+  public static $memberExists = "SELECT * FROM members
+  WHERE first_name = ? AND last_name =? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";
   
 
   public static $addressExists = "SELECT * FROM addresses 
@@ -66,6 +69,9 @@ class SQL {
 
   public static $createNewPlayer ="INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  public static $createNewMember ="INSERT INTO simplyrugby.members (address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, filename)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   public static $getJuniorSkills = "SELECT j.*, s.category, s.skill_name, js.skill_level, js.comment
   FROM simplyrugby.juniors j 

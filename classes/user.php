@@ -12,6 +12,8 @@ class User{
 
         $conn = Connection::connect();
 
+        $errors = "";
+
         $stmt = $conn->prepare(SQL::$getUser);
         $stmt->execute([$_POST["username"]]);
         $user = $stmt->fetch();
@@ -19,19 +21,46 @@ class User{
         $conn = null;
 
         if (empty($user)){
-            return "<p class='error'>ERROR: User does not exist</p>";
+           return "<p class='error'>ERROR: User does not exist</p>";
         }
 
         if(!password_verify($_POST["password"], $user["password"])){
             return "<p class='error'>ERROR: Incorrect password</p>";
         }
 
+        if($errors){
+            return $errors;
+        }
+
+        $conn = Connection::connect();
+
+
+        $sql_login = "SELECT email FROM users WHERE username = ?";
+        $stmt_login = $conn->prepare($sql_login);
+        $stmt_login->bindValue(1, $_POST["username"]);
+        $stmt_login->execute();
+        $login_result = $stmt_login->fetchAll();
+
+        $login_email = $login_result[0]['email'];
+
+
+        $profileId = User::checkIfUserExists($login_email);
+            
         $_SESSION["loggedIn"] = true;
         $_SESSION["user_id"] = $user["user_id"];
+        $_SESSION["profileId"] = $profileId;
         $_SESSION["loggedIn"] = $_POST["username"];
         $_SESSION["user_role"] = $user["user_role"];
 
+        if($profileId){
+            User::updateRecord($_SESSION["user_id"], $login_email);
+            }
+
+        // $_SESSION["successMessage"] = "Login Successful!";
+        // header("Location: " . Utils::$projectFilePath . "/success.php");
+
         return "";
+        
     }
 
     public static function register(){
@@ -67,6 +96,8 @@ class User{
         if($errors){
             return $errors;
         }
+
+        
     
         // Connect to the database
         $conn = Connection::connect();
@@ -80,6 +111,11 @@ class User{
         if(!empty($user)){
             return "<p class='error'>ERROR: User already exists</p>";
         }
+
+        // if ((!$errors) || !empty($user)){
+        //     $_SESSION["successMessage"] = "Registration Successful!";
+        //     header("Location: " . Utils::$projectFilePath . "/success.php");
+        // }
     
         // If the user does not exist, proceed with registration
         // Hash the password
@@ -107,6 +143,7 @@ class User{
             $_SESSION["username"] = $username;
             $_SESSION["user_role"] = "Admin";
             $_SESSION["justRegistered"] = true;
+
         }
 
         else{
@@ -121,8 +158,17 @@ class User{
 
             $profileId = User::checkIfUserExists($filteredEmail);
             
-            if($profileId > 0){
+            if($profileId){
             User::updateRecord($insertedId, $filteredEmail);
+            }
+
+            else{
+                $_SESSION["loggedIn"] = true;
+                $_SESSION["user_id"] = $insertedId;
+                $_SESSION["username"] = $username;
+                $_SESSION["user_role"] = "Member";
+                $_SESSION["justRegistered"] = true;
+                header("Location: " . Utils::$projectFilePath . "/add-member.php");
             }
 
 
@@ -132,6 +178,7 @@ class User{
             $_SESSION["username"] = $username;
             $_SESSION["user_role"] = "Member";
             $_SESSION["justRegistered"] = true;
+            
         }
 
         
@@ -141,7 +188,7 @@ class User{
         return "";
     }
 
-    public static function checkIfUserExists($filteredEmail): ?int{
+    public static function checkIfUserExists($filteredEmail){
         $conn = Connection::connect();
     
         $sql_players = "SELECT * FROM players WHERE email_address = ?";
@@ -167,17 +214,21 @@ class User{
 
         if (!empty($result_players)) {
             $playerId = $result_players[0]['player_id'];
-            return $playerId;
+            $profileId = "book.php?id=";
+            
+            return $profileId . $playerId;
         }
     
         if (!empty($result_juniors)) {
             $juniorId = $result_juniors[0]['junior_id'];
-            return $juniorId;
+            $profileId = "junior-page.php?id=";
+            return $profileId . $juniorId;
         }
     
         if (!empty($result_members)) {
             $memberId = $result_members[0]['member_id'];
-            return $memberId;
+            $profileId = "member-page.php?id=";
+            return $profileId . $memberId;
         }
     
         // Check if the email exists in any of the tables
