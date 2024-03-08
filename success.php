@@ -19,6 +19,11 @@ if (isset($_SESSION["successMessage"])) {
         $message = "Success message not found."; // Default message
       }
 
+      if(isset($_SESSION["newMember"])){
+        unset($_SESSION["newMember"]);
+        header("Location: " . Utils::$projectFilePath . "/logout.php");
+      }
+
       else{
         header("Location: " . Utils::$projectFilePath . "/pet-list.php");
         $message = "Success message not found."; // Default message

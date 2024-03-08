@@ -168,6 +168,7 @@ class User{
                 $_SESSION["username"] = $username;
                 $_SESSION["user_role"] = "Member";
                 $_SESSION["justRegistered"] = true;
+                $_SESSION["newMember"] = true;
                 header("Location: " . Utils::$projectFilePath . "/add-member.php");
             }
 

@@ -145,14 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         if($existingUser){
-            $genuineErr = "ERROR: Player already exists!";
-        }
-
-        else{
-            // $_SESSION["successMessage"] = "Your message has been submitted successfully!";
-            // header("Location: success.php");
-            // exit();
-
+            $genuineErr = "ERROR: Member already exists!";
         }
 
         $stmt = $conn->prepare(SQL::$addressExists);
@@ -180,6 +173,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare(SQL::$createNewMember);
             $stmt->execute([$addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $profileImage]);
         }
+
+        $_SESSION["successMessage"] = "Registration Successful!";
+        header("Location: success.php");
+        exit();
 
     }
 
