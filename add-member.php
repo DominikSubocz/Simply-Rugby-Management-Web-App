@@ -3,15 +3,16 @@ session_start();
 
 require("classes/components.php");
 require("classes/sql.php");
+require("classes/utils.php");
 require_once("classes/connection.php");
 
 
 // Define variables and initialize them
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
-$genuineErr = "";
+$genuineErr = $profileImageErr = "";
 
-$name = $dob = $email = $sru = $contactNo = $mobileNo = $profileImage = "";
+$name = $dob = $email = $sru = $contactNo = $mobileNo = $profileImage = $filename = "";
 $address1 = $address2 = $city = $county = $postcode = "";
 $firstName = $lastName = "";
 
@@ -128,15 +129,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if(empty($_POST["profileImage"])){
-        $profileImageErr = "Profile Image is required";
-    }
+
+    
+    // This will execute regardless of the file upload status
+    var_dump($filename);
 
     // If there are no errors, redirect to success page
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty ($genuineErr)) {
-
         $conn = Connection::connect();
 
         $stmt = $conn->prepare(SQL::$memberExists);
@@ -169,14 +170,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
 
         }
+
         if(empty($genuineErr)){
+
+
+            if (!empty($_FILES["profileImage"]["name"])) {
+                $filename = $_FILES["profileImage"]["name"];
+                $filetype = Utils::getFileExtension($filename);
+                $isValidImage = in_array($filetype, ["jpg", "jpeg", "png", "gif"]);
+            
+                $isValidSize = $_FILES["profileImage"]["size"] <= 1000000;
+            
+                if (!$isValidImage || !$isValidSize) {
+                    $profileImageErr = "<p class='error'>ERROR: Invalid file size/format</p>";
+                }
+            
+                $tmpname = $_FILES["profileImage"]["tmp_name"];
+            
+                if (!move_uploaded_file($tmpname, "images/$filename")) {
+                    $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
+                }
+            }
+
             $stmt = $conn->prepare(SQL::$createNewMember);
-            $stmt->execute([$addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $profileImage]);
+            $stmt->execute([$addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $filename]);
+            if(isset($_SESSION["newMember"])){
+                $_SESSION["successMessage"] = "Registration Successful!";
+                header("Location: " . Utils::$projectFilePath . "/success.php");
+            }
+
+
         }
 
-        $_SESSION["successMessage"] = "Registration Successful!";
-        header("Location: success.php");
-        exit();
+
 
     }
 
@@ -199,7 +225,10 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 <main class="content-wrapper contact-content">
 
 <h2>Add New Player</h2>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form 
+method="post" 
+action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" 
+enctype="multipart/form-data">
 
   <p class="error"><?php echo $genuineErr;?></p><br>
 
@@ -230,7 +259,7 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
       <p class="error"><?php echo $mobileNoErr;?></p><br>
 
       <label>Profile image</label>
-      <input type="file" name="profileImage" value="<?php echo $profileImage;?>">
+      <input type="file" name="profileImage" value="">
       <p class="error"><?php echo $profileImageErr;?></p><br>
 
       <input type="button" value="Next" onclick="nextTab()">
@@ -275,7 +304,6 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 </form>
 
 <script>
-
     var currentTab = 0;
     const pDetails = document.getElementById("personal-details-form");
     const aDetails = document.getElementById("address-details-form");

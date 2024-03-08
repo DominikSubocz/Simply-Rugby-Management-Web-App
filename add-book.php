@@ -3,6 +3,7 @@ session_start();
 
 require("classes/components.php");
 require("classes/sql.php");
+require("classes/utils.php");
 require_once("classes/connection.php");
 
 
@@ -10,12 +11,12 @@ require_once("classes/connection.php");
 $nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $kinErr = $kinContactErr = $doctorNameErr = $doctorContactErr = "";
-$genuineErr = "";
+$genuineErr = $profileImageErr = "";
 
 $doctorId = $addressId = "";
 
 
-$name = $dob = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues = $profileImage = "";
+$name = $dob = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues = $profileImage = $filename = "";
 $firstName = $lastName = "";
 $address1 = $address2 = $city = $county = $postcode = "";
 $kin = $kinContact = $doctorName = $doctorContact = "";
@@ -131,10 +132,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ((strlen($postcode)<6) || (strlen($postcode) > 8)){
             $postcodeErr = "Postcode must be 6 characters long!";
         }
-    }
-
-    if(empty($_POST["profileImage"])){
-        $profileImageErr = "Profile Image is required";
     }
 
 
@@ -259,10 +256,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if(empty($genuineErr)){
-            var_dump($addressId);
-            var_dump($doctorId);
+            if (!empty($_FILES["profileImage"]["name"])) {
+                $filename = $_FILES["profileImage"]["name"];
+                $filetype = Utils::getFileExtension($filename);
+                $isValidImage = in_array($filetype, ["jpg", "jpeg", "png", "gif"]);
+            
+                $isValidSize = $_FILES["profileImage"]["size"] <= 1000000;
+            
+                if (!$isValidImage || !$isValidSize) {
+                    $profileImageErr = "<p class='error'>ERROR: Invalid file size/format</p>";
+                }
+            
+                $tmpname = $_FILES["profileImage"]["tmp_name"];
+            
+                if (!move_uploaded_file($tmpname, "images/$filename")) {
+                    $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
+                }
+            }
             $stmt = $conn->prepare(SQL::$createNewPlayer);
-            $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $profileImage]);
+            $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename]);
+        
+        
+
+            header("Location: " . Utils::$projectFilePath . "/index.php");
         }
 
     }
@@ -303,7 +319,10 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 <main class="content-wrapper contact-content">
 
 <h2>Add New Player</h2>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form 
+method="post" 
+action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
+enctype="multipart/form-data">
 
   <p class="error"><?php echo $genuineErr;?></p><br>
 
@@ -338,7 +357,7 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
       <p class="error"><?php echo $healthIssuesErr;?></p><br>
 
       <label>Profile image</label>
-      <input type="file" name="profileImage" value="<?php echo $profileImage;?>">
+      <input type="file" name="profileImage" value="">
       <p class="error"><?php echo $profileImageErr;?></p><br>
 
 

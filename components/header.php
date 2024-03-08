@@ -27,7 +27,7 @@
   <header class="page-header">
     <div class="content-wrapper desktop-header-row">
       <div class="mobile-top">
-        <h1 class="page-title">Book Store</h1>
+        <h1 class="page-title">SimplyRugby</h1>
 
         <button class="nav-button" id="nav-button">
           <img src="icons/nav-button.png">
@@ -38,13 +38,22 @@
         <ul class="nav-links">
 
           <?php
+          
 
           if(isset($_SESSION["loggedIn"])){
             if($_SESSION["user_role"] === "Admin"){
-              echo "<li><a href='book-list.php'>Players</a></li>
+              echo "<div class='dropdown'>
+              <button class='dropBTN'>Member Management ▼</button>
+              <div class='dropdown-content'>
+
+              
+              <li><a href='book-list.php'>Players</a></li>
               <li><a href='add-book.php'>Add Player</a></li>
               <li><a href='junior-list.php'>Junior Players</a></li>
-              <li><a href='member-list.php'>Members</a></li>";
+              <li><a href='member-list.php'>Members</a></li>
+              <li><a href='add-member.php'>Add Member</a></li>
+              </div>
+              </div>";
             }
 
             if($_SESSION["user_role"] === "Member"){
