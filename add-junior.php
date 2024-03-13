@@ -23,6 +23,9 @@ require_once("classes/connection.php");
 // Define variables and initialize them
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $guardianNameErr = $guardianContactErr = $relationshipErr = "";
+$guardianAddress11Err = $guardianAddress12Err = $guardianCity1Err = $guardianCounty1Err = $guardianPostcode1Err = "";
+$guardianAddress21Err = $guardianAddress22Err = $guardianCity2Err = $guardianCounty2Err = $guardianPostcode2Err = "";
+$guardianName2Err = $guardianContact2Err = $relationship2Err = "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $doctorNameErr = $doctorContactErr = "";
 $genuineErr = $profileImageErr = "";
@@ -32,8 +35,15 @@ $doctorId = $addressId = "";
 
 $name = $dob = $email = $sru = $contactNo = $mobileNo = $healthIssues = $profileImage = $filename = "";
 $firstName = $lastName = "";
+
 $guardianFirstName = $guardianLastName = "";
 $guardianName = $guardianContact = $relationship = "";
+$guardianAddress11 = $guardianAddress12 = $guardianCity1 = $guardianCounty1 = $guardianPostcode1 = "";
+
+$guardianFirstName2 = $guardianLastName2 ="";
+$guardianName2 = $guardianContact2 = $relationship2 ="";
+$guardianAddress21 = $guardianAddress22 = $guardianCity2 = $guardianCounty2 = $guardianPostcode2 = "";
+
 
 $address1 = $address2 = $city = $county = $postcode = "";
 $doctorName = $doctorContact = "";
@@ -177,11 +187,151 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $guardianContactErr = "Contact Number is required";
 
     } else {
-        $guardianContact = test_input($_POST["kinContact"]);
+        $guardianContact = test_input($_POST["guardianContact"]);
         if (!preg_match("/^\d+$/", $guardianContact)) {
             $guardianContactErr = "Only digits allowed";
         }
     }
+
+    if(empty($_POST["relationship"])){
+        $relationshipErr = "Relationship is required";
+    } else{
+        $relationship = test_input($_POST["relationship"]);
+        // Check if name only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship)) {
+            $relationshipErr = "Only letters and white space allowed";
+        }
+    }
+
+
+    if(empty($_POST["guardianAddress11"])){
+        $guardianAddress11Err = "Address Line 1 is required";
+
+    } else {
+        $guardianAddress11 = test_input($_POST["guardianAddress11"]);
+        if ((strlen($guardianAddress11)<10) || (strlen($guardianAddress11) > 50)){
+            $guardianAddress11Err = "Address Line 1 must be between 10 and 50 characters long!";
+        }
+    }
+
+    if(!empty($_POST["guardianAddress12"])){
+        $guardianAddress12 = test_input($_POST["guardianAddress12"]);
+    }
+
+    if(empty($_POST["guardianCity1"])){
+        $guardianCity1Err = "City is required";
+
+    } else {
+        $guardianCity1 = test_input($_POST["guardianCity1"]);
+        if ((strlen($guardianCity1)<5) || (strlen($guardianCity1) > 50)){
+            $guardianCity1Err = "City must be between 10 and 50 characters long!";
+        }
+    }
+
+    if(!empty($_POST["guardianCounty1"])){
+        $guardianCounty1 = test_input($_POST["guardianCounty1"]);
+        if ((strlen($guardianCounty1)<5) || (strlen($guardianCounty1) > 50)){
+            $guardianCounty1Err = "County must be between 10 and 50 characters long!";
+        }
+    }
+
+    if(empty($_POST["guardianPostcode1"])){
+        $guardianPostcode1Err = "Postcode is required";
+
+    } else {
+        $guardianPostcode1 = test_input($_POST["guardianPostcode1"]);
+        if ((strlen($guardianPostcode1)<6) || (strlen($guardianPostcode1) > 8)){
+            $guardianPostcode1Err = "Postcode must be 6 characters long!";
+        }
+    }
+
+
+
+
+
+    
+
+    //Secondary Guradian
+
+    if($_POST['elementForVar1HiddenField'] == 1){
+        if(empty($_POST["guardianName2"])){
+            $guardianName2Err =  "Guardian's name is required";
+        } else {
+            $guardianName2 = test_input($_POST["guardianName2"]);
+            // Check if name only contains letters and whitespace
+            if (!preg_match("/^[a-zA-Z-' ]*$/", $guardianName2)) {
+                $guardianName2Err = "Only letters and white space allowed";
+            }
+    
+            $guardianNameParts2 = explode(" ", $guardianName2);
+    
+            // Extract the first and last names
+            $guardianFirstName2 = $guardianNameParts2[0];
+            $guardianLastName2 = end($guardianNameParts2);
+        }
+    
+        if(empty($_POST["guardianContact2"])){
+            $guardianContact2Err = "Contact Number is required";
+    
+        } else {
+            $guardianContact2 = test_input($_POST["guardianContact"]);
+            if (!preg_match("/^\d+$/", $guardianContact2)) {
+                $guardianContact2Err = "Only digits allowed";
+            }
+        }
+    
+        if(empty($_POST["relationship2"])){
+            $relationship2Err = "Relationship is required";
+        } else{
+            $relationship2 = test_input($_POST["relationship2"]);
+            // Check if name only contains letters and whitespace
+            if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship2)) {
+                $relationship2Err = "Only letters and white space allowed";
+            }
+        }
+
+        if(empty($_POST["guardianAddress21"])){
+            $guardianAddress21Err = "Address Line 1 is required";
+    
+        } else {
+            $guardianAddress21 = test_input($_POST["guardianAddress21"]);
+            if ((strlen($guardianAddress21)<10) || (strlen($guardianAddress21) > 50)){
+                $guardianAddress21Err = "Address Line 1 must be between 10 and 50 characters long!";
+            }
+        }
+    
+        if(!empty($_POST["guardianAddress22"])){
+            $guardianAddress22 = test_input($_POST["guardianAddress22"]);
+        }
+    
+        if(empty($_POST["guardianCity2"])){
+            $guardianCity2Err = "City is required";
+    
+        } else {
+            $guardianCity2 = test_input($_POST["guardianCity2"]);
+            if ((strlen($guardianCity2)<5) || (strlen($guardianCity2) > 50)){
+                $guardianCity2Err = "City must be between 10 and 50 characters long!";
+            }
+        }
+    
+        if(!empty($_POST["guardianCounty2"])){
+            $guardianCounty2 = test_input($_POST["guardianCounty2"]);
+            if ((strlen($guardianCounty2)<5) || (strlen($guardianCounty2) > 50)){
+                $guardianCounty2Err = "County must be between 10 and 50 characters long!";
+            }
+        }
+    
+        if(empty($_POST["guardianPostcode2"])){
+            $guardianPostcode2Err = "Postcode is required";
+    
+        } else {
+            $guardianPostcode2 = test_input($_POST["guardianPostcode2"]);
+            if ((strlen($guardianPostcode2)<6) || (strlen($guardianPostcode2) > 8)){
+                $guardianPostcode2Err = "Postcode must be 6 characters long!";
+            }
+        }
+    }
+  
 
     // Doctor Details
 
@@ -207,7 +357,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
         $doctorContact = test_input($_POST["doctorContact"]);
-        if (!preg_match("/^\d+$/", $kinContact)) {
+        if (!preg_match("/^\d+$/", $doctorContact)) {
             $doctorContactErr = "Only digits allowed";
         }
     }
@@ -217,13 +367,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If there are no errors, redirect to success page
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
-    && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
+    && empty($guardianNameErr) && empty($guardianContactErr) && empty($relationshipErr) 
+    && empty($guardianAddress11Err) && empty($guardianAddress12Err) && empty($guardianCity1Err) && empty($guardianCounty1Err) && empty($guardianPostcode1Err)
+    && empty($guardianAddress21Err) && empty($guardianAddress22Err) && empty($guardianCity2Err) && empty($guardianCounty2Err) && empty($guardianPostcode2Err)
+    && empty($guardianName2Err) && empty($guardianContact2Err) && empty($relationship2Err)  
+    && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
 
         $conn = Connection::connect();
 
-        // $stmt = $conn->prepare(SQL::$playerExists);
-        // $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
-        // $existingUser = $stmt->fetch();
+        $stmt = $conn->prepare(SQL::$juniorExists);
+        $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
+        $existingUser = $stmt->fetch();
 
 
         if($existingUser){
@@ -241,15 +395,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
         $existingAddress = $stmt->fetch();
 
-        if($existingAddress){
+        $stmt = $conn->prepare(SQL::$addressExists);
+        $stmt->execute([$guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1]);
+        $guardian1Address = $stmt->fetch();
+        
+        if (!$guardian1Address) {
+            // Create guardian address if it doesn't exist
+            $stmt = $conn->prepare(SQL::$createNewAddress);
+            $stmt->execute([$guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1]);
+            $guardian1AddressId = $conn->lastInsertId();
+        } else {
+            $guardian1AddressId = $guardian1Address['address_id'];
+        }
 
+
+
+
+
+        // First guardian
+        // Check existing guardian
+        $stmt = $conn->prepare(SQL::$guardianExists);
+        $stmt->execute([$guardianFirstName, $guardianLastName, $guardianContact]);
+        $existingGuardian = $stmt->fetch();
+        
+        if ($existingGuardian) {
+            $guardianId = $existingGuardian["guardian_id"];
+        } else {
+            $stmt = $conn->prepare(SQL::$createNewGuardian);
+            $stmt->execute([$guardian1AddressId, $guardianFirstName, $guardianLastName, $guardianContact, $relationship]);
+            $guardianId = $conn->lastInsertId();
+        }
+
+        
+        if ($_POST['elementForVar1HiddenField'] == 1) {
+
+            $stmt = $conn->prepare(SQL::$addressExists);
+            $stmt->execute([$guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2]);
+            $guardian2Address = $stmt->fetch();
+    
+            if (!$guardian2Address) {
+                // Create guardian address if it doesn't exist
+                $stmt = $conn->prepare(SQL::$createNewAddress);
+                $stmt->execute([$guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2]);
+                $guardian2AddressId = $conn->lastInsertId();
+            } else {
+                $guardian2AddressId = $guardian2Address['address_id'];
+            }
+
+            
+            $stmt = $conn->prepare(SQL::$guardianExists);
+            $stmt->execute([$guardianFirstName2, $guardianLastName2, $guardianContact2]);
+            $existingGuardian2 = $stmt->fetch();
+            
+            if ($existingGuardian2) {
+                $guardianId = $existingGuardian2["guardian_id"];
+            } else {
+                $stmt = $conn->prepare(SQL::$createNewGuardian);
+                $stmt->execute([$guardian2AddressId, $guardianFirstName2, $guardianLastName2, $guardianContact2, $relationship2]);
+                $guardianId = $conn->lastInsertId();
+            }
+        }
+        
+
+        
+
+
+
+        if($existingAddress){
             $stmt = $conn->prepare(SQL::$getExistingAddressId);
             $stmt->execute([$address1, $address2, $city, $county, $postcode]);
             $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
         }
 
         else{
-
             $stmt = $conn->prepare(SQL::$createNewAddress);
             $stmt->execute([$address1, $address2, $city, $county, $postcode]);
 
@@ -264,6 +482,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $existingDoctor = $stmt->fetch();
 
         if($existingDoctor){
+
             $stmt = $conn->prepare(SQL::$getExistingDoctorId);
             $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
             $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
@@ -296,12 +515,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
                 }
             }
+
+            var_dump("I will create new junior");
             // $stmt = $conn->prepare(SQL::$createNewPlayer);
             // $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename]);
         
         
 
-            header("Location: " . Utils::$projectFilePath . "/index.php");
+            // header("Location: " . Utils::$projectFilePath . "/index.php");
         }
 
     }
@@ -417,15 +638,16 @@ enctype="multipart/form-data">
  <div id="guardian-details-form" class="add-form-section">
 
     <div class="radio-container">
-        <label class="radio">One
-        <input type="radio" checked="checked" name="radio">
+        <label class="radio" >One
+        <input type="radio" id="radio-one" checked="checked" name="radio" onclick="radioChecked()">
         <span class="checkmark"></span>
         </label>
-        <label class="radio">Two
-        <input type="radio" name="radio">
+        <label class="radio" >Two
+        <input type="radio" id="radio-two" name="radio" onclick="radioChecked()">
         <span class="checkmark"></span>
         </label>
     </div>
+    
     <label for="guardianName">Guardian's name:</label><br>
         <input type="text" name="guardianName" value="<?php echo $guardianName;?>">
         <p class="error"><?php echo $guardianNameErr;?></p><br>
@@ -433,10 +655,78 @@ enctype="multipart/form-data">
     <label for="guardianContact">Contact Number:</label><br>
         <input type="text" name="guardianContact" value="<?php echo $guardianContact;?>">
         <p class="error"><?php echo $guardianContactErr;?></p><br>   
+
+    <label for="relationship">Relationship:</label><br>
+        <input type="text" name="relationship" value="<?php echo $relationship;?>">
+        <p class="error"><?php echo $relationshipErr;?></p><br>  
+        
+    
+    <label for="guardianAddress11">Address Line 1:</label><br>
+        <input type="text" name="guardianAddress11" value="<?php echo $guardianAddress11;?>">
+        <p class="error"><?php echo $guardianAddress11Err;?></p><br>
+
+    <label for="guardianAddress12">Address Line 2:</label><br>
+        <input type="text" name="guardianAddress12" value="<?php echo $guardianAddress12;?>">
+        <p class="error"><?php echo $guardianAddress12Err;?></p><br>   
+
+    <label for="guardianCity1">City:</label><br>
+        <input type="text" name="guardianCity1" value="<?php echo $guardianCity1;?>">
+        <p class="error"><?php echo $guardianCity1Err;?></p><br>  
+
+    <label for="guardianCounty1">County:</label><br>
+        <input type="text" name="guardianCounty1" value="<?php echo $guardianCounty1;?>">
+        <p class="error"><?php echo $guardianCounty1Err;?></p><br>  
+
+    <label for="guardianPostcode1">Postcode:</label><br>
+        <input type="text" name="guardianPostcode1" value="<?php echo $guardianPostcode1;?>">
+        <p class="error"><?php echo $guardianPostcode1Err;?></p><br>  
+
+        <div id="second-guardian-form">
+            <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
+            <label for="guardianName">Guardian's name:</label><br>
+            <input type="text" name="guardianName2" value="<?php echo $guardianName2;?>">
+            <p class="error"><?php echo $guardianName2Err;?></p><br>
+
+        <label for="guardianContact">Contact Number:</label><br>
+            <input type="text" name="guardianContact2" value="<?php echo $guardianContact2;?>">
+            <p class="error"><?php echo $guardianContact2Err;?></p><br>   
+
+        <label for="relationship2">Relationship:</label><br>
+            <input type="text" name="relationship2" value="<?php echo $relationship2;?>">
+            <p class="error"><?php echo $relationship2Err;?></p><br>
+            
+        <label for="guardianAddress21">Address Line 1:</label><br>
+            <input type="text" name="guardianAddress21" value="<?php echo $guardianAddress21;?>">
+            <p class="error"><?php echo $guardianAddress21Err;?></p><br>
+
+        <label for="guardianAddress22">Address Line 2:</label><br>
+            <input type="text" name="guardianAddress22" value="<?php echo $guardianAddress22;?>">
+            <p class="error"><?php echo $guardianAddress22Err;?></p><br>   
+
+        <label for="guardianCity2">City:</label><br>
+            <input type="text" name="guardianCity2" value="<?php echo $guardianCity2;?>">
+            <p class="error"><?php echo $guardianCity2Err;?></p><br>  
+
+        <label for="guardianCounty2">County:</label><br>
+            <input type="text" name="guardianCounty2" value="<?php echo $guardianCounty2;?>">
+            <p class="error"><?php echo $guardianCounty2Err;?></p><br>  
+
+        <label for="guardianPostcode2">Postcode:</label><br>
+            <input type="text" name="guardianPostcode2" value="<?php echo $guardianPostcode2;?>">
+            <p class="error"><?php echo $guardianPostcode2Err;?></p><br>  
+        </div>
+
+
+
+        
+
+
         <div>
             <input type="button" value="Previous" onclick="prevTab()">
             <input type="button" value="Next" onclick="nextTab()">
         </div>
+
+
  </div>
 
  <div id="doctor-details-form">
@@ -462,7 +752,25 @@ enctype="multipart/form-data">
     const gDetails = document.getElementById("guardian-details-form");
     const dDetails = document.getElementById("doctor-details-form");
 
+    const sGuardDetails = document.getElementById("second-guardian-form");
+
+    
+    function radioChecked(){
+        if (document.getElementById("radio-two").checked){
+            sGuardDetails.style.display = "block";
+            document.getElementById('elementForVar1HiddenField').value = 1;
+
+        }
+
+        else{
+            sGuardDetails.style.display = "none";
+            document.getElementById('elementForVar1HiddenField').value = 0;
+
+        }
+    }
+
     showTab();
+    radioChecked();
 
     function nextTab(){
         currentTab += 1;

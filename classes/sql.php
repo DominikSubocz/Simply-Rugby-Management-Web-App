@@ -33,8 +33,12 @@ class SQL {
   public static $createUser = "INSERT INTO users (username, email, password, user_role) VALUES (?,?,?,?)";
 
 
-  public static $playerExists = "SELECT * FROM players 
+  public static $playerExists = "SELECT * FROM simplyrugby.players 
   WHERE first_name = ? AND last_name = ? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";
+
+  public static $juniorExists = "SELECT * FROM simplyrugby.juniors 
+  WHERE first_name = ? AND last_name = ? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";
+  
 
   public static $memberExists = "SELECT * FROM members
   WHERE first_name = ? AND last_name =? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";
@@ -42,10 +46,12 @@ class SQL {
 
   public static $addressExists = "SELECT * FROM addresses 
   WHERE address_line = ? AND address_line2 = ? AND city = ? AND county = ? AND postcode = ?";
-
-
+  
   public static $doctorExists = "SELECT * FROM doctors 
   WHERE doctor_first_name = ? AND doctor_last_name = ? AND doctor_contact_no = ?";
+
+  public static $guardianExists = "SELECT * FROM guardians 
+  WHERE guardian_first_name = ? AND guardian_last_name = ? AND guardian_contact_no = ?";
 
   public static $getExistingDoctorId = "SELECT doctor_id 
   FROM doctors 
@@ -66,6 +72,9 @@ class SQL {
 
   public static $createNewDoctor = "INSERT INTO simplyrugby.doctors (doctor_first_name, doctor_last_name, doctor_contact_no)
   VALUES (?, ?, ?)";
+
+  public static $createNewGuardian = "INSERT INTO simplyrugby.guardians (address_id, guardian_first_name, guardian_last_name, guardian_contact_no, relationship)
+  VALUES  (?, ?, ?, ?, ?)";
 
   public static $createNewPlayer ="INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
