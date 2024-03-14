@@ -6,20 +6,6 @@ require("classes/sql.php");
 require("classes/utils.php");
 require_once("classes/connection.php");
 
-
-//1. Name
-//2. Dob
-//3. Sru
-//4.Contact details
-//5. Health Issues
-
-// 6. Guardian details
-
-//7. Address
-
-//8.doctor details
-
-
 // Define variables and initialize them
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $guardianNameErr = $guardianContactErr = $relationshipErr = "";
@@ -366,14 +352,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If there are no errors, redirect to success page
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
-    && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
-    && empty($guardianNameErr) && empty($guardianContactErr) && empty($relationshipErr) 
-    && empty($guardianAddress11Err) && empty($guardianAddress12Err) && empty($guardianCity1Err) && empty($guardianCounty1Err) && empty($guardianPostcode1Err)
-    && empty($guardianAddress21Err) && empty($guardianAddress22Err) && empty($guardianCity2Err) && empty($guardianCounty2Err) && empty($guardianPostcode2Err)
-    && empty($guardianName2Err) && empty($guardianContact2Err) && empty($relationship2Err)  
-    && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
+        && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
+        && empty($guardianNameErr) && empty($guardianContactErr) && empty($relationshipErr) 
+        && empty($guardianAddress11Err) && empty($guardianAddress12Err) && empty($guardianCity1Err) && empty($guardianCounty1Err) && empty($guardianPostcode1Err)
+        && empty($guardianAddress21Err) && empty($guardianAddress22Err) && empty($guardianCity2Err) && empty($guardianCounty2Err) && empty($guardianPostcode2Err)
+        && empty($guardianName2Err) && empty($guardianContact2Err) && empty($relationship2Err)  
+        && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
 
         $conn = Connection::connect();
+
+        $guardian1AddressId = $guardian2AddressId = $guardian2AddressId = $guardianId = $guardianId2 = "";
 
         $stmt = $conn->prepare(SQL::$juniorExists);
         $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
@@ -393,11 +381,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-        $existingAddress = $stmt->fetch();
+        $existingAddress = $stmt->fetch(PDO::FETCH_COLUMN);
 
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1]);
-        $guardian1Address = $stmt->fetch();
+        $guardian1Address = $stmt->fetch(PDO::FETCH_COLUMN);
         
         if (!$guardian1Address) {
             // Create guardian address if it doesn't exist
@@ -405,7 +393,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute([$guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1]);
             $guardian1AddressId = $conn->lastInsertId();
         } else {
-            $guardian1AddressId = $guardian1Address['address_id'];
+            // Use the existing guardian address ID
+            $guardian1AddressId = $guardian1Address;
         }
 
 
@@ -423,7 +412,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $stmt = $conn->prepare(SQL::$createNewGuardian);
             $stmt->execute([$guardian1AddressId, $guardianFirstName, $guardianLastName, $guardianContact, $relationship]);
+            $guardianIdResult = $stmt->fetch(PDO::FETCH_COLUMN);
             $guardianId = $conn->lastInsertId();
+
+
         }
 
         
@@ -431,7 +423,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt = $conn->prepare(SQL::$addressExists);
             $stmt->execute([$guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2]);
-            $guardian2Address = $stmt->fetch();
+            $guardian2Address = $stmt->fetch(PDO::FETCH_COLUMN);
     
             if (!$guardian2Address) {
                 // Create guardian address if it doesn't exist
@@ -439,7 +431,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->execute([$guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2]);
                 $guardian2AddressId = $conn->lastInsertId();
             } else {
-                $guardian2AddressId = $guardian2Address['address_id'];
+                $guardian2AddressId = $guardian2Address;
             }
 
             
@@ -448,11 +440,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $existingGuardian2 = $stmt->fetch();
             
             if ($existingGuardian2) {
-                $guardianId = $existingGuardian2["guardian_id"];
+                $guardianId2 = $existingGuardian2['guardian_id'];
             } else {
                 $stmt = $conn->prepare(SQL::$createNewGuardian);
                 $stmt->execute([$guardian2AddressId, $guardianFirstName2, $guardianLastName2, $guardianContact2, $relationship2]);
-                $guardianId = $conn->lastInsertId();
+                $guardianId2Result = $stmt->fetch(PDO::FETCH_COLUMN);
+                $guardianId2 = $conn->lastInsertId();
+
             }
         }
         
@@ -517,12 +511,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             var_dump("I will create new junior");
-            // $stmt = $conn->prepare(SQL::$createNewPlayer);
-            // $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename]);
-        
+
+            $stmt = $conn->prepare(SQL::$createNewJunior);
+            $stmt->execute([$addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename]);
+            $juniorResult = $stmt->fetch(PDO::FETCH_COLUMN);
+            $juniorId = $conn->lastInsertId();
+
+            $stmt = $conn->prepare(SQL::$createAssociation);
+            $stmt->execute([$juniorId, $guardianId, $doctorId]);
+
+            if ($_POST['elementForVar1HiddenField'] == 1) {
+                $stmt = $conn->prepare(SQL::$createAssociation);
+                $stmt->execute([$juniorId, $guardianId2, $doctorId]);
+
         
 
             // header("Location: " . Utils::$projectFilePath . "/index.php");
+            }
         }
 
     }
@@ -530,7 +535,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     else{
         $genuineErr = "ERROR: Not all form inputs filled/correct!";
     }
-
 }
 
 function test_input($data) {

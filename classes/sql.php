@@ -82,6 +82,9 @@ class SQL {
   public static $createNewMember ="INSERT INTO simplyrugby.members (address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, filename)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+  public static $createNewJunior = "INSERT INTO simplyrugby.juniors(address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, health_issues, filename) 
+  VALUES (?,?,?,?,?,?,?,?,?,?)";
+
   public static $getJuniorSkills = "SELECT j.*, s.category, s.skill_name, js.skill_level, js.comment
   FROM simplyrugby.juniors j 
   LEFT JOIN simplyrugby.junior_skills js ON j.junior_id = js.junior_id 
@@ -105,6 +108,8 @@ class SQL {
   LEFT JOIN simplyrugby.player_positions pp ON pl.player_id = pp.player_id
   LEFT JOIN simplyrugby.positions p ON pp.position_id = p.position_id
   WHERE pl.player_id = ?";
+
+  public static $createAssociation = "INSERT INTO simplyrugby.junior_associations(junior_id, guardian_id, doctor_id) VALUES (?,?,?)";
 
   public static $assignUserId = "UPDATE %s SET user_id = ? WHERE email_address = ?";
 
