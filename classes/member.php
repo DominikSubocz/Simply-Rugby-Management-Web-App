@@ -32,7 +32,6 @@ class Member
   public static function getMember($bookId)
   {
     $conn = Connection::connect();
-
     $stmt = $conn->prepare(SQL::$getMember);
     $stmt->execute([$bookId]);
     $member = $stmt->fetch();
@@ -41,4 +40,15 @@ class Member
 
     return $member;
   }
+
+  public static function deleteMember ($bookId){
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$deleteMember);
+    $stmt->execute([$bookId]);
+
+    $conn = null;
+
+
+    }
 }

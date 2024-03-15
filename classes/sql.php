@@ -113,5 +113,15 @@ class SQL {
 
   public static $assignUserId = "UPDATE %s SET user_id = ? WHERE email_address = ?";
 
-  
+  public static $deleteJunior = "DELETE FROM juniors WHERE junior_id = ?";
+  public static $deleteJuniorAssociation = "DELETE FROM junior_associations WHERE junior_id = ?";
+  public static $deleteJuniorPosition = "DELETE FROM junior_positions WHERE junior_id = ?";
+  public static $deleteJuniorSkill = "DELETE FROM junior_skills WHERE junior_id = ?";
+
+  public static $deleteMember = "DELETE FROM members WHERE member_id = ?";
+
+  public static $deletePlayerSkill = "DELETE FROM player_skills WHERE player_id = ?";
+  public static $deletePlayerPosition = "DELETE FROM player_positions WHERE player_id = ?";
+  public static $deletePlayer = "DELETE FROM players WHERE player_id = ?";
+
 }

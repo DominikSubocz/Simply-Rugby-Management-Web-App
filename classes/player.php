@@ -69,5 +69,21 @@ class Book
     return $books;
   }
 
+  public static function deletePlayer($bookId){
+    $conn = Connection::connect();
+    $stmt = $conn->prepare(SQL::$deletePlayerSkill);
+    $stmt->execute([$bookId]);
+
+    $stmt = $conn->prepare(SQL::$deletePlayerPosition);
+    $stmt->execute([$bookId]);
+
+    $stmt = $conn->prepare(SQL::$deletePlayer);
+    $stmt->execute([$bookId]);
+
+    $conn = null;
+
+    
+  }
+
 
 }

@@ -2,9 +2,9 @@
 
 if(isset($_POST["confirmDelete"])){
 
+  Junior::deleteJunior($junior_id);
 
 
-  
 }
 
 

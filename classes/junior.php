@@ -84,4 +84,23 @@ class Junior
 
     return $juniors;
   }
+
+  public static function deleteJunior($bookId){
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$deleteJuniorAssociation);
+    $stmt->execute([$bookId]);
+
+    $stmt = $conn->prepare(SQL::$deleteJuniorPosition);
+    $stmt->execute([$bookId]);
+
+    $stmt = $conn->prepare(SQL::$deleteJuniorSkill);
+    $stmt->execute([$bookId]);
+
+    $stmt = $conn->prepare(SQL::$deleteJunior);
+    $stmt->execute([$bookId]);
+    $conn = null;
+
+
+  }
 }
