@@ -1,13 +1,50 @@
 <?php
+
 session_start();
 
 require("classes/components.php");
+require("classes/connection.php");
 require("classes/sql.php");
-require("classes/utils.php");
-require_once("classes/connection.php");
 
 
-// Define variables and initialize them
+$conn = Connection::connect();
+
+
+Components::pageHeader("Login", ["style"], ["mobile-nav"]);
+
+$bookId = $_GET["id"];
+
+require("classes/player.php");
+
+$book = Book::getBook($bookId);
+
+$playerFirstName = Utils::escape($book["first_name"]);
+$playerLastName = Utils::escape($book["last_name"]);
+
+$dobPlaceholder = Utils::escape($book["dob"]);
+$user_idPlaceholder = Utils::escape($book["user_id"]);
+$sruNumberPlaceholder = Utils::escape($book["sru_no"]);
+$contactNumberPlaceholder = Utils::escape($book["contact_no"]);
+$mobileNumberPlaceholder = Utils::escape($book["mobile_no"]);
+$emailAddressPlaceholder = Utils::escape($book["email_address"]);
+$healthIssuesPlaceholder = Utils::escape($book["health_issues"]);
+$filenamePlaceholder = Utils::escape($book["filename"]);
+$nextOfKinPlaceholder = Utils::escape($book["next_of_kin"]);
+$kinContactNumberPlaceholder = Utils::escape($book["kin_contact_no"]);
+
+$address1Placeholder = Utils::escape($book["address_line"]);
+$address2Placeholder = Utils::escape($book["address_line2"]);
+$cityPlaceholder = Utils::escape($book["city"]);
+$countyPlaceholder = Utils::escape($book["county"]);
+$postcodePlaceholder = Utils::escape($book["postcode"]);
+$doctorFirstNamePlaceholder = Utils::escape($book["doctor_first_name"]);
+$doctorLastNamePlaceholder = Utils::escape($book["doctor_last_name"]);
+$doctorContactPlaceholder = Utils::escape($book["doctor_contact_no"]);
+
+$phpdate = strtotime( $dobPlaceholder );
+$ukDobPlaceholder = date( 'd/m/Y', $phpdate );
+
+
 $nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $kinErr = $kinContactErr = $doctorNameErr = $doctorContactErr = "";
@@ -20,7 +57,6 @@ $name = $dob = $email = $website = $sru = $contactNo = $mobileNo = $healthIssues
 $firstName = $lastName = "";
 $address1 = $address2 = $city = $county = $postcode = "";
 $kin = $kinContact = $doctorName = $doctorContact = "";
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
@@ -204,14 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         if($existingUser){
-            $genuineErr = "ERROR: Player already exists!";
-        }
-
-        else{
-            // $_SESSION["successMessage"] = "Your message has been submitted successfully!";
-            // header("Location: success.php");
-            // exit();
-
+            var_dump("Updating player but not changing main");
         }
 
         $stmt = $conn->prepare(SQL::$addressExists);
@@ -220,12 +249,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if($existingAddress){
 
+
             $stmt = $conn->prepare(SQL::$getExistingAddressId);
             $stmt->execute([$address1, $address2, $city, $county, $postcode]);
             $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
         }
 
         else{
+
 
             $stmt = $conn->prepare(SQL::$createNewAddress);
             $stmt->execute([$address1, $address2, $city, $county, $postcode]);
@@ -273,12 +304,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
                 }
             }
-            $stmt = $conn->prepare(SQL::$createNewPlayer);
-            $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename]);
+            var_dump("Update Player");
         
         
 
-            header("Location: " . Utils::$projectFilePath . "/index.php");
+            var_dump(Book::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $bookId));
+            
         }
 
     }
@@ -297,51 +328,50 @@ function test_input($data) {
 }
 
 
-components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
-?>
 
+?>
 <main class="content-wrapper contact-content">
 
-<h2>Add New Player</h2>
+<h2>Update <?php echo $playerFirstName . ' '. $playerLastName; ?></h2>
 <form 
-method="post" 
-action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-enctype="multipart/form-data">
+    method="POST"
+    action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $book["player_id"];?>"
+    encypte="multipart/form-data">
 
   <p class="error"><?php echo $genuineErr;?></p><br>
 
   
   <div id="personal-details-form">
       <label for="name">Name:</label><br>
-      <input type="text" name="name" value="<?php echo $name;?>">
+      <input type="text" name="name" placeholder="<?php echo $playerFirstName. ' '. $playerLastName;?>" value="<?php echo $name;?>">
       <p class="error"><?php echo $nameErr;?></p><br>
 
       <label for="sru">SRU Number:</label><br>
-      <input type="text" name="sru" value="<?php echo $sru;?>">
+      <input type="text" name="sru" placeholder="<?php echo $sruNumberPlaceholder;?>" value="<?php echo $sru;?>">
       <p class="error"><?php echo $sruErr;?></p><br>
 
       <label for="dob">Date of Birth:</label><br>
-      <input type="text" name="dob" value="<?php echo $dob;?>">
+      <input type="text" name="dob" placeholder="<?php echo $ukDobPlaceholder;?>" value="<?php echo $dob;?>">
       <p class="error"><?php echo $dobErr;?></p><br>
 
       <label for="email">Email:</label><br>
-      <input type="text" name="email" value="<?php echo $email;?>">
+      <input type="text" name="email" placeholder="<?php echo $emailAddressPlaceholder;?>" value="<?php echo $email;?>">
       <p class="error"><?php echo $emailErr;?></p><br>
 
       <label for="contactNo">Contact Number:</label><br>
-      <input type="text" name="contactNo" value="<?php echo $contactNo;?>">
+      <input type="text" name="contactNo" placeholder="<?php echo $contactNumberPlaceholder;?>" value="<?php echo $contactNo;?>">
       <p class="error"><?php echo $contactNoErr;?></p><br>
 
       <label for="mobileNo">Mobile Number:</label><br>
-      <input type="text" name="mobileNo" value="<?php echo $mobileNo;?>">
+      <input type="text" name="mobileNo" placeholder="<?php echo $mobileNumberPlaceholder;?>" value="<?php echo $mobileNo;?>">
       <p class="error"><?php echo $mobileNoErr;?></p><br>
 
       <label for="healthIssues">Health Issues:</label><br>
-      <input type="text" name="healthIssues" value="<?php echo $healthIssues;?>">
+      <input type="text" name="healthIssues" placeholder="<?php echo $healthIssuesPlaceholder;?>" value="<?php echo $healthIssues;?>">
       <p class="error"><?php echo $healthIssuesErr;?></p><br>
 
       <label>Profile image</label>
-      <input type="file" name="profileImage" value="">
+      <input type="file" name="profileImage"  value="">
       <p class="error"><?php echo $profileImageErr;?></p><br>
 
 
@@ -350,24 +380,24 @@ enctype="multipart/form-data">
 
   <div id="address-details-form" class="add-form-section">
     <label for="address1">Address Line 1:</label><br>
-        <input type="text" name="address1" value="<?php echo $address1;?>">
+        <input type="text" name="address1" placeholder="<?php echo $address1Placeholder;?>" value="<?php echo $address1;?>">
         <p class="error"><?php echo $address1Err;?></p><br>
 
     <label for="address2">Address Line 2:</label><br>
-        <input type="text" name="address2" value="<?php echo $address2;?>">
+        <input type="text" name="address2" placeholder="<?php echo $address2Placeholder;?>" value="<?php echo $address2;?>">
         <p class="error"><?php echo $address2Err;?></p><br>   
 
     <label for="city">City:</label><br>
-        <input type="text" name="city" value="<?php echo $city;?>">
+        <input type="text" name="city" placeholder="<?php echo $cityPlaceholder;?>" value="<?php echo $city;?>">
         <p class="error"><?php echo $cityErr;?></p><br>  
 
     <label for="county">County:</label><br>
-        <input type="text" name="county" value="<?php echo $county;?>">
+        <input type="text" name="county" placeholder="<?php echo $countyPlaceholder;?>" value="<?php echo $county;?>">
         <p class="error"><?php echo $countyErr;?></p><br>  
 
     <label for="postcode">Postcode:</label><br>
-        <input type="text" name="postcode" value="<?php echo $postcode;?>">
-        <p class="error"><?php echo $postcodeErr;?></p><br>  
+        <input type="text" name="postcode" placeholder="<?php echo $postcodePlaceholder;?>" value="<?php echo $postcode;?>">
+        <p class="error"><?php echo  $postcodeErr;?></p><br>  
         <div>
             <input type="button" value="Previous" onclick="prevTab()">
             <input type="button" value="Next" onclick="nextTab()">
@@ -377,11 +407,11 @@ enctype="multipart/form-data">
 
  <div id="kin-details-form" class="add-form-section">
     <label for="kin">Next of Kin:</label><br>
-        <input type="text" name="kin" value="<?php echo $kin;?>">
+        <input type="text" name="kin" placeholder="<?php echo $nextOfKinPlaceholder;?>" value="<?php echo $kin;?>">
         <p class="error"><?php echo $kinErr;?></p><br>
 
     <label for="kinContact">Contact Number:</label><br>
-        <input type="text" name="kinContact" value="<?php echo $kinContact;?>">
+        <input type="text" name="kinContact" placeholder="<?php echo $kinContactNumberPlaceholder;?>" value="<?php echo $kinContact;?>">
         <p class="error"><?php echo $kinContactErr;?></p><br>   
         <div>
             <input type="button" value="Previous" onclick="prevTab()">
@@ -391,11 +421,11 @@ enctype="multipart/form-data">
 
  <div id="doctor-details-form">
     <label for="doctorName">Doctor Name:</label><br>
-        <input type="text" name="doctorName" value="<?php echo $doctorName;?>">
+        <input type="text" name="doctorName" placeholder="<?php echo $doctorFirstNamePlaceholder. ' '. $doctorLastNamePlaceholder;?>" value="<?php echo $doctorName;?>">
         <p class="error"><?php echo $doctorNameErr;?></p><br>
 
     <label for="doctorContact">Contact Number:</label><br>
-        <input type="text" name="doctorContact" value="<?php echo $doctorContact;?>">
+        <input type="text" name="doctorContact" placeholder="<?php echo $doctorContactPlaceholder;?>" value="<?php echo $doctorContact;?>">
         <p class="error"><?php echo $doctorContactErr;?></p><br>   
         <input type="button" value="Previous" onclick="prevTab()">
  </div>

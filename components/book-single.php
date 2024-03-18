@@ -17,7 +17,7 @@ if(isset($_POST["confirmDelete"])){
           action="">
 
           <input type="submit" id="deleteBtn" class="danger" value="Delete">  
-          <input type="submit" id="updateBtn" class="button" value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
+          <a href="update-player.php?id=<?php echo $player_id; ?>" name="updateRedirect" class="button"><?php echo 'Update ', $firstName, ' ', $lastName; ?></a>
       </div>
   </div>
 
@@ -108,21 +108,6 @@ if(isset($_POST["confirmDelete"])){
 
 </div>
 
-<div id="updateModal" class="modal">
-
-<!-- Modal content -->
-<div class="modal-content">
-  <span class="close">&times;</span>
-  <p><?php echo 'Are you sure you want to delete: ', $firstName, ' ', $lastName; ?>?</p>
-  <form 
-        method="post" 
-        action="">
-
-        <input type="submit" id="cancel" class="button" value="Update"> 
-</div>
-
-</div>
-
 <script>
 var modal = document.getElementById("myModal");
 var updateModal = document.getElementById("updateModal");
@@ -133,20 +118,9 @@ var delBtn = document.getElementById("deleteBtn");
 
 var cancelBtn = document.getElementById("cancel");
 
-var updateBtn = document.getElementById("updateBtn");
-
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-var span2 = document.getElementsByClassName("close")[1];
-
-
-  // When the user clicks on the button, open the modal
-updateBtn.onclick = function(event) {
-  // Prevent the default form submission action
-  event.preventDefault();
-  updateModal.style.display = "block";
-}
 
 // When the user clicks on the button, open the modal
 delBtn.onclick = function(event) {
@@ -165,11 +139,6 @@ cancelBtn.onclick = function(event) {
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
-}
-
-
-span2.onclick = function() {
-  updateModal.style.display = "none";
 }
 
 

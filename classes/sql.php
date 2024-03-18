@@ -31,6 +31,9 @@ class SQL {
   public static $getBook = "SELECT p.*, a.*, d.* FROM simplyrugby.players p LEFT JOIN simplyrugby.addresses a ON p.address_id = a.address_id LEFT JOIN simplyrugby.doctors d ON p.doctor_id = d.doctor_id WHERE p.player_id = ?";
   public static $getUser = "SELECT user_id, username, password, user_role FROM users WHERE username = ?";
   public static $createUser = "INSERT INTO users (username, email, password, user_role) VALUES (?,?,?,?)";
+  public static $updatePlayer = "UPDATE simplyrugby.players
+  SET address_id = ?, doctor_id = ?, first_name = ?, last_name = ?, dob = ?, sru_no = ?, contact_no = ?, mobile_no = ?, email_address = ?, next_of_kin = ?, kin_contact_no = ?, health_issues = ?, filename = ?
+  WHERE player_id = ?";
 
 
   public static $playerExists = "SELECT * FROM simplyrugby.players 

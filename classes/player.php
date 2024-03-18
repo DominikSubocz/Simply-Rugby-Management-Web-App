@@ -85,5 +85,16 @@ class Book
     
   }
 
+  public static function updatePlayer($address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $bookId){
+    $conn = Connection::connect();
+    $stmt = $conn->prepare(SQL::$updatePlayer);
+    $stmt->execute([$address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $bookId]);
+
+    $conn = null;
+
+
+
+  }
+
 
 }
