@@ -51,4 +51,15 @@ class Member
 
 
     }
+
+  public static function updateMember($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $filename, $memberId){
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$updateMember);
+    $stmt->execute([$address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $filename, $memberId]);
+
+
+    $conn = null;
+
+  }
 }

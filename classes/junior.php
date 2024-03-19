@@ -103,4 +103,19 @@ class Junior
 
 
   }
+
+  public static function updateJunior($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId){
+    $conn = Connection::connect();
+    $stmt = $conn->prepare(SQL::$updateJunior);
+    $stmt->execute([$address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId]);
+    $conn = null;
+  }
+
+  public static function updateJuniorAssociation($guardianId, $doctorId, $juniorId){
+    $conn = Connection::connect();
+    $stmt = $conn->prepare(SQL::$updateJuniorAssociations);
+    $stmt->execute([$guardianId, $doctorId, $juniorId]);
+    $conn = null;
+
+  }
 }

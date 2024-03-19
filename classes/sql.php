@@ -35,6 +35,17 @@ class SQL {
   SET address_id = ?, doctor_id = ?, first_name = ?, last_name = ?, dob = ?, sru_no = ?, contact_no = ?, mobile_no = ?, email_address = ?, next_of_kin = ?, kin_contact_no = ?, health_issues = ?, filename = ?
   WHERE player_id = ?";
 
+  public static $updateJunior = "UPDATE simplyrugby.juniors
+  SET address_id = ?, first_name = ?, last_name = ?, dob = ?, sru_no = ?, contact_no = ?, mobile_no = ?, email_address = ?, health_issues = ?, filename = ?
+  WHERE junior_id = ?";
+
+  public static $updateJuniorAssociations = "UPDATE simplyrugby.junior_associations
+  SET guardian_id = ?, doctor_id = ?
+  WHERE junior_id = ?";
+
+  public static $updateMember = "UPDATE simplyrugby.members
+  SET address_id = ?, first_name = ?, last_name = ?, dob = ?, sru_no = ?, contact_no = ?, mobile_no = ?, email_address = ?, filename = ?
+  WHERE member_id = ?";
 
   public static $playerExists = "SELECT * FROM simplyrugby.players 
   WHERE first_name = ? AND last_name = ? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";

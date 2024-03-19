@@ -22,7 +22,7 @@ $playerFirstName = Utils::escape($book["first_name"]);
 $playerLastName = Utils::escape($book["last_name"]);
 
 $dobPlaceholder = Utils::escape($book["dob"]);
-$user_idPlaceholder = Utils::escape($book["user_id"]);
+$user_idPlaceholder = Utils::escape($book["user_id"]); // Might implement update for that later
 $sruNumberPlaceholder = Utils::escape($book["sru_no"]);
 $contactNumberPlaceholder = Utils::escape($book["contact_no"]);
 $mobileNumberPlaceholder = Utils::escape($book["mobile_no"]);
@@ -239,9 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $existingUser = $stmt->fetch();
 
 
-        if($existingUser){
-            var_dump("Updating player but not changing main");
-        }
+
 
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
@@ -286,6 +284,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
         }
 
+
+
         if(empty($genuineErr)){
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
@@ -303,12 +303,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
                     $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
                 }
-            }
-            var_dump("Update Player");
-        
+            }        
         
 
-            var_dump(Book::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $bookId));
+            Book::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $bookId);
             
         }
 
