@@ -123,6 +123,9 @@ class SQL {
   LEFT JOIN simplyrugby.positions p ON pp.position_id = p.position_id
   WHERE pl.player_id = ?";
 
+  public static $createEvent = "INSERT INTO events (squad_id, name, opposition, start, end, location, kickoff_time, result, score) 
+  VALUES (:squad_id, :name, :opposition, :start, :end, :location, :kickoff_time, :result, :score)";
+
   public static $createAssociation = "INSERT INTO simplyrugby.junior_associations(junior_id, guardian_id, doctor_id) VALUES (?,?,?)";
 
   public static $assignUserId = "UPDATE %s SET user_id = ? WHERE email_address = ?";

@@ -158,6 +158,23 @@ CREATE TABLE simplyrugby.player_positions (
   FOREIGN KEY (player_id) REFERENCES simplyrugby.players (player_id)
 );
 
+CREATE TABLE simplyrugby.games(
+  game_id INT PRIMARY KEY AUTO_INCREMENT,
+  squad_id INT NOT NULL,
+  name varchar(128) NOT NULL,
+  opposition_team varchar(45) NOT NULL,
+  start DATETIME NOT NULL,
+  end DATETIME NOT NULL,
+  location varchar(128) NOT NULL,
+  kickoff_time TIME NOT NULL,
+  result varchar(15),
+  score INT,
+  color VARCHAR(30),
+  FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
+);
+
+
+
 INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
 VALUES 
 ('456 Rugby St', 'Apt 3', 'Sportstown', 'Gameshire', 'SG11 3AA'),

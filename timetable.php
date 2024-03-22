@@ -1,6 +1,8 @@
 <?php
 
 require("classes/components.php");
+require("classes/calendar.php");
+
 
 session_start();
 Components::pageHeader("Timetable", ["style"], ["mobile-nav"]);
@@ -140,9 +142,20 @@ Components::pageHeader("Timetable", ["style"], ["mobile-nav"]);
 
       const form = [
         {name: "Name", id: "text"},
+        {name: "Squad", id:"squad"},
+        {name: "Opposition", id: "opposition"},
         {name: "Start", id: "start", dateFormat: "MMMM d, yyyy h:mm tt", disabled: true},
-        {name: "End", id: "end", dateFormat: "MMMM d, yyyy h:mm tt", disabled: true},
+        {name: "End", id: "end", dateFormat: "MMMM d, yyyy h:mm tt", disabled: true},        
+        {name: "Location", id:"location"},
+        {name: "Kickoff Time", id:"kickoff", dateFormat: "h:mm tt", disabled: true},
+        {name: "Result", id:"result" },
+        {name: "Score", id:"score"}
       ];
+
+
+  // result varchar(15),
+  // score INT,
+  // FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
 
       const data = {
         start: args.start,
@@ -185,7 +198,7 @@ Components::pageHeader("Timetable", ["style"], ["mobile-nav"]);
     selectedClass: "selected-button",
     onChanged: args => {
       console.log("onChanged fired");
-      switcher.events.load("calendar_events.php");
+      switcher.events.load("components/calendar_events.php");
     }
   });
 

@@ -946,7 +946,8 @@ input.invalid {
 }
 
 .calendar-container{
-  display:flex
+  display:flex;
+  flex-direction: column;
 }
 
 .calendar-wrapper{
@@ -957,6 +958,9 @@ input.invalid {
 .buttonMonth{
   display: none;
 }
+
+
+
 
 .icon-blue:before { background-color: #3d85c6; }
 .icon-green:before { background-color: #6aa84f; }
@@ -974,6 +978,17 @@ input.invalid {
     justify-content: center;
     font-size: 14px;
 }
+
+.calendar_default_colheader_inner {
+  font-size: 9px;
+}
+
+.calendar_default_rowheader_inner{
+  font-size: 13px;
+}
+
+
+
 
 
   
