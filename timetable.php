@@ -182,7 +182,7 @@ Components::pageHeader("Timetable", ["style"], ["mobile-nav"]);
     };
 
     dp.onEventClick = args => {
-      DayPilot.Modal.alert(args.e.data.text);
+      DayPilot.Modal.alert(["Title: ", args.e.data.text, "<br>", "Start Date: ",  args.e.data.start , "<br>", "End Date: ",  args.e.data.end, "<br>", "Squad ID: ",  args.e.data.squad, "<br>", "Opposition Team: ", args.e.data.opposition, "<br>", "Location: ", args.e.data.location, "<br>", "Kickoff Time: ", args.e.data.kickoff, "<br>", "Result: ", args.e.data.result, "<br>", "Score: ", args.e.data.score]);
     };
   }
 

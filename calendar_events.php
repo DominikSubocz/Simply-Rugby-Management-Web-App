@@ -24,6 +24,12 @@ foreach($result as $row) {
   $e = new Event();
   $e->id = $row['game_id'];
   $e->text = $row['name'];
+  $e->squad = $row['squad_id'];
+  $e->opposition = $row['opposition_team'];
+  $e->location = $row['location'];
+  $e->kickoff = $row['kickoff_time'];
+  $e->result = $row['result'];
+  $e->score = $row['score'];
   $e->start = $row['start'];
   $e->end = $row['end'];
   $e->backColor = $row['color'];
