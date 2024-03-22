@@ -42,7 +42,8 @@
 
           if(isset($_SESSION["loggedIn"])){
             if($_SESSION["user_role"] === "Admin"){
-              echo "<div class='dropdown'>
+              echo "<li><a href='index.php'>Dashboard</a></li>
+              <div class='dropdown'>
               <button class='dropBTN'>Member Management ▼</button>
               <div class='dropdown-content'>
 
@@ -50,8 +51,10 @@
               <li><a href='book-list.php'>Players</a></li>
               <li><a href='add-book.php'>Add Player</a></li>
               <li><a href='junior-list.php'>Junior Players</a></li>
+              <li><a href='add-junior.php'>Add Junior Player</a></li>
               <li><a href='member-list.php'>Members</a></li>
               <li><a href='add-member.php'>Add Member</a></li>
+              
               </div>
               </div>";
             }

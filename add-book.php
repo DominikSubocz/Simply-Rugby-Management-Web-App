@@ -207,13 +207,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $genuineErr = "ERROR: Player already exists!";
         }
 
-        else{
-            // $_SESSION["successMessage"] = "Your message has been submitted successfully!";
-            // header("Location: success.php");
-            // exit();
-
-        }
-
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
         $existingAddress = $stmt->fetch();
@@ -278,7 +271,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         
 
-            header("Location: " . Utils::$projectFilePath . "/index.php");
+            header("Location: " . Utils::$projectFilePath . "/book-list.php");
         }
 
     }

@@ -199,8 +199,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: " . Utils::$projectFilePath . "/success.php");
             }
 
+            else{
+                header("Location: " . Utils::$projectFilePath . "/member-list.php");
+            }
+
 
         }
+
+
 
 
 

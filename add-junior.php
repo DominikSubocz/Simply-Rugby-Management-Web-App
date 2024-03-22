@@ -526,9 +526,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         
 
-            // header("Location: " . Utils::$projectFilePath . "/index.php");
             }
         }
+
+        header("Location: " . Utils::$projectFilePath . "/junior-list.php");
+
 
     }
 
@@ -543,22 +545,6 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
-
-// TO DO:
-
-// 1. Check if player's personal details (name, sru, dob, contact details) are 100% identical with any record in database
-// If it matches 100% throw error: "player already exists"
-// 2. Check if address is already in database, if 100% match just assign the new player with existing address id and don't add new address. Else add new doctor.
-// 3. Not rly much for next of kin, after all they don't have a table so idk.
-// 4. Check if doctor is already in database, if 100% match just assign the new player with existing doctor id and don't add new address. Else add new doctor.
-
-// TO DO:
-
-// 1. Check if player's personal details (name, sru, dob, contact details) are 100% identical with any record in database
-// If it matches 100% throw error: "player already exists"
-// 2. Check if address is already in database, if 100% match just assign the new player with existing address id and don't add new address. Else add new doctor.
-// 3. Not rly much for next of kin, after all they don't have a table so idk.
-// 4. Check if doctor is already in database, if 100% match just assign the new player with existing doctor id and don't add new address. Else add new doctor.
 
 
 components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
