@@ -6,7 +6,7 @@ $params = json_decode($json);
 
 $conn = Connection::connect();
 
-$insert = "INSERT INTO games (name, squad, opposition, start, end, location, kickoff, result, score ) VALUES (:name, :squad, :opposition, :start, :end, :location, :kickoff, :result, :score)";
+$insert = "INSERT INTO games (name, squad_id, opposition_team, start, end, location, kickoff_time, result, score ) VALUES (:name, :squad, :opposition, :start, :end, :location, :kickoff, :result, :score)";
 
 $stmt = $conn->prepare($insert);
 

@@ -1,8 +1,6 @@
 <?php
 
 require("classes/components.php");
-require("classes/calendar.php");
-
 
 session_start();
 Components::pageHeader("Timetable", ["style"], ["mobile-nav"]);
@@ -198,7 +196,7 @@ Components::pageHeader("Timetable", ["style"], ["mobile-nav"]);
     selectedClass: "selected-button",
     onChanged: args => {
       console.log("onChanged fired");
-      switcher.events.load("components/calendar_events.php");
+      switcher.events.load("calendar_events.php");
     }
   });
 
