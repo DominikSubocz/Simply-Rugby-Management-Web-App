@@ -3,8 +3,14 @@ session_start();
 require("classes/components.php");
 require("classes/utils.php");
 
-// Default heading
-$heading = "Success!"; 
+$message = "Success!"; 
+
+Components::blankPageHeader("Success", ["style"], ["mobile-nav"]);
+
+if(!isset($_SESSION["loggedIn"])){
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+
+}
 
 if (isset($_SESSION["successMessage"])) {
     $message = $_SESSION["successMessage"];
@@ -20,8 +26,8 @@ if (isset($_SESSION["successMessage"])) {
       }
 
       if(isset($_SESSION["newMember"])){
-        unset($_SESSION["newMember"]);
         header("Location: " . Utils::$projectFilePath . "/logout.php");
+        unset($_SESSION["newMember"]);
       }
 
       else{
@@ -32,21 +38,11 @@ if (isset($_SESSION["successMessage"])) {
 
 
 }
-
-// Include success page content
 ?>
-
-<head>
-
-<link rel="stylesheet" href="css/style.css">
-
-
-</head>
 
 <div class="success-content">
     <img src="images/tick.gif" alt="Animated green tick" class="animated-tick-icon">
     <h2><?php echo $message; ?></h2>
-    <p>Return to <a href="pet-list.php">home page</a>.</p>
 
 </div>
 

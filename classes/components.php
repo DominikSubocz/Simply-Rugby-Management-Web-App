@@ -12,6 +12,11 @@ class Components {
     require("components/header.php");
   }
 
+  public static function blankPageHeader($pageTitle, $stylesheets, $scripts) {
+    require("components/header-blank.php");
+  }
+
+
   /**
    * Output a standard page footer.
    */

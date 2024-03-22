@@ -616,6 +616,17 @@ input.invalid {
     flex-direction: column;
   }
 
+  .success-content{
+    position:absolute;
+    left:0;
+    right: 0;
+    top:25vh;
+    bottom:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 }
 
 @media screen and (min-width:320px){
@@ -863,6 +874,27 @@ input.invalid {
   .form{
     display: flex;
     flex-direction: column;
+  }
+
+  .success-content{
+    position:absolute;
+    left:0;
+    right: 0;
+    top:25vh;
+    bottom:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .success-content .animated-tick-icon{
+    width: 250px;
+  }
+
+  .success-content h2{
+    font-size: 28px;
+    margin:0;
+    
   }
   
 
