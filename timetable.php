@@ -1,92 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>HTML5/JavaScript Calendar with Day/Week/Month Views (PHP, MySQL)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style type="text/css">
-    p, body, td, input, select, button { font-family: -apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size: 14px; }
-    body { padding: 0px; margin: 0px; background-color: #ffffff; }
-    a { color: #1155a3; }
-    .space { margin: 10px 0px 10px 0px; }
-    .header { background: #003267; background: linear-gradient(to right, #011329 0%,#00639e 44%,#011329 100%); padding:20px 10px; color: white; box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75); }
-    .header a { color: white; }
-    .header h1 a { text-decoration: none; }
-    .header h1 { padding: 0px; margin: 0px; }
-    .main { padding: 10px; margin-top: 10px; }
-  </style>
+<?php
 
-  <style>
-      .toolbar {
-          margin-bottom: 10px;
-      }
+require("classes/components.php");
 
-      .toolbar-item a {
-          background-color: #fff;
-          border: 1px solid #c0c0c0;
-          color: #333;
-          padding: 8px 0px;
-          width: 80px;
-          border-radius: 2px;
-          cursor: pointer;
-          display: inline-block;
-          text-align: center;
-          text-decoration: none;
-      }
+session_start();
+Components::pageHeader("Timetable", ["style"], ["mobile-nav"]);
 
-      .toolbar-item a.selected-button {
-          background-color: #f3f3f3;
-          color: #000;
-      }
+?>
 
-      /* context menu icons */
-      .icon:before {
-          position: absolute;
-          margin-left: 0px;
-          margin-top: 3px;
-          width: 14px;
-          height: 14px;
-          content: '';
-      }
-
-      .icon-blue:before { background-color: #3d85c6; }
-      .icon-green:before { background-color: #6aa84f; }
-      .icon-orange:before { background-color: #e69138; }
-      .icon-red:before { background-color: #cc4125; }
-
-      /* active areas */
-      .area-menu-icon {
-          background-color: #333333;
-          box-sizing: border-box;
-          border-radius: 10px;
-          opacity: 0.7;
-          color: white;
-          display: flex;
-          justify-content: center;
-          font-size: 14px;
-      }
-  </style>
-
-  <!-- DayPilot library -->
-  <script src="js/daypilot/daypilot-all.min.js"></script>
-
-</head>
 <body>
-<div class="header">
-  <h1><a href='https://code.daypilot.org/27988/html5-calendar-with-day-week-month-views-javascript-php'>HTML5/JavaScript Calendar with Day/Week/Month Views (PHP, MySQL)</a></h1>
-  <div><a href="https://javascript.daypilot.org/">DayPilot for JavaScript</a> - HTML5 Calendar/Scheduling Components for JavaScript/Angular/React/Vue</div>
-</div>
 
 <div class="main">
-  <div style="display:flex">
-    <div style="">
+  <div class="calendar-container">
+    <div>
       <div id="nav"></div>
     </div>
-    <div style="flex-grow: 1; margin-left: 10px;">
+    <div class="calendar-wrapper">
       <div class="toolbar buttons">
-        <span class="toolbar-item"><a id="buttonDay" href="#">Day</a></span>
-        <span class="toolbar-item"><a id="buttonWeek" href="#">Week</a></span>
-        <span class="toolbar-item"><a id="buttonMonth" href="#">Month</a></span>
+        <span class="toolbar-item"><a class="button" id="buttonDay" href="#">Day</a></span>
+        <span class="toolbar-item"><a class="button" id="buttonWeek" href="#">Week</a></span>
+        <span class="toolbar-item"><a class="button" id="buttonMonth" href="#">Month</a></span>
       </div>
       <div id="dpDay"></div>
       <div id="dpWeek"></div>
