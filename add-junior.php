@@ -671,7 +671,7 @@ enctype="multipart/form-data">
         <input type="text" name="guardianPostcode1" value="<?php echo $guardianPostcode1;?>">
         <p class="error"><?php echo $guardianPostcode1Err;?></p><br>  
 
-        <div id="second-guardian-form">
+    <div id="second-guardian-form">
             <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
             <label for="guardianName">Guardian's name:</label><br>
             <input type="text" name="guardianName2" value="<?php echo $guardianName2;?>">
@@ -704,11 +704,9 @@ enctype="multipart/form-data">
         <label for="guardianPostcode2">Postcode:</label><br>
             <input type="text" name="guardianPostcode2" value="<?php echo $guardianPostcode2;?>">
             <p class="error"><?php echo $guardianPostcode2Err;?></p><br>  
-        </div>
+    </div>
 
 
-
-        
 
 
         <div>

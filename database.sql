@@ -173,6 +173,17 @@ CREATE TABLE simplyrugby.games(
   FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
 );
 
+CREATE TABLE simplyrugby.sessions(
+  session_id INT PRIMARY KEY AUTO_INCREMENT,
+  coach_id INT NOT NULL,
+  squad_id INT NOT NULL,
+  start DATETIME NOT NULL,
+  end DATETIME NOT NULL,
+  location varchar(128) NOT NULL,
+  FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
+
+);
+
 
 
 INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
