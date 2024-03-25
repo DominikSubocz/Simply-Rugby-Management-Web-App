@@ -177,13 +177,30 @@ CREATE TABLE simplyrugby.sessions(
   session_id INT PRIMARY KEY AUTO_INCREMENT,
   coach_id INT NOT NULL,
   squad_id INT NOT NULL,
+  name varchar(128) NOT NULL,
   start DATETIME NOT NULL,
   end DATETIME NOT NULL,
   location varchar(128) NOT NULL,
+  FOREIGN KEY (coach_id) REFERENCES simplyrugby.coaches (coach_id),
   FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
-
 );
 
+CREATE TABLE simplyrugby.coaches(
+  coach_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  first_name  varchar(32) NOT NULL,
+  last_name  varchar(32) NOT NULL,
+  dob DATE,
+  contact_no  varchar(40) NOT NULL,
+  mobile_no  varchar(40),
+  email_address varchar(45),
+  FOREIGN KEY (user_id) REFERENCES simplyrugby.users (user_id)
+);
+
+INSERT INTO simplyrugby.coaches (first_name, last_name, dob, contact_no, mobile_no, email_address) 
+VALUES 
+('John', 'Doe', '1990-05-15', '123456789', '987654321', 'john.doe@example.com'),
+('Alice', 'Smith', '1985-10-20', '987654321', NULL, 'alice.smith@example.com');
 
 
 INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)

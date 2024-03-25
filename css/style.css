@@ -12,6 +12,11 @@ body, button, input, textarea, select {
   font-size: 16px;
 }
 
+.required{
+  color: #cc4125;
+  margin-right: 5px;
+}
+
 .button {
   background-color: orange;
   color: black;
@@ -989,9 +994,17 @@ input.invalid {
 
 
 
-
-
   
+}
+
+@media screen and (min-width:650px){
+  .timetable-container{
+    display: flex;
+  }
+
+  .calendar-container{
+    margin-left: 25px;
+  }
 }
 
 @media screen and (max-width:949px){
@@ -1035,6 +1048,7 @@ input.invalid {
   .content-wrapper {
     width: 900px;
   }
+  
 
   .main-content {
     padding: 0;
@@ -1473,6 +1487,9 @@ input.invalid {
     background: white;
   }
 
+  #game-form, #training-form{
+    width: 350px;
+  }
   
 
 
