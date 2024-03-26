@@ -131,8 +131,10 @@ class SQL {
   LEFT JOIN simplyrugby.positions p ON pp.position_id = p.position_id
   WHERE pl.player_id = ?";
 
-  public static $createEvent = "INSERT INTO events (squad_id, name, opposition, start, end, location, kickoff_time, result, score) 
-  VALUES (:squad_id, :name, :opposition, :start, :end, :location, :kickoff_time, :result, :score)";
+  public static $getEvents = "SELECT session_id AS id, 'session_id' AS type, name, start, end, location FROM simplyrugby.sessions 
+  UNION 
+  SELECT game_id AS id, 'game_id' AS type, name, start, end, location FROM simplyrugby.games;
+  ";
 
   public static $createAssociation = "INSERT INTO simplyrugby.junior_associations(junior_id, guardian_id, doctor_id) VALUES (?,?,?)";
 
@@ -148,5 +150,8 @@ class SQL {
   public static $deletePlayerSkill = "DELETE FROM player_skills WHERE player_id = ?";
   public static $deletePlayerPosition = "DELETE FROM player_positions WHERE player_id = ?";
   public static $deletePlayer = "DELETE FROM players WHERE player_id = ?";
+
+
+  public static $getSingleGame = "SELECT * FROM simplyrugby.games WHERE game_id = ?";
 
 }

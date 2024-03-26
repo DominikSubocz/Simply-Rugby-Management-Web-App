@@ -4,6 +4,8 @@ session_start();
 require("classes/components.php");
 require("classes/connection.php");
 require("classes/sql.php");
+require("classes/events.php");
+require("classes/utils.php");
 
 Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
 
@@ -55,9 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $start = test_input($_POST["start"]);
 
         
-        $startTemp = DateTime::createFromFormat('Y-m-d', $start);
-
-        $sqlStart = $startTemp->format('Y-m-d');
+        $sqlStart = date('Y-m-d H:i:sa', strtotime($start));
     }
 
     if (empty($_POST["end"])) {
@@ -65,9 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $end = test_input($_POST["end"]);
 
-        $endTemp = DateTime::createFromFormat('Y-m-d', $end);
+        $sqlEnd = date('Y-m-d H:i:sa', strtotime($end));
 
-        $sqlEnd = $endTemp->format('Y-m-d');
     }
 
     // Location validation
@@ -153,9 +152,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $trainingStart = test_input($_POST["trainingStart"]);
         
-        $trainingStartTemp = DateTime::createFromFormat('Y-m-d', $trainingStart);
+        $sqlTrainingStart = date('Y-m-d H:i:sa', strtotime($trainingStart));
 
-        $sqlTrainingStart = $trainingStartTemp->format('Y-m-d');
 
     }
 
@@ -164,9 +162,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $trainingEnd = test_input($_POST["trainingEnd"]);
 
-        $trainingEndTemp = DateTime::createFromFormat('Y-m-d', $trainingEnd);
+        $sqlTrainingEnd = date('Y-m-d H:i:sa', strtotime($trainingEnd));
 
-        $sqlTrainingEnd = $trainingEndTemp->format('Y-m-d');
 
     }
 
@@ -274,11 +271,11 @@ function test_input($data) {
         <p class="error"><?php echo $oppisitionErr;?></p><br>
   
         <label for="guardianName"><span class="required">*</span>Start Date:</label><br>
-        <input type="date" id="start" name="start" >
+        <input type="datetime-local" id="start" name="start" >
         <p class="error"><?php echo $startErr;?></p><br>
   
         <label for="guardianName"><span class="required">*</span>End Date:</label><br>
-        <input type="date" id="end" name="end" >
+        <input type="datetime-local" id="end" name="end" >
         <p class="error"><?php echo $endErr;?></p><br>
   
         <label for="guardianName"><span class="required">*</span>Location:</label><br>
@@ -316,11 +313,11 @@ function test_input($data) {
   
   
         <label for="guardianName">Start Date:</label><br>
-        <input type="date" id="trainingStart" name="trainingStart"  >
+        <input type="datetime-local" id="trainingStart" name="trainingStart"  >
         <p class="error"><?php echo $trainingStartErr;?></p><br>
   
         <label for="guardianName">End Date:</label><br>
-        <input type="date" id="trainingEnd" name="trainingEnd"  >
+        <input type="datetime-local" id="trainingEnd" name="trainingEnd"  >
         <p class="error"><?php echo $trainingEndErr;?></p><br>
   
   
@@ -340,47 +337,28 @@ function test_input($data) {
   <div class="calendar-container">
     <table>
       <tr>
-        <th>Company</th>
-        <th>Contact</th>
-        <th>Country</th>
+
+        <th>Name</th>
+        <th>Type</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Location</th>
+
+
       </tr>
-      <tr>
-        <td>Alfreds Futterkiste</td>
-        <td>Maria Anders</td>
-        <td>Germany</td>
-      </tr>
-      <tr>
-        <td>Centro comercial Moctezuma</td>
-        <td>Francisco Chang</td>
-        <td>Mexico</td>
-      </tr>
-      <tr>
-        <td>Ernst Handel</td>
-        <td>Roland Mendel</td>
-        <td>Austria</td>
-      </tr>
-      <tr>
-        <td>Island Trading</td>
-        <td>Helen Bennett</td>
-        <td>UK</td>
-      </tr>
-      <tr>
-        <td>Laughing Bacchus Winecellars</td>
-        <td>Yoshi Tannamuri</td>
-        <td>Canada</td>
-      </tr>
-      <tr>
-        <td>Magazzini Alimentari Riuniti</td>
-        <td>Giovanni Rovelli</td>
-        <td>Italy</td>
-      </tr>
+      <?php
+
+        $events = Events::getAllEvents();
+        Components::allEvents($events);
+
+        ?>
+
     </table>
   </div>
-</div>
-
 
 
 <script>
+
   const gForm = document.getElementById("game-form");
   const tForm = document.getElementById("training-form");
 

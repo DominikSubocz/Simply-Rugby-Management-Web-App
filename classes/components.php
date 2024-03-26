@@ -423,4 +423,62 @@ class Components {
       require("components/no-single-book-found.php");
     }
   }
+
+  public static function allEvents($events){
+    if (!empty($events)) {
+      // Output a book card for each book in the $books array
+      foreach ($events as $event) {
+
+        $type = Utils::escape($event["type"]); // Retrieve the type of event
+
+        if($type == "game_id"){
+          $eventType = "Game";
+          $pageType = "game";
+
+        } else {
+          $eventType = "Training Session";
+          $pageType = "session";
+        }
+
+        $eventId = Utils::escape($event["id"]);
+
+        $name = Utils::escape($event["name"]);
+        $startDate = Utils::escape($event["start"]);
+        $endDate = Utils::escape($event["end"]);
+        $location = Utils::escape($event["location"]);
+
+
+
+        require("components/event-card.php");
+      }
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-books-found.php");
+    }
+  }
+
+  public static function singleGame($game)
+  {
+    if (!empty($game)) {
+      $squadId = Utils::escape($game["squad_id"]);
+      $gameName = Utils::escape($game["name"]);
+      $oppositionName = Utils::escape($game["opposition_team"]);
+      $gameStart = Utils::escape($game["start"]);
+      $gameEnd = Utils::escape($game["end"]);
+      $gameLocation = Utils::escape($game["location"]);
+      $gameKickoff = Utils::escape($game["kickoff_time"]);
+      $gameResult = Utils::escape($game["result"]);
+      $gameScore = Utils::escape($game["score"]);
+
+
+
+
+
+      // Output information on a single book
+      require("components/game-single.php");
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-single-book-found.php");
+    }
+  }
 }

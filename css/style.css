@@ -398,6 +398,11 @@ input.invalid {
   color: #fff;
 }
 
+.calendar-container td a{
+  display: block;
+  width: 100%;
+}
+
 @media screen and (max-width:320px){
 
   .show-on-mobile {
