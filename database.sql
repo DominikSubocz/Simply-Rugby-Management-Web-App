@@ -173,18 +173,6 @@ CREATE TABLE simplyrugby.games(
   FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
 );
 
-CREATE TABLE simplyrugby.sessions(
-  session_id INT PRIMARY KEY AUTO_INCREMENT,
-  coach_id INT NOT NULL,
-  squad_id INT NOT NULL,
-  name varchar(128) NOT NULL,
-  start DATETIME NOT NULL,
-  end DATETIME NOT NULL,
-  location varchar(128) NOT NULL,
-  FOREIGN KEY (coach_id) REFERENCES simplyrugby.coaches (coach_id),
-  FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
-);
-
 CREATE TABLE simplyrugby.coaches(
   coach_id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT,
@@ -195,6 +183,20 @@ CREATE TABLE simplyrugby.coaches(
   mobile_no  varchar(40),
   email_address varchar(45),
   FOREIGN KEY (user_id) REFERENCES simplyrugby.users (user_id)
+);
+
+
+
+CREATE TABLE simplyrugby.sessions(
+  session_id INT PRIMARY KEY AUTO_INCREMENT,
+  coach_id INT NOT NULL,
+  squad_id INT NOT NULL,
+  name varchar(128) NOT NULL,
+  start DATETIME NOT NULL,
+  end DATETIME NOT NULL,
+  location varchar(128) NOT NULL,
+  FOREIGN KEY (coach_id) REFERENCES simplyrugby.coaches (coach_id),
+  FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
 );
 
 INSERT INTO simplyrugby.coaches (first_name, last_name, dob, contact_no, mobile_no, email_address) 
