@@ -460,6 +460,7 @@ class Components {
   public static function singleGame($game)
   {
     if (!empty($game)) {
+      $gameId = Utils::escape($game["game_id"]);
       $squadId = Utils::escape($game["squad_id"]);
       $gameName = Utils::escape($game["name"]);
       $oppositionName = Utils::escape($game["opposition_team"]);
@@ -474,11 +475,36 @@ class Components {
 
 
 
+
+
       // Output information on a single book
       require("components/game-single.php");
     } else {
       // Output a message if the $books array is empty
       require("components/no-single-book-found.php");
     }
+  }
+
+  public static function gameHalves($gameHalves){
+
+    if(!empty($gameHalves)){
+      foreach($gameHalves as $gameHalf){
+
+        $gameHalfId = Utils::escape($gameHalf["game_half_id"]);
+        $gameHalfNumber = Utils::escape($gameHalf["half_number"]);
+        $homeTeam = Utils::escape($gameHalf["home_team"]);
+        $homeScore =  Utils::escape($gameHalf["home_score"]);
+        $homeComment = Utils::escape($gameHalf["home_comment"]);
+        $oppositionScore = Utils::escape($gameHalf["opposition_score"]);
+        $oppositionComment = Utils::escape($gameHalf["opposition_comment"]);
+
+        require("components/game-half-single.php");
+
+      } 
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-single-book-found.php");
+    }
+
   }
 }

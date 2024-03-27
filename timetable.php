@@ -100,12 +100,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $squadExists = $stmt->fetch();
         $squadId = $squadExists['squad_id'];
 
+        $stmt = $conn->prepare(SQL::$getSquadName);
+        $stmt->execute([$squad]);
+        $squadResults = $stmt->fetch();
+        $squadName = $squadResults['squad_name'];
   
         if(!$squad){
           var_dump("ERROR: Squad doesn't exist");
         } else {
           $stmt = $conn->prepare(SQL::$createGame);
           $stmt->execute([$squadId, $gameName, $oppisition, $sqlStart, $sqlEnd, $location, $kickoff, $result, $score]);
+          $gameId = $conn->lastInsertId();
+
+          $stmt = $conn->prepare(SQL::$createGameHalf);
+          $stmt->execute([$gameId, 1, $squadName, $oppisition]);
+          $stmt->execute([$gameId, 2, $squadName, $oppisition]);
+
         }
       }
       

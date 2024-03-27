@@ -33,7 +33,11 @@ class SQL {
 
   public static $createGame = "INSERT INTO simplyrugby.games (squad_id, name, opposition_team	, start, end, location, kickoff_time, result, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+  public static $createGameHalf = "INSERT INTO simplyrugby.game_halves (game_id, half_number, home_team, opposition_team) VALUES (?, ?, ?, ?)";
+
   public static $getSquad = "SELECT * FROM simplyrugby.squads WHERE squad_id = ?";
+
+  public static $getSquadName = "SELECT squad_name FROM simplyrugby.squads WHERE squad_id = ?";
 
   public static $getMember =   "SELECT m.*, a.* FROM simplyrugby.members m LEFT JOIN simplyrugby.addresses a ON m.address_id = a.address_id WHERE m.member_id = ?";
   public static $getBook = "SELECT p.*, a.*, d.* FROM simplyrugby.players p LEFT JOIN simplyrugby.addresses a ON p.address_id = a.address_id LEFT JOIN simplyrugby.doctors d ON p.doctor_id = d.doctor_id WHERE p.player_id = ?";
@@ -153,5 +157,8 @@ class SQL {
 
 
   public static $getSingleGame = "SELECT * FROM simplyrugby.games WHERE game_id = ?";
+
+  public static $getGameHalves = "SELECT * FROM simplyrugby.game_halves WHERE game_id = ?";
+
 
 }

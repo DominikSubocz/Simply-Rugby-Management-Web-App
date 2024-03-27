@@ -29,4 +29,17 @@ class Events {
 
     }
 
+    public static function getGameHalves($gameId){
+
+      $conn = Connection::connect();
+
+      $stmt = $conn->prepare(SQL::$getGameHalves);
+      $stmt->execute([$gameId]);
+      $gameHalves = $stmt->fetchAll();
+
+      $conn = null;
+
+      return $gameHalves;
+    }
+
 }

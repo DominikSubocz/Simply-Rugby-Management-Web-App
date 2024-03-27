@@ -199,6 +199,19 @@ CREATE TABLE simplyrugby.sessions(
   FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
 );
 
+CREATE TABLE simplyrugby.game_halves(
+  game_half_id INT PRIMARY KEY AUTO_INCREMENT,
+  game_id INT NOT NULL,
+  half_number INT,
+  home_team varchar(45),
+  home_score INT,
+  home_comment TEXT,
+  opposition_team varchar(45) NOT NULL,
+  opposition_score INT,
+  opposition_comment TEXT,
+  FOREIGN KEY (game_id) REFERENCES simplyrugby.games (game_id)
+);
+
 INSERT INTO simplyrugby.coaches (first_name, last_name, dob, contact_no, mobile_no, email_address) 
 VALUES 
 ('John', 'Doe', '1990-05-15', '123456789', '987654321', 'john.doe@example.com'),
