@@ -164,4 +164,12 @@ class SQL {
 
   public static $deleteGame = "DELETE FROM simplyrugby.games WHERE game_id = ?";
 
+  public static $updateGameHalf = "UPDATE simplyrugby.game_halves
+  SET home_team = ?, home_score = ?, home_comment = ?, opposition_team = ?, opposition_score = ?, opposition_comment = ?
+  WHERE game_half_id = ?";
+
+  public static $updateGame = "UPDATE simplyrugby.games
+  SET squad_id = ?, name = ?, opposition_team = ?, start = ?, end = ?, location = ?, kickoff_time = ?, result = ?, score = ?
+  WHERE game_id = ?";
+
 }

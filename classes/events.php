@@ -53,5 +53,25 @@ class Events {
 
 
     }
+    
+    public static function updateGameHalf($gameHalfId, $home_team, $homeScore, $homeComment, $opposition, $oppositionScore, $oppositionComment){
+      $conn = Connection::connect();
 
+      $stmt = $conn->prepare(SQL::$updateGameHalf);
+      $stmt->execute([$home_team, $homeScore, $homeComment, $opposition, $oppositionScore, $oppositionComment, $gameHalfId]);
+
+      
+      $conn = null;
+
+    }
+
+    public static function updateGame($squad, $name, $opposition, $start, $end, $location, $kickoff, $result, $score, $gameId) {
+      $conn = Connection::connect();
+
+      $stmt = $conn->prepare(SQL::$updateGame);
+      $stmt->execute([$squad, $name, $opposition, $start, $end, $location, $kickoff, $result, $score, $gameId]);
+
+      $conn = null;
+
+    }
 }
