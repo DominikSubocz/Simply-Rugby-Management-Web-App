@@ -23,3 +23,4 @@ if(!empty($game)){
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
 Components::singleGame($game);
 Components::pageFooter();
+?>
