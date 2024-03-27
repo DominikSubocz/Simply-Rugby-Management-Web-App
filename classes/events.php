@@ -42,4 +42,16 @@ class Events {
       return $gameHalves;
     }
 
+    public static function deleteGame($gameId){
+      $conn = Connection::connect();
+
+      $stmt = $conn->prepare(SQL::$deleteGameHalves);
+      $stmt->execute([$gameId]);
+
+      $stmt = $conn->prepare(SQL::$deleteGame);
+      $stmt->execute([$gameId]);
+
+
+    }
+
 }

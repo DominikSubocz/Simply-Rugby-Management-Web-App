@@ -160,5 +160,8 @@ class SQL {
 
   public static $getGameHalves = "SELECT * FROM simplyrugby.game_halves WHERE game_id = ?";
 
+  public static $deleteGameHalves = "DELETE FROM simplyrugby.game_halves WHERE game_id = ?";
+
+  public static $deleteGame = "DELETE FROM simplyrugby.games WHERE game_id = ?";
 
 }
