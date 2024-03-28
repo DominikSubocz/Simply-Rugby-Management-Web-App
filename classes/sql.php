@@ -28,6 +28,10 @@ class SQL {
   public static $getGame = "SELECT * FROM simplyrugby.games WHERE name = ? AND start = ? AND end = ?";
   public static $getSession = "SELECT * FROM simplyrugby.sessions WHERE name = ? AND start = ? AND end = ?";
   
+
+  public static $getSessionId = "SELECT * FROM simplyrugby.sessions WHERE session_id = ?";
+
+
   public static $createSession = "INSERT INTO simplyrugby.sessions (coach_id, squad_id, name, start, end, location) VALUES (?, ?, ?, ?, ?, ?)";
   public static $getCoach  = "SELECT * FROM simplyrugby.coaches WHERE first_name = ? AND last_name = ?";
 
@@ -155,6 +159,7 @@ class SQL {
   public static $deletePlayerPosition = "DELETE FROM player_positions WHERE player_id = ?";
   public static $deletePlayer = "DELETE FROM players WHERE player_id = ?";
 
+  public static $getTrainingDetails = "SELECT * FROM simplyrugby.training_details WHERE session_id = ?";
 
   public static $getSingleGame = "SELECT * FROM simplyrugby.games WHERE game_id = ?";
 
@@ -172,4 +177,18 @@ class SQL {
   SET squad_id = ?, name = ?, opposition_team = ?, start = ?, end = ?, location = ?, kickoff_time = ?, result = ?, score = ?
   WHERE game_id = ?";
 
+  public static $deleteSession = "DELETE FROM simplyrugby.sessions WHERE session_id = ?";
+
+  public static $deleteTrainingDetails = "DELETE FROM simplyrugby.training_details WHERE session_id = ?";
+
+
+  public static $createTrainingDetails = "INSERT INTO simplyrugby.training_details(session_id,	coach_id,	squad_id) VALUES (?,	?,	?)";
+
+  public static $updateSession = "UPDATE simplyrugby.sessions
+  SET coach_id = ?, squad_id = ?, name = ?, start = ?, end = ?, location = ?
+  WHERE session_id = ?";
+
+  public static $updateTrainingDetails = "UPDATE simplyrugby.training_details
+  SET coach_id = ?, squad_id = ?, skills = ?, activities = ?, present_players = ?, accidents = ?, injuries = ?
+  WHERE training_details_id = ?";
 }

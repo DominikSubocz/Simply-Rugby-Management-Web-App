@@ -507,4 +507,53 @@ class Components {
     }
 
   }
+
+  public static function trainingDetails($trainingDetails){
+
+    if(!empty($trainingDetails)){
+      foreach($trainingDetails as $trainingDetail){
+
+        $trainingDetailId = Utils::escape($trainingDetail["training_details_id"]);
+        $sessionId = Utils::escape($trainingDetail["session_id"]);
+        $coachId = Utils::escape($trainingDetail["coach_id"]);
+        $squadId =  Utils::escape($trainingDetail["squad_id"]);
+        $skills = Utils::escape($trainingDetail["skills"]);
+        $activities = Utils::escape($trainingDetail["activities"]);
+        $presentPlayers = Utils::escape($trainingDetail["present_players"]);
+        $accidents = Utils::escape($trainingDetail["accidents"]);
+        $injuries = Utils::escape($trainingDetail["injuries"]);
+
+        require("components/training-detail-single.php");
+
+      } 
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-single-book-found.php");
+    }
+
+  }
+
+  public static function singleSession($session)
+  {
+    if (!empty($session)) {
+      $sessionId = Utils::escape($session["session_id"]);
+      $coachId = Utils::escape($session["coach_id"]);
+      $squadId = Utils::escape($session["squad_id"]);
+      $sessionName = Utils::escape($session["name"]);
+      $sessionStart = Utils::escape($session["start"]);
+      $sessionEnd = Utils::escape($session["end"]);
+      $sessionLocation = Utils::escape($session["location"]);
+
+
+
+
+
+
+      // Output information on a single book
+      require("components/session-single.php");
+    } else {
+      // Output a message if the $books array is empty
+      require("components/no-single-book-found.php");
+    }
+  }
 }

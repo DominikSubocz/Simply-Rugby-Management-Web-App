@@ -193,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         Events::updateGameHalf($gameHalfId2, $home2, $homeScore2, $homeComment2, $opposition, $oppositionScore2, $oppositionComment2);
 
-        var_dump($gameHalfId2);
+        header("Location: " . Utils::$projectFilePath . "/timetable.php");
     }
     }
 

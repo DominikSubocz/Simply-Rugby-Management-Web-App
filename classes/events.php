@@ -74,4 +74,55 @@ class Events {
       $conn = null;
 
     }
-}
+
+    public static function getSession($sessionId){
+      $conn = Connection::connect();
+
+      $stmt = $conn->prepare(SQL::$getSessionId);
+      $stmt->execute([$sessionId]);
+      $session = $stmt->fetch();
+
+      $conn = null;
+
+      return $session;
+    }
+
+    public static function getTrainingDetails($sessionId){
+
+
+      $conn = Connection::connect();
+
+      $stmt = $conn->prepare(SQL::$getTrainingDetails);
+      $stmt->execute([$sessionId]);
+      $trainingDetails = $stmt->fetchAll();
+
+      $conn = null;
+
+      return $trainingDetails;
+
+
+    }
+
+    public static function deleteSession($sessionId){
+      $conn = Connection::connect();
+
+      $stmt = $conn->prepare(SQL::$deleteTrainingDetails);
+      $stmt->execute([$sessionId]);
+
+      $stmt = $conn->prepare(SQL::$deleteSession);
+      $stmt->execute([$sessionId]);
+
+
+    }
+
+    public static function updateSession($coach, $squad, $name, $start, $end, $location, $skills, $activities, $playersPresent, $accidents, $injuries, $sessionId, $trainingDetailId){
+      $conn = Connection::connect();
+
+      $stmt = $conn->prepare(SQL::$updateSession);
+      $stmt->execute([$coach, $squad, $name, $start, $end, $location, $sessionId]);
+
+      $stmt = $conn->prepare(SQL::$updateTrainingDetails);
+      $stmt->execute([$coach, $squad, $skills, $activities, $playersPresent, $accidents, $injuries, $trainingDetailId]);
+
+    }
+  }

@@ -219,7 +219,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt = $conn->prepare(SQL::$createSession);
             $stmt->execute([$coachId, $squadId, $sessionName, $sqlTrainingStart, $sqlTrainingEnd, $trainingLocation]);
-          }
+            $sessionId = $conn->lastInsertId();
+
+
+            $stmt = $conn->prepare(SQL::$createTrainingDetails);
+            $stmt->execute([$sessionId, $coachId, $squadId]);
+          } 
+
           
         }
       }
