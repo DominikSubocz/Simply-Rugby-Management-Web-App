@@ -9,10 +9,10 @@ session_start();
 /*
   Attempt to get the id from the URL parameter.
   If it isn't set or it isn't a number, redirect
-  to book list page.
+  to player list page.
 */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-  header("Location: " . Utils::$projectFilePath . "/book-list.php");
+  header("Location: " . Utils::$projectFilePath . "/player-list.php");
 }
 
 if(!isset($_SESSION["loggedIn"])){
@@ -21,17 +21,17 @@ if(!isset($_SESSION["loggedIn"])){
 
 }
 
-$book = Book::getBook($_GET["id"]);
+$player = player::getplayer($_GET["id"]);
 
-// Set the document title to the title and author of the book if it exists
-$pageTitle = "Book not found";
+// Set the document title to the title and author of the player if it exists
+$pageTitle = "player not found";
 
-if (!empty($book)) {
-  $pageTitle = $book["first_name"];
+if (!empty($player)) {
+  $pageTitle = $player["first_name"];
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
-Components::singleBook($book);
+Components::singleplayer($player);
 Components::pageFooter();
 
 ?>

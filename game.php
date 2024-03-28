@@ -9,7 +9,7 @@ require("classes/connection.php");
 require("classes/sql.php");
 
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
-    header("Location: " . Utils::$projectFilePath . "/book-list.php");
+    header("Location: " . Utils::$projectFilePath . "/player-list.php");
 } 
 
 $game = Events::getGame($_GET["id"]);
@@ -21,6 +21,18 @@ if(!empty($game)){
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
-Components::singleGame($game);
-Components::pageFooter();
+?>
+
+<main class="content-wrapper profile-list-content">
+    <?php
+
+        Components::singleGame($game);
+
+    ?>
+</main>
+
+<?php
+
+    Components::pageFooter();
+
 ?>

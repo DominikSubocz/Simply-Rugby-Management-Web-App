@@ -12,34 +12,34 @@ $conn = Connection::connect();
 
 Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
-$bookId = $_GET["id"];
+$playerId = $_GET["id"];
 
 require("classes/player.php");
 
-$book = Book::getBook($bookId);
+$player = player::getplayer($playerId);
 
-$playerFirstName = Utils::escape($book["first_name"]);
-$playerLastName = Utils::escape($book["last_name"]);
+$playerFirstName = Utils::escape($player["first_name"]);
+$playerLastName = Utils::escape($player["last_name"]);
 
-$dobPlaceholder = Utils::escape($book["dob"]);
-$user_idPlaceholder = Utils::escape($book["user_id"]); // Might implement update for that later
-$sruNumberPlaceholder = Utils::escape($book["sru_no"]);
-$contactNumberPlaceholder = Utils::escape($book["contact_no"]);
-$mobileNumberPlaceholder = Utils::escape($book["mobile_no"]);
-$emailAddressPlaceholder = Utils::escape($book["email_address"]);
-$healthIssuesPlaceholder = Utils::escape($book["health_issues"]);
-$filenamePlaceholder = Utils::escape($book["filename"]);
-$nextOfKinPlaceholder = Utils::escape($book["next_of_kin"]);
-$kinContactNumberPlaceholder = Utils::escape($book["kin_contact_no"]);
+$dobPlaceholder = Utils::escape($player["dob"]);
+$user_idPlaceholder = Utils::escape($player["user_id"]); // Might implement update for that later
+$sruNumberPlaceholder = Utils::escape($player["sru_no"]);
+$contactNumberPlaceholder = Utils::escape($player["contact_no"]);
+$mobileNumberPlaceholder = Utils::escape($player["mobile_no"]);
+$emailAddressPlaceholder = Utils::escape($player["email_address"]);
+$healthIssuesPlaceholder = Utils::escape($player["health_issues"]);
+$filenamePlaceholder = Utils::escape($player["filename"]);
+$nextOfKinPlaceholder = Utils::escape($player["next_of_kin"]);
+$kinContactNumberPlaceholder = Utils::escape($player["kin_contact_no"]);
 
-$address1Placeholder = Utils::escape($book["address_line"]);
-$address2Placeholder = Utils::escape($book["address_line2"]);
-$cityPlaceholder = Utils::escape($book["city"]);
-$countyPlaceholder = Utils::escape($book["county"]);
-$postcodePlaceholder = Utils::escape($book["postcode"]);
-$doctorFirstNamePlaceholder = Utils::escape($book["doctor_first_name"]);
-$doctorLastNamePlaceholder = Utils::escape($book["doctor_last_name"]);
-$doctorContactPlaceholder = Utils::escape($book["doctor_contact_no"]);
+$address1Placeholder = Utils::escape($player["address_line"]);
+$address2Placeholder = Utils::escape($player["address_line2"]);
+$cityPlaceholder = Utils::escape($player["city"]);
+$countyPlaceholder = Utils::escape($player["county"]);
+$postcodePlaceholder = Utils::escape($player["postcode"]);
+$doctorFirstNamePlaceholder = Utils::escape($player["doctor_first_name"]);
+$doctorLastNamePlaceholder = Utils::escape($player["doctor_last_name"]);
+$doctorContactPlaceholder = Utils::escape($player["doctor_contact_no"]);
 
 $phpdate = strtotime( $dobPlaceholder );
 $ukDobPlaceholder = date( 'd/m/Y', $phpdate );
@@ -306,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }        
         
 
-            Book::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $bookId);
+            player::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId);
             
         }
 
@@ -333,7 +333,7 @@ function test_input($data) {
 <h2>Update <?php echo $playerFirstName . ' '. $playerLastName; ?></h2>
 <form 
     method="POST"
-    action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $book["player_id"];?>"
+    action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $player["player_id"];?>"
     encypte="multipart/form-data">
 
   <p class="error"><?php echo $genuineErr;?></p><br>

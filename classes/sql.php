@@ -1,11 +1,11 @@
 <?php
 
 class SQL {
-  public static $getAllBooks = "SELECT * FROM players";
+  public static $getAllplayers = "SELECT * FROM players";
   public static $getAllJuniors = "SELECT * FROM juniors";
   public static $getAllMembers = "SELECT * FROM members";
   /**
-   * Get the book with the id given in the URL parameter.
+   * Get the player with the id given in the URL parameter.
    * 
    * The ? indicates a placeholder value which we will supply 
    * when executing the statement.
@@ -44,7 +44,7 @@ class SQL {
   public static $getSquadName = "SELECT squad_name FROM simplyrugby.squads WHERE squad_id = ?";
 
   public static $getMember =   "SELECT m.*, a.* FROM simplyrugby.members m LEFT JOIN simplyrugby.addresses a ON m.address_id = a.address_id WHERE m.member_id = ?";
-  public static $getBook = "SELECT p.*, a.*, d.* FROM simplyrugby.players p LEFT JOIN simplyrugby.addresses a ON p.address_id = a.address_id LEFT JOIN simplyrugby.doctors d ON p.doctor_id = d.doctor_id WHERE p.player_id = ?";
+  public static $getplayer = "SELECT p.*, a.*, d.* FROM simplyrugby.players p LEFT JOIN simplyrugby.addresses a ON p.address_id = a.address_id LEFT JOIN simplyrugby.doctors d ON p.doctor_id = d.doctor_id WHERE p.player_id = ?";
   public static $getUser = "SELECT user_id, username, password, user_role FROM users WHERE username = ?";
   public static $createUser = "INSERT INTO users (username, email, password, user_role) VALUES (?,?,?,?)";
   public static $updatePlayer = "UPDATE simplyrugby.players
@@ -74,8 +74,7 @@ class SQL {
   WHERE first_name = ? AND last_name =? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";
   
 
-  public static $addressExists = "SELECT * FROM addresses 
-  WHERE address_line = ? AND address_line2 = ? AND city = ? AND county = ? AND postcode = ?";
+
   
   public static $doctorExists = "SELECT * FROM doctors 
   WHERE doctor_first_name = ? AND doctor_last_name = ? AND doctor_contact_no = ?";
@@ -96,6 +95,9 @@ class SQL {
   AND city = ? 
   AND county = ? 
   AND postcode = ?";
+
+  public static $addressExists = "SELECT * FROM addresses 
+  WHERE address_line = ? AND address_line2 = ? AND city = ? AND county = ? AND postcode = ?";
 
   public static $createNewAddress = "INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
   VALUES  (?, ?, ?, ?, ?)";

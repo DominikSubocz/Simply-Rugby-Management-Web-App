@@ -12,6 +12,10 @@ body, button, input, textarea, select {
   font-size: 16px;
 }
 
+#radio-container{
+  display: flex;
+}
+
 .required{
   color: #cc4125;
   margin-right: 5px;
@@ -124,18 +128,18 @@ input.button {
   color: white;
 }
 
-/* BOOK LIST */
-.book-list {
+/* player LIST */
+.player-list {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
 }
 
-.book-container {
+.player-container {
   margin-top: 32px;
 }
 
-.book-card {
+.player-card {
   color: black;
   flex: 1;
   max-width: 300px;
@@ -143,11 +147,11 @@ input.button {
   text-decoration: none;
 }
 
-.book-card:hover {
+.player-card:hover {
   background-color: #eee;
 }
 
-.book-image {
+.player-image {
   width: 100%;
   object-fit: cover;
 }
@@ -162,7 +166,7 @@ input.button {
 
 
 
-/* BOOK TABLE */
+/* player TABLE */
 table {
   border-collapse: collapse;
   width: 100%;
@@ -455,7 +459,7 @@ input.invalid {
     margin-top:20px;
   }
 
-  .book-card {
+  .player-card {
     margin:0 auto;
     max-width: 1950px;
     display: flex;
@@ -703,11 +707,11 @@ input.invalid {
     margin-top:20px;
   }
 
-  .book-list{
+  .player-list{
     align-items: center;
   }
 
-  .book-card {
+  .player-card {
     display: flex;
     max-width: 90%;
     flex-direction: row;
@@ -1013,11 +1017,11 @@ input.invalid {
 }
 
 @media screen and (max-width:949px){
-  .book-container p{
+  .player-container p{
     font-size: 14px;
   }
 
-  .book-container .pfp-container >img{
+  .player-container .pfp-container >img{
     width: 225px;
     height: 250px;
     object-fit: cover;
@@ -1082,14 +1086,14 @@ input.invalid {
     margin-left: 16px;
   }
 
-  /* BOOK LIST */
+  /* player LIST */
 
-  .book-list{
+  .player-list{
     align-content: center;
   }
   
   
-  .book-card {
+  .player-card {
     margin:0 auto;
     max-width: 1950px;
     display: flex;
@@ -1157,13 +1161,13 @@ input.invalid {
     object-fit: cover;
   }
 
-  .book-image {
+  .player-image {
     height: 100px;
     width: 50px;
   }
 
-  /* BOOK */
-  .book-container {
+  /* player */
+  .player-container {
     display: flex;
     justify-content: center;
     gap: 16px;
@@ -1492,9 +1496,43 @@ input.invalid {
     background: white;
   }
 
-  #game-form, #training-form{
+  #event-form, #training-form{
     width: 350px;
   }
+
+  .event-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+  }
+
+  .event-container div p,  .event-container div h2{
+    border:#000 solid 1px;
+    margin:0;
+    height: 50px;
+  }
+
+  .event-form-container{
+    margin-top: -90px;
+  }
+
+  .session-form-container{
+    margin-top:50px ;
+  }
+  .event-form-container form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .event-form-container input, .event-form-container .button{
+    width: 350px !important;
+    margin:0 auto;
+  }
+
   
 
 

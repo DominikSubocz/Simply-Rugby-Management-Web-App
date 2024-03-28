@@ -6,41 +6,39 @@ if(isset($_POST["confirmDelete"])){
 
 ?>
 
-<div class="game-container">
+<div class="event-container">
 
 
-    <h2><?php echo 'Session ID: '. $sessionId; ?></h2>
+    <div>
+      <h2><?php echo 'Session ID: '. $sessionId; ?></h2>
+      <h2><?php echo $sessionName; ?></h2>
+      <p><?php echo 'Squad Number: '. $coachId; ?></p>
+      <p><?php echo 'Squad Number: '. $squadId; ?></p>
+      <p><?php echo 'Start: '. $sessionStart; ?></p>
+      <p><?php echo 'End: '.$sessionEnd; ?></p>
+      <p><?php echo 'Location: '. $sessionLocation; ?></p>
+    </div>
 
-    <h2><?php echo $sessionName; ?></h2>
-
-    <p><?php echo 'Squad Number: '. $coachId; ?></p>
 
 
-    <p><?php echo 'Squad Number: '. $squadId; ?></p>
-
-    <p><?php echo 'Start: '. $sessionStart; ?></p>
-
-    <p><?php echo 'End: '.$sessionEnd; ?></p>
-
-    <p><?php echo 'Location: '. $sessionLocation; ?></p>
-
+    <div class="event-details-container">
     <h2>Training Session Details:</h2>
+      <?php
+      
+      $trainingDetails = Events::getTrainingDetails($sessionId);
+      Components::trainingDetails($trainingDetails);
+      ?>
+    </div>
 
-    <?php
-
-    
-
-    $trainingDetails = Events::getTrainingDetails($sessionId);
-    Components::trainingDetails($trainingDetails);
-    ?>
-
-<form 
-    method="post" 
-    action="">
-
-    <input type="submit" id="deleteBtn" class="danger" value="Delete Game">  
-    <a href="update-session.php?id=<?php echo $sessionId; ?>" name="updateRedirect" class="button">Update Game</a>
-</form>
+<div class="event-form-container session-form-container">
+  <form
+      method="post"
+      action="">
+  
+      <input type="submit" id="deleteBtn" class="danger" value="Delete Game">
+      <a href="update-session.php?id=<?php echo $sessionId; ?>" name="updateRedirect" class="button">Update Game</a>
+  </form>
+</div>
 </div>
 
 <div id="myModal" class="modal">

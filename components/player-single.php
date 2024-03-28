@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_POST["confirmDelete"])){
-  Book::deletePlayer($player_id);
+  player::deletePlayer($player_id);
 }
 
 ?>
@@ -62,7 +62,7 @@ if(isset($_POST["confirmDelete"])){
           <h3>Passing</h3>
         </div>
         <?php
-          $skill = Book::getPlayerSkills($_GET["id"]);
+          $skill = player::getPlayerSkills($_GET["id"]);
           Components::playerPassingSkill($skill);
         ?>
       </div>
@@ -73,7 +73,7 @@ if(isset($_POST["confirmDelete"])){
           <h3>Tackling</h3>
         </div>
         <?php
-          $skill = Book::getPlayerSkills($_GET["id"]);
+          $skill = player::getPlayerSkills($_GET["id"]);
           Components::playerTacklingSkill($skill);
         ?>
       </div>
@@ -84,7 +84,7 @@ if(isset($_POST["confirmDelete"])){
           <h3>Kicking</h3>
         </div>
         <?php
-          $skill = Book::getPlayerSkills($_GET["id"]);
+          $skill = player::getPlayerSkills($_GET["id"]);
           Components::playerKickingSkill($skill);
         ?>
       </div>

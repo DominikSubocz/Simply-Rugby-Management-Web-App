@@ -9,7 +9,7 @@ require("classes/connection.php");
 require("classes/sql.php");
 
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
-    header("Location: " . Utils::$projectFilePath . "/book-list.php");
+    header("Location: " . Utils::$projectFilePath . "/player-list.php");
 } 
 
 $session = Events::getSession($_GET["id"]);
@@ -125,103 +125,105 @@ function test_input($data) {
 }
 ?>
 
-<form 
-    method="POST"
-    action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $session["session_id"];?>">
+<main class="content-wrapper profile-list-content">
+    <form 
+        method="POST"
+        action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $session["session_id"];?>">
 
 
-  
-  <div id="basic-session-details">
-      <label for="name">Name:</label><br>
-      <input type="text" name="name" placeholder="<?php echo $sessionName;?>" value="<?php echo $name;?>">
-      <p class="error"><?php echo $nameErr;?></p><br>
+    
+    <div id="basic-session-details">
+        <label for="name">Name:</label><br>
+        <input type="text" name="name" placeholder="<?php echo $sessionName;?>" value="<?php echo $name;?>">
+        <p class="error"><?php echo $nameErr;?></p><br>
 
-      <label for="coach">Coach ID:</label><br>
-      <input type="text" name="coach" placeholder="<?php echo $sessionCoachId;?>" value="<?php echo $coach;?>">
-      <p class="error"><?php echo $coachErr;?></p><br>
-
-
-      <label for="squad">Squad ID::</label><br>
-      <input type="text" name="squad" placeholder="<?php echo $sessionSquadId;?>" value="<?php echo $squad;?>">
-      <p class="error"><?php echo $squadErr;?></p><br>
-
-      <label for="start">Start:</label><br>
-      <input type="datetime-local" name="start" value="<?php echo $start;?>">
-      <p class="error"><?php echo $startErr;?></p><br>
-
-      <label for="end">End:</label><br>
-      <input type="datetime-local" name="end" value="<?php echo $end;?>">
-      <p class="error"><?php echo $endErr;?></p><br>
-
-      <label for="location">Location:</label><br>
-      <input type="text" name="location" placeholder="<?php echo $sessionLocation;?>" value="<?php echo $location;?>">
-      <p class="error"><?php echo $locationErr;?></p><br>
-
-      <input type="button" value="Next" onclick="nextTab()">
-  </div>
-  
-  <div id="training-details-form">
-
-    <label for="skills">Skills Practiced:</label><br>
-      <input type="text" name="skills" value="<?php echo $skills;?>">
-      <p class="error"><?php echo $skillsErr;?></p><br>
-
-      <label for="activities">Activities Practiced:</label><br>
-      <input type="text" name="activities" value="<?php echo $activities;?>">
-      <p class="error"><?php echo $activitiesErr;?></p><br>
-
-      <label for="present_players">Players Present:</label><br>
-      <input type="text" name="present_players" value="<?php echo $playersPresent;?>">
-      <p class="error"><?php echo $playersPresentErr;?></p><br>
-
-      <label for="accidents">Accidents:</label><br>
-      <input type="text" name="accidents" value="<?php echo $accidents;?>">
-      <p class="error"><?php echo $accidentsErr;?></p><br>
-
-      <label for="injuries">Injuries:</label><br>
-      <input type="text" name="injuries" value="<?php echo $injuries;?>">
-      <p class="error"><?php echo $injuriesErr;?></p><br>
-
-      <input type="button" value="Previous" onclick="prevTab()">
-
-  </div>
-
-  <input type="submit" name="submit" value="Submit">  
+        <label for="coach">Coach ID:</label><br>
+        <input type="text" name="coach" placeholder="<?php echo $sessionCoachId;?>" value="<?php echo $coach;?>">
+        <p class="error"><?php echo $coachErr;?></p><br>
 
 
-</form>
+        <label for="squad">Squad ID::</label><br>
+        <input type="text" name="squad" placeholder="<?php echo $sessionSquadId;?>" value="<?php echo $squad;?>">
+        <p class="error"><?php echo $squadErr;?></p><br>
 
-<script>
+        <label for="start">Start:</label><br>
+        <input type="datetime-local" name="start" value="<?php echo $start;?>">
+        <p class="error"><?php echo $startErr;?></p><br>
 
-    var currentTab = 0;
-    const basicDetails = document.getElementById("basic-session-details");
-    const trainingDetails = document.getElementById("training-details-form");
+        <label for="end">End:</label><br>
+        <input type="datetime-local" name="end" value="<?php echo $end;?>">
+        <p class="error"><?php echo $endErr;?></p><br>
 
-    showTab();
+        <label for="location">Location:</label><br>
+        <input type="text" name="location" placeholder="<?php echo $sessionLocation;?>" value="<?php echo $location;?>">
+        <p class="error"><?php echo $locationErr;?></p><br>
 
-    function nextTab(){
-        currentTab += 1;
+        <input type="button" value="Next" onclick="nextTab()">
+    </div>
+    
+    <div id="training-details-form">
+
+        <label for="skills">Skills Practiced:</label><br>
+        <input type="text" name="skills" value="<?php echo $skills;?>">
+        <p class="error"><?php echo $skillsErr;?></p><br>
+
+        <label for="activities">Activities Practiced:</label><br>
+        <input type="text" name="activities" value="<?php echo $activities;?>">
+        <p class="error"><?php echo $activitiesErr;?></p><br>
+
+        <label for="present_players">Players Present:</label><br>
+        <input type="text" name="present_players" value="<?php echo $playersPresent;?>">
+        <p class="error"><?php echo $playersPresentErr;?></p><br>
+
+        <label for="accidents">Accidents:</label><br>
+        <input type="text" name="accidents" value="<?php echo $accidents;?>">
+        <p class="error"><?php echo $accidentsErr;?></p><br>
+
+        <label for="injuries">Injuries:</label><br>
+        <input type="text" name="injuries" value="<?php echo $injuries;?>">
+        <p class="error"><?php echo $injuriesErr;?></p><br>
+
+        <input type="button" value="Previous" onclick="prevTab()">
+
+    </div>
+
+    <input type="submit" name="submit" value="Submit">  
+
+
+    </form>
+
+    <script>
+
+        var currentTab = 0;
+        const basicDetails = document.getElementById("basic-session-details");
+        const trainingDetails = document.getElementById("training-details-form");
+
         showTab();
-    }
 
-    function prevTab(){
-        currentTab -= 1;
-        showTab();
-    }
-
-    function showTab(){
-        if ( currentTab == 0){
-            basicDetails.style.display = "block";
-            trainingDetails.style.display = "none";
-
+        function nextTab(){
+            currentTab += 1;
+            showTab();
         }
 
-        else{
-            basicDetails.style.display = "none";
-            trainingDetails.style.display = "block";
-
+        function prevTab(){
+            currentTab -= 1;
+            showTab();
         }
-    }
+
+        function showTab(){
+            if ( currentTab == 0){
+                basicDetails.style.display = "block";
+                trainingDetails.style.display = "none";
+
+            }
+
+            else{
+                basicDetails.style.display = "none";
+                trainingDetails.style.display = "block";
+
+            }
+        }
 
 
-</script>
+    </script>
+</main>

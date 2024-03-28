@@ -7,7 +7,7 @@ require("classes/sql.php");
 require("classes/events.php");
 require("classes/utils.php");
 
-Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
+Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 $gameName = $squad = $oppisition = $start = $end = $location = $result = $score = "";
 $gameNameErr = $squadErr = $oppisitionErr = $startErr = $endErr = $locationErr = $kickoffErr = $resultErr = $scoreErr = "";

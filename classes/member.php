@@ -8,7 +8,7 @@ require_once("classes/utils.php");
 class Member
 {
   /**
-   * Get all books from the database.
+   * Get all players from the database.
    */
 
   public static function getAllMembers()
@@ -27,13 +27,13 @@ class Member
   }
 
   /**
-   * Get a book with a specific ID from the database.
+   * Get a player with a specific ID from the database.
    */
-  public static function getMember($bookId)
+  public static function getMember($playerId)
   {
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$getMember);
-    $stmt->execute([$bookId]);
+    $stmt->execute([$playerId]);
     $member = $stmt->fetch();
 
     $conn = null;
@@ -41,11 +41,11 @@ class Member
     return $member;
   }
 
-  public static function deleteMember ($bookId){
+  public static function deleteMember ($playerId){
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$deleteMember);
-    $stmt->execute([$bookId]);
+    $stmt->execute([$playerId]);
 
     $conn = null;
 

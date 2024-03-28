@@ -6,7 +6,7 @@ require("classes/components.php");
 require("classes/junior.php");
 
 // Output page header with a given title, stylesheet, and script
-Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
+Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 ?>
 
@@ -19,7 +19,7 @@ Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
         if(isset($_SESSION["loggedIn"])){
             if($_SESSION["user_role"] === "Admin"){
                 echo "
-                <a href='book-list.php' class='menu-dashboard-item'>
+                <a href='player-list.php' class='menu-dashboard-item'>
                     <div>
                         Player List
                     </div>

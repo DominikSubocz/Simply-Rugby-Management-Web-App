@@ -271,7 +271,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         
 
-            header("Location: " . Utils::$projectFilePath . "/book-list.php");
+            header("Location: " . Utils::$projectFilePath . "/player-list.php");
         }
 
     }

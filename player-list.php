@@ -6,7 +6,7 @@ require("classes/components.php");
 require("classes/player.php");
 
 // Output page header with a given title, stylesheet, and script
-Components::pageHeader("All Books", ["style"], ["mobile-nav"]);
+Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 if(!isset($_SESSION["loggedIn"])){
 
@@ -16,11 +16,11 @@ if(!isset($_SESSION["loggedIn"])){
 
 ?>
 
-<h2>Book List</h2>
+<h2>player List</h2>
 
-<div class="book-list">
+<div class="player-list">
 
-<div class="book-card column-headings">
+<div class="player-card column-headings">
   <div class="id-container card-container">ID</div>
   <div class="firstN-container card-container">First Name</div>
   <div class="lastN-container card-container">Last Name</div>
@@ -34,9 +34,9 @@ if(!isset($_SESSION["loggedIn"])){
 
   <?php
 
-  // Get all books from the database and output list of books
-  $books = Book::getAllBooks();
-  Components::allBooks($books);
+  // Get all players from the database and output list of players
+  $players = player::getAllplayers();
+  Components::allplayers($players);
 
   ?>
 </div>

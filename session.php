@@ -9,7 +9,7 @@ require("classes/connection.php");
 require("classes/sql.php");
 
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
-    header("Location: " . Utils::$projectFilePath . "/book-list.php");
+    header("Location: " . Utils::$projectFilePath . "/player-list.php");
 } 
 
 $session = Events::getSession($_GET["id"]);
@@ -21,6 +21,19 @@ if(!empty($session)){
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
-Components::singleSession($session);
-Components::pageFooter();
+?>
+
+<main class="content-wrapper profile-list-content">
+
+    <?php
+
+        Components::singleSession($session);
+
+    ?>
+</main>
+
+<?php
+
+    Components::pageFooter();
+
 ?>

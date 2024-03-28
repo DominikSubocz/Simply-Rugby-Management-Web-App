@@ -215,7 +215,7 @@ class User{
 
         if (!empty($result_players)) {
             $playerId = $result_players[0]['player_id'];
-            $profileId = "book.php?id=";
+            $profileId = "player.php?id=";
             
             return $profileId . $playerId;
         }

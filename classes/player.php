@@ -5,90 +5,90 @@ require_once("classes/connection.php");
 require_once("classes/sql.php");
 require_once("classes/utils.php");
 
-class Book
+class player
 {
   /**
-   * Get all books from the database.
+   * Get all players from the database.
    */
-  public static function getAllBooks()
+  public static function getAllplayers()
   {
     $conn = Connection::connect();
 
     // Prepare and execute the query and get the results
-    $stmt = $conn->prepare(SQL::$getAllBooks);
+    $stmt = $conn->prepare(SQL::$getAllplayers);
     $stmt->execute();
-    $books = $stmt->fetchAll();
+    $players = $stmt->fetchAll();
 
     // Null the connection object when we no longer need it
     $conn = null;
 
-    return $books;
+    return $players;
   }
 
   /**
-   * Get a book with a specific ID from the database.
+   * Get a player with a specific ID from the database.
    */
-  public static function getBook($bookId)
+  public static function getplayer($playerId)
   {
     $conn = Connection::connect();
 
-    $stmt = $conn->prepare(SQL::$getBook);
-    $stmt->execute([$bookId]);
-    $book = $stmt->fetch();
+    $stmt = $conn->prepare(SQL::$getplayer);
+    $stmt->execute([$playerId]);
+    $player = $stmt->fetch();
 
     $conn = null;
 
-    return $book;
+    return $player;
   }
 
-  public static function getPlayerPositions($bookId)
+  public static function getPlayerPositions($playerId)
   {
     $conn = Connection::connect();
 
     // Prepare and execute the query and get the results
     $stmt = $conn->prepare(SQL::$getPlayerPositions);
-    $stmt->execute([$bookId]);
-    $books = $stmt->fetchAll();
+    $stmt->execute([$playerId]);
+    $players = $stmt->fetchAll();
 
     // Null the connection object when we no longer need it
     $conn = null;
 
-    return $books;
+    return $players;
   }
 
-  public static function getPlayerSkills($bookId)
+  public static function getPlayerSkills($playerId)
   {
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$getPlayerSkills);
-    $stmt->execute([$bookId]);
-    $books = $stmt->fetchAll();
+    $stmt->execute([$playerId]);
+    $players = $stmt->fetchAll();
 
     $conn = null;
 
-    return $books;
+    return $players;
   }
 
-  public static function deletePlayer($bookId){
+  public static function deletePlayer($playerId){
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$deletePlayerSkill);
-    $stmt->execute([$bookId]);
+    $stmt->execute([$playerId]);
 
     $stmt = $conn->prepare(SQL::$deletePlayerPosition);
-    $stmt->execute([$bookId]);
+    $stmt->execute([$playerId]);
 
     $stmt = $conn->prepare(SQL::$deletePlayer);
-    $stmt->execute([$bookId]);
+    $stmt->execute([$playerId]);
 
     $conn = null;
 
     
   }
 
-  public static function updatePlayer($address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $bookId){
+  public static function updatePlayer($address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId){
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updatePlayer);
-    $stmt->execute([$address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $bookId]);
+    $stmt->execute([$address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId]);
 
     $conn = null;
 
