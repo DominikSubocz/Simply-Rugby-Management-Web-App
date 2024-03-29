@@ -28,5 +28,29 @@ class Guardian
 
         }
 
+        public static function getGuardian($juniorId){
+
+            $conn = Connection::connect();
+
+            $stmt = $conn->prepare(SQL::$getGuardian);
+            $stmt->execute([$juniorId]);
+            $id = $stmt->fetchAll();
+
+            return $id;
+            
+        }
+
+        public static function getGuardianAddress($guardianId){
+
+            $conn = Connection::connect();
+
+            $stmt = $conn->prepare(SQL::$getGuardianAddress);
+            $stmt->execute([$guardianId]);
+            $address = $stmt->fetch();
+
+            return $address;
+            
+        }
+
 
     }

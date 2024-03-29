@@ -16,6 +16,7 @@ $address_idPlaceholder = Utils::escape($member["address_id"]);
 
 $user_idPlaceholder = Utils::escape($member["user_id"]);
 $dobPlaceholder = Utils::escape($member["dob"]);
+$filenamePlaceholder = Utils::escape($member["filename"]);
 
 $firstNamePlaceholder = Utils::escape($member["first_name"]);
 $lastNamePlaceholder = Utils::escape($member["last_name"]);
@@ -46,7 +47,13 @@ $firstName = $lastName = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
     if (empty($_POST["name"])) {
-        $nameErr = "Name is required";
+        $name = $firstNamePlaceholder . ' ' . $lastNamePlaceholder;
+
+        $nameParts = explode(" ", $name);
+
+        // Extract the first and last names
+        $firstName = $nameParts[0];
+        $lastName = end($nameParts);
     } else {
         $name = test_input($_POST["name"]);
         // Check if name only contains letters and whitespace
@@ -63,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate email
     if (empty($_POST["email"])) {
-        $emailErr = "Email is required";
+        $email = $emailAddressPlaceholder;
     } else {
         $email = test_input($_POST["email"]);
         // Check if email address is well-formed
@@ -73,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["sru"])){
-        $sruErr = "SRU Number is required";
+        $sru = $sruNumberPlaceholder;
 
 
     } else {
@@ -84,7 +91,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["dob"])){
-        $dobErr = "Date of birth is required";
+        $dob = date('d/m/Y', strtotime($dobPlaceholder));;
+
+        $sqlDate = date('Y-m-d', strtotime($dob));
 
 
     } else {
@@ -93,12 +102,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
         }
 
-        $dateTime = DateTime::createFromFormat('d/m/Y', $dob);
-        $sqlDate = $dateTime->format('Y-m-d');
+        $sqlDate = date('Y-m-d', strtotime($dob));
     }
 
     if(empty($_POST["contactNo"])){
-        $contactNoErr = "Contact Number is required";
+        $contactNo = $contactNumberPlaceholder;
 
     } else {
         $contactNo = test_input($_POST["contactNo"]);
@@ -112,10 +120,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match("/^\d+$/", $mobileNo)) {
             $mobileNoErr = "Only digits allowed";
         }
-    } 
+    }  else {
+        $mobileNo = $mobileNumberPlaceholder;
+    }
 
     if(empty($_POST["address1"])){
-        $address1Err = "Address Line 1 is required";
+        $address1 = $address1Placeholder;
 
     } else {
         $address1 = test_input($_POST["address1"]);
@@ -126,10 +136,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(!empty($_POST["address2"])){
         $address2 = test_input($_POST["address2"]);
+    } else {
+        $address2 = $address2Placeholder;
     }
 
     if(empty($_POST["city"])){
-        $cityErr = "City is required";
+        $city = $cityPlaceholder;
 
     } else {
         $city = test_input($_POST["city"]);
@@ -143,10 +155,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ((strlen($county)<5) || (strlen($county) > 50)){
             $countyErr = "County must be between 10 and 50 characters long!";
         }
+    } else {
+        $county = $countyPlaceholder;
     }
 
     if(empty($_POST["postcode"])){
-        $postcodeErr = "Postcode is required";
+        $postcode = $postcodePlaceholder;
 
     } else {
         $postcode = test_input($_POST["postcode"]);
@@ -193,8 +207,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if(empty($genuineErr)){
-
-
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
                 $filetype = Utils::getFileExtension($filename);
@@ -211,9 +223,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
                     $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
                 }
-            }
+            } else {
+                $filename = $filenamePlaceholder;  //Okay so this doesn't work here but it works in update player, I love php.
 
-            var_dump("Update member");
+
+            }   
 
             Member::updateMember($addressId, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $filename, $memberId);
 

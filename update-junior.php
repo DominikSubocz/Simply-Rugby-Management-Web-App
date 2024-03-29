@@ -4,13 +4,15 @@ session_start();
 require("classes/components.php");
 require("classes/connection.php");
 require("classes/sql.php");
+require("classes/guardian.php");
+require("classes/doctor.php");
+require("classes/address.php");
+require("classes/junior.php");
 
 
 $conn = Connection::connect();
 
 $juniorId = $_GET["id"];
-
-require("classes/junior.php");
 
 $junior = Junior::getJunior($juniorId);
 
@@ -34,6 +36,45 @@ $postcodePlaceholder = Utils::escape($junior["postcode"]);
 $doctorFirstNamePlaceholder = Utils::escape($junior["doctor_first_name"]);
 $doctorLastNamePlaceholder = Utils::escape($junior["doctor_last_name"]);
 $doctorContactPlaceholder = Utils::escape($junior["doctor_contact_no"]);
+
+$guardians = Guardian::getGuardian($juniorId);
+
+if (count($guardians) >= 1) {
+
+    $guardianIdPlaceholder1 = Utils::escape($guardians[0]["guardian_id"]);
+    $guardianFirstNamePlaceholder1 = Utils::escape($guardians[0]["guardian_first_name"]);
+    $guardianLastNamePlaceholder1 = Utils::escape($guardians[0]["guardian_last_name"]);
+    $guardianContactPlaceholder1 = Utils::escape($guardians[0]["guardian_contact_no"]);
+    $guardianRelationshipPlaceholder1 = Utils::escape($guardians[0]["relationship"]);
+
+    $guardianAddresses1 = Guardian::getGuardianAddress($guardianIdPlaceholder1);
+
+    $guardianAddress1Placeholder1 = Utils::escape($guardianAddresses1["address_line"]);
+    $guardianAddress2Placeholder1 = Utils::escape($guardianAddresses1["address_line2"]);
+    $guardianCityPlaceholder1 = Utils::escape($guardianAddresses1["city"]);
+    $guardianCountyPlaceholder1 = Utils::escape($guardianAddresses1["county"]);
+    $guardianPostcodePlaceholder1 = Utils::escape($guardianAddresses1["postcode"]);
+} else {
+    $guardianIdPlaceholder2 = Utils::escape($guardians[1]["guardian_id"]);
+    $guardianFirstNamePlaceholder2 = Utils::escape($guardians[1]["guardian_first_name"]);
+    $guardianLastNamePlaceholder2 = Utils::escape($guardians[1]["guardian_last_name"]);
+    $guardianContactPlaceholder2 = Utils::escape($guardians[1]["guardian_contact_no"]);
+    $guardianRelationshipPlaceholder2 = Utils::escape($guardians[1]["relationship"]);
+
+    $guardianAddresses2 = Guardian::getGuardianAddress($guardianIdPlaceholder2);
+    
+    $guardianAddress1Placeholder2 = Utils::escape($guardianAddresses2["address_line"]);
+    $guardianAddress2Placeholder2 = Utils::escape($guardianAddresses2["address_line2"]);
+    $guardianCityPlaceholder2 = Utils::escape($guardianAddresses2["city"]);
+    $guardianCountyPlaceholder2 = Utils::escape($guardianAddresses2["county"]);
+    $guardianPostcodePlaceholder2 = Utils::escape($guardianAddresses2["postcode"]);
+}
+
+
+
+
+
+
 
 $phpdate = strtotime( $dobPlaceholder );
 $ukDobPlaceholder = date( 'd/m/Y', $phpdate );
@@ -70,7 +111,13 @@ $doctorName = $doctorContact = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
     if (empty($_POST["name"])) {
-        $nameErr = "Name is required";
+        $name = $playerFirstName . ' ' . $playerLastName;
+
+        $nameParts = explode(" ", $name);
+
+        // Extract the first and last names
+        $firstName = $nameParts[0];
+        $lastName = end($nameParts);
     } else {
         $name = test_input($_POST["name"]);
         // Check if name only contains letters and whitespace
@@ -87,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate email
     if (empty($_POST["email"])) {
-        $emailErr = "Email is required";
+        $email = $emailAddressPlaceholder;
     } else {
         $email = test_input($_POST["email"]);
         // Check if email address is well-formed
@@ -97,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["sru"])){
-        $sruErr = "SRU Number is required";
+        $sru = $sruNumberPlaceholder;
 
 
     } else {
@@ -108,7 +155,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["dob"])){
-        $dobErr = "Date of birth is required";
+        $dob = date('d/m/Y', strtotime($dobPlaceholder));;
+
+        $sqlDate = date('Y-m-d', strtotime($dob));
 
 
     } else {
@@ -117,12 +166,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
         }
 
-        $dateTime = DateTime::createFromFormat('d/m/Y', $dob);
-        $sqlDate = $dateTime->format('Y-m-d');
+        $sqlDate = date('Y-m-d', strtotime($dob));
+
     }
 
     if(empty($_POST["contactNo"])){
-        $contactNoErr = "Contact Number is required";
+        $contactNo = $contactNumberPlaceholder;
 
     } else {
         $contactNo = test_input($_POST["contactNo"]);
@@ -132,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(empty($_POST["address1"])){
-        $address1Err = "Address Line 1 is required";
+        $address1 = $address1Placeholder;
 
     } else {
         $address1 = test_input($_POST["address1"]);
@@ -143,6 +192,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(!empty($_POST["address2"])){
         $address2 = test_input($_POST["address2"]);
+    } else {
+        $address2 = $address2Placeholder;
+
     }
 
     if(!empty($_POST["mobileNo"])){
@@ -150,10 +202,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match("/^\d+$/", $mobileNo)) {
             $mobileNoErr = "Only digits allowed";
         }
-    } 
+    } else {
+        $mobileNo = $mobileNumberPlaceholder;
+    }
 
     if(empty($_POST["city"])){
-        $cityErr = "City is required";
+        $city = $cityPlaceholder;
 
     } else {
         $city = test_input($_POST["city"]);
@@ -167,10 +221,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ((strlen($county)<5) || (strlen($county) > 50)){
             $countyErr = "County must be between 10 and 50 characters long!";
         }
+    } else {
+        $county = $countyPlaceholder;
     }
 
     if(empty($_POST["postcode"])){
-        $postcodeErr = "Postcode is required";
+        $postcode = $postcodePlaceholder;
 
     } else {
         $postcode = test_input($_POST["postcode"]);
@@ -186,7 +242,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Guardian Contact Details
 
     if (empty($_POST["guardianName"])) {
-        $guardianNameErr = "Guardian's name is required";
+        $guardianName = $guardianFirstNamePlaceholder1 . ' ' . $guardianLastNamePlaceholder1;
+
+        $guardianNameParts = explode(" ", $guardianName);
+
+        // Extract the first and last names
+        $guardianFirstName = $guardianNameParts[0];
+        $guardianLastName = end($guardianNameParts);
     } else {
         $guardianName = test_input($_POST["guardianName"]);
         // Check if name only contains letters and whitespace
@@ -202,7 +264,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(empty($_POST["guardianContact"])){
-        $guardianContactErr = "Contact Number is required";
+        $guardianContact = $guardianContactPlaceholder1;
 
     } else {
         $guardianContact = test_input($_POST["guardianContact"]);
@@ -212,7 +274,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(empty($_POST["relationship"])){
-        $relationshipErr = "Relationship is required";
+        $relationship = $guardianRelationshipPlaceholder1;
     } else{
         $relationship = test_input($_POST["relationship"]);
         // Check if name only contains letters and whitespace
@@ -223,7 +285,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if(empty($_POST["guardianAddress11"])){
-        $guardianAddress11Err = "Address Line 1 is required";
+        $guardianAddress11 = $guardianAddress1Placeholder1;
 
     } else {
         $guardianAddress11 = test_input($_POST["guardianAddress11"]);
@@ -234,10 +296,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(!empty($_POST["guardianAddress12"])){
         $guardianAddress12 = test_input($_POST["guardianAddress12"]);
+    } else {
+        $guardianAddress12 = $guardianAddress2Placeholder1;
     }
 
     if(empty($_POST["guardianCity1"])){
-        $guardianCity1Err = "City is required";
+        $guardianCity1 = $guardianCityPlaceholder1;
 
     } else {
         $guardianCity1 = test_input($_POST["guardianCity1"]);
@@ -251,10 +315,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ((strlen($guardianCounty1)<5) || (strlen($guardianCounty1) > 50)){
             $guardianCounty1Err = "County must be between 10 and 50 characters long!";
         }
+    } else {
+        $guardianCounty1 = $guardianCountyPlaceholder1;
     }
 
     if(empty($_POST["guardianPostcode1"])){
-        $guardianPostcode1Err = "Postcode is required";
+        $guardianPostcode1 = $guardianPostcodePlaceholder1;
 
     } else {
         $guardianPostcode1 = test_input($_POST["guardianPostcode1"]);
@@ -273,7 +339,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($_POST['elementForVar1HiddenField'] == 1){
         if(empty($_POST["guardianName2"])){
-            $guardianName2Err =  "Guardian's name is required";
+            if(isset($guardianFirstNamePlaceholder2) && isset ( $guardianLastNamePlaceholder2)){
+                $guardianName2 = $guardianFirstNamePlaceholder2 . ' ' . $guardianLastNamePlaceholder2;
+
+                
+                $guardianNameParts2 = explode(" ", $guardianName2);
+        
+                // Extract the first and last names
+                $guardianFirstName2 = $guardianNameParts2[0];
+                $guardianLastName2 = end($guardianNameParts2);
+            } 
         } else {
             $guardianName2 = test_input($_POST["guardianName2"]);
             // Check if name only contains letters and whitespace
@@ -289,7 +364,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     
         if(empty($_POST["guardianContact2"])){
-            $guardianContact2Err = "Contact Number is required";
+            if(isset($guardianContactPlaceholder2)){
+                $guardianContact2 = $guardianContactPlaceholder2;
+
+            }
     
         } else {
             $guardianContact2 = test_input($_POST["guardianContact"]);
@@ -299,7 +377,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     
         if(empty($_POST["relationship2"])){
-            $relationship2Err = "Relationship is required";
+            if(isset($guardianRelationshipPlaceholder2)){
+                $relationship2 = $guardianRelationshipPlaceholder2;
+            }
         } else{
             $relationship2 = test_input($_POST["relationship2"]);
             // Check if name only contains letters and whitespace
@@ -309,7 +389,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if(empty($_POST["guardianAddress21"])){
-            $guardianAddress21Err = "Address Line 1 is required";
+            if(isset($guardianAddress1Placeholder2)){
+                $guardianAddress21 = $guardianAddress1Placeholder2;
+            }
     
         } else {
             $guardianAddress21 = test_input($_POST["guardianAddress21"]);
@@ -320,11 +402,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         if(!empty($_POST["guardianAddress22"])){
             $guardianAddress22 = test_input($_POST["guardianAddress22"]);
+        } else {
+            if(isset($guardianAddress2Placeholder2)){
+                $guardianAddress22 = $guardianAddress2Placeholder2;
+
+            }
         }
     
         if(empty($_POST["guardianCity2"])){
-            $guardianCity2Err = "City is required";
-    
+            if(isset($guardianCityPlaceholder2)){
+                $guardianCity2 = $guardianCityPlaceholder2;
+
+            }
         } else {
             $guardianCity2 = test_input($_POST["guardianCity2"]);
             if ((strlen($guardianCity2)<5) || (strlen($guardianCity2) > 50)){
@@ -337,10 +426,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ((strlen($guardianCounty2)<5) || (strlen($guardianCounty2) > 50)){
                 $guardianCounty2Err = "County must be between 10 and 50 characters long!";
             }
+        } else {
+            if(isset($guardianCountyPlaceholder2)){
+                $guardianCounty2 = $guardianCountyPlaceholder2;
+            }
         }
     
         if(empty($_POST["guardianPostcode2"])){
-            $guardianPostcode2Err = "Postcode is required";
+            if(isset($guardianPostcodePlaceholder2)){
+                $guardianPostcode2 = $guardianPostcodePlaceholder2;
+            }
     
         } else {
             $guardianPostcode2 = test_input($_POST["guardianPostcode2"]);
@@ -355,7 +450,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate name
     if (empty($_POST["doctorName"])) {
-        $doctorNameErr = "Doctor's name is required";
+        $doctorName = $doctorFirstNamePlaceholder . ' ' . $doctorLastNamePlaceholder;
+
+        $doctorNameParts = explode(" ", $doctorName);
+
+        // Extract the first and last names
+        $doctorFirstName = $doctorNameParts[0];
+        $doctorLastName = end($doctorNameParts);
     } else {
         $doctorName = test_input($_POST["doctorName"]);
         // Check if name only contains letters and whitespace
@@ -371,7 +472,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(empty($_POST["doctorContact"])){
-        $doctorContactErr = "Contact Number is required";
+        $doctorContact = $doctorContactPlaceholder;
 
     } else {
         $doctorContact = test_input($_POST["doctorContact"]);
@@ -529,6 +630,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
                     $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
                 }
+            } else {
+                $filename = $filenamePlaceholder; // Okay this is very funny, this line of code works here as well but not in member.
+
+                
+                // PS: The issue was that instead of getting the filename from '$member' I was getting it from '$player' which didnt exist.
+                // Fixed it by swapping '$player' with '$member'
             }
 
             Junior::updateJunior($addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId);

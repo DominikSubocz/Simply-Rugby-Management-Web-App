@@ -196,4 +196,30 @@ class SQL {
   public static $updateTrainingDetails = "UPDATE simplyrugby.training_details
   SET coach_id = ?, squad_id = ?, skills = ?, activities = ?, present_players = ?, accidents = ?, injuries = ?
   WHERE training_details_id = ?";
+
+  public static $getGuardian = "SELECT
+  g.guardian_id,
+  g.guardian_first_name,
+  g.guardian_last_name,
+  g.guardian_contact_no,
+  g.relationship
+FROM
+  simplyrugby.guardians g
+LEFT JOIN
+  simplyrugby.junior_associations ja ON g.guardian_id = ja.guardian_id
+  WHERE ja.junior_id = ?";
+
+  public static $getGuardianAddress = "SELECT
+  a.address_line,
+  a.address_line2,
+  a.city,
+  a.county,
+  a.postcode
+FROM
+  simplyrugby.guardians g
+LEFT JOIN
+  simplyrugby.addresses a ON g.address_id = a.address_id
+WHERE g.guardian_id = ?";
+
+
 }
