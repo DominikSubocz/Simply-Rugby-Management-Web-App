@@ -16,6 +16,21 @@ $gameNameErr = $squadErr = $oppisitionErr = $startErr = $endErr = $locationErr =
 $sessionName = $coachName = $trainingSquad = $trainingLocation = "";
 $sessionNameErr = $coachNameErr = $trainingSquadErr = $trainingStartErr = $trainingEndErr = $trainingLocationErr = "";
 
+$coachSql = "SELECT first_name, last_name FROM simplyrugby.coaches";
+
+$conn = Connection::connect();
+
+$stmt = $conn->prepare($coachSql);
+$stmt->execute();
+$coaches = $stmt->fetchAll();
+
+$stmt = $conn->prepare(SQL::$getSquads);
+$stmt->execute();
+$squads = $stmt->fetchAll();
+
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($_POST['elementForVar1HiddenField'] == 0) {
@@ -152,9 +167,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
         $trainingSquad = test_input($_POST["trainingSquad"]);
-        if (!preg_match("/^\d+$/", $trainingSquad)) {
-            $trainingSquadErr = "Only digits allowed";
-        }
     }
 
     if (empty($_POST["trainingStart"])) {
@@ -217,6 +229,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           } else {
             $squadId = $squadExists['squad_id'];
 
+            var_dump($squadId);
+
             $stmt = $conn->prepare(SQL::$createSession);
             $stmt->execute([$coachId, $squadId, $sessionName, $sqlTrainingStart, $sqlTrainingEnd, $trainingLocation]);
             $sessionId = $conn->lastInsertId();
@@ -274,39 +288,39 @@ function test_input($data) {
       </div>
 
       <div id="game-form">
-        <label for="guardianName"><span class="required">*</span>Game name:</label><br>
+        <label for="gameName"><span class="required">*</span>Game name:</label><br>
         <input type="text" name="gameName" value="<?php echo $gameName;?>">
         <p class="error"><?php echo $gameNameErr;?></p><br>
   
-        <label for="guardianName"><span class="required">*</span>Squad Number:</label><br>
+        <label for="squad"><span class="required">*</span>Squad Number:</label><br>
         <input type="text" name="squad" value="<?php echo $squad;?>">
         <p class="error"><?php echo $squadErr;?></p><br>
   
-        <label for="guardianName"><span class="required">*</span>Opposition team name:</label><br>
+        <label for="oppisition"><span class="required">*</span>Opposition team name:</label><br>
         <input type="text" name="oppisition" value="<?php echo $oppisition;?>">
         <p class="error"><?php echo $oppisitionErr;?></p><br>
   
-        <label for="guardianName"><span class="required">*</span>Start Date:</label><br>
+        <label for="start"><span class="required">*</span>Start Date:</label><br>
         <input type="datetime-local" id="start" name="start" >
         <p class="error"><?php echo $startErr;?></p><br>
   
-        <label for="guardianName"><span class="required">*</span>End Date:</label><br>
+        <label for="end"><span class="required">*</span>End Date:</label><br>
         <input type="datetime-local" id="end" name="end" >
         <p class="error"><?php echo $endErr;?></p><br>
   
-        <label for="guardianName"><span class="required">*</span>Location:</label><br>
+        <label for="location"><span class="required">*</span>Location:</label><br>
         <input type="text" name="location" value="<?php echo $location;?>">
         <p class="error"><?php echo $locationErr;?></p><br>
   
-        <label for="guardianName"><span class="required">*</span>Kickoff Time:</label><br>
+        <label for="kickoff"><span class="required">*</span>Kickoff Time:</label><br>
         <input type="time" id="kickoff" name="kickoff">
         <p class="error"><?php echo $kickoffErr;?></p><br>
   
-        <label for="guardianName">Result:</label><br>
+        <label for="result">Result:</label><br>
         <input type="text" name="result" value="<?php echo $result;?>">
         <p class="error"><?php echo $resultErr;?></p><br>
   
-        <label for="guardianName">Score:</label><br>
+        <label for="score">Score:</label><br>
         <input type="text" name="score" value="<?php echo $score;?>">
         <p class="error"><?php echo $scoreErr;?></p><br>
       </div>
@@ -314,30 +328,52 @@ function test_input($data) {
       <div id="training-form">
         <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
   
-        <label for="guardianName">Training session name:</label><br>
+        <label for="sessionName">Training session name:</label><br>
         <input type="text" name="sessionName" value="<?php echo $sessionName;?>">
         <p class="error"><?php echo $sessionNameErr;?></p><br>
   
-  
-        <label for="guardianName">Coach name:</label><br>
-        <input type="text" name="coachName" value="<?php echo $coachName;?>">
+        <label for="coachName">Coach:</label><br>
+        <select name="coachName">
+          <?php
+          foreach($coaches as $coach){
+            ?>
+            <option value="<?php echo $coach["first_name"] . ' ' . $coach["last_name"]; ?>">
+              <?php echo $coach["first_name"] . ' ' . $coach["last_name"]; ?>
+            </option>
+            <?php
+          }
+          ?>
+        </select>
         <p class="error"><?php echo $coachNameErr;?></p><br>
-  
-        <label for="guardianName">Squad number:</label><br>
-        <input type="text" name="trainingSquad" value="<?php echo $trainingSquad;?>" >
+        <br>
+
+        
+        <label for="trainingSquad">Squad number:</label><br>
+        <select name="trainingSquad">
+          <?php
+          foreach($squads as $squad){
+            ?>
+            <option value="<?php echo $squad["squad_name"]; ?>">
+              <?php echo $squad["squad_name"]; ?>
+            </option>
+            <?php
+          }
+          ?>
+        </select>
         <p class="error"><?php echo $trainingSquadErr;?></p><br>
+        <br>
   
   
-        <label for="guardianName">Start Date:</label><br>
+        <label for="trainingStart">Start Date:</label><br>
         <input type="datetime-local" id="trainingStart" name="trainingStart"  >
         <p class="error"><?php echo $trainingStartErr;?></p><br>
   
-        <label for="guardianName">End Date:</label><br>
+        <label for="trainingEnd">End Date:</label><br>
         <input type="datetime-local" id="trainingEnd" name="trainingEnd"  >
         <p class="error"><?php echo $trainingEndErr;?></p><br>
   
   
-        <label for="guardianName">Location:</label><br>
+        <label for="trainingLocation">Location:</label><br>
         <input type="text" name="trainingLocation" value="<?php echo $trainingLocation;?>">
         <p class="error"><?php echo $trainingLocationErr;?></p><br>
       </div>

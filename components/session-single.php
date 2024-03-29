@@ -12,7 +12,7 @@ if(isset($_POST["confirmDelete"])){
     <div>
       <h2><?php echo 'Session ID: '. $sessionId; ?></h2>
       <h2><?php echo $sessionName; ?></h2>
-      <p><?php echo 'Squad Number: '. $coachId; ?></p>
+      <p><?php echo 'Coach Number: '. $coachId; ?></p>
       <p><?php echo 'Squad Number: '. $squadId; ?></p>
       <p><?php echo 'Start: '. $sessionStart; ?></p>
       <p><?php echo 'End: '.$sessionEnd; ?></p>

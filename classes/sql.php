@@ -39,7 +39,10 @@ class SQL {
 
   public static $createGameHalf = "INSERT INTO simplyrugby.game_halves (game_id, half_number, home_team, opposition_team) VALUES (?, ?, ?, ?)";
 
-  public static $getSquad = "SELECT * FROM simplyrugby.squads WHERE squad_id = ?";
+  public static $getSquad = "SELECT * FROM simplyrugby.squads WHERE squad_name = ?";
+
+  public static $getSquads = "SELECT * FROM simplyrugby.squads";
+
 
   public static $getSquadName = "SELECT squad_name FROM simplyrugby.squads WHERE squad_id = ?";
 

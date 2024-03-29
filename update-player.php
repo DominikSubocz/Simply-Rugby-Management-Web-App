@@ -61,7 +61,7 @@ $kin = $kinContact = $doctorName = $doctorContact = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate name
     if (empty($_POST["name"])) {
-        $nameErr = "Name is required";
+        $name = $playerFirstName . ' ' . $playerLastName;
     } else {
         $name = test_input($_POST["name"]);
         // Check if name only contains letters and whitespace
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate email
     if (empty($_POST["email"])) {
-        $emailErr = "Email is required";
+        $email = $emailAddressPlaceholder;
     } else {
         $email = test_input($_POST["email"]);
         // Check if email address is well-formed
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["sru"])){
-        $sruErr = "SRU Number is required";
+        $sru = $sruNumberPlaceholder;
 
 
     } else {
@@ -99,7 +99,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["dob"])){
-        $dobErr = "Date of birth is required";
+        $dob = date('d/m/Y', strtotime($dobPlaceholder));;
+
+        $sqlDate = date('Y-m-d', strtotime($dob));
 
 
     } else {
@@ -108,12 +110,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
         }
 
-        $dateTime = DateTime::createFromFormat('d/m/Y', $dob);
-        $sqlDate = $dateTime->format('Y-m-d');
+        $sqlDate = date('Y-m-d', strtotime($dob));
+
     }
 
     if(empty($_POST["contactNo"])){
-        $contactNoErr = "Contact Number is required";
+        $contactNo = $contactNumberPlaceholder;
 
     } else {
         $contactNo = test_input($_POST["contactNo"]);
@@ -123,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(empty($_POST["address1"])){
-        $address1Err = "Address Line 1 is required";
+        $address1 = $address1Placeholder;
 
     } else {
         $address1 = test_input($_POST["address1"]);
@@ -134,6 +136,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(!empty($_POST["address2"])){
         $address2 = test_input($_POST["address2"]);
+    } else {
+        $address2 = $address2Placeholder;
     }
 
     if(!empty($_POST["mobileNo"])){
@@ -141,10 +145,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match("/^\d+$/", $mobileNo)) {
             $mobileNoErr = "Only digits allowed";
         }
-    } 
+    } else {
+        $mobileNo = $mobileNumberPlaceholder;
+    }
 
     if(empty($_POST["city"])){
-        $cityErr = "City is required";
+        $city = $cityPlaceholder;
 
     } else {
         $city = test_input($_POST["city"]);
@@ -158,10 +164,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ((strlen($county)<5) || (strlen($county) > 50)){
             $countyErr = "County must be between 10 and 50 characters long!";
         }
+    } else { 
+        $county = $countyPlaceholder;
     }
 
     if(empty($_POST["postcode"])){
-        $postcodeErr = "Postcode is required";
+        $postcode = $postcodePlaceholder;
 
     } else {
         $postcode = test_input($_POST["postcode"]);
@@ -177,7 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Emergency Contact Details
 
     if (empty($_POST["kin"])) {
-        $kinErr = "Name is required";
+        $kin = $nextOfKinPlaceholder;
     } else {
         $kin = test_input($_POST["kin"]);
         // Check if name only contains letters and whitespace
@@ -187,7 +195,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(empty($_POST["kinContact"])){
-        $kinContactErr = "Contact Number is required";
+        $kinContact = $kinContactNumberPlaceholder;
 
     } else {
         $kinContact = test_input($_POST["kinContact"]);
@@ -200,7 +208,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate name
     if (empty($_POST["doctorName"])) {
-        $doctorNameErr = "Doctor's name is required";
+        $doctorName = $doctorFirstNamePlaceholder . ' ' . $doctorLastNamePlaceholder;
+
+        $doctorNameParts = explode(" ", $doctorName);
+
+        // Extract the first and last names
+        $doctorFirstName = $doctorNameParts[0];
+        $doctorLastName = end($doctorNameParts);
+
     } else {
         $doctorName = test_input($_POST["doctorName"]);
         // Check if name only contains letters and whitespace
@@ -216,13 +231,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(empty($_POST["doctorContact"])){
-        $doctorContactErr = "Contact Number is required";
+        $doctorContact = $doctorContactPlaceholder;
 
     } else {
         $doctorContact = test_input($_POST["doctorContact"]);
         if (!preg_match("/^\d+$/", $kinContact)) {
             $doctorContactErr = "Only digits allowed";
         }
+    }
+
+    if(empty($_POST["healthIssues"])){
+        $healthIssues = $healthIssuesPlaceholder;
     }
 
     
@@ -303,7 +322,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
                     $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
                 }
-            }        
+            } else {
+                $filename = $filenamePlaceholder;
+            }    
         
 
             player::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId);
