@@ -5,6 +5,9 @@ session_start();
 require("classes/components.php");
 require("classes/connection.php");
 require("classes/sql.php");
+require("classes/player.php");
+require("classes/doctor.php");
+require("classes/address.php");
 
 
 $conn = Connection::connect();
@@ -14,7 +17,6 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
 $playerId = $_GET["id"];
 
-require("classes/player.php");
 
 $player = player::getplayer($playerId);
 
@@ -251,56 +253,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
 
-        $conn = Connection::connect();
 
-        $stmt = $conn->prepare(SQL::$playerExists);
-        $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
-        $existingUser = $stmt->fetch();
+        $existingUser = Player::playerExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo);
 
-
-
-
+        
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
         $existingAddress = $stmt->fetch();
 
         if($existingAddress){
 
-
-            $stmt = $conn->prepare(SQL::$getExistingAddressId);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-            $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
+            $addressId = Address::getExistingAddress($address1, $address2, $city, $county, $postcode);
+        
         }
 
         else{
 
-
-            $stmt = $conn->prepare(SQL::$createNewAddress);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-
-            $stmt = $conn->prepare(SQL::$getExistingAddressId);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-            $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
+            $addressId = Address::createNewAddress($address1, $address2, $city, $county, $postcode);
 
         }
 
-        $stmt = $conn->prepare(SQL::$doctorExists);
-        $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-        $existingDoctor = $stmt->fetch();
+        $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);
 
         if($existingDoctor){
-            $stmt = $conn->prepare(SQL::$getExistingDoctorId);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-            $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
+
+            $doctorId = Doctor::existingDoctorId($doctorFirstName, $doctorLastName, $doctorContact);
+        
         }
 
         else{
-            $stmt = $conn->prepare(SQL::$createNewDoctor);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-
-            $stmt = $conn->prepare(SQL::$getExistingDoctorId);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-            $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
+  
+            $doctorId = Doctor::createNewDoctor($doctorFirstName, $doctorLastName, $doctorContact);
+        
         }
 
 
@@ -327,7 +311,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }    
         
 
-            player::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId);
+            Player::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId);
             
         }
 

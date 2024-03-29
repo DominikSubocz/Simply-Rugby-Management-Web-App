@@ -96,5 +96,17 @@ class player
 
   }
 
+  public static function playerExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo){
+    
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$playerExists);
+    $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
+    $existingUser = $stmt->fetch();
+
+    return $existingUser;
+
+  }
+
 
 }
