@@ -62,4 +62,12 @@ class Member
     $conn = null;
 
   }
+
+  public static function memberExists($firstName, $lastName, $dob, $sru, $contactNo, $mobileNo){
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$memberExists);
+    $stmt->execute([$firstName, $lastName, $dob, $sru, $contactNo, $mobileNo]);
+    $existingUser = $stmt->fetch();
+  }
 }

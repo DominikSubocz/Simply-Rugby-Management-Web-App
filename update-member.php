@@ -5,10 +5,11 @@ require("classes/components.php");
 require("classes/sql.php");
 require("classes/utils.php");
 require_once("classes/connection.php");
+require("classes/member.php");
+require("classes/address.php");
 
 $memberId = $_GET["id"];
 
-require("classes/member.php");
 
 $member = Member::getMember($memberId);
 
@@ -178,31 +179,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty ($genuineErr)) {
-        $conn = Connection::connect();
 
-        $stmt = $conn->prepare(SQL::$memberExists);
-        $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
-        $existingUser = $stmt->fetch();
+        $existingUser = Member::memberExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo);
 
-        $stmt = $conn->prepare(SQL::$addressExists);
-        $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-        $existingAddress = $stmt->fetch();
+        $existingAddress = Address::addressExists($address1, $address2, $city, $county, $postcode);
 
         if($existingAddress){
 
-            $stmt = $conn->prepare(SQL::$getExistingAddressId);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-            $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
+            $addressId = Address::getExistingAddress($address1, $address2, $city, $county, $postcode);
+        
         }
 
         else{
 
-            $stmt = $conn->prepare(SQL::$createNewAddress);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-
-            $stmt = $conn->prepare(SQL::$getExistingAddressId);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-            $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
+            $addressId = Address::createNewAddress($address1, $address2, $city, $county, $postcode);
 
         }
 
@@ -223,8 +213,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
                     $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
                 }
-            } else {
-                $filename = $filenamePlaceholder;  //Okay so this doesn't work here but it works in update player, I love php.
+            } else if (!isset($_POST["profileImage"])) {
+                $filename = $filenamePlaceholder;  // Turns out I was using $player instead of $member, so easy fix.
 
 
             }   

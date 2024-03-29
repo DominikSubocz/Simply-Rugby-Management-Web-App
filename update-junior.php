@@ -496,23 +496,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $guardian1AddressId = $guardian2AddressId = $guardian2AddressId = $guardianId = $guardianId2 = "";
 
-        $stmt = $conn->prepare(SQL::$juniorExists);
-        $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
-        $existingUser = $stmt->fetch();
+        $existingUser = Junior::juniorExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo);
 
-        $stmt = $conn->prepare(SQL::$addressExists);
-        $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-        $existingAddress = $stmt->fetch(PDO::FETCH_COLUMN);
+        $existingAddress = Address::addressExists($address1, $address2, $city, $county, $postcode);
 
-        $stmt = $conn->prepare(SQL::$addressExists);
-        $stmt->execute([$guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1]);
-        $guardian1Address = $stmt->fetch(PDO::FETCH_COLUMN);
+        $guardian1Address = Address::addressExists($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
         
         if (!$guardian1Address) {
             // Create guardian address if it doesn't exist
-            $stmt = $conn->prepare(SQL::$createNewAddress);
-            $stmt->execute([$guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1]);
-            $guardian1AddressId = $conn->lastInsertId();
+            $guardian1AddressId = Address::createNewAddress($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
         } else {
             // Use the existing guardian address ID
             $guardian1AddressId = $guardian1Address;
@@ -524,50 +516,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // First guardian
         // Check existing guardian
-        $stmt = $conn->prepare(SQL::$guardianExists);
-        $stmt->execute([$guardianFirstName, $guardianLastName, $guardianContact]);
-        $existingGuardian = $stmt->fetch();
+        $existingGuardian = Guardian::guardianExists($guardianFirstName, $guardianLastName, $guardianContact);
         
         if ($existingGuardian) {
             $guardianId = $existingGuardian["guardian_id"];
         } else {
-            $stmt = $conn->prepare(SQL::$createNewGuardian);
-            $stmt->execute([$guardian1AddressId, $guardianFirstName, $guardianLastName, $guardianContact, $relationship]);
-            $guardianIdResult = $stmt->fetch(PDO::FETCH_COLUMN);
-            $guardianId = $conn->lastInsertId();
-
-
+            $guardianId = Guardian::createGuardian($guardian1AddressId, $guardianFirstName, $guardianLastName, $guardianContact, $relationship);
         }
 
         
         if ($_POST['elementForVar1HiddenField'] == 1) {
 
-            $stmt = $conn->prepare(SQL::$addressExists);
-            $stmt->execute([$guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2]);
-            $guardian2Address = $stmt->fetch(PDO::FETCH_COLUMN);
+            $guardian2Address = Address::addressExists($guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2);
     
             if (!$guardian2Address) {
                 // Create guardian address if it doesn't exist
-                $stmt = $conn->prepare(SQL::$createNewAddress);
-                $stmt->execute([$guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2]);
-                $guardian2AddressId = $conn->lastInsertId();
+                $guardian2AddressId = Address::createNewAddress($guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2);
             } else {
                 $guardian2AddressId = $guardian2Address;
             }
 
-            
-            $stmt = $conn->prepare(SQL::$guardianExists);
-            $stmt->execute([$guardianFirstName2, $guardianLastName2, $guardianContact2]);
-            $existingGuardian2 = $stmt->fetch();
+            $existingGuardian2 = Guardian::guardianExists($guardianFirstName2, $guardianLastName2, $guardianContact2);
             
             if ($existingGuardian2) {
                 $guardianId2 = $existingGuardian2['guardian_id'];
-                var_dump("Guardian Exists");
             } else {
-                $stmt = $conn->prepare(SQL::$createNewGuardian);
-                $stmt->execute([$guardian2AddressId, $guardianFirstName2, $guardianLastName2, $guardianContact2, $relationship2]);
-                $guardianId2Result = $stmt->fetch(PDO::FETCH_COLUMN);
-                $guardianId2 = $conn->lastInsertId();
+
+                $guardianId2 = Guardian::createGuardian($guardian2AddressId, $guardianFirstName2, $guardianLastName2, $guardianContact2, $relationship2);
 
             }
         }
@@ -578,39 +553,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         if($existingAddress){
-            $stmt = $conn->prepare(SQL::$getExistingAddressId);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-            $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
+            $addressId = Address::getExistingAddress($address1, $address2, $city, $county, $postcode);
         }
 
         else{
-            $stmt = $conn->prepare(SQL::$createNewAddress);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
 
-            $stmt = $conn->prepare(SQL::$getExistingAddressId);
-            $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-            $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
+            $addressId = Address::createNewAddress($address1, $address2, $city, $county, $postcode);
 
         }
 
-        $stmt = $conn->prepare(SQL::$doctorExists);
-        $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-        $existingDoctor = $stmt->fetch();
+        $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);
 
         if($existingDoctor){
 
-            $stmt = $conn->prepare(SQL::$getExistingDoctorId);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-            $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
+            $doctorId = Doctor::existingDoctorId($doctorFirstName, $doctorLastName, $doctorContact);
         }
 
         else{
-            $stmt = $conn->prepare(SQL::$createNewDoctor);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
 
-            $stmt = $conn->prepare(SQL::$getExistingDoctorId);
-            $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
-            $doctorId = $stmt->fetch(PDO::FETCH_COLUMN);
+            $doctorId = Doctor::createNewDoctor($doctorFirstName, $doctorLastName, $doctorContact);
         }
 
         if(empty($genuineErr)){
@@ -675,7 +636,7 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 <form 
     method="POST"
     action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $junior["junior_id"];?>"
-    encypte="multipart/form-data">
+    enctype="multipart/form-data">
 
   <p class="error"><?php echo $genuineErr;?></p><br>
 

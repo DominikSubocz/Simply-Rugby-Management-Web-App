@@ -18,7 +18,7 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 $playerId = $_GET["id"];
 
 
-$player = player::getplayer($playerId);
+$player = Player::getplayer($playerId);
 
 $playerFirstName = Utils::escape($player["first_name"]);
 $playerLastName = Utils::escape($player["last_name"]);
@@ -257,9 +257,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $existingUser = Player::playerExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo);
 
         
-        $stmt = $conn->prepare(SQL::$addressExists);
-        $stmt->execute([$address1, $address2, $city, $county, $postcode]);
-        $existingAddress = $stmt->fetch();
+        $existingAddress = Address::addressExists($address1, $address2, $city, $county, $postcode);
 
         if($existingAddress){
 
@@ -306,13 +304,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
                     $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
                 }
-            } else {
-                $filename = $filenamePlaceholder;
-            }    
+            } else if (!isset($_POST["profileImage"])) {
+                $filename = $filenamePlaceholder;  //Okay so this doesn't work here but it works in update player, I love php.
+
+
+            }   
+  
         
 
             Player::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId);
-            
+
         }
 
     }
@@ -339,7 +340,7 @@ function test_input($data) {
 <form 
     method="POST"
     action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $player["player_id"];?>"
-    encypte="multipart/form-data">
+    enctype="multipart/form-data">
 
   <p class="error"><?php echo $genuineErr;?></p><br>
 
