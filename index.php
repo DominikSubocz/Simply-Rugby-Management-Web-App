@@ -38,7 +38,7 @@ Components::pageHeader("All players", ["style"], ["mobile-nav"]);
                 </a>
                 
                 
-                <a href='timetable.html' class='menu-dashboard-item'>
+                <a href='timetable.php' class='menu-dashboard-item'>
                     <div>
                         View Timetable
                     </div>
