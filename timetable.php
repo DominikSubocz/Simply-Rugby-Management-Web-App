@@ -278,7 +278,7 @@ function test_input($data) {
         <input type="text" name="gameName" value="<?php echo $gameName;?>">
         <p class="error"><?php echo $gameNameErr;?></p><br>
   
-        <label for="guardianName"><span class="required">*</span>Squad Playing:</label><br>
+        <label for="guardianName"><span class="required">*</span>Squad Number:</label><br>
         <input type="text" name="squad" value="<?php echo $squad;?>">
         <p class="error"><?php echo $squadErr;?></p><br>
   
@@ -323,7 +323,7 @@ function test_input($data) {
         <input type="text" name="coachName" value="<?php echo $coachName;?>">
         <p class="error"><?php echo $coachNameErr;?></p><br>
   
-        <label for="guardianName">Squad name:</label><br>
+        <label for="guardianName">Squad number:</label><br>
         <input type="text" name="trainingSquad" value="<?php echo $trainingSquad;?>" >
         <p class="error"><?php echo $trainingSquadErr;?></p><br>
   
