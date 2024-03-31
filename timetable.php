@@ -114,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([$squad]);
         $squadExists = $stmt->fetch();
         $squadId = $squadExists['squad_id'];
+        
 
         $stmt = $conn->prepare(SQL::$getSquadName);
         $stmt->execute([$squad]);
