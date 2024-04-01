@@ -15,9 +15,12 @@ if(!isset($_SESSION["loggedIn"])){
 }
 
 ?>
-<main class="content-wrapper profile-list-content">
+<main class="content-wrapper profile-list-content my-5">
 
-<h2>player List</h2>
+<div class="list-controls my-3 mx-auto">
+  <h2 class="my-3">Non Player Members List</h2>
+  <a class="btn btn-dark" href="add-player.php">Add Non Player Member</a>
+</div>
 
 <div class="player-list">
 

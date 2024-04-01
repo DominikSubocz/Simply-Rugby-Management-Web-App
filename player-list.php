@@ -15,15 +15,18 @@ if(!isset($_SESSION["loggedIn"])){
 }
 
 ?>
+<main class="content-wrapper profile-list-content my-5">
 
-<h2>player List</h2>
+
+<div class="list-controls my-3 mx-auto">
+  <h2 class="my-3">Player List</h2>
+  <a class="btn btn-dark" href="add-player.php">Add Player</a>
+</div>
 
 <div class="player-list">
-
-<div class="player-card column-headings">
+<div class="player-card column-headings ">
   <div class="id-container card-container">ID</div>
-  <div class="firstN-container card-container">First Name</div>
-  <div class="lastN-container card-container">Last Name</div>
+  <div class="firstN-container card-container">Name</div>
   <div class="sru-container card-container">SRU Number</div>
   <div class="dob-container card-container">Date of Birth</div>
   <div class="contactNo-container card-container">Contact Number</div>
@@ -40,6 +43,7 @@ if(!isset($_SESSION["loggedIn"])){
 
   ?>
 </div>
+</main>
 
 <?php
 

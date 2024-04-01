@@ -642,31 +642,31 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 
   
   <div id="personal-details-form">
-      <label for="name">Name:</label><br>
+      <label  class="col-sm-2 col-form-label-sm" for="name">Name:</label><br>
       <input type="text" name="name" placeholder="<?php echo $playerFirstName. ' '. $playerLastName?>" value="<?php echo $name;?>">
       <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
 
-      <label for="sru">SRU Number:</label><br>
+      <label  class="col-sm-2 col-form-label-sm"for="sru">SRU Number:</label><br>
       <input type="text" name="sru" placeholder="<?php echo $sruNumberPlaceholder;?>" value="<?php echo $sru;?>">
       <p class="alert alert-danger"><?php echo $sruErr;?></p><br>
 
-      <label for="dob">Date of Birth:</label><br>
+      <label  class="col-sm-2 col-form-label-sm"for="dob">Date of Birth:</label><br>
       <input type="text" name="dob" placeholder="<?php echo $ukDobPlaceholder;?>" value="<?php echo $dob;?>">
       <p class="alert alert-danger"><?php echo $dobErr;?></p><br>
 
-      <label for="email">Email:</label><br>
+      <label  class="col-sm-2 col-form-label-sm"for="email">Email:</label><br>
       <input type="text" name="email" placeholder="<?php echo $emailAddressPlaceholder;?>" value="<?php echo $email;?>">
       <p class="alert alert-danger"><?php echo $emailErr;?></p><br>
 
-      <label for="contactNo">Contact Number:</label><br>
+      <label  class="col-sm-2 col-form-label-sm"for="contactNo">Contact Number:</label><br>
       <input type="text" name="contactNo" placeholder="<?php echo $contactNumberPlaceholder;?>" value="<?php echo $contactNo;?>">
       <p class="alert alert-danger"><?php echo $contactNoErr;?></p><br>
 
-      <label for="mobileNo">Mobile Number:</label><br>
+      <label  class="col-sm-2 col-form-label-sm"for="mobileNo">Mobile Number:</label><br>
       <input type="text" name="mobileNo" placeholder="<?php echo $mobileNumberPlaceholder;?>" value="<?php echo $mobileNo;?>">
       <p class="alert alert-danger"><?php echo $mobileNoErr;?></p><br>
 
-      <label for="healthIssues">Health Issues:</label><br>
+      <label  class="col-sm-2 col-form-label-sm"for="healthIssues">Health Issues:</label><br>
       <input type="text" name="healthIssues" placeholder="<?php echo $healthIssuesPlaceholder;?>" value="<?php echo $healthIssues;?>">
       <p class="alert alert-danger"><?php echo $healthIssuesErr;?></p><br>
 
@@ -679,23 +679,23 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
   </div>
 
   <div id="address-details-form" class="add-form-section">
-    <label for="address1">Address Line 1:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="address1">Address Line 1:</label><br>
         <input type="text" name="address1"  placeholder="<?php echo $address1Placeholder;?>" value="<?php echo $address1;?>">
         <p class="alert alert-danger"><?php echo $address1Err;?></p><br>
 
-    <label for="address2">Address Line 2:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="address2">Address Line 2:</label><br>
         <input type="text" name="address2"  placeholder="<?php echo $address2Placeholder;?>" value="<?php echo $address2;?>">
         <p class="alert alert-danger"><?php echo $address2Err;?></p><br>   
 
-    <label for="city">City:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="city">City:</label><br>
         <input type="text" name="city"  placeholder="<?php echo $cityPlaceholder;?>" value="<?php echo $city;?>">
         <p class="alert alert-danger"><?php echo $cityErr;?></p><br>  
 
-    <label for="county">County:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="county">County:</label><br>
         <input type="text" name="county"  placeholder="<?php echo $countyPlaceholder;?>" value="<?php echo $county;?>">
         <p class="alert alert-danger"><?php echo $countyErr;?></p><br>  
 
-    <label for="postcode">Postcode:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="postcode">Postcode:</label><br>
         <input type="text" name="postcode"  placeholder="<?php echo $postcodePlaceholder;?>" value="<?php echo $postcode;?>">
         <p class="alert alert-danger"><?php echo $postcodeErr;?></p><br>  
         <div>
@@ -718,70 +718,70 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
         </label>
     </div>
     
-    <label for="guardianName">Guardian's name:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="guardianName">Guardian's name:</label><br>
         <input type="text" name="guardianName" value="<?php echo $guardianName;?>">
         <p class="alert alert-danger"><?php echo $guardianNameErr;?></p><br>
 
-    <label for="guardianContact">Contact Number:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="guardianContact">Contact Number:</label><br>
         <input type="text" name="guardianContact" value="<?php echo $guardianContact;?>">
         <p class="alert alert-danger"><?php echo $guardianContactErr;?></p><br>   
 
-    <label for="relationship">Relationship:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="relationship">Relationship:</label><br>
         <input type="text" name="relationship" value="<?php echo $relationship;?>">
         <p class="alert alert-danger"><?php echo $relationshipErr;?></p><br>  
         
     
-    <label for="guardianAddress11">Address Line 1:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="guardianAddress11">Address Line 1:</label><br>
         <input type="text" name="guardianAddress11" value="<?php echo $guardianAddress11;?>">
         <p class="alert alert-danger"><?php echo $guardianAddress11Err;?></p><br>
 
-    <label for="guardianAddress12">Address Line 2:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="guardianAddress12">Address Line 2:</label><br>
         <input type="text" name="guardianAddress12" value="<?php echo $guardianAddress12;?>">
         <p class="alert alert-danger"><?php echo $guardianAddress12Err;?></p><br>   
 
-    <label for="guardianCity1">City:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="guardianCity1">City:</label><br>
         <input type="text" name="guardianCity1" value="<?php echo $guardianCity1;?>">
         <p class="alert alert-danger"><?php echo $guardianCity1Err;?></p><br>  
 
-    <label for="guardianCounty1">County:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="guardianCounty1">County:</label><br>
         <input type="text" name="guardianCounty1" value="<?php echo $guardianCounty1;?>">
         <p class="alert alert-danger"><?php echo $guardianCounty1Err;?></p><br>  
 
-    <label for="guardianPostcode1">Postcode:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="guardianPostcode1">Postcode:</label><br>
         <input type="text" name="guardianPostcode1" value="<?php echo $guardianPostcode1;?>">
         <p class="alert alert-danger"><?php echo $guardianPostcode1Err;?></p><br>  
 
         <div id="second-guardian-form">
             <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
-            <label for="guardianName">Guardian's name:</label><br>
+            <label  class="col-sm-2 col-form-label-sm"for="guardianName">Guardian's name:</label><br>
             <input type="text" name="guardianName2" value="<?php echo $guardianName2;?>">
             <p class="alert alert-danger"><?php echo $guardianName2Err;?></p><br>
 
-        <label for="guardianContact">Contact Number:</label><br>
+        <label  class="col-sm-2 col-form-label-sm"for="guardianContact">Contact Number:</label><br>
             <input type="text" name="guardianContact2" value="<?php echo $guardianContact2;?>">
             <p class="alert alert-danger"><?php echo $guardianContact2Err;?></p><br>   
 
-        <label for="relationship2">Relationship:</label><br>
+        <label  class="col-sm-2 col-form-label-sm"for="relationship2">Relationship:</label><br>
             <input type="text" name="relationship2" value="<?php echo $relationship2;?>">
             <p class="alert alert-danger"><?php echo $relationship2Err;?></p><br>
             
-        <label for="guardianAddress21">Address Line 1:</label><br>
+        <label  class="col-sm-2 col-form-label-sm"for="guardianAddress21">Address Line 1:</label><br>
             <input type="text" name="guardianAddress21" value="<?php echo $guardianAddress21;?>">
             <p class="alert alert-danger"><?php echo $guardianAddress21Err;?></p><br>
 
-        <label for="guardianAddress22">Address Line 2:</label><br>
+        <label  class="col-sm-2 col-form-label-sm"for="guardianAddress22">Address Line 2:</label><br>
             <input type="text" name="guardianAddress22" value="<?php echo $guardianAddress22;?>">
             <p class="alert alert-danger"><?php echo $guardianAddress22Err;?></p><br>   
 
-        <label for="guardianCity2">City:</label><br>
+        <label  class="col-sm-2 col-form-label-sm"for="guardianCity2">City:</label><br>
             <input type="text" name="guardianCity2" value="<?php echo $guardianCity2;?>">
             <p class="alert alert-danger"><?php echo $guardianCity2Err;?></p><br>  
 
-        <label for="guardianCounty2">County:</label><br>
+        <label  class="col-sm-2 col-form-label-sm"for="guardianCounty2">County:</label><br>
             <input type="text" name="guardianCounty2" value="<?php echo $guardianCounty2;?>">
             <p class="alert alert-danger"><?php echo $guardianCounty2Err;?></p><br>  
 
-        <label for="guardianPostcode2">Postcode:</label><br>
+        <label  class="col-sm-2 col-form-label-sm"for="guardianPostcode2">Postcode:</label><br>
             <input type="text" name="guardianPostcode2" value="<?php echo $guardianPostcode2;?>">
             <p class="alert alert-danger"><?php echo $guardianPostcode2Err;?></p><br>  
         </div>
@@ -800,11 +800,11 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
  </div>
 
  <div id="doctor-details-form">
-    <label for="doctorName">Doctor Name:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="doctorName">Doctor Name:</label><br>
         <input type="text" name="doctorName" value="<?php echo $doctorName;?>">
         <p class="alert alert-danger"><?php echo $doctorNameErr;?></p><br>
 
-    <label for="doctorContact">Contact Number:</label><br>
+    <label  class="col-sm-2 col-form-label-sm"for="doctorContact">Contact Number:</label><br>
         <input type="text" name="doctorContact" value="<?php echo $doctorContact;?>">
         <p class="alert alert-danger"><?php echo $doctorContactErr;?></p><br>   
         <input type="button" value="Previous" onclick="prevTab()">

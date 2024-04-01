@@ -14,10 +14,13 @@ if(!isset($_SESSION["loggedIn"])){
 
 }
 ?>
+<main class="content-wrapper profile-list-content my-5">
 
-<h2>player List</h2>
 
-
+<div class="list-controls my-3 mx-auto">
+  <h2 class="my-3">Junior Player List</h2>
+  <a class="btn btn-dark" href="add-junior.php">Add Junior Player</a>
+</div>
 
 <div class="player-list">
 
@@ -40,6 +43,7 @@ if(!isset($_SESSION["loggedIn"])){
 
   ?>
 </div>
+</main>
 
 
 <?php

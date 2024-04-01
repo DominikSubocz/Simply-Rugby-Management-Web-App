@@ -225,7 +225,7 @@ function test_input($data) {
 components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 ?>
 
-<main class="content-wrapper contact-content">
+<main class="content-wrapper contact-content my-5">
 
 <h2>Add New Member</h2>
 
@@ -242,27 +242,27 @@ enctype="multipart/form-data">
 
   
   <div id="personal-details-form">
-      <label for="name"><span class="required">*</span>Name:</label><br>
+      <label class="col-sm-2 col-form-label-sm"for="name"><span class="required">*</span>Name:</label><br>
       <input type="text" name="name" value="<?php echo $name;?>">
       <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
 
-      <label for="sru"><span class="required">*</span>SRU Number:</label><br>
+      <label class="col-sm-2 col-form-label-sm"for="sru"><span class="required">*</span>SRU Number:</label><br>
       <input type="text" name="sru" value="<?php echo $sru;?>">
       <p class="alert alert-danger"><?php echo $sruErr;?></p><br>
 
-      <label for="dob"><span class="required">*</span>Date of Birth:</label><br>
+      <label class="col-sm-2 col-form-label-sm"for="dob"><span class="required">*</span>Date of Birth:</label><br>
       <input type="text" name="dob" value="<?php echo $dob;?>">
       <p class="alert alert-danger"><?php echo $dobErr;?></p><br>
 
-      <label for="email"><span class="required">*</span>Email:</label><br>
+      <label class="col-sm-2 col-form-label-sm"for="email"><span class="required">*</span>Email:</label><br>
       <input type="text" name="email" value="<?php echo $email;?>">
       <p class="alert alert-danger"><?php echo $emailErr;?></p><br>
 
-      <label for="contactNo"><span class="required">*</span>Contact Number:</label><br>
+      <label class="col-sm-2 col-form-label-sm"for="contactNo"><span class="required">*</span>Contact Number:</label><br>
       <input type="text" name="contactNo" value="<?php echo $contactNo;?>">
       <p class="alert alert-danger"><?php echo $contactNoErr;?></p><br>
 
-      <label for="mobileNo">Mobile Number:</label><br>
+      <label class="col-sm-2 col-form-label-sm"for="mobileNo">Mobile Number:</label><br>
       <input type="text" name="mobileNo" value="<?php echo $mobileNo;?>">
       <p class="alert alert-danger"><?php echo $mobileNoErr;?></p><br>
 
@@ -270,34 +270,34 @@ enctype="multipart/form-data">
       <input type="file" name="profileImage" value="">
       <p class="alert alert-danger"><?php echo $profileImageErr;?></p><br>
 
-      <input type="button" value="Next" onclick="nextTab()">
+      <input class="btn btn-dark" type="button" value="Next" onclick="nextTab()">
 
 
   </div>
 
   <div id="address-details-form" class="add-form-section">
-    <label for="address1"><span class="required">*</span>Address Line 1:</label><br>
+    <label class="col-sm-2 col-form-label-sm"for="address1"><span class="required">*</span>Address Line 1:</label><br>
         <input type="text" name="address1" value="<?php echo $address1;?>">
         <p class="alert alert-danger"><?php echo $address1Err;?></p><br>
 
-    <label for="address2">Address Line 2:</label><br>
+    <label class="col-sm-2 col-form-label-sm"for="address2">Address Line 2:</label><br>
         <input type="text" name="address2" value="<?php echo $address2;?>">
         <p class="alert alert-danger"><?php echo $address2Err;?></p><br>   
 
-    <label for="city"><span class="required">*</span>City:</label><br>
+    <label class="col-sm-2 col-form-label-sm"for="city"><span class="required">*</span>City:</label><br>
         <input type="text" name="city" value="<?php echo $city;?>">
         <p class="alert alert-danger"><?php echo $cityErr;?></p><br>  
 
-    <label for="county">County:</label><br>
+    <label class="col-sm-2 col-form-label-sm"for="county">County:</label><br>
         <input type="text" name="county" value="<?php echo $county;?>">
         <p class="alert alert-danger"><?php echo $countyErr;?></p><br>  
 
-    <label for="postcode"><span class="required">*</span>Postcode:</label><br>
+    <label class="col-sm-2 col-form-label-sm"for="postcode"><span class="required">*</span>Postcode:</label><br>
         <input type="text" name="postcode" value="<?php echo $postcode;?>">
         <p class="alert alert-danger"><?php echo $postcodeErr;?></p><br>  
         <div>
-            <input type="button" value="Previous" onclick="prevTab()">
-            <input type="submit" name="submit" value="Submit">  
+            <input class="btn btn-dark" type="button" value="Previous" onclick="prevTab()">
+            <input class="btn btn-dark" type="submit" name="submit" value="Submit">  
         </div>
 
  </div>

@@ -12,7 +12,7 @@ Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 
 
-<div class="menu-dashboard-container">
+<div class="menu-dashboard-container my-2">
     
 
     <?php

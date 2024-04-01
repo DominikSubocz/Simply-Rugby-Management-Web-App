@@ -37,7 +37,7 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
     <h2>Log in to an existing account</h2>
 
     <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="form">
-        <label>Username</label>
+        <label class="col-sm-2 col-form-label-sm">Username</label>
         <input
             type="text"
             name="username"
@@ -57,7 +57,7 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
             ?>"
         >
 
-        <label>Password</label>
+        <label class="col-sm-2 col-form-label-sm">Password</label>
         <input type="password" name="password">
 
         <input class="button" type="submit" name="loginSubmit" value="Log in">

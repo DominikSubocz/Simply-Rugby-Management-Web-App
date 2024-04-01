@@ -4,10 +4,7 @@
   </div>
 
   <div class="firstN-container card-container">
-      <p><?php echo $firstName; ?></p>
-  </div>
-  <div class="lastN-container card-container">
-      <p><?php echo $lastName; ?></p>
+      <p><?php echo $firstName . ' ' . $lastName ?></p>
   </div>
 
   <div class="sru-container card-container">

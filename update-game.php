@@ -215,39 +215,39 @@ function test_input($data) {
 
     
     <div id="basic-game-details">
-        <label for="name">Name:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="name">Name:</label><br>
         <input type="text" name="name" placeholder="<?php echo $gameName;?>" value="<?php echo $name;?>">
         <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
 
-        <label for="squad">Squad Number:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="squad">Squad Number:</label><br>
         <input type="text" name="squad" placeholder="<?php echo $squadId;?>" value="<?php echo $squad;?>">
         <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
 
-        <label for="opposition">Opposition Team:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="opposition">Opposition Team:</label><br>
         <input type="text" name="opposition" placeholder="<?php echo $oppositionName;?>" value="<?php echo $opposition;?>">
         <p class="alert alert-danger"><?php echo $oppositionErr;?></p><br>
 
-        <label for="start">Start Date:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="start">Start Date:</label><br>
         <input type="datetime-local" name="start" placeholder="<?php echo $start;?>" value="<?php echo $start;?>">
         <p class="alert alert-danger"><?php echo $startErr;?></p><br>
 
-        <label for="end">End Date:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="end">End Date:</label><br>
         <input type="datetime-local" name="end" placeholder="<?php echo $end;?>" value="<?php echo $end;?>">
         <p class="alert alert-danger"><?php echo $endErr;?></p><br>
 
-        <label for="location">Game Location:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="location">Game Location:</label><br>
         <input type="text" name="location" placeholder="<?php echo $gameLocation;?>" value="<?php echo $location;?>">
         <p class="alert alert-danger"><?php echo $locationErr;?></p><br>
 
-        <label for="kickoff">Kickoff Time:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="kickoff">Kickoff Time:</label><br>
         <input type="time" name="kickoff" placeholder="<?php echo $gameKickoff;?>" value="<?php echo $kickoff;?>">
         <p class="alert alert-danger"><?php echo $kickoffErr;?></p><br>
 
-        <label for="result">Final Result:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="result">Final Result:</label><br>
         <input type="text" name="result" placeholder="<?php echo $gameResult;?>" value="<?php echo $result;?>">
         <p class="alert alert-danger"><?php echo $resultErr;?></p><br>
 
-        <label for="score">Final Score:</label><br>
+        <label class="col-sm-2 col-form-label-sm"for="score">Final Score:</label><br>
         <input type="text" name="score" placeholder="<?php echo $gameScore;?>" value="<?php echo $score;?>">
         <p class="alert alert-danger"><?php echo $scoreErr;?></p><br>
 
@@ -259,7 +259,7 @@ function test_input($data) {
             <div class="game-half">
                 <h3>Game Half <?php echo $gameHalf["half_number"]; ?></h3>
                 <!-- Home team bit -->
-                <label for="home_team_<?php echo $gameHalf["half_number"]; ?>">Home Team:</label><br>
+                <label class="col-sm-2 col-form-label-sm"for="home_team_<?php echo $gameHalf["half_number"]; ?>">Home Team:</label><br>
                 <input type="text" name="home_team_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $home1;}else{echo $home2;}?>"><br>
         
                 <?php if ($gameHalf["half_number"] == 1){
@@ -271,7 +271,7 @@ function test_input($data) {
                     <p class="alert alert-danger"><?php echo $home2Err;?></p><br>
                     <?php
                 }?>
-                <label for="home_score_<?php echo $gameHalf["half_number"]; ?>">Home Score:</label><br>
+                <label class="col-sm-2 col-form-label-sm"for="home_score_<?php echo $gameHalf["half_number"]; ?>">Home Score:</label><br>
                 <input type="text" name="home_score_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $homeScore1;}else{echo $homeScore2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
@@ -282,7 +282,7 @@ function test_input($data) {
                     <p class="alert alert-danger"><?php echo $scoreHome2Err;?></p><br>
                     <?php
                 }?>
-                <label for="home_comment_<?php echo $gameHalf["half_number"]; ?>">Home Comment:</label><br>
+                <label class="col-sm-2 col-form-label-sm"for="home_comment_<?php echo $gameHalf["half_number"]; ?>">Home Comment:</label><br>
                 <input type="text" name="home_comment_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $homeComment1;}else{echo $homeComment2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
@@ -294,7 +294,7 @@ function test_input($data) {
                     <?php
                 }?>
                 <!-- Opposition team bit -->
-                <label for="opposition_score_<?php echo $gameHalf["half_number"]; ?>">Opposition Score:</label><br>
+                <label class="col-sm-2 col-form-label-sm"for="opposition_score_<?php echo $gameHalf["half_number"]; ?>">Opposition Score:</label><br>
                 <input type="text" name="opposition_score_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $oppositionScore1;}else{echo $oppositionScore2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
@@ -305,7 +305,7 @@ function test_input($data) {
                     <p class="alert alert-danger"><?php echo $scoreOpposition2Err;?></p><br>
                     <?php
                 }?>
-                <label for="opposition_comment_<?php echo $gameHalf["half_number"]; ?>">Opposition Comment:</label><br>
+                <label class="col-sm-2 col-form-label-sm"for="opposition_comment_<?php echo $gameHalf["half_number"]; ?>">Opposition Comment:</label><br>
                 <input type="text" name="opposition_comment_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $oppositionComment1;}else{echo $oppositionComment2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>

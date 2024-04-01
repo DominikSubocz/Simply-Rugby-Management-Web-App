@@ -21,6 +21,8 @@ body, button, input, textarea, select {
 .required{
   color: #cc4125;
   margin-right: 5px;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .button {
@@ -668,6 +670,11 @@ input.invalid {
     align-items: center;
   }
 
+  .list-controls{
+    width: fit-content;
+  }
+
+
 }
 
 @media screen and (min-width:320px){
@@ -1023,6 +1030,10 @@ input.invalid {
   font-size: 13px;
 }
 
+.list-controls{
+  width: fit-content;
+}
+
 
 
   
@@ -1035,6 +1046,16 @@ input.invalid {
 
   .calendar-container{
     margin-left: 25px;
+  }
+
+  .email-container{
+    display: flex;
+    width: 200px;
+  }
+
+  .sru-container{
+    display: flex;
+    width: 150px;
   }
 }
 
@@ -1087,9 +1108,11 @@ input.invalid {
 
   .desktop-header-row {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
   }
+
   
   .nav-button {
     display: none;
@@ -1112,8 +1135,12 @@ input.invalid {
 
   .player-list{
     align-content: center;
+    width: fit-content;
+    margin:0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    border:1px #c0c0c0 solid;
   }
-  
   
   .player-card {
     margin:0 auto;
@@ -1122,7 +1149,7 @@ input.invalid {
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
-    border:1px black solid;
+    border:1px #c0c0c0 solid;
   }
 
   .card-container{
@@ -1131,6 +1158,7 @@ input.invalid {
     align-items: center;
     justify-content: center;
     box-shadow: .5px 0 0 #000;
+    
   }
 
   .id-container{
@@ -1552,6 +1580,10 @@ input.invalid {
   .event-form-container input, .event-form-container .button{
     width: 350px !important;
     margin:0 auto;
+  }
+
+  .list-controls{
+    width: 100% !important;
   }
 
   
