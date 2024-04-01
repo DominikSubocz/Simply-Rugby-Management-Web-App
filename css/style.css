@@ -82,6 +82,35 @@ input.button {
   width: 100%;
 }
 
+.password-criteria-card{
+  display: none;
+  border-color: #0d6efd!important;;
+
+}
+
+.password-criteria-card ul{
+  list-style: none;
+}
+
+.password-criteria-card li{
+  color: #6aa84f;
+}
+
+.fa-check{
+  margin-right: 10px;
+  color: #6aa84f;
+}
+
+#password-field:focus ~ .password-criteria-card{
+  display: block;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+  border:2px solid rgba(0,0,0,.125);
+  border-color:#0d6efd!important;
+}
+
 .main-content {
   padding: 16px;
 }

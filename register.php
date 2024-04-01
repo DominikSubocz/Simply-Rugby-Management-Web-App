@@ -34,7 +34,7 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
 
 
     <form method="POST" action="" class="form">
-        <label>Username</label>
+        <label class="col-sm-2 col-form-label-sm" >Username</label>
         <input
             type="text"
             name="username"
@@ -47,7 +47,7 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
             ?>"
         >
 
-        <label>Email address</label>
+        <label class="col-sm-2 col-form-label-sm">Email address</label>
         <input
             type="email"
             name="email"
@@ -60,15 +60,24 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
             ?>"
         >
 
-        <label>Password</label>
-        <input type="password" name="passwordOne">
+        <label class="col-sm-2 col-form-label-sm">Password</label>
+        <input id="password-field" type="password" name="passwordOne">
 
-        <ul>
-            <li>Password must be at least 12 characters long.</li>
-            <li>Passwords must match</li>
-        </ul>
+        <div class="card py-2 border-2 password-criteria-card">
+            <div class="px-2">
+                <h3>Your password needs to be: </h3>
+            </div>
+            <div>
+                <ul>
+                <li><i class="fa fa-check" aria-hidden="true"></i>Password must be at least 12 characters long.</li>
+                <li><i class="fa fa-check" aria-hidden="true"></i>Passwords must match.</li>
+                </ul>
+            </div>
+        </div>
 
-        <label>Password (retype)</label>
+        
+
+        <label class="col-sm-2 col-form-label-sm">Password (retype)</label>
         <input type="password" name="passwordTwo">
 
         <input class="button" type="submit" name="registerSubmit" value="Register account">
