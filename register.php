@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-Components::pageHeader("Login", ["style"], ["mobile-nav"]);
+Components::pageHeader("Register", ["style"], ["mobile-nav"]);
 
 ?>
 
@@ -30,6 +30,8 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
 
     <h2>Register a new account</h2>
+
+
 
     <form method="POST" action="" class="form">
         <label>Username</label>
@@ -60,6 +62,11 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
         <label>Password</label>
         <input type="password" name="passwordOne">
+
+        <ul>
+            <li>Password must be at least 12 characters long.</li>
+            <li>Passwords must match</li>
+        </ul>
 
         <label>Password (retype)</label>
         <input type="password" name="passwordTwo">

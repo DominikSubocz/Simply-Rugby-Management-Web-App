@@ -291,39 +291,39 @@ function test_input($data) {
       <div id="game-form">
         <label for="gameName"><span class="required">*</span>Game name:</label><br>
         <input type="text" name="gameName" value="<?php echo $gameName;?>">
-        <p class="error"><?php echo $gameNameErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $gameNameErr;?></p><br>
   
         <label for="squad"><span class="required">*</span>Squad Number:</label><br>
         <input type="text" name="squad" value="<?php echo $squad;?>">
-        <p class="error"><?php echo $squadErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
   
         <label for="oppisition"><span class="required">*</span>Opposition team name:</label><br>
         <input type="text" name="oppisition" value="<?php echo $oppisition;?>">
-        <p class="error"><?php echo $oppisitionErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $oppisitionErr;?></p><br>
   
         <label for="start"><span class="required">*</span>Start Date:</label><br>
         <input type="datetime-local" id="start" name="start" >
-        <p class="error"><?php echo $startErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $startErr;?></p><br>
   
         <label for="end"><span class="required">*</span>End Date:</label><br>
         <input type="datetime-local" id="end" name="end" >
-        <p class="error"><?php echo $endErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $endErr;?></p><br>
   
         <label for="location"><span class="required">*</span>Location:</label><br>
         <input type="text" name="location" value="<?php echo $location;?>">
-        <p class="error"><?php echo $locationErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $locationErr;?></p><br>
   
         <label for="kickoff"><span class="required">*</span>Kickoff Time:</label><br>
         <input type="time" id="kickoff" name="kickoff">
-        <p class="error"><?php echo $kickoffErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $kickoffErr;?></p><br>
   
         <label for="result">Result:</label><br>
         <input type="text" name="result" value="<?php echo $result;?>">
-        <p class="error"><?php echo $resultErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $resultErr;?></p><br>
   
         <label for="score">Score:</label><br>
         <input type="text" name="score" value="<?php echo $score;?>">
-        <p class="error"><?php echo $scoreErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $scoreErr;?></p><br>
       </div>
   
       <div id="training-form">
@@ -331,7 +331,7 @@ function test_input($data) {
   
         <label for="sessionName">Training session name:</label><br>
         <input type="text" name="sessionName" value="<?php echo $sessionName;?>">
-        <p class="error"><?php echo $sessionNameErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $sessionNameErr;?></p><br>
   
         <label for="coachName">Coach:</label><br>
         <select name="coachName">
@@ -345,7 +345,7 @@ function test_input($data) {
           }
           ?>
         </select>
-        <p class="error"><?php echo $coachNameErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $coachNameErr;?></p><br>
         <br>
 
         
@@ -361,22 +361,22 @@ function test_input($data) {
           }
           ?>
         </select>
-        <p class="error"><?php echo $trainingSquadErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $trainingSquadErr;?></p><br>
         <br>
   
   
         <label for="trainingStart">Start Date:</label><br>
         <input type="datetime-local" id="trainingStart" name="trainingStart"  >
-        <p class="error"><?php echo $trainingStartErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $trainingStartErr;?></p><br>
   
         <label for="trainingEnd">End Date:</label><br>
         <input type="datetime-local" id="trainingEnd" name="trainingEnd"  >
-        <p class="error"><?php echo $trainingEndErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $trainingEndErr;?></p><br>
   
   
         <label for="trainingLocation">Location:</label><br>
         <input type="text" name="trainingLocation" value="<?php echo $trainingLocation;?>">
-        <p class="error"><?php echo $trainingLocationErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $trainingLocationErr;?></p><br>
       </div>
   
   

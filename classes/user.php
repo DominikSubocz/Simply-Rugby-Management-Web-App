@@ -21,11 +21,11 @@ class User{
         $conn = null;
 
         if (empty($user)){
-           return "<p class='error'>ERROR: User does not exist</p>";
+           return "<p class='alert alert-danger'>ERROR: User does not exist</p>";
         }
 
         if(!password_verify($_POST["password"], $user["password"])){
-            return "<p class='error'>ERROR: Incorrect password</p>";
+            return "<p class='alert alert-danger'>ERROR: Incorrect password</p>";
         }
 
         if($errors){
@@ -65,7 +65,7 @@ class User{
 
     public static function register(){
         if(Utils::postValuesAreEmpty(["username", "email", "passwordOne", "passwordTwo"])){
-            return "<p class='error'>ERROR: Not all form inputs filled</p>";
+            return "<p class='alert alert-danger'>ERROR: Not all form inputs filled</p>";
         }
         
         $errors = "";
@@ -78,19 +78,19 @@ class User{
 
 
         if(strlen($username) < 4 || strlen($username) > 32){
-            $errors .= "<p class='error'>ERROR: Username must be between 4 and 32 characters long </p>";
+            $errors .= "<p class='alert alert-danger'>ERROR: Username must be between 4 and 32 characters long </p>";
         }
 
         $filteredEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
 
         if(!$filteredEmail){
-            $errors .= "<p class='error'>ERROR: Email address is invalid</p>";
+            $errors .= "<p class='alert alert-danger'>ERROR: Email address is invalid</p>";
         }
 
         if ($passwordOne !== $passwordTwo){
-            $errors .= "<p class='error'>ERROR: Passwords do not match</p>";
+            $errors .= "<p class='alert alert-danger'>ERROR: Passwords do not match</p>";
         } else if (strlen($passwordOne) < 12){
-            $errors .= "<p class='error'>ERROR: Password must be at least 12 characters long</p>";
+            $errors .= "<p class='alert alert-danger'>ERROR: Password must be at least 12 characters long</p>";
         }
 
         if($errors){
@@ -109,7 +109,7 @@ class User{
     
         // If the user already exists, return an error message
         if(!empty($user)){
-            return "<p class='error'>ERROR: User already exists</p>";
+            return "<p class='alert alert-danger'>ERROR: User already exists</p>";
         }
 
         // if ((!$errors) || !empty($user)){

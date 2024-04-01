@@ -217,39 +217,39 @@ function test_input($data) {
     <div id="basic-game-details">
         <label for="name">Name:</label><br>
         <input type="text" name="name" placeholder="<?php echo $gameName;?>" value="<?php echo $name;?>">
-        <p class="error"><?php echo $nameErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
 
         <label for="squad">Squad Number:</label><br>
         <input type="text" name="squad" placeholder="<?php echo $squadId;?>" value="<?php echo $squad;?>">
-        <p class="error"><?php echo $squadErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
 
         <label for="opposition">Opposition Team:</label><br>
         <input type="text" name="opposition" placeholder="<?php echo $oppositionName;?>" value="<?php echo $opposition;?>">
-        <p class="error"><?php echo $oppositionErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $oppositionErr;?></p><br>
 
         <label for="start">Start Date:</label><br>
         <input type="datetime-local" name="start" placeholder="<?php echo $start;?>" value="<?php echo $start;?>">
-        <p class="error"><?php echo $startErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $startErr;?></p><br>
 
         <label for="end">End Date:</label><br>
         <input type="datetime-local" name="end" placeholder="<?php echo $end;?>" value="<?php echo $end;?>">
-        <p class="error"><?php echo $endErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $endErr;?></p><br>
 
         <label for="location">Game Location:</label><br>
         <input type="text" name="location" placeholder="<?php echo $gameLocation;?>" value="<?php echo $location;?>">
-        <p class="error"><?php echo $locationErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $locationErr;?></p><br>
 
         <label for="kickoff">Kickoff Time:</label><br>
         <input type="time" name="kickoff" placeholder="<?php echo $gameKickoff;?>" value="<?php echo $kickoff;?>">
-        <p class="error"><?php echo $kickoffErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $kickoffErr;?></p><br>
 
         <label for="result">Final Result:</label><br>
         <input type="text" name="result" placeholder="<?php echo $gameResult;?>" value="<?php echo $result;?>">
-        <p class="error"><?php echo $resultErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $resultErr;?></p><br>
 
         <label for="score">Final Score:</label><br>
         <input type="text" name="score" placeholder="<?php echo $gameScore;?>" value="<?php echo $score;?>">
-        <p class="error"><?php echo $scoreErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $scoreErr;?></p><br>
 
         <input type="button" value="Next" onclick="nextTab()">
     </div>
@@ -264,33 +264,33 @@ function test_input($data) {
         
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
-                    <p class="error"><?php echo $home1Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $home1Err;?></p><br>
                     <?php
                 } else {
                     ?>
-                    <p class="error"><?php echo $home2Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $home2Err;?></p><br>
                     <?php
                 }?>
                 <label for="home_score_<?php echo $gameHalf["half_number"]; ?>">Home Score:</label><br>
                 <input type="text" name="home_score_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $homeScore1;}else{echo $homeScore2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
-                    <p class="error"><?php echo $scoreHome1Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $scoreHome1Err;?></p><br>
                     <?php
                 } else {
                     ?>
-                    <p class="error"><?php echo $scoreHome2Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $scoreHome2Err;?></p><br>
                     <?php
                 }?>
                 <label for="home_comment_<?php echo $gameHalf["half_number"]; ?>">Home Comment:</label><br>
                 <input type="text" name="home_comment_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $homeComment1;}else{echo $homeComment2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
-                    <p class="error"><?php echo $commentHome1Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $commentHome1Err;?></p><br>
                     <?php
                 } else {
                     ?>
-                    <p class="error"><?php echo $commentHome2Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $commentHome2Err;?></p><br>
                     <?php
                 }?>
                 <!-- Opposition team bit -->
@@ -298,22 +298,22 @@ function test_input($data) {
                 <input type="text" name="opposition_score_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $oppositionScore1;}else{echo $oppositionScore2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
-                    <p class="error"><?php echo $scoreOpposition1Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $scoreOpposition1Err;?></p><br>
                     <?php
                 } else {
                     ?>
-                    <p class="error"><?php echo $scoreOpposition2Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $scoreOpposition2Err;?></p><br>
                     <?php
                 }?>
                 <label for="opposition_comment_<?php echo $gameHalf["half_number"]; ?>">Opposition Comment:</label><br>
                 <input type="text" name="opposition_comment_<?php echo $gameHalf["half_number"]; ?>" value="<?php if ($gameHalf["half_number"] == 1){echo $oppositionComment1;}else{echo $oppositionComment2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
-                    <p class="error"><?php echo $commentOpposition1Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $commentOpposition1Err;?></p><br>
                     <?php
                 } else {
                     ?>
-                    <p class="error"><?php echo $commentOpposition2Err;?></p><br>
+                    <p class="alert alert-danger"><?php echo $commentOpposition2Err;?></p><br>
                     <?php
                 }?>
         

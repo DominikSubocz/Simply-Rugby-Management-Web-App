@@ -135,28 +135,28 @@ function test_input($data) {
     <div id="basic-session-details">
         <label for="name">Name:</label><br>
         <input type="text" name="name" placeholder="<?php echo $sessionName;?>" value="<?php echo $name;?>">
-        <p class="error"><?php echo $nameErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
 
         <label for="coach">Coach ID:</label><br>
         <input type="text" name="coach" placeholder="<?php echo $sessionCoachId;?>" value="<?php echo $coach;?>">
-        <p class="error"><?php echo $coachErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $coachErr;?></p><br>
 
 
         <label for="squad">Squad ID::</label><br>
         <input type="text" name="squad" placeholder="<?php echo $sessionSquadId;?>" value="<?php echo $squad;?>">
-        <p class="error"><?php echo $squadErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
 
         <label for="start">Start:</label><br>
         <input type="datetime-local" name="start" value="<?php echo $start;?>">
-        <p class="error"><?php echo $startErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $startErr;?></p><br>
 
         <label for="end">End:</label><br>
         <input type="datetime-local" name="end" value="<?php echo $end;?>">
-        <p class="error"><?php echo $endErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $endErr;?></p><br>
 
         <label for="location">Location:</label><br>
         <input type="text" name="location" placeholder="<?php echo $sessionLocation;?>" value="<?php echo $location;?>">
-        <p class="error"><?php echo $locationErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $locationErr;?></p><br>
 
         <input type="button" value="Next" onclick="nextTab()">
     </div>
@@ -165,23 +165,23 @@ function test_input($data) {
 
         <label for="skills">Skills Practiced:</label><br>
         <input type="text" name="skills" value="<?php echo $skills;?>">
-        <p class="error"><?php echo $skillsErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $skillsErr;?></p><br>
 
         <label for="activities">Activities Practiced:</label><br>
         <input type="text" name="activities" value="<?php echo $activities;?>">
-        <p class="error"><?php echo $activitiesErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $activitiesErr;?></p><br>
 
         <label for="present_players">Players Present:</label><br>
         <input type="text" name="present_players" value="<?php echo $playersPresent;?>">
-        <p class="error"><?php echo $playersPresentErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $playersPresentErr;?></p><br>
 
         <label for="accidents">Accidents:</label><br>
         <input type="text" name="accidents" value="<?php echo $accidents;?>">
-        <p class="error"><?php echo $accidentsErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $accidentsErr;?></p><br>
 
         <label for="injuries">Injuries:</label><br>
         <input type="text" name="injuries" value="<?php echo $injuries;?>">
-        <p class="error"><?php echo $injuriesErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $injuriesErr;?></p><br>
 
         <input type="button" value="Previous" onclick="prevTab()">
 

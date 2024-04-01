@@ -296,13 +296,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $isValidSize = $_FILES["profileImage"]["size"] <= 1000000;
             
                 if (!$isValidImage || !$isValidSize) {
-                    $profileImageErr = "<p class='error'>ERROR: Invalid file size/format</p>";
+                    $profileImageErr = "<p class='alert alert-danger'>ERROR: Invalid file size/format</p>";
                 }
             
                 $tmpname = $_FILES["profileImage"]["tmp_name"];
             
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
-                    $profileImageErr = "<p class='error'>ERROR: File was not uploaded</p>";
+                    $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             } else if (!isset($_POST["profileImage"])) {
                 $filename = $filenamePlaceholder;  //Okay so this doesn't work here but it works in update player, I love php.
@@ -342,41 +342,41 @@ function test_input($data) {
     action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $player["player_id"];?>"
     enctype="multipart/form-data">
 
-  <p class="error"><?php echo $genuineErr;?></p><br>
+  <p class="alert alert-danger"><?php echo $genuineErr;?></p><br>
 
   
   <div id="personal-details-form">
       <label for="name">Name:</label><br>
       <input type="text" name="name" placeholder="<?php echo $playerFirstName. ' '. $playerLastName;?>" value="<?php echo $name;?>">
-      <p class="error"><?php echo $nameErr;?></p><br>
+      <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
 
       <label for="sru">SRU Number:</label><br>
       <input type="text" name="sru" placeholder="<?php echo $sruNumberPlaceholder;?>" value="<?php echo $sru;?>">
-      <p class="error"><?php echo $sruErr;?></p><br>
+      <p class="alert alert-danger"><?php echo $sruErr;?></p><br>
 
       <label for="dob">Date of Birth:</label><br>
       <input type="text" name="dob" placeholder="<?php echo $ukDobPlaceholder;?>" value="<?php echo $dob;?>">
-      <p class="error"><?php echo $dobErr;?></p><br>
+      <p class="alert alert-danger"><?php echo $dobErr;?></p><br>
 
       <label for="email">Email:</label><br>
       <input type="text" name="email" placeholder="<?php echo $emailAddressPlaceholder;?>" value="<?php echo $email;?>">
-      <p class="error"><?php echo $emailErr;?></p><br>
+      <p class="alert alert-danger"><?php echo $emailErr;?></p><br>
 
       <label for="contactNo">Contact Number:</label><br>
       <input type="text" name="contactNo" placeholder="<?php echo $contactNumberPlaceholder;?>" value="<?php echo $contactNo;?>">
-      <p class="error"><?php echo $contactNoErr;?></p><br>
+      <p class="alert alert-danger"><?php echo $contactNoErr;?></p><br>
 
       <label for="mobileNo">Mobile Number:</label><br>
       <input type="text" name="mobileNo" placeholder="<?php echo $mobileNumberPlaceholder;?>" value="<?php echo $mobileNo;?>">
-      <p class="error"><?php echo $mobileNoErr;?></p><br>
+      <p class="alert alert-danger"><?php echo $mobileNoErr;?></p><br>
 
       <label for="healthIssues">Health Issues:</label><br>
       <input type="text" name="healthIssues" placeholder="<?php echo $healthIssuesPlaceholder;?>" value="<?php echo $healthIssues;?>">
-      <p class="error"><?php echo $healthIssuesErr;?></p><br>
+      <p class="alert alert-danger"><?php echo $healthIssuesErr;?></p><br>
 
       <label>Profile image</label>
       <input type="file" name="profileImage"  value="">
-      <p class="error"><?php echo $profileImageErr;?></p><br>
+      <p class="alert alert-danger"><?php echo $profileImageErr;?></p><br>
 
 
       <input type="button" value="Next" onclick="nextTab()">
@@ -385,23 +385,23 @@ function test_input($data) {
   <div id="address-details-form" class="add-form-section">
     <label for="address1">Address Line 1:</label><br>
         <input type="text" name="address1" placeholder="<?php echo $address1Placeholder;?>" value="<?php echo $address1;?>">
-        <p class="error"><?php echo $address1Err;?></p><br>
+        <p class="alert alert-danger"><?php echo $address1Err;?></p><br>
 
     <label for="address2">Address Line 2:</label><br>
         <input type="text" name="address2" placeholder="<?php echo $address2Placeholder;?>" value="<?php echo $address2;?>">
-        <p class="error"><?php echo $address2Err;?></p><br>   
+        <p class="alert alert-danger"><?php echo $address2Err;?></p><br>   
 
     <label for="city">City:</label><br>
         <input type="text" name="city" placeholder="<?php echo $cityPlaceholder;?>" value="<?php echo $city;?>">
-        <p class="error"><?php echo $cityErr;?></p><br>  
+        <p class="alert alert-danger"><?php echo $cityErr;?></p><br>  
 
     <label for="county">County:</label><br>
         <input type="text" name="county" placeholder="<?php echo $countyPlaceholder;?>" value="<?php echo $county;?>">
-        <p class="error"><?php echo $countyErr;?></p><br>  
+        <p class="alert alert-danger"><?php echo $countyErr;?></p><br>  
 
     <label for="postcode">Postcode:</label><br>
         <input type="text" name="postcode" placeholder="<?php echo $postcodePlaceholder;?>" value="<?php echo $postcode;?>">
-        <p class="error"><?php echo  $postcodeErr;?></p><br>  
+        <p class="alert alert-danger"><?php echo  $postcodeErr;?></p><br>  
         <div>
             <input type="button" value="Previous" onclick="prevTab()">
             <input type="button" value="Next" onclick="nextTab()">
@@ -412,11 +412,11 @@ function test_input($data) {
  <div id="kin-details-form" class="add-form-section">
     <label for="kin">Next of Kin:</label><br>
         <input type="text" name="kin" placeholder="<?php echo $nextOfKinPlaceholder;?>" value="<?php echo $kin;?>">
-        <p class="error"><?php echo $kinErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $kinErr;?></p><br>
 
     <label for="kinContact">Contact Number:</label><br>
         <input type="text" name="kinContact" placeholder="<?php echo $kinContactNumberPlaceholder;?>" value="<?php echo $kinContact;?>">
-        <p class="error"><?php echo $kinContactErr;?></p><br>   
+        <p class="alert alert-danger"><?php echo $kinContactErr;?></p><br>   
         <div>
             <input type="button" value="Previous" onclick="prevTab()">
             <input type="button" value="Next" onclick="nextTab()">
@@ -426,11 +426,11 @@ function test_input($data) {
  <div id="doctor-details-form">
     <label for="doctorName">Doctor Name:</label><br>
         <input type="text" name="doctorName" placeholder="<?php echo $doctorFirstNamePlaceholder. ' '. $doctorLastNamePlaceholder;?>" value="<?php echo $doctorName;?>">
-        <p class="error"><?php echo $doctorNameErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $doctorNameErr;?></p><br>
 
     <label for="doctorContact">Contact Number:</label><br>
         <input type="text" name="doctorContact" placeholder="<?php echo $doctorContactPlaceholder;?>" value="<?php echo $doctorContact;?>">
-        <p class="error"><?php echo $doctorContactErr;?></p><br>   
+        <p class="alert alert-danger"><?php echo $doctorContactErr;?></p><br>   
         <input type="button" value="Previous" onclick="prevTab()">
  </div>
 
