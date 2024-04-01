@@ -46,18 +46,18 @@
 
           if(isset($_SESSION["loggedIn"])){
             if($_SESSION["user_role"] === "Admin"){
-              echo "<li class='mx-4'><a href='index.php'>Dashboard</a></li>
+              echo "<li ><a href='index.php'>Dashboard</a></li>
               <div class='dropdown'>
               <button class='dropBTN'>Member Management ▼</button>
               <div class='dropdown-content'>
 
               
-              <li><a class='mx-4' href='player-list.php'>Players</a></li>
-              <li><a class='mx-4' href='add-player.php'>Add Player</a></li>
-              <li><a class='mx-4' href='junior-list.php'>Junior Players</a></li>
-              <li><a class='mx-4' href='add-junior.php'>Add Junior Player</a></li>
-              <li><a class='mx-4' href='member-list.php'>Members</a></li>
-              <li><a class='mx-4' href='add-member.php'>Add Member</a></li>
+              <li><a  href='player-list.php'>Players</a></li>
+              <li><a  href='add-player.php'>Add Player</a></li>
+              <li><a  href='junior-list.php'>Junior Players</a></li>
+              <li><a  href='add-junior.php'>Add Junior Player</a></li>
+              <li><a  href='member-list.php'>Members</a></li>
+              <li><a  href='add-member.php'>Add Member</a></li>
               
               </div>
               </div>";
@@ -70,11 +70,11 @@
 
             }
 
-            echo "<li><a class='mx-4' href='timetable.php'>Timetable</a></li>
+            echo "<li><a  href='timetable.php'>Timetable</a></li>
             <li><a href='logout.php'>Logout</a></li>";
             
           } else {
-            echo "<li><a class='mx-4' href='register.php'>Register</a></li>
+            echo "<li><a  href='register.php'>Register</a></li>
             <li><a href='login.php'>Login</a></li>";
           }
           ?>

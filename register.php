@@ -61,16 +61,16 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
         >
 
         <label class="col-sm-2 col-form-label-sm">Password</label>
-        <input id="password-field" type="password" name="passwordOne">
+        <input id="password-field" type="password" name="passwordOne" oninput="checkPasswordLength()">
 
-        <div class="card py-2 border-2 password-criteria-card">
+        <div id="criteria-box" class="card py-2 border-2 password-criteria-card">
             <div class="px-2">
                 <h3>Your password needs to be: </h3>
             </div>
             <div>
                 <ul>
-                <li><i class="fa fa-check" aria-hidden="true"></i>Password must be at least 12 characters long.</li>
-                <li><i class="fa fa-check" aria-hidden="true"></i>Passwords must match.</li>
+                <li id="password-length-box"><i id="length-mark" class="fa fa-times" aria-hidden="true"></i>Password must be at least 12 characters long.</li>
+                <li id="password-match-box"><i id="match-mark" class="fa fa-times" aria-hidden="true"></i>Passwords must match.</li>
                 </ul>
             </div>
         </div>
@@ -78,15 +78,76 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
         
 
         <label class="col-sm-2 col-form-label-sm">Password (retype)</label>
-        <input type="password" name="passwordTwo">
+        <input id="password-field-two" type="password" oninput="checkPasswordLength()" name="passwordTwo">
 
-        <input class="button" type="submit" name="registerSubmit" value="Register account">
+        <input class="button" type="submit" name="registerSubmit" onclick="return validateRegister()" value="Register account">
 
         <!-- Only output if there is an error in the registration form -->
         <?php if ($output && isset($_POST["registerSubmit"])) { echo $output; } ?>
     </form>
 
 </main>
+
+<script>
+
+function checkPasswordLength(){
+    let password = document.forms[0]["passwordOne"].value.trim();
+
+    let password2 = document.forms[0]["passwordTwo"].value.trim();
+
+    var lengthLi = document.getElementById("password-length-box");
+
+    var matchLi = document.getElementById("password-match-box");
+
+    var mark = document.getElementById("length-mark");
+    var mark2 = document.getElementById("match-mark");
+
+    if(password.length > 12){
+        lengthLi.classList.remove("wrong");
+        mark.classList.remove("fa-times");
+        mark.classList.add("fa-check");
+        lengthLi.classList.add("correct");
+
+    } else {
+        lengthLi.classList.remove("correct");
+        lengthLi.classList.add("wrong");
+        mark.classList.remove("fa-check");
+        mark.classList.add("fa-times");
+
+    }
+
+    if (password === '' || password !== password2) {
+        matchLi.classList.remove("correct");
+        matchLi.classList.add("wrong");
+        mark2.classList.remove("fa-check");
+        mark2.classList.add("fa-times");
+
+    } else {
+        matchLi.classList.remove("wrong");
+        matchLi.classList.add("correct");
+        mark2.classList.remove("fa-times");
+        mark2.classList.add("fa-check");
+    }
+} 
+
+checkPasswordLength();
+
+function validateRegister(){
+
+    let username = document.forms[0]["username"].value.trim();
+
+    if (username === "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+
+
+}
+</script>
+
+
+
 
 <?php
 

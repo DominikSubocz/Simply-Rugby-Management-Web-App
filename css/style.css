@@ -12,6 +12,13 @@ body, button, input, textarea, select {
   font-size: 16px;
 }
 
+.correct{
+  color: #6aa84f;
+}
+
+.wrong{
+  color: #cc4125;
+}
 
 
 #radio-container{
@@ -94,13 +101,8 @@ input.button {
   list-style: none;
 }
 
-.password-criteria-card li{
-  color: #6aa84f;
-}
-
-.fa-check{
+.fa-check, .fa-times{
   margin-right: 10px;
-  color: #6aa84f;
 }
 
 #password-field:focus ~ .password-criteria-card{
@@ -1114,6 +1116,7 @@ input.invalid {
   }
 
   
+
   .nav-button {
     display: none;
   }
@@ -1124,11 +1127,6 @@ input.invalid {
 
   .nav-links {
     display: flex;
-  }
-
-  .nav-links a {
-    margin-top: 0;
-    margin-left: 16px;
   }
 
   /* player LIST */
