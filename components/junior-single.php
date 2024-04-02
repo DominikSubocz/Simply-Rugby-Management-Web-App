@@ -7,6 +7,17 @@ if(isset($_POST["confirmDelete"])){
 
 }
 
+if(isset($_POST["updateSubmit"])){
+
+  header("Location: " . Utils::$projectFilePath . "/update-junior.php?id=$junior_id");
+
+}
+
+if(isset($_POST["updateSkillSubmit"])){
+
+  header("Location: " . Utils::$projectFilePath . "/update-junior-skill.php?id=$junior_id");
+
+}
 
 ?>
 
@@ -20,9 +31,10 @@ if(isset($_POST["confirmDelete"])){
           method="post" 
           action="">
 
-          <input type="submit" id="deleteBtn" class="danger" value="Delete">  
-          <a href="update-junior.php?id=<?php echo $junior_id; ?>" name="updateRedirect" class="button"><?php echo 'Update ', $firstName, ' ', $lastName; ?></a>
-
+          <input type="submit" id="deleteBtn" class="btn btn-danger my-2" value="Delete">  
+          <input type="submit" class="btn btn-warning my-2" name="updateSubmit" value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
+          <input type="submit" class="btn btn-warning my-2" name="updateSkillSubmit" value="<?php echo 'Update ', $firstName. '\'s Skills'; ?>">
+        </form>
       </div>
   </div>
 
@@ -101,8 +113,10 @@ if(isset($_POST["confirmDelete"])){
           method="post" 
           action="">
 
-          <input type="submit" name="confirmDelete" class="danger" value="Yes">  
-          <input type="submit" id="cancel" class="button" value="No"> 
+          <input type="submit" name="confirmDelete" class="btn btn-danger my-2" value="Yes">  
+          <input type="submit" id="cancel" class="btn btn-warning my-2" value="No"> 
+      </form>
+
   </div>
 
 </div>

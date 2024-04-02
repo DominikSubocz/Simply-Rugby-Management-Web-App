@@ -21,7 +21,7 @@ if(!isset($_SESSION["loggedIn"])){
 
 }
 
-$player = player::getplayer($_GET["id"]);
+$player = Player::getplayer($_GET["id"]);
 
 // Set the document title to the title and author of the player if it exists
 $pageTitle = "player not found";

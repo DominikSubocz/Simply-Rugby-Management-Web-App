@@ -4,6 +4,18 @@ if(isset($_POST["confirmDelete"])){
   player::deletePlayer($player_id);
 }
 
+if(isset($_POST["updateSubmit"])){
+
+  header("Location: " . Utils::$projectFilePath . "/update-player.php?id=$player_id");
+
+}
+
+if(isset($_POST["updateSkillSubmit"])){
+
+  header("Location: " . Utils::$projectFilePath . "/update-player-skill.php?id=$player_id");
+
+}
+
 ?>
 <main class="content-wrapper profile-content">
   <div class="profile-content-container">
@@ -16,8 +28,11 @@ if(isset($_POST["confirmDelete"])){
           method="post" 
           action="">
 
-          <input type="submit" id="deleteBtn" class="danger" value="Delete">  
-          <a href="update-player.php?id=<?php echo $player_id; ?>" name="updateRedirect" class="button"><?php echo 'Update ', $firstName, ' ', $lastName; ?></a>
+          <input type="submit" id="deleteBtn" class="btn btn-danger my-2" value="Delete">  
+          <input type="submit" class="btn btn-warning my-2" name="updateSubmit" value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
+          <input type="submit" class="btn btn-warning my-2" name="updateSkillSubmit" value="<?php echo 'Update ', $firstName. '\'s Skills'; ?>">
+        </form>
+
       </div>
   </div>
 
@@ -99,11 +114,12 @@ if(isset($_POST["confirmDelete"])){
     <span class="close">&times;</span>
     <p><?php echo 'Are you sure you want to delete: ', $firstName, ' ', $lastName; ?>?</p>
     <form 
-          method="post" 
-          action="">
+      method="post" 
+      action="">
 
-          <input type="submit" name="confirmDelete" class="danger" value="Yes">  
-          <input type="submit" id="cancel" class="button" value="No"> 
+      <input type="submit" name="confirmDelete" class="btn btn-danger my-2" value="Yes">  
+      <input type="submit" id="cancel" class="btn btn-warning my-2" value="No"> 
+    </form>
   </div>
 
 </div>

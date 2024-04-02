@@ -7,6 +7,12 @@ if(isset($_POST["confirmDelete"])){
 
 }
 
+
+if(isset($_POST["updateSubmit"])){
+
+  header("Location: " . Utils::$projectFilePath . "/update-member.php?id=$member_id");
+
+}
 ?>
 
 <main class="content-wrapper profile-content">
@@ -20,8 +26,9 @@ if(isset($_POST["confirmDelete"])){
           method="post" 
           action="">
 
-          <input type="submit" id="deleteBtn" class="danger" value="Delete">  
-          <a href="update-member.php?id=<?php echo $member_id; ?>" name="updateRedirect" class="button"><?php echo 'Update ', $firstName, ' ', $lastName; ?></a>
+          <input type="submit" id="deleteBtn" class="btn btn-danger my-2 my-2" value="Delete">  
+          <input type="submit" class="btn btn-warning my-2" name="skillUpdateSubmit" value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
+        </form>
       </div>
   </div>
 
@@ -51,8 +58,9 @@ if(isset($_POST["confirmDelete"])){
         method="post" 
         action="">
 
-        <input type="submit" name="confirmDelete" class="danger" value="Yes">  
-        <input type="submit" id="cancel" class="button" value="No"> 
+        <input type="submit" name="confirmDelete" class="btn btn-danger my-2" value="Yes">  
+        <input type="submit" id="cancel" class="btn btn-warning my-2" value="No"> 
+  </form>
 </div>
 
 </div>

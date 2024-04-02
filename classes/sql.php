@@ -126,7 +126,7 @@ class SQL {
   LEFT JOIN simplyrugby.skills s ON js.skill_id = s.skill_id 
   WHERE j.junior_id = ?";
 
-  public static $getPlayerSkills = "SELECT p.*, s.category, s.skill_name, ps.skill_level, ps.comment
+  public static $getPlayerSkills = "SELECT p.*, s.skill_id, s.category, s.skill_name, ps.skill_level, ps.comment
   FROM simplyrugby.players p 
   LEFT JOIN simplyrugby.player_skills ps ON p.player_id = ps.player_id 
   LEFT JOIN simplyrugby.skills s ON ps.skill_id = s.skill_id 
