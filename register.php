@@ -26,7 +26,7 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
 
 ?>
 
-<main class="content-wrapper loginRegister-content">
+<main class="content-wrapper loginRegister-content my-5">
 
 
     <h2>Register a new account</h2>
@@ -61,9 +61,9 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
         >
 
         <label class="col-sm-2 col-form-label-sm">Password</label>
-        <input id="password-field" type="password" name="passwordOne" oninput="checkPasswordLength()">
+        <input id="password-field" type="password" class=" password-field" name="passwordOne" oninput="checkPasswordCriteria()"> 
 
-        <div id="criteria-box" class="card py-2 border-2 password-criteria-card">
+        <div id="criteria-box" class="py-2 password-criteria-card">
             <div class="px-2">
                 <h3>Your password needs to be: </h3>
             </div>
@@ -78,9 +78,9 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
         
 
         <label class="col-sm-2 col-form-label-sm">Password (retype)</label>
-        <input id="password-field-two" type="password" oninput="checkPasswordLength()" name="passwordTwo">
+        <input id="password-field-two" class=" password-field" type="password"oninput="checkPasswordCriteria()" name="passwordTwo">
 
-        <input class="button" type="submit" name="registerSubmit" onclick="return validateRegister()" value="Register account">
+        <input class="btn btn-dark" type="submit" name="registerSubmit" onclick="return validateRegister()" value="Register account">
 
         <!-- Only output if there is an error in the registration form -->
         <?php if ($output && isset($_POST["registerSubmit"])) { echo $output; } ?>
@@ -90,13 +90,11 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
 
 <script>
 
-function checkPasswordLength(){
+function checkPasswordCriteria(){
     let password = document.forms[0]["passwordOne"].value.trim();
-
     let password2 = document.forms[0]["passwordTwo"].value.trim();
 
     var lengthLi = document.getElementById("password-length-box");
-
     var matchLi = document.getElementById("password-match-box");
 
     var mark = document.getElementById("length-mark");
@@ -130,7 +128,7 @@ function checkPasswordLength(){
     }
 } 
 
-checkPasswordLength();
+checkPasswordCriteria();
 
 function validateRegister(){
 

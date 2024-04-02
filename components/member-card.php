@@ -3,11 +3,8 @@
       <p><?php echo $member_id; ?></p>
   </div>
 
-  <div class="firstN-container card-container">
-      <p><?php echo $firstName; ?></p>
-  </div>
-  <div class="lastN-container card-container">
-      <p><?php echo $lastName; ?></p>
+  <div class="fullN-container card-container">
+  <p><?php echo $firstName . ' ' . $lastName ?></p>
   </div>
 
   <div class="sru-container card-container">

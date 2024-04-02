@@ -53,11 +53,8 @@
 
               
               <li><a  href='player-list.php'>Players</a></li>
-              <li><a  href='add-player.php'>Add Player</a></li>
               <li><a  href='junior-list.php'>Junior Players</a></li>
-              <li><a  href='add-junior.php'>Add Junior Player</a></li>
               <li><a  href='member-list.php'>Members</a></li>
-              <li><a  href='add-member.php'>Add Member</a></li>
               
               </div>
               </div>";

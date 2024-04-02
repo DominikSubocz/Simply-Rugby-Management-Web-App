@@ -32,7 +32,7 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
 ?>
 
-<main class="content-wrapper loginRegister-content">
+<main class="content-wrapper loginRegister-content my-5">
 
     <h2>Log in to an existing account</h2>
 
@@ -60,13 +60,14 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
         <label class="col-sm-2 col-form-label-sm">Password</label>
         <input type="password" name="password">
 
-        <input class="button" type="submit" name="loginSubmit" value="Log in">
+        <input class="btn btn-dark" type="submit" name="loginSubmit" value="Log in">
 
         <!-- Only output if there is an error in the registration form -->
         <?php if ($output && isset($_POST["loginSubmit"])) { echo $output; } ?>
+        <a class="btn btn-secondary" href="register.php"> Don't have an account? Click this link to register!</a>
+
     </form>
 
-    <a href="register.php"> Don't have an account? Click this link to register!</a>
 
 </main>
 

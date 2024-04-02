@@ -3,7 +3,7 @@
       <p><?php echo $player_id; ?></p>
   </div>
 
-  <div class="firstN-container card-container">
+  <div class="fullN-container card-container">
       <p><?php echo $firstName . ' ' . $lastName ?></p>
   </div>
 
