@@ -26,6 +26,14 @@ class Junior
     return $juniors;
   }
 
+  public static function updateJuniorSkills($skillLevel, $comment, $skillId, $playerId){
+    $conn = Connection::connect();
+    $stmt = $conn->prepare(SQL::$updateJuniorSkills);
+    $stmt->execute([$skillLevel, $comment, $skillId, $playerId]);
+
+    $conn = null;
+
+  }
   public static function getJuniorSkills($playerId)
   {
     $conn = Connection::connect();

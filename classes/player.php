@@ -69,6 +69,15 @@ class player
     return $players;
   }
 
+  public static function upatePlayerSkills($skillLevel, $comment, $skillId, $playerId){
+    $conn = Connection::connect();
+    $stmt = $conn->prepare(SQL::$updatePlayerSkill);
+    $stmt->execute([$skillLevel, $comment, $skillId, $playerId]);
+
+    $conn = null;
+
+  }
+
   public static function deletePlayer($playerId){
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$deletePlayerSkill);

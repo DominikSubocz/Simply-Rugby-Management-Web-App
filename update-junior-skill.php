@@ -2,72 +2,73 @@
 
 require("classes/components.php");
 require("classes/utils.php");
-require("classes/player.php");
+require("classes/junior.php");
 
 session_start();
 
 /*
   Attempt to get the id from the URL parameter.
   If it isn't set or it isn't a number, redirect
-  to player list page.
+  to junior list page.
 */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-  header("Location: " . Utils::$projectFilePath . "/player-list.php");
+    header("Location: " . Utils::$projectFilePath . "/junior-list.php");
+  }
+  
+  if(!isset($_SESSION["loggedIn"])){
+  
+    header("Location: " . Utils::$projectFilePath . "/login.php");
+  
+  }
+  
+  $junior = Junior::getJunior($_GET["id"]);
+  
+$juniorId = $junior['junior_id'];
+
+// Set the document title to the title and author of the junior if it exists
+$pageTitle = "junior not found";
+
+if (!empty($junior)) {
+  $pageTitle = "Update " . $junior["first_name"] . "'s Skills";
 }
 
-if(!isset($_SESSION["loggedIn"])){
+$juniorSkills = Junior::getJuniorSkills($_GET["id"]);
 
-  header("Location: " . Utils::$projectFilePath . "/login.php");
-
-}
-
-$player = Player::getplayer($_GET["id"]);
-$playerId = $player['player_id'];
-
-// Set the document title to the title and author of the player if it exists
-$pageTitle = "player not found";
-
-if (!empty($player)) {
-  $pageTitle = "Update " . $player["first_name"] . "'s Skills";
-}
-
-$playerSkills = Player::getPlayerSkills($_GET["id"]);
-
-$standardPlaceholder = Utils::escape($playerSkills[0]["skill_level"]);
-$spinPlaceholder = Utils::escape($playerSkills[1]["skill_level"]);
-$popPlaceholder = Utils::escape($playerSkills[2]["skill_level"]);
-$frontPlaceholder = Utils::escape($playerSkills[3]["skill_level"]);
-$rearPlaceholder = Utils::escape($playerSkills[4]["skill_level"]);
-$sidePlaceholder = Utils::escape($playerSkills[5]["skill_level"]);
-$scrabblePlaceholder = Utils::escape($playerSkills[6]["skill_level"]);
-$dropPlaceholder = Utils::escape($playerSkills[7]["skill_level"]);
-$puntPlaceholder = Utils::escape($playerSkills[8]["skill_level"]);
-$grubberPlaceholder = Utils::escape($playerSkills[9]["skill_level"]);
-$goalPlaceholder = Utils::escape($playerSkills[10]["skill_level"]);
+$standardPlaceholder = Utils::escape($juniorSkills[0]["skill_level"]);
+$spinPlaceholder = Utils::escape($juniorSkills[1]["skill_level"]);
+$popPlaceholder = Utils::escape($juniorSkills[2]["skill_level"]);
+$frontPlaceholder = Utils::escape($juniorSkills[3]["skill_level"]);
+$rearPlaceholder = Utils::escape($juniorSkills[4]["skill_level"]);
+$sidePlaceholder = Utils::escape($juniorSkills[5]["skill_level"]);
+$scrabblePlaceholder = Utils::escape($juniorSkills[6]["skill_level"]);
+$dropPlaceholder = Utils::escape($juniorSkills[7]["skill_level"]);
+$puntPlaceholder = Utils::escape($juniorSkills[8]["skill_level"]);
+$grubberPlaceholder = Utils::escape($juniorSkills[9]["skill_level"]);
+$goalPlaceholder = Utils::escape($juniorSkills[10]["skill_level"]);
 
 
-$standardCommentPlaceholder = Utils::escape($playerSkills[0]["comment"]);
-$spinCommentPlaceholder = Utils::escape($playerSkills[1]["comment"]);
-$popCommentPlaceholder = Utils::escape($playerSkills[2]["comment"]);
-$frontCommentPlaceholder = Utils::escape($playerSkills[3]["comment"]);
-$rearCommentPlaceholder = Utils::escape($playerSkills[4]["comment"]);
-$sideCommentPlaceholder = Utils::escape($playerSkills[5]["comment"]);
-$scrabbleCommentPlaceholder = Utils::escape($playerSkills[6]["comment"]);
-$dropCommentPlaceholder = Utils::escape($playerSkills[7]["comment"]);
-$puntCommentPlaceholder = Utils::escape($playerSkills[8]["comment"]);
-$grubberCommentPlaceholder = Utils::escape($playerSkills[9]["comment"]);
-$goalCommentPlaceholder = Utils::escape($playerSkills[10]["comment"]);
+$standardCommentPlaceholder = Utils::escape($juniorSkills[0]["comment"]);
+$spinCommentPlaceholder = Utils::escape($juniorSkills[1]["comment"]);
+$popCommentPlaceholder = Utils::escape($juniorSkills[2]["comment"]);
+$frontCommentPlaceholder = Utils::escape($juniorSkills[3]["comment"]);
+$rearCommentPlaceholder = Utils::escape($juniorSkills[4]["comment"]);
+$sideCommentPlaceholder = Utils::escape($juniorSkills[5]["comment"]);
+$scrabbleCommentPlaceholder = Utils::escape($juniorSkills[6]["comment"]);
+$dropCommentPlaceholder = Utils::escape($juniorSkills[7]["comment"]);
+$puntCommentPlaceholder = Utils::escape($juniorSkills[8]["comment"]);
+$grubberCommentPlaceholder = Utils::escape($juniorSkills[9]["comment"]);
+$goalCommentPlaceholder = Utils::escape($juniorSkills[10]["comment"]);
 
 
 
 Components::pageHeader("$pageTitle", ["style"], ["mobile-nav"]);
 
-foreach($playerSkills as $playerSkill){
+foreach($juniorSkills as $playerSkill){
   $skillLevel = Utils::escape($playerSkill["skill_level"]);
 
 }
 
-foreach($playerSkills as $playerSkill){
+foreach($juniorSkills as $playerSkill){
 
 }
 
@@ -327,17 +328,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   && empty($dropErr) && empty($puntErr) && empty($grubberErr) && empty($goalErr)){
 
 
-    Player::upatePlayerSkills($standard, $standardComment, 1, $playerId);
-    Player::upatePlayerSkills($spin, $spinComment, 2, $playerId);
-    Player::upatePlayerSkills($pop, $popComment, 3, $playerId);
-    Player::upatePlayerSkills($front, $frontComment, 4, $playerId);
-    Player::upatePlayerSkills($rear, $rearComment, 5, $playerId);
-    Player::upatePlayerSkills($side, $sideComment, 6, $playerId);
-    Player::upatePlayerSkills($scrabble, $scrabbleComment, 7, $playerId);
-    Player::upatePlayerSkills($drop, $dropComment, 8, $playerId);
-    Player::upatePlayerSkills($punt, $puntComment, 9, $playerId);
-    Player::upatePlayerSkills($grubber, $grubberComment, 10, $playerId);
-    Player::upatePlayerSkills($goal, $goalComment, 11, $playerId);
+    Junior::updateJuniorSkills($standard, $standardComment, 1, $juniorId);
+    Junior::updateJuniorSkills($spin, $spinComment, 2, $juniorId);
+    Junior::updateJuniorSkills($pop, $popComment, 3, $juniorId);
+    Junior::updateJuniorSkills($front, $frontComment, 4, $juniorId);
+    Junior::updateJuniorSkills($rear, $rearComment, 5, $juniorId);
+    Junior::updateJuniorSkills($side, $sideComment, 6, $juniorId);
+    Junior::updateJuniorSkills($scrabble, $scrabbleComment, 7, $juniorId);
+    Junior::updateJuniorSkills($drop, $dropComment, 8, $juniorId);
+    Junior::updateJuniorSkills($punt, $puntComment, 9, $juniorId);
+    Junior::updateJuniorSkills($grubber, $grubberComment, 10, $juniorId);
+    Junior::updateJuniorSkills($goal, $goalComment, 11, $juniorId);
 
   }
 
@@ -356,10 +357,10 @@ function test_input($data) {
 
 <form 
     method="POST"
-    action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $player["player_id"];?>">
+    action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $junior["junior_id"];?>">
     <div id="passing-form">
       <h2>Passing Category</h2>
-      <?php foreach ($playerSkills as $playerSkill): ?>
+      <?php foreach ($juniorSkills as $playerSkill): ?>
           <?php
       
           $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
@@ -391,7 +392,7 @@ function test_input($data) {
 
     <div id="tackling-form">
       <h2>Tackling Category</h2>
-      <?php foreach ($playerSkills as $playerSkill): ?>
+      <?php foreach ($juniorSkills as $playerSkill): ?>
           <?php
       
       $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
@@ -424,7 +425,7 @@ function test_input($data) {
 
     <div id="kicking-form">
       <h2>Kicking Category</h2>
-          <?php foreach ($playerSkills as $playerSkill): ?>
+          <?php foreach ($juniorSkills as $playerSkill): ?>
           <?php
       
       $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));

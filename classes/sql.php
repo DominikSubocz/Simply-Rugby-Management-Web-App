@@ -132,6 +132,10 @@ class SQL {
   LEFT JOIN simplyrugby.skills s ON ps.skill_id = s.skill_id 
   WHERE p.player_id = ?";
 
+  public static $updateJuniorSkills = "UPDATE simplyrugby.junior_skills
+  SET skill_level = ?, comment = ?
+  WHERE skill_id = ? AND junior_id = ?";
+
   public static $getJuniorPositions = "SELECT j.*, p.position
   FROM simplyrugby.juniors j 
   LEFT JOIN simplyrugby.junior_positions jp ON j.junior_id = jp.junior_id
@@ -177,6 +181,8 @@ class SQL {
   public static $updateGameHalf = "UPDATE simplyrugby.game_halves
   SET home_team = ?, home_score = ?, home_comment = ?, opposition_team = ?, opposition_score = ?, opposition_comment = ?
   WHERE game_half_id = ?";
+
+  public static $updatePlayerSkill = "UPDATE simplyrugby.player_skills SET skill_level = ?, comment = ? WHERE skill_id = ? AND player_id = ?";
 
   public static $updateGame = "UPDATE simplyrugby.games
   SET squad_id = ?, name = ?, opposition_team = ?, start = ?, end = ?, location = ?, kickoff_time = ?, result = ?, score = ?
