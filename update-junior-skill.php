@@ -354,146 +354,148 @@ function test_input($data) {
 }
 
 ?>
+<main class="content-wrapper profile-list-content my-5">
 
-<form 
-    method="POST"
-    action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $junior["junior_id"];?>">
-    <div id="passing-form">
-      <h2>Passing Category</h2>
-      <?php foreach ($juniorSkills as $playerSkill): ?>
-          <?php
-      
-          $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
+  <form 
+      method="POST"
+      action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $junior["junior_id"];?>">
+      <div id="passing-form">
+        <h2>Passing Category</h2>
+        <?php foreach ($juniorSkills as $playerSkill): ?>
+            <?php
+        
+            $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
 
-          $errorMsg = $errorMessages[$inputName] ?? '';
-          $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
-          $commentField = strtolower($inputName) . 'Comment';
-
-
-          $commentPlaceholder = $placeHolders[$commentField] ?? '';
-
-          
-
-          ?>
-      
-      <?php if (Utils::escape($playerSkill["category"]) == "Passing"){
-          ?>
-          <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
-          <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo ${$skillLevelPlaceholder}; ?>" value="<?php echo ${strtolower($inputName)};?>">
-          <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
-
-          <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Passing"){echo'Comment';} ?></label><br>
-          <input type="text" name="<?php echo $commentField; ?>" placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
-      <?php } ?>
-      <?php endforeach; ?>
-      
-      <input type="button" value="Next" onclick="nextTab()">
-    </div>
-
-    <div id="tackling-form">
-      <h2>Tackling Category</h2>
-      <?php foreach ($juniorSkills as $playerSkill): ?>
-          <?php
-      
-      $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
-
-      $errorMsg = $errorMessages[$inputName] ?? '';
-      $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
-      $commentField = strtolower($inputName) . 'Comment';
+            $errorMsg = $errorMessages[$inputName] ?? '';
+            $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
+            $commentField = strtolower($inputName) . 'Comment';
 
 
-      $commentPlaceholder = $placeHolders[$commentField] ?? '';
+            $commentPlaceholder = $placeHolders[$commentField] ?? '';
 
-          ?>
-      
-      <?php if (Utils::escape($playerSkill["category"]) == "Tackling"){
-          ?>
-          <h3><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?> </h3>
-          <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Tackling"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
-          <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>">
-          <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
+            
 
-          <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Tackling"){echo'Comment';} ?></label><br>
-          <input type="text" name="<?php echo $commentField; ?>" placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
+            ?>
+        
+        <?php if (Utils::escape($playerSkill["category"]) == "Passing"){
+            ?>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
+            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo ${$skillLevelPlaceholder}; ?>" value="<?php echo ${strtolower($inputName)};?>">
+            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
 
-      <?php } ?>
-      <?php endforeach; ?>
-      <input type="button" value="Previous" onclick="prevTab()">
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Passing"){echo'Comment';} ?></label><br>
+            <input type="text" name="<?php echo $commentField; ?>" placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
+        <?php } ?>
+        <?php endforeach; ?>
+        
+        <input type="button" value="Next" onclick="nextTab()">
+      </div>
 
-      <input type="button" value="Next" onclick="nextTab()">
-    </div>
+      <div id="tackling-form">
+        <h2>Tackling Category</h2>
+        <?php foreach ($juniorSkills as $playerSkill): ?>
+            <?php
+        
+        $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
 
-    <div id="kicking-form">
-      <h2>Kicking Category</h2>
-          <?php foreach ($juniorSkills as $playerSkill): ?>
-          <?php
-      
-      $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
-
-      $errorMsg = $errorMessages[$inputName] ?? '';
-      $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
-      $commentField = strtolower($inputName) . 'Comment';
+        $errorMsg = $errorMessages[$inputName] ?? '';
+        $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
+        $commentField = strtolower($inputName) . 'Comment';
 
 
-      $commentPlaceholder = $placeHolders[$commentField] ?? '';
-      
-          ?>
-      
-      <?php if (Utils::escape($playerSkill["category"]) == "Kicking"){
-          ?>
-          <h3><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?> </h3>
-          <label  class="col-sm-2 col-form-label-sm"for="dob"><?php if($playerSkill["category"] == "Kicking"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
-          <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>">
-          <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
+        $commentPlaceholder = $placeHolders[$commentField] ?? '';
 
-          <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Kicking"){echo'Comment';} ?></label><br>
-          <input type="text" name="<?php echo $commentField; ?>"placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
+            ?>
+        
+        <?php if (Utils::escape($playerSkill["category"]) == "Tackling"){
+            ?>
+            <h3><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?> </h3>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Tackling"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
+            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>">
+            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
 
-      <?php } ?>
-      <?php endforeach; ?>
-      <input type="button" value="Previous" onclick="prevTab()">
-      <input type="submit" name="submit" value="Submit">
-    </div>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Tackling"){echo'Comment';} ?></label><br>
+            <input type="text" name="<?php echo $commentField; ?>" placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
 
-</form>
-<script>
+        <?php } ?>
+        <?php endforeach; ?>
+        <input type="button" value="Previous" onclick="prevTab()">
 
-    var currentTab = 0;
-    const pForm = document.getElementById("passing-form");
-    const tForm = document.getElementById("tackling-form");
-    const kForm = document.getElementById("kicking-form");
+        <input type="button" value="Next" onclick="nextTab()">
+      </div>
 
-    showTab();
+      <div id="kicking-form">
+        <h2>Kicking Category</h2>
+            <?php foreach ($juniorSkills as $playerSkill): ?>
+            <?php
+        
+        $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
 
-    function nextTab(){
-        currentTab += 1;
-        showTab();
-    }
+        $errorMsg = $errorMessages[$inputName] ?? '';
+        $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
+        $commentField = strtolower($inputName) . 'Comment';
 
-    function prevTab(){
-        currentTab -= 1;
-        showTab();
-    }
 
-    function showTab(){
-        if ( currentTab == 0){
-          pForm.style.display = "block";
-          tForm.style.display = "none";
-          kForm.style.display = "none";
-        }
+        $commentPlaceholder = $placeHolders[$commentField] ?? '';
+        
+            ?>
+        
+        <?php if (Utils::escape($playerSkill["category"]) == "Kicking"){
+            ?>
+            <h3><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?> </h3>
+            <label  class="col-sm-2 col-form-label-sm"for="dob"><?php if($playerSkill["category"] == "Kicking"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
+            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>">
+            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
 
-        else if (currentTab == 1){
-          pForm.style.display = "none";
-          tForm.style.display = "block";
-          kForm.style.display = "none";
-        }
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Kicking"){echo'Comment';} ?></label><br>
+            <input type="text" name="<?php echo $commentField; ?>"placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
 
-        else{
-          pForm.style.display = "none";
-          tForm.style.display = "none";
-          kForm.style.display = "block";
+        <?php } ?>
+        <?php endforeach; ?>
+        <input type="button" value="Previous" onclick="prevTab()">
+        <input type="submit" name="submit" value="Submit">
+      </div>
 
-        }
-    }
+  </form>
+  <script>
 
-  </script>
+      var currentTab = 0;
+      const pForm = document.getElementById("passing-form");
+      const tForm = document.getElementById("tackling-form");
+      const kForm = document.getElementById("kicking-form");
+
+      showTab();
+
+      function nextTab(){
+          currentTab += 1;
+          showTab();
+      }
+
+      function prevTab(){
+          currentTab -= 1;
+          showTab();
+      }
+
+      function showTab(){
+          if ( currentTab == 0){
+            pForm.style.display = "block";
+            tForm.style.display = "none";
+            kForm.style.display = "none";
+          }
+
+          else if (currentTab == 1){
+            pForm.style.display = "none";
+            tForm.style.display = "block";
+            kForm.style.display = "none";
+          }
+
+          else{
+            pForm.style.display = "none";
+            tForm.style.display = "none";
+            kForm.style.display = "block";
+
+          }
+      }
+
+    </script>
+  </main>
