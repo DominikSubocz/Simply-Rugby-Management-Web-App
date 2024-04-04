@@ -13,15 +13,44 @@ if(!isset($_SESSION["loggedIn"])){
   header("Location: " . Utils::$projectFilePath . "/login.php");
 
 }
+
+if(isset($_POST['updateSubmit'])){
+  if(!empty($_POST['check_list'])) {
+    foreach($_POST['check_list'] as $check) {
+      header("Location: " . Utils::$projectFilePath . "/update-junior.php?id=$check");
+    }
+  }
+}
+
+if(isset($_POST['addSubmit'])){
+  if(!empty($_POST['check_list'])) {
+    foreach($_POST['check_list'] as $check) {
+      header("Location: " . Utils::$projectFilePath . "/add-junior.php?");
+    }
+  }
+}
+
+if(isset($_POST['removeSubmit'])){
+  if(!empty($_POST['check_list'])) {
+    foreach($_POST['check_list'] as $check) {
+      header("Location: " . Utils::$projectFilePath . "/delete-junior.php?id=$check");
+    }
+  }
+}
 ?>
 <main class="content-wrapper profile-list-content my-5">
 
 
 <div class="alert alert-info my-3">
-    <div><a class="btn btn-dark" href="add-player.php">Add Player</a></div>
-    <div class="mx-3">
-      <p><strong>Note: </strong> You can update/remove player by clicking on their profile and clicking on update/remove button.</p>
-    </div>
+  
+  <form 
+    method="post" 
+    action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+      <input class="btn btn-dark" type="submit" id="addBtn" name="addSubmit" value="Add Player">
+      <input class="btn btn-dark" type="submit" id="updateBtn" name="updateSubmit" value="Update Player">
+      <input class="btn btn-danger" type="submit" id="removeBtn" name="removeSubmit" value="Remove Player">
+
+
 
 </div>
 
@@ -45,7 +74,37 @@ if(!isset($_SESSION["loggedIn"])){
 
   ?>
 </div>
+</form>
 </main>
+<script>
+
+let updateBtn = document.getElementById("updateBtn");
+let removeBtn = document.getElementById("removeBtn");
+
+displayButtons("none");
+
+
+function cbChange(obj) {
+    var cbs = document.getElementsByClassName("cb");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+    displayButtons("block");
+}
+
+function displayButtons(type){
+  if(type == "block"){
+    updateBtn.style.display="block";
+    removeBtn.style.display="block";
+  } else {
+    removeBtn.style.display="none";
+    updateBtn.style.display="none";
+
+  }
+}
+  
+</script>
 
 
 <?php

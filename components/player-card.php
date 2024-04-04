@@ -4,7 +4,7 @@
 
 <a class="player-card" href="player.php?id=<?php echo $player_id; ?>">
   <div class="id-container card-container">
-  <td><input type="checkbox" name="check_list[]" class="cb" onchange="cbChange(this)" value="<?php echo $player_id; ?>"></td>
+    <td><input type="checkbox" name="check_list[]" class="cb" onchange="cbChange(this)" value="<?php echo $player_id; ?>"></td>
   </div>
 
   <div class="fullN-container card-container">

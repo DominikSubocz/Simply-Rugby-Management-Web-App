@@ -515,7 +515,7 @@ input.invalid {
     padding:0 5px;
   }
 
-  .fullN-container{
+  .fullN-container, .address-line1-container{
     width: 100px;
     padding:0 5px;
   }
@@ -533,21 +533,21 @@ input.invalid {
     padding:0 5px;
   }
 
-  .sru-container{
+  .sru-container, .address-line2-container{
     width: 100px;
     padding:0 5px;
   }
 
-  .dob-container{
+  .dob-container, .city-container{
     width: 100px;
     padding:0 5px;
   }
 
-  .contactNo-container{
+  .contactNo-container, .county-container{
     display: none;
   }
 
-  .email-container{
+  .email-container, .postcode-container{
     display: none;
   }
 
@@ -665,6 +665,11 @@ input.invalid {
     margin: 0 auto;
   }
 
+  .profile-list-content .alert-info form{
+    display: flex;
+    flex-direction: column;
+  }
+
   .profile-list-content .alert-info .btn{
     margin-top:10px;
     margin-bottom:10px;
@@ -758,7 +763,7 @@ input.invalid {
     width: 25px;
   }
 
-  .fullN-container{
+  .fullN-container, .address-line1-container{
     width: 70px;
   }
 
@@ -774,19 +779,19 @@ input.invalid {
     width: 75px;
   }
 
-  .sru-container{
+  .sru-container, .address-line2-container{
     display: none;
   }
 
-  .dob-container{
+  .dob-container, .city-container{
     width: 100px;
   }
 
-  .contactNo-container{
+  .contactNo-container, .county-container{
     display: none;
   }
 
-  .email-container{
+  .email-container, .postcode-container{
     display: none;
   }
 
@@ -1046,6 +1051,8 @@ input.invalid {
 }
 
 
+
+
   
 }
 
@@ -1058,12 +1065,12 @@ input.invalid {
     margin-left: 25px;
   }
 
-  .email-container{
+  .email-container, .postcode-container{
     display: flex;
     width: 200px;
   }
 
-  .sru-container{
+  .sru-container, .address-line2-container{
     display: none;
   }
 
@@ -1110,10 +1117,15 @@ input.invalid {
     padding:10px 15px;
     width: auto;
   }
+
+  .profile-list-content .alert-info form{
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 @media screen and (min-width:740px){
-  .sru-container{
+  .sru-container, .address-line2-container{
     display: flex;
     align-items: center;
     width: 100px;
@@ -1233,7 +1245,7 @@ input.invalid {
     padding:0 25px;
   }
 
-  .fullN-container{
+  .fullN-container, .address-line1-container{
     width: 150px;
   }
 
@@ -1241,21 +1253,21 @@ input.invalid {
     width: 100px;
   }
 
-  .sru-container{
+  .sru-container, .address-line2-container{
     width: 100px;
     padding:0 15px;
   }
 
-  .dob-container{
+  .dob-container, .city-container{
     width: 120px;
   }
 
-  .contactNo-container{
+  .contactNo-container, .county-container{
     width: 100px;
     padding:0 15px;
   }
 
-  .email-container{
+  .email-container, .postcode-container{
     width: 300px;    
     padding:0 25px;
   }

@@ -10,12 +10,12 @@ class player
   /**
    * Get all players from the database.
    */
-  public static function getAllplayers()
+  public static function getallPlayers()
   {
     $conn = Connection::connect();
 
     // Prepare and execute the query and get the results
-    $stmt = $conn->prepare(SQL::$getAllplayers);
+    $stmt = $conn->prepare(SQL::$getallPlayers);
     $stmt->execute();
     $players = $stmt->fetchAll();
 

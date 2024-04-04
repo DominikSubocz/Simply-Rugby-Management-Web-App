@@ -55,6 +55,17 @@ Components::pageHeader("All players", ["style"], ["mobile-nav"]);
             <a href="timetable.php">Timetable <i class="fa fa-calendar"></i></a>
             </div>
         </div>
+        <div class="row">
+            <div class="col col3 card my-1  py-4">
+            <a href="address-list.php">Address Management <i class="fa fa-home"></i></a>
+            </div>
+            <div class="col col4 card my-1  py-4">
+            <a href="guardian-list.php">Guardian Management <i class="fa fa-shield"></i></a>
+            </div>
+            <div class="col col5 card my-1  py-4">
+            <a href="doctor-list.php">Doctor Management <i class="fa fa-user-md"></i></a>
+            </div>
+        </div>
         
     </div>
 

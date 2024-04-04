@@ -27,7 +27,7 @@ class Components {
   /**
    * Renders an array of player arrays as a gallery.
    */
-  public static function allplayers($players)
+  public static function allPlayers($players)
   {
     if (!empty($players)) {
       // Output a player card for each player in the $players array
@@ -53,6 +53,26 @@ class Components {
       }
     } else {
       // Output a message if the $players array is empty
+      require("components/no-players-found.php");
+    }
+  }
+
+  public static function allAddresses($addresses)
+  {
+    if (!empty($addresses)) {
+      foreach ($addresses as $address) {
+        $addressId = Utils::escape($address["address_id"]);
+        $addressLine = Utils::escape($address["address_line"]);
+        $addressLine2 = Utils::escape($address["address_line2"]);
+        $city = Utils::escape($address["city"]);
+        $county = Utils::escape($address["county"]);
+        $postcode = Utils::escape($address["postcode"]);
+
+
+
+        require("components/address-card.php");
+      }
+    } else {
       require("components/no-players-found.php");
     }
   }

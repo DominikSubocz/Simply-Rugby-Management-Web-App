@@ -1,6 +1,6 @@
 <a class="player-card" href="junior-page.php?id=<?php echo $junior_id; ?>">
-  <div class="id-container card-container">
-      <p><?php echo $junior_id; ?></p>
+<div class="id-container card-container">
+  <td><input type="checkbox" name="check_list[]" class="cb" onchange="cbChange(this)" value="<?php echo $junior_id; ?>"></td>
   </div>
 
   <div class="fullN-container card-container">

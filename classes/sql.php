@@ -1,7 +1,7 @@
 <?php
 
 class SQL {
-  public static $getAllplayers = "SELECT * FROM players";
+  public static $getallPlayers = "SELECT * FROM players";
   public static $getAllJuniors = "SELECT * FROM juniors";
   public static $getAllMembers = "SELECT * FROM members";
   /**
@@ -99,8 +99,14 @@ class SQL {
   AND county = ? 
   AND postcode = ?";
 
+  public static $getAddress = "SELECT * FROM simplyrugby.addresses WHERE address_id = ?";
+
+  public static $deleteAddress = "DELETE FROM simplyrugby.addresses WHERE address_id = ?";
+
   public static $addressExists = "SELECT * FROM addresses 
   WHERE address_line = ? AND address_line2 = ? AND city = ? AND county = ? AND postcode = ?";
+
+  public static $getAllAddresses = "SELECT * FROM simplyrugby.addresses";
 
   public static $createNewAddress = "INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)
   VALUES  (?, ?, ?, ?, ?)";

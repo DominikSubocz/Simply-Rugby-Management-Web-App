@@ -10,14 +10,29 @@ Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 if(!isset($_SESSION["loggedIn"])){
 
-  header("Location: " . Utils::$projectFilePath . "/login.php");
 
 }
 
 if(isset($_POST['updateSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
-            print_r($check);
+      header("Location: " . Utils::$projectFilePath . "/update-player.php?id=$check");
+    }
+  }
+}
+
+if(isset($_POST['addSubmit'])){
+  if(!empty($_POST['check_list'])) {
+    foreach($_POST['check_list'] as $check) {
+      header("Location: " . Utils::$projectFilePath . "/add-player.php?");
+    }
+  }
+}
+
+if(isset($_POST['removeSubmit'])){
+  if(!empty($_POST['check_list'])) {
+    foreach($_POST['check_list'] as $check) {
+      header("Location: " . Utils::$projectFilePath . "/delete-player.php?id=$check");
     }
   }
 }
@@ -39,16 +54,16 @@ if(isset($_POST['updateSubmit'])){
 
 <div class="alert alert-info my-3">
   
-<form 
-method="post" 
-action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-  <a class="btn btn-dark" href="add-player.php">Add Player</a>
-  <input type="submit" name="updateSubmit" value="Update Player">
-  <!-- <a class="btn btn-dark" id="updateBtn" href="update-player.php"></a>
-  <a class="btn btn-dark" id="removeBtn" href="delete-player.php">Remove Player</a> -->
+  <form 
+    method="post" 
+    action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+      <input class="btn btn-dark" type="submit" id="addBtn" name="addSubmit" value="Add Player">
+      <input class="btn btn-dark" type="submit" id="updateBtn" name="updateSubmit" value="Update Player">
+      <input class="btn btn-danger" type="submit" id="removeBtn" name="removeSubmit" value="Remove Player">
 
 
-  </div>
+
+</div>
 
   <div class="player-list">
     <div class="player-card column-headings ">
@@ -67,8 +82,8 @@ action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
 
     // Get all players from the database and output list of players
-    $players = player::getAllplayers();
-    Components::allplayers($players);
+    $players = player::getallPlayers();
+    Components::allPlayers($players);
 
 
     ?>
@@ -79,6 +94,10 @@ action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
 <script>
 
+let updateBtn = document.getElementById("updateBtn");
+let removeBtn = document.getElementById("removeBtn");
+
+displayButtons("none");
 
 
 function cbChange(obj) {
@@ -87,6 +106,18 @@ function cbChange(obj) {
         cbs[i].checked = false;
     }
     obj.checked = true;
+    displayButtons("block");
+}
+
+function displayButtons(type){
+  if(type == "block"){
+    updateBtn.style.display="block";
+    removeBtn.style.display="block";
+  } else {
+    removeBtn.style.display="none";
+    updateBtn.style.display="none";
+
+  }
 }
   
 </script>

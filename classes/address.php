@@ -16,6 +16,19 @@ class Address
 
     }
 
+    public static function getAllAddresses(){
+
+        $conn = Connection::connect();
+    
+    
+        $stmt = $conn->prepare(SQL::$getAllAddresses);
+        $stmt->execute();
+        $addreses = $stmt->fetchAll();
+    
+        return $addreses;
+    
+        }
+
     public static function createNewAddress($address1, $address2, $city, $county, $postcode){
 
         $conn = Connection::connect();
@@ -37,5 +50,22 @@ class Address
 
         return $addressId;
 
+    }
+
+    public static function getAddress($addressId){
+        $conn = Connection::connect();
+        $stmt = $conn->prepare(SQL::$getAddress);
+        $stmt->execute([$addressId]);
+        
+        $address = $stmt->fetch();
+
+        return $address;
+    }
+
+    public static function deleteAddress($addressId){
+        $conn = Connection::connect();
+        $stmt = $conn->prepare(SQL::$deleteAddress);
+        $stmt->execute([$addressId]);
+        
     }
 }
