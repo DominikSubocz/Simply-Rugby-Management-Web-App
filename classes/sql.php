@@ -148,6 +148,8 @@ class SQL {
   LEFT JOIN simplyrugby.positions p ON pp.position_id = p.position_id
   WHERE pl.player_id = ?";
 
+  public static $selectPlayer = "SELECT * FROM simplyrugby.players WHERE player_id = ?";
+
   public static $getEvents = "SELECT session_id AS id, 'session_id' AS type, name, start, end, location FROM simplyrugby.sessions 
   UNION 
   SELECT game_id AS id, 'game_id' AS type, name, start, end, location FROM simplyrugby.games;

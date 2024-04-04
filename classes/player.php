@@ -78,6 +78,20 @@ class player
 
   }
 
+  public static function test($playerId){
+
+    $conn = Connection::connect();
+    $stmt = $conn->prepare(SQL::$selectPlayer);
+    $stmt->execute([$playerId]);
+    $player = $stmt->fetchAll();
+
+    return $player;
+
+    $conn = null;
+
+      
+  }
+
   public static function deletePlayer($playerId){
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$deletePlayerSkill);

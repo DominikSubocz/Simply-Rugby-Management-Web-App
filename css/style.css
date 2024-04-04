@@ -665,6 +665,12 @@ input.invalid {
     margin: 0 auto;
   }
 
+  .profile-list-content .alert-info .btn{
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:15px 0 15px 0;
+    width: 100%;
+  }
 
 }
 
@@ -1032,6 +1038,13 @@ input.invalid {
   font-size: 28px;
 }
 
+.profile-list-content .alert-info .btn{
+  margin-top:10px;
+  margin-bottom:10px;
+  padding:15px 0 15px 0;
+  width: 100%;
+}
+
 
   
 }
@@ -1067,11 +1080,15 @@ input.invalid {
   .profile-list-content .alert-info .mx-3{
     margin-top:20px;
     margin-bottom:20px;
+    gap:16px;
   }
 
   .profile-list-content .alert-info .btn{
-    width: 120px;
+    margin-left:5px;
+    margin-right: 5px;
   }
+
+  
 
   .index-content .alert-info{
     max-width: 700px;
@@ -1085,6 +1102,13 @@ input.invalid {
   .index-content .row{
     flex-direction: row;
     gap:16px;
+  }
+
+  .profile-list-content .alert-info .btn{
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:10px 15px;
+    width: auto;
   }
 }
 

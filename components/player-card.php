@@ -1,6 +1,10 @@
+
+
+
+
 <a class="player-card" href="player.php?id=<?php echo $player_id; ?>">
   <div class="id-container card-container">
-      <p><?php echo $player_id; ?></p>
+  <td><input type="checkbox" name="check_list[]" class="cb" onchange="cbChange(this)" value="<?php echo $player_id; ?>"></td>
   </div>
 
   <div class="fullN-container card-container">
@@ -26,6 +30,4 @@
   <div class="pfp-container card-container">
     <img src="images/<?php echo $filename; ?>" alt="Cover for <?php echo $title; ?>" class="player-image">
  </div>
-
-
 </a>
