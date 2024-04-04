@@ -41,28 +41,36 @@ if(isset($_POST['removeSubmit'])){
     </div>
 </div>
 
-
-
-<div class="address-list">
 <div class="bg-dark text-white">          
   <input type="button" id="settingsBtn" class="btn btn-info mx-2 my-2" value="Settings">  
 </div>
-<div class="address-card column-headings">
-  <div class="id-container card-container">ID</div>
-  <div class="address-line1-container card-container">Address Line 1</div>
-  <div class="address-line2-container card-container">Address Line 2</div>
-  <div class="city-container card-container">City</div>
-  <div class="county-container card-container">County</div>
-  <div class="postcode-container card-container">Postcode</div>
 
-</div>
-  <?php
+<table class="table" id="customDataTable">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th class="address-line-1-label">Address Line 1</th>
+      <th class="address-line-2-label">Address Line 2</th>
+      <th class="city-label">City</th>
+      <th class="county-label">County</th>
+      <th class="postcode-label">Postcode</th>
+    </tr>
+  </thead>
+  <tbody>
 
-  // Get all players from the database and output list of players
-  $addresses = Address::getAllAddresses();
-  Components::allAddresses($addresses);
 
-  ?>
+    <?php
+
+    // Get all players from the database and output list of players
+    $addresses = Address::getAllAddresses();
+    Components::allAddresses($addresses);
+
+    ?>
+
+  </tbody>
+</table>
+
+
 </div>
 </form>
 <div id="myModal" class="modal">
@@ -77,7 +85,7 @@ if(isset($_POST['removeSubmit'])){
           </div>
           <div class="col">
             <label class="checkbox-inline">Address Line 2</label>
-            <input type="checkbox" id="inlineCheckbox2" value="option2" onclick="displayColumn()" >
+            <input type="checkbox" id="inlineCheckbox2" value="option2" onclick="displayColumn()" checked >
           </div>
           <div class="w-100"></div>
           <div class="col">      
@@ -86,8 +94,13 @@ if(isset($_POST['removeSubmit'])){
           </div>
           <div class="col">      
             <label class="checkbox-inline">County</label>
-            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()">
+            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()"checked>
           </div>
+          <div class="col">      
+            <label class="checkbox-inline">Postcode</label>
+            <input type="checkbox" id="inlineCheckbox5" value="option5" onclick="displayColumn()"checked>
+          </div>
+          
         </div>
       </div>
   </div>
@@ -128,17 +141,18 @@ function displayColumn(){
   var checkBox2 = document.getElementById("inlineCheckbox2");
   var checkBox3 = document.getElementById("inlineCheckbox3");
   var checkBox4 = document.getElementById("inlineCheckbox4");
+  var checkBox4 = document.getElementById("inlineCheckbox5");
 
-  var addressLine1 = document.querySelectorAll(".address-line1-container");
-  var addressLine2 = document.querySelectorAll(".address-line2-container");
-  var city = document.querySelectorAll(".city-container");
-  var county = document.querySelectorAll(".county-container");
-  var postcode = document.querySelectorAll(".postcode-container");
+  var addressLine1 = document.querySelectorAll(".address-line-1-label");
+  var addressLine2 = document.querySelectorAll(".address-line-2-label");
+  var city = document.querySelectorAll(".city-label");
+  var county = document.querySelectorAll(".county-label");
+  var postcode = document.querySelectorAll(".postcode-label");
 
   // Check if checkbox 1 is checked
   if (checkBox1.checked) {
     for (var i = 0; i < addressLine1.length; i++) {
-      addressLine1[i].style.display = "block";
+      addressLine1[i].style.display = "table-cell";
     }
   } else {
     for (var i = 0; i < addressLine1.length; i++) {
@@ -148,7 +162,7 @@ function displayColumn(){
 
   if (checkBox2.checked) {
     for (var i = 0; i < addressLine2.length; i++) {
-      addressLine2[i].style.display = "block";
+      addressLine2[i].style.display = "table-cell";
     }
   } else {
     for (var i = 0; i < addressLine2.length; i++) {
@@ -158,7 +172,7 @@ function displayColumn(){
 
   if (checkBox3.checked) {
     for (var i = 0; i < city.length; i++) {
-      city[i].style.display = "block";
+      city[i].style.display = "table-cell";
     }
   } else {
     for (var i = 0; i < city.length; i++) {
@@ -167,13 +181,22 @@ function displayColumn(){
   }
 
   if (checkBox4.checked) {
-    console.log("Checkbox 1 checked:", checkBox1.checked);
-    for (var i = 0; i < county.length; i++) {
-      county[i].style.display = "block";
+    for (var i = 0; i < postcode.length; i++) {
+      county[i].style.display = "table-cell";
     }
   } else {
     for (var i = 0; i < county.length; i++) {
       county[i].style.display = "none";
+    }
+  }
+
+  if (checkBox5.checked) {
+    for (var i = 0; i < postcode.length; i++) {
+      postcode[i].style.display = "table-cell";
+    }
+  } else {
+    for (var i = 0; i < postcode.length; i++) {
+      postcode[i].style.display = "none";
     }
   }
 }
