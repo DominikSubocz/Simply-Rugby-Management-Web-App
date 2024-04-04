@@ -212,7 +212,7 @@ a{
   margin-top: 32px;
 }
 
-.player-card {
+.player-card, .address-card {
   color: black;
   flex: 1;
   max-width: 300px;
@@ -220,7 +220,7 @@ a{
   text-decoration: none;
 }
 
-.player-card:hover {
+.player-card, .address-card:hover {
   background-color: #eee;
 }
 
@@ -448,6 +448,10 @@ input.invalid {
   width: 100%;
 }
 
+.address-card{
+  display: flex;
+  flex-direction: column !important;
+}
 @media screen and (max-width:320px){
 
   .show-on-mobile {
@@ -500,7 +504,7 @@ input.invalid {
     margin-top:20px;
   }
 
-  .player-card {
+  .player-card, .address-card {
     margin:0 auto;
     max-width: 1950px;
     display: flex;
@@ -546,7 +550,7 @@ input.invalid {
     padding:0 5px;
   }
 
-  .dob-container, .city-container{
+  .dob-container{
     width: 100px;
     padding:0 5px;
   }
@@ -783,7 +787,7 @@ input.invalid {
     align-items: center;
   }
 
-  .player-card {
+  .player-card, .address-card {
     display: flex;
     max-width: 90%;
     flex-direction: row;
@@ -796,6 +800,7 @@ input.invalid {
     width: 500px;
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
     box-shadow: .5px 0 0 #000;
   }
@@ -808,28 +813,6 @@ input.invalid {
     width: 70px;
   }
 
-  .address-line1-container{
-    max-width: 100px;
-  }
-
-
-
-  
-  .address-line2-container{
-    max-width: 100px;
-  }
-
-  .city-container{
-    max-width: 100px;
-  }
-
-  .county-container{
-    max-width: 100px;
-  }
-  
-  .postcode-container{
-    max-width: 100px;
-  }
 
   .pfp-container{
     width: 100px;
@@ -847,7 +830,7 @@ input.invalid {
     display: none;
   }
 
-  .dob-container, .city-container{
+  .dob-container{
     width: 100px;
   }
 
@@ -1118,10 +1101,6 @@ input.invalid {
   max-width: 70px;
 }
 
-.city-container{
-  max-width: 70px;
-  text-wrap: wrap;
-}
 
 .column-settings-content .row{
   flex-direction: column;
@@ -1359,7 +1338,7 @@ input.invalid {
     max-width: fit-content;
   }
   
-  .player-card {
+  .player-card, .address-card {
     margin:0 auto;
     max-width: 1950px;
     display: flex;

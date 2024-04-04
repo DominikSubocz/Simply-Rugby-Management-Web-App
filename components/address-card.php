@@ -1,4 +1,4 @@
-<div class="player-card">
+<div class="address-card">
 
 <div class="id-container card-container">
   <td><input type="checkbox" name="check_list[]" class="cb" onchange="cbChange(this)" value="<?php echo $addressId; ?>"></td>

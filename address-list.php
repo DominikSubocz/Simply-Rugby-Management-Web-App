@@ -47,7 +47,7 @@ if(isset($_POST['removeSubmit'])){
 <div class="bg-dark text-white">          
   <input type="button" id="settingsBtn" class="btn btn-info mx-2 my-2" value="Settings">  
 </div>
-<div class="player-card column-headings">
+<div class="address-card column-headings">
   <div class="id-container card-container">ID</div>
   <div class="address-line1-container card-container">Address Line 1</div>
   <div class="address-line2-container card-container">Address Line 2</div>
@@ -86,7 +86,7 @@ if(isset($_POST['removeSubmit'])){
           </div>
           <div class="col">      
             <label class="checkbox-inline">County</label>
-            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()"checked>
+            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()">
           </div>
         </div>
       </div>
@@ -177,6 +177,8 @@ function displayColumn(){
     }
   }
 }
+
+displayColumn();
 
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
