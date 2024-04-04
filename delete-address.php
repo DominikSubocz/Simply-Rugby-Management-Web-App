@@ -8,6 +8,8 @@ require("classes/address.php");
 
 session_start();
 
+Components::blankPageHeader("Delete player", ["style"], ["mobile-nav"]);
+
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     header("Location: " . Utils::$projectFilePath . "/address-list.php");
   }
@@ -24,8 +26,16 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   $pageTitle = "Address Deleted Successfuly";
 
 
-Address::deleteAddress($addressId);
+try{
+  Address::deleteAddress($addressId);
+  header("Location: " . Utils::$projectFilePath . "/member-list.phps");
 
-header("Location: " . Utils::$projectFilePath . "/address-list.php");
+}
+ catch(PDOException $e) {
+  echo "<div class='alert alert-danger my-3'>
+  <p>Error: Cannot delete address, because it is used in another table!</p>
+        <a href='address-list.php'><i class='fa fa-chevron-left' aria-hidden='true'></i> Click here to go back.</a>
+        </div>";
+}
 ?>
 

@@ -63,6 +63,7 @@ class Address
     }
 
     public static function deleteAddress($addressId){
+        
         $conn = Connection::connect();
         $stmt = $conn->prepare(SQL::$deleteAddress);
         $stmt->execute([$addressId]);

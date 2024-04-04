@@ -121,7 +121,6 @@ if(isset($_POST["updateSkillSubmit"])){
       <input type="submit" id="cancel" class="btn btn-warning my-2" value="No"> 
     </form>
   </div>
-
 </div>
 
 <script>

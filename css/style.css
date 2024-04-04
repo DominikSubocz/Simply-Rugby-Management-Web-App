@@ -25,6 +25,14 @@ body, button, input, textarea, select {
   display: flex;
 }
 
+#settingsBtn{
+  width: auto;
+}
+
+.address-list .bg-dark{
+  width: 100%;
+}
+
 .required{
   color: #cc4125;
   margin-right: 5px;
@@ -194,7 +202,7 @@ a{
 }
 
 /* player LIST */
-.player-list {
+.player-list, .address-list {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -670,12 +678,45 @@ input.invalid {
     flex-direction: column;
   }
 
+ 
   .profile-list-content .alert-info .btn{
     margin-top:10px;
     margin-bottom:10px;
     padding:15px 0 15px 0;
     width: 100%;
   }
+
+  .column-settings-card{
+    display:flex;
+    align-items: center;
+  }
+
+
+  .column-settings-card input[type="checkbox"] {
+
+    color: rgb(64, 62, 63);
+    display: block;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-weight: 400;
+    height: 19.1953px;
+    letter-spacing: normal;
+    line-height: 32px; 
+    margin-right: 8.8px;
+    margin-top: 17px; 
+    overflow-x: visible;
+    overflow-y: visible;
+    width: 19.1953px;
+    align-self: flex-start;
+    height: 100%;
+
+  }
+
+  .address-line2-container{
+    display: none;
+  }
+
 
 }
 
@@ -738,7 +779,7 @@ input.invalid {
     margin-top:20px;
   }
 
-  .player-list{
+  .player-list, .address-list{
     align-items: center;
   }
 
@@ -763,8 +804,31 @@ input.invalid {
     width: 25px;
   }
 
-  .fullN-container, .address-line1-container{
+  .fullN-container{
     width: 70px;
+  }
+
+  .address-line1-container{
+    max-width: 100px;
+  }
+
+
+
+  
+  .address-line2-container{
+    max-width: 100px;
+  }
+
+  .city-container{
+    max-width: 100px;
+  }
+
+  .county-container{
+    max-width: 100px;
+  }
+  
+  .postcode-container{
+    max-width: 100px;
   }
 
   .pfp-container{
@@ -779,7 +843,7 @@ input.invalid {
     width: 75px;
   }
 
-  .sru-container, .address-line2-container{
+  .sru-container{
     display: none;
   }
 
@@ -787,11 +851,11 @@ input.invalid {
     width: 100px;
   }
 
-  .contactNo-container, .county-container{
+  .contactNo-container{
     display: none;
   }
 
-  .email-container, .postcode-container{
+  .email-container{
     display: none;
   }
 
@@ -1050,9 +1114,71 @@ input.invalid {
   width: 100%;
 }
 
+.address-line2-container{
+  max-width: 70px;
+}
+
+.city-container{
+  max-width: 70px;
+  text-wrap: wrap;
+}
+
+.column-settings-content .row{
+  flex-direction: column;
+}
+
+
+.column-settings-content input[type="checkbox"] {
+
+  color: rgb(64, 62, 63);
+  display: block;
+  flex-basis: auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-weight: 400;
+  height: 19.1953px;
+  letter-spacing: normal;
+  line-height: 32px; 
+  margin-left: 132px;
+  margin-top: -17px; 
+  overflow-x: visible;
+  overflow-y: visible;
+  width: 19.1953px;
+  align-self: flex-start;
+  height: 100%;
+
+}
 
 
 
+@media screen and (min-width:520px){
+  .column-settings-content .row{
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  
+  .column-settings-content input[type="checkbox"] {
+  
+    color: rgb(64, 62, 63);
+    display: block;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-weight: 400;
+    height: 19.1953px;
+    letter-spacing: normal;
+    line-height: 32px; 
+    margin-left: 132px;
+    margin-top: -17px; 
+    overflow-x: visible;
+    overflow-y: visible;
+    width: 19.1953px;
+    align-self: flex-start;
+    height: 100%;
+  
+  }
+}
   
 }
 
@@ -1065,12 +1191,12 @@ input.invalid {
     margin-left: 25px;
   }
 
-  .email-container, .postcode-container{
+  .email-container{
     display: flex;
     width: 200px;
   }
 
-  .sru-container, .address-line2-container{
+  .sru-container{
     display: none;
   }
 
@@ -1122,6 +1248,20 @@ input.invalid {
     display: flex;
     flex-direction: row;
   }
+
+  .address-line1-container{
+    max-width: 150px;
+  }
+
+  .address-line2-container{
+    max-width: 75px;
+  }
+
+  .city-container{
+    max-width: 155px;
+  }
+
+
 }
 
 @media screen and (min-width:740px){
@@ -1212,13 +1352,11 @@ input.invalid {
 
   /* player LIST */
 
-  .player-list{
+  .player-list, .address-list{
     align-content: center;
     margin:0 auto;
-    border-radius: 15px;
-    overflow: hidden;
     border:1px #c0c0c0 solid;
-    max-width: 100%;
+    max-width: fit-content;
   }
   
   .player-card {
@@ -1245,29 +1383,52 @@ input.invalid {
     padding:0 25px;
   }
 
-  .fullN-container, .address-line1-container{
+  .fullN-container{
     width: 150px;
+  }
+
+  .address-line1-container{
+    max-width: 200px;
+  }
+
+  .address-line2-container{
+    max-width: 150px;
+
+  }
+
+  .city-container{
+    max-width: 125px;
+
+  }
+
+  .postcode-container{
+    max-width: 125px;
+
+  }
+
+  .county-container{
+    max-width: 125px;
   }
 
   .pfp-container{
     width: 100px;
   }
 
-  .sru-container, .address-line2-container{
+  .sru-container{
     width: 100px;
     padding:0 15px;
   }
 
-  .dob-container, .city-container{
+  .dob-container{
     width: 120px;
   }
 
-  .contactNo-container, .county-container{
+  .contactNo-container{
     width: 100px;
     padding:0 15px;
   }
 
-  .email-container, .postcode-container{
+  .email-container{
     width: 300px;    
     padding:0 25px;
   }
