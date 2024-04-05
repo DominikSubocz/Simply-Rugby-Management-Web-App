@@ -57,6 +57,27 @@ class Components {
     }
   }
 
+  public static function allGuardians($guardians){
+    if(!empty($guardians)){
+      foreach($guardians as $guardian){
+        $guardianId = Utils::escape($guardian["guardian_id"]);
+        $firstName = Utils::escape($guardian["guardian_first_name"]);
+        $lastName = Utils::escape($guardian["guardian_last_name"]);
+        $contactNumber = Utils::escape($guardian["guardian_contact_no"]);
+
+        $address1 = Utils::escape($guardian["address_line"]);
+        $address2 = Utils::escape($guardian["address_line2"]);
+        $city = Utils::escape($guardian["city"]);
+        $county = Utils::escape($guardian["county"]);
+        $postcode = Utils::escape($guardian["postcode"]);
+
+        require("components/guardian-card.php");
+
+      }
+    }
+
+  }
+
   public static function allDoctors($doctors){
     if (!empty($doctors)) {
       foreach ($doctors as $doctor) {

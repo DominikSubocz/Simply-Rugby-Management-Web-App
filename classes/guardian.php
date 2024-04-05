@@ -40,6 +40,18 @@ class Guardian
             
         }
 
+        public static function getAllGuardians(){
+
+            $conn = Connection::connect();
+
+            $stmt = $conn->prepare(SQL::$getAllGuardians);
+            $stmt->execute();
+            $guardians = $stmt->fetchAll();
+
+            return $guardians;
+            
+        }
+
         public static function getGuardianAddress($guardianId){
 
             $conn = Connection::connect();
@@ -49,6 +61,27 @@ class Guardian
             $address = $stmt->fetch();
 
             return $address;
+            
+        }
+
+        public static function getGuardianById($guardianId){
+
+            $conn = Connection::connect();
+
+            $stmt = $conn->prepare(SQL::$getGuardianById);
+            $stmt->execute([$guardianId]);
+            $guardian = $stmt->fetch();
+
+            return $guardian;
+            
+        }
+
+        public static function deleteGuardian($guardianId){
+
+            $conn = Connection::connect();
+
+            $stmt = $conn->prepare(SQL::$deleteGuardian);
+            $stmt->execute([$guardianId]);
             
         }
 

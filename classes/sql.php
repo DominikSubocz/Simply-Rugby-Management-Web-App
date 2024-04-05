@@ -5,6 +5,9 @@ class SQL {
   public static $getAllJuniors = "SELECT * FROM juniors";
   public static $getAllMembers = "SELECT * FROM members";
   public static $getAllDoctors = "SELECT * FROM simplyrugby.doctors";
+  public static $getAllGuardians = "SELECT g.*, a.*
+  FROM simplyrugby.guardians g 
+  LEFT JOIN simplyrugby.addresses a ON g.address_id = a.address_id";
   /**
    * Get the player with the id given in the URL parameter.
    * 
@@ -141,6 +144,7 @@ class SQL {
   LEFT JOIN simplyrugby.player_skills ps ON p.player_id = ps.player_id 
   LEFT JOIN simplyrugby.skills s ON ps.skill_id = s.skill_id 
   WHERE p.player_id = ?";
+  
 
   public static $updateJuniorSkills = "UPDATE simplyrugby.junior_skills
   SET skill_level = ?, comment = ?
@@ -215,6 +219,7 @@ class SQL {
   SET coach_id = ?, squad_id = ?, skills = ?, activities = ?, present_players = ?, accidents = ?, injuries = ?
   WHERE training_details_id = ?";
 
+
   public static $getGuardian = "SELECT
   g.guardian_id,
   g.guardian_first_name,
@@ -239,5 +244,7 @@ LEFT JOIN
   simplyrugby.addresses a ON g.address_id = a.address_id
 WHERE g.guardian_id = ?";
 
+public static $getGuardianById = "SELECT * FROM simplyrugby.guardians WHERE guardian_id = ?";
 
+public static $deleteGuardian = "DELETE * FROM simplyrugby.guardians WHERE guardian_id = ?";
 }
