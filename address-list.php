@@ -37,12 +37,13 @@ if(isset($_POST['removeSubmit'])){
     action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div>
       <p><strong>NOTE: </strong>Ensure that the address isn't used anywhere else before removing!</p>
-        <input class="btn btn-danger" id="removeBtn" type="submit" name="removeSubmit" value="Remove Address">
     </div>
 </div>
 
-<div class="bg-dark text-white">          
+<div class="bg-dark text-white d-flex p-2">          
   <input type="button" id="settingsBtn" class="btn btn-info mx-2 my-2" value="Settings">  
+  <input class="btn btn-danger mx-2 my-2" id="removeBtn" type="submit" name="removeSubmit" value="Remove Address">
+
 </div>
 
 <table class="table" id="customDataTable">
@@ -77,30 +78,32 @@ if(isset($_POST['removeSubmit'])){
   <div class="modal-content column-settings-content">
       <span class="close">&times;</span>
       <h3>Column Settings</h3>
+ 
       <div class="container">
         <div class="row">
-          <div class="col">
+          <div class="col">            
             <label class="checkbox-inline">Address Line 1</label>
             <input type="checkbox" id="inlineCheckbox1" value="option1" onclick="displayColumn()" checked>
           </div>
-          <div class="col">
+          <div class="col">      
             <label class="checkbox-inline">Address Line 2</label>
-            <input type="checkbox" id="inlineCheckbox2" value="option2" onclick="displayColumn()" checked >
+            <input type="checkbox" id="inlineCheckbox2" value="option2" onclick="displayColumn()" checked>
           </div>
           <div class="w-100"></div>
           <div class="col">      
             <label class="checkbox-inline">City</label>
-            <input type="checkbox" id="inlineCheckbox3" value="option3" onclick="displayColumn()"checked>
+            <input type="checkbox" id="inlineCheckbox3" value="option3" onclick="displayColumn()" checked>
           </div>
           <div class="col">      
             <label class="checkbox-inline">County</label>
-            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()"checked>
+            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()" checked>
           </div>
+
+          <div class="w-100"></div>
           <div class="col">      
             <label class="checkbox-inline">Postcode</label>
-            <input type="checkbox" id="inlineCheckbox5" value="option5" onclick="displayColumn()"checked>
+            <input type="checkbox" id="inlineCheckbox5" value="option5" onclick="displayColumn()" checked>
           </div>
-          
         </div>
       </div>
   </div>
@@ -140,7 +143,7 @@ function displayColumn(){
   var checkBox2 = document.getElementById("inlineCheckbox2");
   var checkBox3 = document.getElementById("inlineCheckbox3");
   var checkBox4 = document.getElementById("inlineCheckbox4");
-  var checkBox4 = document.getElementById("inlineCheckbox5");
+  var checkBox5 = document.getElementById("inlineCheckbox5");
 
   var addressLine1 = document.querySelectorAll(".address-line-1-label");
   var addressLine2 = document.querySelectorAll(".address-line-2-label");
