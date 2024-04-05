@@ -57,6 +57,20 @@ class Components {
     }
   }
 
+  public static function allDoctors($doctors){
+    if (!empty($doctors)) {
+      foreach ($doctors as $doctor) {
+        $doctorId = Utils::escape($doctor["doctor_id"]);
+        $firstName = Utils::escape($doctor["doctor_first_name"]);
+        $lastName = Utils::escape($doctor["doctor_last_name"]);
+        $contactNumber = Utils::escape($doctor["doctor_contact_no"]);
+
+        require("components/doctor-card.php");
+
+      }
+  }
+}
+
   public static function allAddresses($addresses)
   {
     if (!empty($addresses)) {

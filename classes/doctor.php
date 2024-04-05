@@ -34,4 +34,32 @@ class Doctor{
         return $id;
 
     }
+
+    public static function getAllDoctors(){
+        $conn = Connection::connect();
+
+        $stmt = $conn->prepare(SQL::$getAllDoctors);
+        $stmt->execute();
+        $doctors = $stmt->fetchAll();
+
+        return $doctors;
+    }
+
+    public static function getDoctor($doctorId){
+        $conn = Connection::connect();
+
+        $stmt = $conn->prepare(SQL::$getDoctor);
+        $stmt->execute([$doctorId]);
+        $doctor = $stmt->fetch();
+
+        return $doctor;
+    }
+
+    public static function deleteDoctor($doctorId){
+        $conn = Connection::connect();
+
+        $stmt = $conn->prepare(SQL::$deleteDoctor);
+        $stmt->execute([$doctorId]);
+
+    }
 }

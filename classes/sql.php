@@ -4,6 +4,7 @@ class SQL {
   public static $getallPlayers = "SELECT * FROM players";
   public static $getAllJuniors = "SELECT * FROM juniors";
   public static $getAllMembers = "SELECT * FROM members";
+  public static $getAllDoctors = "SELECT * FROM simplyrugby.doctors";
   /**
    * Get the player with the id given in the URL parameter.
    * 
@@ -18,6 +19,9 @@ class SQL {
   LEFT JOIN simplyrugby.junior_associations ja ON j.junior_id = ja.junior_id 
   LEFT JOIN simplyrugby.doctors d ON d.doctor_id = ja.doctor_id 
   WHERE j.junior_id = ?";
+
+  public static $getDoctor = "SELECT * FROM simplyrugby.doctors WHERE doctor_id = ?";
+  public static $deleteDoctor = "DELETE * FROM simplyrugby.doctors WHERE doctor_id = ?";
 
   public static $getJuniorGuardians = "SELECT j.*, g.*
   FROM simplyrugby.juniors j 
