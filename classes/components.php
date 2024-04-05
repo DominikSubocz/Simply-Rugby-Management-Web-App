@@ -506,10 +506,7 @@ class Components {
 
         require("components/event-card.php");
       }
-    } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
-    }
+    } 
   }
 
   public static function singleGame($game)
@@ -534,9 +531,6 @@ class Components {
 
       // Output information on a single player
       require("components/game-single.php");
-    } else {
-      // Output a message if the $players array is empty
-      require("components/no-single-player-found.php");
     }
   }
 
@@ -556,9 +550,6 @@ class Components {
         require("components/game-half-single.php");
 
       } 
-    } else {
-      // Output a message if the $players array is empty
-      require("components/no-single-player-found.php");
     }
 
   }
@@ -581,9 +572,6 @@ class Components {
         require("components/training-detail-single.php");
 
       } 
-    } else {
-      // Output a message if the $players array is empty
-      require("components/no-single-player-found.php");
     }
 
   }

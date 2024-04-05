@@ -16,6 +16,10 @@ body, button, input, textarea, select {
   color: #6aa84f;
 }
 
+#training-form{
+  width: 100% !important;
+}
+
 .hover-overlay:hover{
   background-color: hsla(0, 0%, 57%, 0.35) !important;
   cursor: pointer;

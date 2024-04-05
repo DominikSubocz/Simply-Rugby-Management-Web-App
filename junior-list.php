@@ -23,7 +23,7 @@ if(isset($_POST['updateSubmit'])){
 }
 
 if(isset($_POST['addSubmit'])){
-  header("Location: " . Utils::$projectFilePath . "/add-junior.php?");
+  header("Location: " . Utils::$projectFilePath . "/add-junior.php");
 
 }
 
