@@ -133,7 +133,6 @@ settingsBtn.onclick = function(event) {
     }
   }
 
-displayButtons("none");
 
 function displayColumn(){
 
@@ -220,5 +219,8 @@ function displayButtons(type){
 
   }
 }
+
+displayButtons("none");
+
   
 </script>

@@ -1,31 +1,11 @@
-<a class="player-card" href="junior-page.php?id=<?php echo $junior_id; ?>">
-<div class="id-container card-container">
-  <td><input type="checkbox" name="check_list[]" class="cb" onchange="cbChange(this)" value="<?php echo $junior_id; ?>"></td>
-  </div>
-
-  <div class="fullN-container card-container">
-    <p><?php echo $firstName . ' ' . $lastName ?></p>
-  </div>
-
-  <div class="sru-container card-container">
-      <p class="player-price"><?php echo $sruNumber; ?></p>
-  </div>
-  
-  <div class="dob-container card-container">
-      <p class="player-price"><?php echo $dob; ?></p>
-  </div>
-
-  <div class="contactNo-container card-container">
-      <p class="player-price"><?php echo $contactNumber; ?></p>
-  </div>
-
-  <div class="email-container card-container">
-      <p class="player-price"><?php echo $emailAddress; ?></p>
-  </div>
-
-  <div class="pfp-container junior-pfp card-container">
-    <img src="images/<?php echo $filename; ?>" alt="Cover for <?php echo $firstName; ?>" class="player-image">
- </div>
-
-
-</a>
+<tr class="hover-overlay" onclick="location.href='junior-page.php?id=<?php echo $junior_id; ?>'">
+        <td data-th="#" ><input type="checkbox" name="check_list[]" class="cb" onchange="cbChange(this)" value="<?php echo $junior_id; ?>"></td>
+        <td data-th="First Name" class="first-name-label"><p><?php echo $firstName; ?></p></td>
+        <td data-th="Last Name" class="last-name-label" ><p><?php echo $lastName; ?></p></td>
+        <td data-th="SRU No." class="sru-label"><p><?php echo $sruNumber; ?></p></td>
+        <td data-th="Date of Birth" class="dob-label"><p><?php echo $dob; ?></p></td>
+        <td data-th="Contact No." class="contact-label"><p><?php echo $contactNumber; ?></p></td>
+        <td data-th="Email Address" class="email-label"><p><?php echo $emailAddress; ?></p></td>
+        <td data-th="Profile Picture" class="pfp-label">    <img src="images/<?php echo $filename; ?>" alt="Cover for <?php echo $firstName; ?>" class="player-image"></td>
+    </a>
+</tr>

@@ -16,10 +16,18 @@ body, button, input, textarea, select {
   color: #6aa84f;
 }
 
+.hover-overlay:hover{
+  background-color: hsla(0, 0%, 57%, 0.35) !important;
+  cursor: pointer;
+}
+
 .wrong{
   color: #cc4125;
 }
 
+tr:hover{
+  background-color: #888;
+}
 
 #radio-container{
   display: flex;
@@ -723,11 +731,15 @@ input.invalid {
 
   .profile-list-content .table tr{
     display: flex;
-     flex-direction: column;
-     width: 100vw;
+    flex-direction: column;
+    width: 100vw;
  }
 
+ .profile-list-content .table tr:not(:first-child){
+  margin-top:15px;
+  margin-bottom:15px;
 
+}
 }
 
 @media screen and (min-width:320px){
@@ -1140,6 +1152,12 @@ input.invalid {
     width: 100vw;
 }
 
+.profile-list-content .table tr:not(:first-child){
+  margin-top:35px;
+  margin-bottom:35px;
+
+}
+
 
 
 @media screen and (min-width:520px){
@@ -1298,44 +1316,6 @@ input.invalid {
   .contact-content{
     width: 90%;
   }
-
-  table#customDataTable caption {
-    background-image: none;
-  }
-  table#customDataTable thead {
-    display: none;
-  }
-  table#customDataTable tbody td {
-    display: block;
-    padding: .6rem;
-  }
-  table#customDataTable tbody tr td:first-child {
-    background: #666;
-    color: #fff;
-  }
-  table#customDataTable tbody tr td:first-child a {
-    color: #fff;
-  }
-  table#customDataTable tbody tr td:first-child:before {
-    color: rgb(225, 181, 71);
-  }
-  table#customDataTable tbody td:before {
-    content: attr(data-th);
-    font-weight: bold;
-    display: inline-block;
-    width: 10rem;
-  }
-  table#customDataTable tr th:last-child,
-  table#customDataTable tr td:last-child {
-    max-width: 100% !important;
-    min-width: 100px !important;
-    width: 100% !important;
-  }
-
-
-
-
-
 }
 
 
@@ -1844,7 +1824,43 @@ input.invalid {
 
 }
 
-@media screen and (min-width: 985px){
+@media screen and (max-width:985px){
+  
+  table#customDataTable caption {
+    background-image: none;
+  }
+  table#customDataTable thead {
+    display: none;
+  }
+  table#customDataTable tbody td {
+    display: block;
+    padding: .6rem;
+  }
+  table#customDataTable tbody tr td:first-child {
+    background: #666;
+    color: #fff;
+  }
+  table#customDataTable tbody tr td:first-child a {
+    color: #fff;
+  }
+  table#customDataTable tbody tr td:first-child:before {
+    color: rgb(225, 181, 71);
+  }
+  table#customDataTable tbody td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    display: inline-block;
+    width: 10rem;
+  }
+  table#customDataTable tr th:last-child,
+  table#customDataTable tr td:last-child {
+    max-width: 100% !important;
+    min-width: 100px !important;
+    width: 100% !important;
+  }
+}
+
+@media screen and (min-width: 986px){
   .profile-list-content .table tr{
     display: table-row;
  }
