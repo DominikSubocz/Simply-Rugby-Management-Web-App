@@ -38,22 +38,18 @@ if(isset($_POST['removeSubmit'])){
 <main class="content-wrapper profile-list-content my-5">
 
 
-<div class="alert alert-info my-3">
   
-  <form 
-    method="post" 
-    action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-      <input class="btn btn-dark" type="submit" id="addBtn" name="addSubmit" value="Add Player">
-      <input class="btn btn-dark" type="submit" id="updateBtn" name="updateSubmit" value="Update Player">
-      <input class="btn btn-danger" type="submit" id="removeBtn" name="removeSubmit" value="Remove Player">
+<form 
+   method="post" 
+  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-
-
+<div class="bg-dark text-white d-flex p-2">          
+  <input class="btn btn-primary mx-2 my-2" type="submit" id="addBtn" name="addSubmit" value="Add Player">
+  <input class="btn btn-secondary mx-2 my-2" type="submit" id="updateBtn" name="updateSubmit" value="Update Player">
+  <input class="btn btn-danger mx-2 my-2" type="submit" id="removeBtn" name="removeSubmit" value="Remove Player">
+  <input type="button" id="settingsBtn" class="btn btn-info ms-auto my-2" value="Settings">  
 </div>
 
-<div class="bg-dark text-white">          
-  <input type="button" id="settingsBtn" class="btn btn-info mx-2 my-2" value="Settings">  
-</div>
 
 <table class="table" id="customDataTable">
   <thead>
@@ -87,39 +83,42 @@ if(isset($_POST['removeSubmit'])){
   <div class="modal-content column-settings-content">
       <span class="close">&times;</span>
       <h3>Column Settings</h3>
+
       <div class="container">
         <div class="row">
-          <div class="col">
+          <div class="col">            
             <label class="checkbox-inline">First Name</label>
             <input type="checkbox" id="inlineCheckbox1" value="option1" onclick="displayColumn()" checked>
           </div>
-          <div class="col">
+          <div class="col">      
             <label class="checkbox-inline">Last Name</label>
-            <input type="checkbox" id="inlineCheckbox2" value="option2" onclick="displayColumn()" checked >
+            <input type="checkbox" id="inlineCheckbox2" value="option2" onclick="displayColumn()" checked>
           </div>
           <div class="w-100"></div>
           <div class="col">      
-            <label class="checkbox-inline">SRU No.</label>
-            <input type="checkbox" id="inlineCheckbox3" value="option3" onclick="displayColumn()"checked>
+            <label class="checkbox-inline">Sru No.</label>
+            <input type="checkbox" id="inlineCheckbox3" value="option3" onclick="displayColumn()" checked>
           </div>
           <div class="col">      
             <label class="checkbox-inline">DOB</label>
-            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()"checked>
-          </div>
-          <div class="col">      
-            <label class="checkbox-inline">Contact No.</label>
-            <input type="checkbox" id="inlineCheckbox5" value="option5" onclick="displayColumn()"checked>
+            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()" checked>
           </div>
 
+          <div class="w-100"></div>
+          <div class="col">      
+            <label class="checkbox-inline">Contact No.</label>
+            <input type="checkbox" id="inlineCheckbox5" value="option5" onclick="displayColumn()" checked>
+          </div>
           <div class="col">      
             <label class="checkbox-inline">Email Address</label>
-            <input type="checkbox" id="inlineCheckbox6" value="option6" onclick="displayColumn()"checked>
+            <input type="checkbox" id="inlineCheckbox6" value="option6" onclick="displayColumn()" checked>
           </div>
+
+          <div class="w-100"></div>
           <div class="col">      
-            <label class="checkbox-inline">Profile Picture</label>
-            <input type="checkbox" id="inlineCheckbox7" value="option7" onclick="displayColumn()"checked>
+            <label class="checkbox-inline">Profile Image</label>
+            <input type="checkbox" id="inlineCheckbox7" value="option7" onclick="displayColumn()" checked>
           </div>
-          
         </div>
       </div>
   </div>

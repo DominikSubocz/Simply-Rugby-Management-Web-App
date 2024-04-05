@@ -33,7 +33,7 @@ tr:hover{
   display: flex;
 }
 
-#settingsBtn{
+#settingsBtn, #addBtn, #updateBtn, #removeBtn{
   width: auto;
 }
 
