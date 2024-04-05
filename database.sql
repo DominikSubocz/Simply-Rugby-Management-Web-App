@@ -47,7 +47,7 @@ CREATE TABLE simplyrugby.guardians(
   address_id INT NOT NULL,
   guardian_first_name varchar(48) NOT NULL,
   guardian_last_name varchar(48) NOT NULL,
-  guardian_contact_no int NOT NULL,
+  guardian_contact_no varchar(45) NOT NULL,
   relationship varchar(35) NOT NULL,
   FOREIGN KEY (address_id) REFERENCES addresses(address_id)
 );
