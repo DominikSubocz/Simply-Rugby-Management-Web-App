@@ -1,13 +1,23 @@
 <?php
 
-if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
-    header("Location: " . Utils::$projectFilePath . "/logout.php");
-  }
+require("classes/components.php");
+require("classes/junior.php");
 
 session_start();
 
-require("classes/components.php");
-require("classes/junior.php");
+if(!isset($_SESSION["loggedIn"])){
+  
+    header("Location: " . Utils::$projectFilePath . "/login.php");
+  
+  }
+
+if(isset($_SESSION["user_role"])){
+
+    if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+        header("Location: " . Utils::$projectFilePath . "/logout.php");
+      }
+}
+
 
 // Output page header with a given title, stylesheet, and script
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
