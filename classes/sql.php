@@ -41,6 +41,7 @@ class SQL {
 
   public static $createSession = "INSERT INTO simplyrugby.sessions (coach_id, squad_id, name, start, end, location) VALUES (?, ?, ?, ?, ?, ?)";
   public static $getCoach  = "SELECT * FROM simplyrugby.coaches WHERE first_name = ? AND last_name = ?";
+  public static $getCoachById = "SELECT * FROM simplyrugby.coaches WHERE coach_id = ?";
 
   public static $createGame = "INSERT INTO simplyrugby.games (squad_id, name, opposition_team	, start, end, location, kickoff_time, result, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

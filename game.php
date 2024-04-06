@@ -13,7 +13,6 @@ if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
 } 
 
 $game = Events::getGame($_GET["id"]);
-$gameHalves = Events::getGameHalves($game['game_id']);
 
 $pageTitle = "Game not found";
 
