@@ -7,7 +7,7 @@ require("classes/sql.php");
 require("classes/events.php");
 require("classes/utils.php");
 
-if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $start = test_input($_POST["start"]);
 
         
-        $sqlStart = date('Y-m-d H:i:sa', strtotime($start));
+        $sqlStart = date('Y-m-d H:i:s', strtotime($start));
     }
 
     if (empty($_POST["end"])) {
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $end = test_input($_POST["end"]);
 
-        $sqlEnd = date('Y-m-d H:i:sa', strtotime($end));
+        $sqlEnd = date('Y-m-d H:i:s', strtotime($end));
 
     }
 
@@ -99,6 +99,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $kickoffErr = "Kickoff time is required";
     } else {
         $kickoff = test_input($_POST["kickoff"]);
+    }
+
+    if (empty($_POST["score"])) {
+      $score = 0;
+    } else {
+        $score = test_input($_POST["score"]);
     }
 
     if (empty($gameNameErr) && empty($squadErr) && empty($oppisitionErr) && empty($startErr)  && empty($endErr)  && empty($locationErr) && empty($kickoffErr)){
@@ -174,7 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $trainingStart = test_input($_POST["trainingStart"]);
         
-        $sqlTrainingStart = date('Y-m-d H:i:sa', strtotime($trainingStart));
+        $sqlTrainingStart = date('Y-m-d H:i:s', strtotime($trainingStart));
 
 
     }
@@ -184,7 +190,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $trainingEnd = test_input($_POST["trainingEnd"]);
 
-        $sqlTrainingEnd = date('Y-m-d H:i:sa', strtotime($trainingEnd));
+        $sqlTrainingEnd = date('Y-m-d H:i:s', strtotime($trainingEnd));
 
 
     }

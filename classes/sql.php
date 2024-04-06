@@ -24,7 +24,7 @@ class SQL {
   WHERE j.junior_id = ?";
 
   public static $getDoctor = "SELECT * FROM simplyrugby.doctors WHERE doctor_id = ?";
-  public static $deleteDoctor = "DELETE * FROM simplyrugby.doctors WHERE doctor_id = ?";
+  public static $deleteDoctor = "DELETE FROM simplyrugby.doctors WHERE doctor_id = ?";
 
   public static $getJuniorGuardians = "SELECT j.*, g.*
   FROM simplyrugby.juniors j 

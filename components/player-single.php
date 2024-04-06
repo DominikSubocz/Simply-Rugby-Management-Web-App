@@ -110,7 +110,7 @@ if(isset($_POST["updateSkillSubmit"])){
 <div id="myModal" class="modal">
 
 <!-- Modal content -->
-  <div class="modal-content">
+  <div class="modal-content w-50">
     <span class="close">&times;</span>
     <p><?php echo 'Are you sure you want to delete: ', $firstName, ' ', $lastName; ?>?</p>
     <form 

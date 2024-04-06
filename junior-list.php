@@ -14,7 +14,7 @@ if(!isset($_SESSION["loggedIn"])){
 
 }
 
-if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
@@ -98,7 +98,7 @@ if(isset($_POST['updateSkillSubmit'])){
 </form>
 
 <div id="myModal" class="modal">
-  <div class="modal-content column-settings-content">
+  <div class="modal-content column-settings-content  w-50">
       <span class="close">&times;</span>
       <h3>Column Settings</h3>
 
