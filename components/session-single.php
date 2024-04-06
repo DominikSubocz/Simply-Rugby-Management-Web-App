@@ -4,42 +4,51 @@ if(isset($_POST["confirmDelete"])){
     Events::deleteSession($sessionId);
 }
 
+if(isset($_POST["updateSubmit"])){
+  header("Location: " . Utils::$projectFilePath . "/update-session.php?id=$sessionId");
+}
+
 ?>
-
-<div class="event-container">
-
-
-    <div>
-      <h2><?php echo 'Session ID: '. $sessionId; ?></h2>
-      <h2><?php echo $sessionName; ?></h2>
-      <p><?php echo 'Coach Number: '. $coachId; ?></p>
-      <p><?php echo 'Squad Number: '. $squadId; ?></p>
-      <p><?php echo 'Start: '. $sessionStart; ?></p>
-      <p><?php echo 'End: '.$sessionEnd; ?></p>
-      <p><?php echo 'Location: '. $sessionLocation; ?></p>
-    </div>
-
-
-
-    <div class="event-details-container">
-    <h2>Training Session Details:</h2>
-      <?php
-      
-      $trainingDetails = Events::getTrainingDetails($sessionId);
-      Components::trainingDetails($trainingDetails);
-      ?>
-    </div>
-
-<div class="event-form-container session-form-container">
-  <form
+<div class="bg-dark text-white d-flex p-2">          
+<form
       method="post"
       action="">
   
-      <input type="submit" id="deleteBtn" class="danger" value="Delete Game">
-      <a href="update-session.php?id=<?php echo $sessionId; ?>" name="updateRedirect" class="button">Update Game</a>
+      <input type="submit" id="removeBtn" class="btn btn-danger mx-2 my-2" value="Delete Session">
+      <input type="submit" id="updateBtn" name="updateSubmit" class="btn btn-warning mx-2 my-2" value="Update Session">
   </form>
+
 </div>
-</div>
+<tr class="hover-overlay" >
+        <td data-th="Session Name" class="session-name-label"><p><?php echo $sessionName; ?></p></td>
+        <td data-th="Coach Organising" class="coach-label" ><p><?php echo 'Coach Number: '. $coachId; ?></p></td>
+        <td data-th="Squad Participating" class="squad-label"><p><?php echo 'Squad Number: '. $squadId; ?></p></td>
+        <td data-th="Start Date" class="start-date-label"><p><?php echo 'Start: '. $sessionStart; ?></p></td>
+        <td data-th="End Date" class="end-date-label"><p><?php echo 'End: '.$sessionEnd; ?></p></td>
+        <td data-th="Location" class="location-label"><p><?php echo 'Location: '. $sessionLocation; ?></p></td>
+    </a>
+</tr>
+
+<table class="table" id="customDataTable">
+  <thead>
+    <tr>
+      <th class="skills-name-label">Skills</th>
+      <th class="activities-label">Activities </th>
+      <th class="present-players-label">Present Players</th>
+      <th class="accidents-label">Accidents</th>
+      <th class="injuries-label">Injuries</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <?php
+
+      $trainingDetails = Events::getTrainingDetails($sessionId);
+      Components::trainingDetails($trainingDetails);    
+      ?>
+
+  </tbody>
+</table>
 
 <div id="myModal" class="modal">
 
@@ -50,8 +59,8 @@ if(isset($_POST["confirmDelete"])){
             method="post" 
             action="">
 
-            <input type="submit" name="confirmDelete" class="danger" value="Yes">  
-            <input type="submit" id="cancel" class="button" value="No"> 
+            <input type="submit" name="confirmDelete" class="btn btn-danger" value="Yes">  
+            <input type="submit" id="cancel" class="btn btn-warning" value="No"> 
     </div>
 </div>
 
@@ -61,7 +70,7 @@ if(isset($_POST["confirmDelete"])){
 
 
   // Get the button that opens the modal
-  var delBtn = document.getElementById("deleteBtn");
+  var delBtn = document.getElementById("removeBtn");
 
   var cancelBtn = document.getElementById("cancel");
 
