@@ -125,11 +125,25 @@ class User{
 
         if (stripos($username, "admin") !== false) {
 
-            echo "Username: $username<br>";
-            echo "User role: Admin<br>";
-
             $stmt = $conn->prepare(SQL::$createUser);
             $stmt->execute([$username, $email, $hashedPassword, "Admin"]);
+
+            $insertedId = $conn->lastInsertId();
+
+            $profileId = User::checkIfUserExists($email);
+
+            $_SESSION["loggedIn"] = true;
+            $_SESSION["user_id"] = $insertedId;
+            $_SESSION["profileId"] = $profileId;
+            $_SESSION["username"] = $username;
+            $_SESSION["user_role"] = "Admin";
+            $_SESSION["justRegistered"] = true;
+
+        } 
+
+        if(stripos($username, "coach") !== false){
+            $stmt = $conn->prepare(SQL::$createUser);
+            $stmt->execute([$username, $email, $hashedPassword, "Coach"]);
 
             $insertedId = $conn->lastInsertId();
 
@@ -141,14 +155,11 @@ class User{
             $_SESSION["user_id"] = $insertedId;
             $_SESSION["profileId"] = $profileId;
             $_SESSION["username"] = $username;
-            $_SESSION["user_role"] = "Admin";
+            $_SESSION["user_role"] = "Coach";
             $_SESSION["justRegistered"] = true;
-
         }
 
         else{
-
-            
 
             $stmt = $conn->prepare(SQL::$createUser);
             $stmt->execute([$username, $email, $hashedPassword, "Member"]);
@@ -191,6 +202,12 @@ class User{
 
     public static function checkIfUserExists($filteredEmail){
         $conn = Connection::connect();
+
+        $sql_coaches = "SELECT * FROM simplyrugby.coaches WHERE email_address = ?";
+        $stmt_coaches = $conn->prepare($sql_coaches);
+        $stmt_coaches->bindValue(1, $filteredEmail);
+        $stmt_coaches->execute();
+        $result_coaches = $stmt_coaches->fetchAll();
     
         $sql_players = "SELECT * FROM players WHERE email_address = ?";
         $stmt_players = $conn->prepare($sql_players);
@@ -205,8 +222,6 @@ class User{
         $stmt_juniors->execute();
         $result_juniors = $stmt_juniors->fetchAll();
 
-
-    
         $sql_members = "SELECT * FROM members WHERE email_address = ?";
         $stmt_members = $conn->prepare($sql_members);
         $stmt_members->bindValue(1, $filteredEmail);
@@ -231,9 +246,15 @@ class User{
             $profileId = "member-page.php?id=";
             return $profileId . $memberId;
         }
+
+        if (!empty($result_coaches) || str_contains($username, 'coach')) {
+            $coachId = $result_coaches[0]['coach_id'];
+            $profileId = "coach-page.php?id=";
+            return $profileId . $coachId;
+        }
     
         // Check if the email exists in any of the tables
-        if (empty($result_players) || empty($result_members) || empty($result_juniors)) {
+        if (empty($result_players) || empty($result_members) || empty($result_juniors) || empty($result_coaches)) {
             // Close database connections and return true if the email exists
             $conn = null;
             return 0;
@@ -248,6 +269,17 @@ class User{
         $tableName = '';
     
         // Prepare SQL statements
+
+
+        $sql_coaches = "SELECT * FROM simplyrugby.coaches WHERE email_address = :email";
+        $stmt_coaches = $conn->prepare($sql_coaches);
+        $stmt_coaches->bindParam(':email', $filteredEmail);
+        $stmt_coaches->execute();
+        $result_coaches = $stmt_coaches->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($stmt_coaches) || str_contains($username, 'coach')) {
+            $tableName = 'coaches';
+        }
+
         $sql_players = "SELECT * FROM players WHERE email_address = :email";
         $stmt_players = $conn->prepare($sql_players);
         $stmt_players->bindParam(':email', $filteredEmail);

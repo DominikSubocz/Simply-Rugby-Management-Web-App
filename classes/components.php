@@ -78,6 +78,22 @@ class Components {
 
   }
 
+  public static function singleCoach($coach){
+    if (!empty($coach)) {
+      $coachId = Utils::escape($coach["coach_id"]);
+      $firstName = Utils::escape($coach["first_name"]);
+      $lastName = Utils::escape($coach["last_name"]);
+      $dob = Utils::escape($coach["dob"]);
+      $contactNo = Utils::escape($coach["contact_no"]);
+      $mobileNumber = Utils::escape($coach["mobile_no"]);
+      $emailAddress = Utils::escape($coach["email_address"]);
+      $filename = Utils::escape($coach["filename"]);
+      require("components/coach-single.php");
+
+    }
+
+  }
+
   public static function allDoctors($doctors){
     if (!empty($doctors)) {
       foreach ($doctors as $doctor) {

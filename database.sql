@@ -182,6 +182,7 @@ CREATE TABLE simplyrugby.coaches(
   contact_no  varchar(40) NOT NULL,
   mobile_no  varchar(40),
   email_address varchar(45),
+  filename VARCHAR(64),
   FOREIGN KEY (user_id) REFERENCES simplyrugby.users (user_id)
 );
 
@@ -227,10 +228,10 @@ CREATE TABLE simplyrugby.training_details(
   FOREIGN KEY (squad_id) REFERENCES simplyrugby.squads (squad_id)
 );
 
-INSERT INTO simplyrugby.coaches (first_name, last_name, dob, contact_no, mobile_no, email_address) 
+INSERT INTO simplyrugby.coaches (first_name, last_name, dob, contact_no, mobile_no, email_address, filename) 
 VALUES 
-('John', 'Doe', '1990-05-15', '123456789', '987654321', 'john.doe@example.com'),
-('Alice', 'Smith', '1985-10-20', '987654321', NULL, 'alice.smith@example.com');
+('John', 'Doe', '1990-05-15', '123456789', '987654321', 'john.doe@example.com','john-coach.jpg'),
+('Alice', 'Smith', '1985-10-20', '987654321', NULL, 'alice.smith@example.com','alice-coach.jpg');
 
 
 INSERT INTO simplyrugby.addresses (address_line, address_line2, city, county, postcode)

@@ -58,6 +58,21 @@
               
               </div>
               </div>";
+            } else if ($_SESSION["user_role"] === "Coach"){
+              $profileId = $_SESSION["profileId"];
+              echo "<li><a href='$profileId'>Profile</a></li>
+              <li><a href='index.php'>Dashboard</a></li>
+              <div class='dropdown'>
+              <button class='dropBTN'>Member Management ▼</button>
+              <div class='dropdown-content'>
+
+              
+              <li><a  href='player-list.php'>Players</a></li>
+              <li><a  href='junior-list.php'>Junior Players</a></li>
+              <li><a  href='member-list.php'>Members</a></li>
+              
+              </div>
+              </div>";
             }
 
             if($_SESSION["user_role"] === "Member"){
