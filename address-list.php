@@ -10,12 +10,17 @@ require("classes/address.php");
 
 Components::pageHeader("List of Addresses", ["style"], ["mobile-nav"]);
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
+
 if(!isset($_SESSION["loggedIn"])){
 
     header("Location: " . Utils::$projectFilePath . "/login.php");
   
   }
 
+  
   
 if(isset($_POST['removeSubmit'])){
   if(!empty($_POST['check_list'])) {

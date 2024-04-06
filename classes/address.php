@@ -1,5 +1,12 @@
 <?php
 
+
+/**
+ * This class is responsible for actions related to address information.
+ * 
+ * Main responsible
+ */
+
 class Address
     {
 
