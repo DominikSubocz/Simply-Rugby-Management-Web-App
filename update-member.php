@@ -8,6 +8,11 @@ require_once("classes/connection.php");
 require("classes/member.php");
 require("classes/address.php");
 
+
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+    header("Location: " . Utils::$projectFilePath . "/logout.php");
+  }
+
 $memberId = $_GET["id"];
 
 

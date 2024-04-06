@@ -6,6 +6,9 @@ require("classes/sql.php");
 require("classes/utils.php");
 require_once("classes/connection.php");
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+    header("Location: " . Utils::$projectFilePath . "/logout.php");
+  }
 
 // Define variables and initialize them
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $profileImageErr =  "";

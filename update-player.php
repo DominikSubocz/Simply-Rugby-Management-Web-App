@@ -9,6 +9,10 @@ require("classes/player.php");
 require("classes/doctor.php");
 require("classes/address.php");
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+    header("Location: " . Utils::$projectFilePath . "/logout.php");
+  }
+
 
 $conn = Connection::connect();
 

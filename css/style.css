@@ -37,7 +37,7 @@ tr:hover{
   display: flex;
 }
 
-#settingsBtn, #addBtn, #updateBtn, #removeBtn{
+#settingsBtn, #addBtn, #updateBtn, #removeBtn, #updateSkillBtn{
   width: auto;
 }
 

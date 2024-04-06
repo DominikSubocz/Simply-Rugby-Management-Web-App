@@ -43,7 +43,6 @@ if(isset($_POST['removeSubmit'])){
 <div class="bg-dark text-white d-flex p-2">          
   <input type="button" id="settingsBtn" class="btn btn-info mx-2 my-2" value="Settings">  
   <input class="btn btn-danger mx-2 my-2" id="removeBtn" type="submit" name="removeSubmit" value="Remove Address">
-
 </div>
 
 <table class="table" id="customDataTable">
@@ -215,6 +214,7 @@ function cbChange(obj) {
 }
 
 function displayButtons(type){
+
   if(type == "block"){
     removeBtn.style.display="block";
   } else {

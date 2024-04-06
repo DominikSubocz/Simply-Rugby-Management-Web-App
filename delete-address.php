@@ -6,7 +6,12 @@ require("classes/connection.php");
 require("classes/sql.php");
 require("classes/address.php");
 
+
 session_start();
+
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
 
 Components::blankPageHeader("Delete player", ["style"], ["mobile-nav"]);
 

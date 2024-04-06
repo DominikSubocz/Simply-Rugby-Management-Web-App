@@ -4,7 +4,13 @@ require("classes/components.php");
 require("classes/utils.php");
 require("classes/player.php");
 
+
+
 session_start();
+
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
 
 /*
   Attempt to get the id from the URL parameter.

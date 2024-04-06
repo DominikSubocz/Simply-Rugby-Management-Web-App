@@ -1,5 +1,9 @@
 <?php
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+    header("Location: " . Utils::$projectFilePath . "/logout.php");
+  }
+
 session_start();
 
 require("classes/components.php");

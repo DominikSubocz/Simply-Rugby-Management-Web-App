@@ -8,6 +8,10 @@ require("classes/guardian.php");
 
 session_start();
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
+
 Components::blankPageHeader("Delete guardian", ["style"], ["mobile-nav"]);
 
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {

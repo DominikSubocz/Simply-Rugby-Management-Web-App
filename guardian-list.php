@@ -10,6 +10,10 @@ require("classes/guardian.php");
 
 Components::pageHeader("List of Guardians", ["style"], ["mobile-nav"]);
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
+
 if(!isset($_SESSION["loggedIn"])){
 
     header("Location: " . Utils::$projectFilePath . "/login.php");

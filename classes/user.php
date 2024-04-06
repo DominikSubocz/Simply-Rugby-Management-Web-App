@@ -44,7 +44,7 @@ class User{
         $login_email = $login_result[0]['email'];
 
 
-        $profileId = User::checkIfUserExists($login_email);
+        $profileId = User::checkIfUserExists($_POST["username"], $login_email);
             
         $_SESSION["loggedIn"] = true;
         $_SESSION["user_id"] = $user["user_id"];
@@ -130,7 +130,7 @@ class User{
 
             $insertedId = $conn->lastInsertId();
 
-            $profileId = User::checkIfUserExists($email);
+            $profileId = User::checkIfUserExists($username, $email);
 
             $_SESSION["loggedIn"] = true;
             $_SESSION["user_id"] = $insertedId;
@@ -147,7 +147,7 @@ class User{
 
             $insertedId = $conn->lastInsertId();
 
-            $profileId = User::checkIfUserExists($email);
+            $profileId = User::checkIfUserExists($username, $email);
 
             var_dump($profileId);
 
@@ -167,7 +167,7 @@ class User{
 
             $insertedId = $conn->lastInsertId();
 
-            $profileId = User::checkIfUserExists($filteredEmail);
+            $profileId = User::checkIfUserExists($username, $filteredEmail);
             
             if($profileId){
             User::updateRecord($insertedId, $filteredEmail);
@@ -200,7 +200,7 @@ class User{
         return "";
     }
 
-    public static function checkIfUserExists($filteredEmail){
+    public static function checkIfUserExists($username, $filteredEmail){
         $conn = Connection::connect();
 
         $sql_coaches = "SELECT * FROM simplyrugby.coaches WHERE email_address = ?";

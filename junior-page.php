@@ -6,6 +6,10 @@ require("classes/junior.php");
 
 session_start();
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
+
 /*
   Attempt to get the id from the URL parameter.
   If it isn't set or it isn't a number, redirect

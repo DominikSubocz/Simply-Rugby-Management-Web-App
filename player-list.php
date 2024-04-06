@@ -9,8 +9,11 @@ require("classes/player.php");
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 if(!isset($_SESSION["loggedIn"])){
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+}
 
-
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
 if(isset($_POST['updateSubmit'])){
@@ -30,6 +33,14 @@ if(isset($_POST['removeSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
       header("Location: " . Utils::$projectFilePath . "/delete-player.php?id=$check");
+    }
+  }
+}
+
+if(isset($_POST['updateSkillSubmit'])){
+  if(!empty($_POST['check_list'])) {
+    foreach($_POST['check_list'] as $check) {
+      header("Location: " . Utils::$projectFilePath . "/update-player-skill.php?id=$check");
     }
   }
 }
@@ -54,12 +65,16 @@ if(isset($_POST['removeSubmit'])){
 
 
 
-<div class="bg-dark text-white d-flex p-2">          
+  <div class="bg-dark text-white d-flex p-2">          
   <input class="btn btn-primary mx-2 my-2" type="submit" id="addBtn" name="addSubmit" value="Add Player">
   <input class="btn btn-secondary mx-2 my-2" type="submit" id="updateBtn" name="updateSubmit" value="Update Player">
+  <input class="btn btn-secondary mx-2 my-2" type="submit" id="updateSkillBtn" name="updateSkillSubmit" value="Update Player Skill">
   <input class="btn btn-danger mx-2 my-2" type="submit" id="removeBtn" name="removeSubmit" value="Remove Player">
   <input type="button" id="settingsBtn" class="btn btn-info ms-auto my-2" value="Settings">  
+  <input type="hidden" id="hidden-role-field" name="hidden-role-field" value="<?php echo $_SESSION["user_role"];?>">
+
 </div>
+
 <table class="table" id="customDataTable">
   <thead>
     <tr>
@@ -139,6 +154,15 @@ if(isset($_POST['removeSubmit'])){
 
 let updateBtn = document.getElementById("updateBtn");
 let removeBtn = document.getElementById("removeBtn");
+let updateSkillBtn = document.getElementById("updateSkillBtn");
+let addBtn = document.getElementById("addBtn");
+
+var role = document.getElementById("hidden-role-field");
+
+
+if(role.value ==="Coach"){
+  addBtn.style.display="none";
+}
 
 var modal = document.getElementById("myModal");
 let settingsBtn = document.getElementById("settingsBtn");
@@ -269,11 +293,25 @@ function cbChange(obj) {
 
 function displayButtons(type){
   if(type == "block"){
+    if(role.value === "Coach"){
+      updateSkillBtn.style.display="block";
+    } else{
     updateBtn.style.display="block";
     removeBtn.style.display="block";
+    updateSkillBtn.style.display="block";
+
+    }
+
   } else {
+
+    if(role === "Coach"){
+      updateSkillBtn.style.display="none";
+    } else{
     removeBtn.style.display="none";
     updateBtn.style.display="none";
+    updateSkillBtn.style.display="none";
+
+    }
 
   }
 }

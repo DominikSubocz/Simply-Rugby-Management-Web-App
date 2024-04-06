@@ -8,6 +8,10 @@ require("classes/events.php");
 require("classes/connection.php");
 require("classes/sql.php");
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+    header("Location: " . Utils::$projectFilePath . "/logout.php");
+  }
+
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
     header("Location: " . Utils::$projectFilePath . "/player-list.php");
 } 

@@ -4,6 +4,10 @@ require("classes/components.php");
 require("classes/utils.php");
 require("classes/junior.php");
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
+
 session_start();
 
 /*

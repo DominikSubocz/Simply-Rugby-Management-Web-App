@@ -14,6 +14,10 @@ if(!isset($_SESSION["loggedIn"])){
 
 }
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
+
 if(isset($_POST['updateSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
@@ -49,6 +53,7 @@ if(isset($_POST['removeSubmit'])){
   <input class="btn btn-secondary mx-2 my-2" type="submit" id="updateBtn" name="updateSubmit" value="Update Player">
   <input class="btn btn-danger mx-2 my-2" type="submit" id="removeBtn" name="removeSubmit" value="Remove Player">
   <input type="button" id="settingsBtn" class="btn btn-info ms-auto my-2" value="Settings">  
+  <input type="hidden" id="hidden-role-field" name="hidden-role-field" value="<?php echo $_SESSION["user_role"];?>">
 </div>
 
 <table class="table" id="customDataTable">
@@ -129,6 +134,13 @@ if(isset($_POST['removeSubmit'])){
 
 let updateBtn = document.getElementById("updateBtn");
 let removeBtn = document.getElementById("removeBtn");
+let addBtn = document.getElementById("addBtn");
+
+var role = document.getElementById("hidden-role-field");
+
+if(role.value ==="Coach"){
+  addBtn.style.display="none";
+}
 
 var modal = document.getElementById("myModal");
 let settingsBtn = document.getElementById("settingsBtn");
@@ -259,11 +271,22 @@ function cbChange(obj) {
 
 function displayButtons(type){
   if(type == "block"){
-    updateBtn.style.display="block";
-    removeBtn.style.display="block";
+    if(role.value === "Coach"){
+      updateBtn.style.display="none";
+      removeBtn.style.display="none";
+    } else {
+      updateBtn.style.display="block";
+      removeBtn.style.display="block";
+    }
+
   } else {
+    if(role.value === "Coach"){
+      updateBtn.style.display="none";
+      removeBtn.style.display="none";
+    } else {
+      updateBtn.style.display="none";
     removeBtn.style.display="none";
-    updateBtn.style.display="none";
+}
 
   }
 }

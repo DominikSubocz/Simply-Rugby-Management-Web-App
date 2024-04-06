@@ -7,6 +7,10 @@ require("classes/sql.php");
 require("classes/events.php");
 require("classes/utils.php");
 
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+  header("Location: " . Utils::$projectFilePath . "/logout.php");
+}
+
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 $gameName = $squad = $oppisition = $start = $end = $location = $result = $score = "";
