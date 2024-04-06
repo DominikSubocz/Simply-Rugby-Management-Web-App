@@ -25,8 +25,8 @@ if(isset($_POST["confirmDelete"])){
 
     <div class="event-details-container">
       <?php
-      $gameHalves = Events::getGameHalves($gameId);
-      Components::gameHalves($gameHalves);
+  $gameHalves = Events::getGameHalves($game['game_id']);
+  Components::gameHalves($gameHalves);
       ?>
     </div>
 

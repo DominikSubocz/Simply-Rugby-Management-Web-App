@@ -14,7 +14,7 @@ Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 if(isset($_POST['updateSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
-      header("Location: " . Utils::$projectFilePath . "/update-junior.php?id=$check");
+      header("Location: " . Utils::$projectFilePath . "/update-$check");
     }
   }
 }
@@ -27,7 +27,7 @@ if(isset($_POST['addSubmit'])){
 if(isset($_POST['removeSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
-      header("Location: " . Utils::$projectFilePath . "/delete-junior.php?id=$check");
+      header("Location: " . Utils::$projectFilePath . "/delete-$check");
     }
   }
 }
@@ -71,6 +71,35 @@ if(isset($_POST['removeSubmit'])){
   </tbody>
 </table>
 </form>
-
 </main>
+<script>
+
+let updateBtn = document.getElementById("updateBtn");
+let removeBtn = document.getElementById("removeBtn");
+
+function cbChange(obj) {
+    var cbs = document.getElementsByClassName("cb");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+    displayButtons("block");
+}
+
+function displayButtons(type){
+  if(type == "block"){
+    updateBtn.style.display="block";
+    removeBtn.style.display="block";
+  } else {
+    removeBtn.style.display="none";
+    updateBtn.style.display="none";
+
+  }
+}
+
+displayButtons("none");
+
+displayButtons("none");
+
+</script>
 

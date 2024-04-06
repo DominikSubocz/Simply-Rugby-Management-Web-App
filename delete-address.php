@@ -28,7 +28,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 
 try{
   Address::deleteAddress($addressId);
-  header("Location: " . Utils::$projectFilePath . "/member-list.phps");
+  header("Location: " . Utils::$projectFilePath . "/member-list.php");
 
 }
  catch(PDOException $e) {
