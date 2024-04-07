@@ -53,7 +53,7 @@ class User{
         $_SESSION["user_role"] = $user["user_role"];
 
         if($profileId){
-            User::updateRecord($_SESSION["user_id"], $login_email);
+            User::updateRecord($_POST["username"], $_SESSION["user_id"], $login_email);
             }
 
         // $_SESSION["successMessage"] = "Login Successful!";
@@ -159,7 +159,7 @@ class User{
             $_SESSION["justRegistered"] = true;
         }
 
-        else{
+        if ((stripos($username, "admin") === false) && (stripos($username, "coach") === false)) {
 
             $stmt = $conn->prepare(SQL::$createUser);
             $stmt->execute([$username, $email, $hashedPassword, "Member"]);
@@ -170,7 +170,7 @@ class User{
             $profileId = User::checkIfUserExists($username, $filteredEmail);
             
             if($profileId){
-            User::updateRecord($insertedId, $filteredEmail);
+            User::updateRecord($username, $insertedId, $filteredEmail);
             }
 
             else{
@@ -228,6 +228,13 @@ class User{
         $stmt_members->execute();
         $result_members = $stmt_members->fetchAll();
 
+
+        if (!empty($result_coaches) && str_contains($username, 'coach')) {
+            $coachId = $result_coaches[0]['coach_id'];
+            $profileId = "coach-page.php?id=";
+            return $profileId . $coachId;
+        }
+
         if (!empty($result_players)) {
             $playerId = $result_players[0]['player_id'];
             $profileId = "player.php?id=";
@@ -247,11 +254,7 @@ class User{
             return $profileId . $memberId;
         }
 
-        if (!empty($result_coaches) || str_contains($username, 'coach')) {
-            $coachId = $result_coaches[0]['coach_id'];
-            $profileId = "coach-page.php?id=";
-            return $profileId . $coachId;
-        }
+
     
         // Check if the email exists in any of the tables
         if (empty($result_players) || empty($result_members) || empty($result_juniors) || empty($result_coaches)) {
@@ -261,7 +264,7 @@ class User{
         }
     }
 
-    public static function updateRecord($insertedId, $filteredEmail) {  
+    public static function updateRecord($username, $insertedId, $filteredEmail) {  
         // Establish database connection
         $conn = Connection::connect();
     
@@ -276,7 +279,7 @@ class User{
         $stmt_coaches->bindParam(':email', $filteredEmail);
         $stmt_coaches->execute();
         $result_coaches = $stmt_coaches->fetchAll(PDO::FETCH_ASSOC);
-        if (!empty($stmt_coaches) || str_contains($username, 'coach')) {
+        if (!empty($stmt_coaches) && str_contains($username, 'coach')) {
             $tableName = 'coaches';
         }
 

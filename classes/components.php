@@ -57,6 +57,25 @@ class Components {
     }
   }
 
+  public static function allCoaches($coaches)
+  {
+    if (!empty($coaches)) {
+      // Output a player card for each player in the $players array
+      foreach ($coaches as $coach) {
+        $coachId = Utils::escape($coach["coach_id"]);
+        $firstName = Utils::escape($coach["first_name"]);
+        $lastName = Utils::escape($coach["last_name"]);
+        $dob = Utils::escape($coach["dob"]);
+        $contactNo = Utils::escape($coach["contact_no"]);
+        $mobileNumber = Utils::escape($coach["mobile_no"]);
+        $emailAddress = Utils::escape($coach["email_address"]);
+        $filename = Utils::escape($coach["filename"]);
+
+        require("components/coach-card.php");
+      }
+    } 
+  }
+
   public static function allGuardians($guardians){
     if(!empty($guardians)){
       foreach($guardians as $guardian){

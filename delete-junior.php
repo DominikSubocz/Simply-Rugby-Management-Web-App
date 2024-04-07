@@ -23,7 +23,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   $junior = Junior::getJunior($_GET["id"]);
   $juniorId = $junior['junior_id'];
 
-  $pageTitle = "Junior Deleted Successfuly";
+  $pageTitle = "Junior Deletion";
 
 
 Junior::deleteJunior($juniorId);

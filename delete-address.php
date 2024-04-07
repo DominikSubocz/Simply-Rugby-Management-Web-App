@@ -28,7 +28,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   $address = Address::getAddress($_GET["id"]);
   $addressId = $address['address_id'];
 
-  $pageTitle = "Address Deleted Successfuly";
+  $pageTitle = "Address Deletion";
 
 
 try{

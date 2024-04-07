@@ -27,7 +27,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   $doctor = Doctor::getDoctor($_GET["id"]);
   $doctorId = $doctor['doctor_id'];
 
-  $pageTitle = "Doctor Deleted Successfuly";
+  $pageTitle = "Doctor Deletion";
 
 
 try{

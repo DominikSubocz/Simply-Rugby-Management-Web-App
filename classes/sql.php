@@ -5,6 +5,7 @@ class SQL {
   public static $getAllJuniors = "SELECT * FROM juniors";
   public static $getAllMembers = "SELECT * FROM members";
   public static $getAllDoctors = "SELECT * FROM simplyrugby.doctors";
+  public static $getAllCoaches = "SELECT * FROM simplyrugby.coaches";
   public static $getAllGuardians = "SELECT g.*, a.*
   FROM simplyrugby.guardians g 
   LEFT JOIN simplyrugby.addresses a ON g.address_id = a.address_id";
@@ -73,6 +74,10 @@ class SQL {
   public static $updateMember = "UPDATE simplyrugby.members
   SET address_id = ?, first_name = ?, last_name = ?, dob = ?, sru_no = ?, contact_no = ?, mobile_no = ?, email_address = ?, filename = ?
   WHERE member_id = ?";
+
+  public static $updateCoach = "UPDATE simplyrugby.coaches
+  SET first_name = ?, last_name = ?, dob = ?, contact_no = ?, mobile_no = ?, email_address = ?, filename = ?
+  WHERE coach_id = ?";
 
   public static $playerExists = "SELECT * FROM simplyrugby.players 
   WHERE first_name = ? AND last_name = ? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?";
@@ -178,6 +183,8 @@ class SQL {
   public static $deleteJuniorAssociation = "DELETE FROM junior_associations WHERE junior_id = ?";
   public static $deleteJuniorPosition = "DELETE FROM junior_positions WHERE junior_id = ?";
   public static $deleteJuniorSkill = "DELETE FROM junior_skills WHERE junior_id = ?";
+
+  public static $deleteCoach = "DELETE FROM simplyrugby.coaches WHERE coach_id = ?";
 
   public static $deleteMember = "DELETE FROM members WHERE member_id = ?";
 

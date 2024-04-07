@@ -23,7 +23,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   $player = Player::getplayer($_GET["id"]);
   $playerId = $player['player_id'];
 
-  $pageTitle = "Player Deleted Successfuly";
+  $pageTitle = "Player Deletion";
 
 if (!empty($player)) {
   $pageTitle = $player["first_name"];

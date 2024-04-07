@@ -27,7 +27,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   $guardian = Guardian::getGuardianById($_GET["id"]);
   $guardianId = $guardian['guardian_id'];
 
-  $pageTitle = "Guardian Deleted Successfuly";
+  $pageTitle = "Guardian Deletion";
 
 
 try{

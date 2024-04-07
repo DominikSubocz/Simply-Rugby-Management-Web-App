@@ -23,7 +23,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   $member = Member::getMember($_GET["id"]);
   $memberId = $member['member_id'];
 
-  $pageTitle = "Junior Deleted Successfuly";
+  $pageTitle = "Junior Deletion";
 
 
 Member::deleteMember($memberId);

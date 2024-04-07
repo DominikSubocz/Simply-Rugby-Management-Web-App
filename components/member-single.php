@@ -27,7 +27,7 @@ if(isset($_POST["updateSubmit"])){
           action="">
 
           <input type="submit" id="deleteBtn" class="btn btn-danger my-2 my-2" value="Delete">  
-          <input type="submit" class="btn btn-warning my-2" name="skillUpdateSubmit" value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
+          <input type="submit" class="btn btn-warning my-2" name="updateSubmit" value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
         </form>
       </div>
   </div>

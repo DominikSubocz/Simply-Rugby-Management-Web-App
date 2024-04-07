@@ -27,7 +27,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   $game = Events::getGame($_GET["id"]);
   $gameId = $game['game_id'];
 
-  $pageTitle = "Game Deleted Successfuly";
+  $pageTitle = "Game Deletion";
 
 
 try{
