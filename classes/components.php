@@ -1,19 +1,32 @@
 <?php
 
+/**
+ * 
+ * @brief This class is responsible for displaying right components of the webapp.
+ * 
+ *        These include:
+ *              - Header & Footer.
+ *              - Card containers
+ *              - Single Profile Pages 
+ *  
+ *        Future Additions:
+ *        @todo - Possibly more components, and some tweaks :)
+ */
+
 class Components {
   /**
    * Output a standard page header with customisable options.
    *
-   * $pageTitle - string
-   * $stylesheets - array
-   * $scripts - array
+   * $pageTitle - string - Title of the page.
+   * $stylesheets - array - List of stylesheets.
+   * $scripts - array - List of scripts.
    */
   public static function pageHeader($pageTitle, $stylesheets, $scripts) {
-    require("components/header.php");
+    require("components/header.php"); ///< Output header component.
   }
 
   public static function blankPageHeader($pageTitle, $stylesheets, $scripts) {
-    require("components/header-blank.php");
+    require("components/header-blank.php"); ///< Output blank header component.
   }
 
 
@@ -21,11 +34,23 @@ class Components {
    * Output a standard page footer.
    */
   public static function pageFooter() {
-    require("components/footer.php");
+    require("components/footer.php"); ///< Output footer component.
   }
 
   /**
    * Renders an array of player arrays as a gallery.
+   */
+
+  /**
+   *  @fn   public static function allPlayers($players)
+   * 
+   *  @brief This function takes in an array of player records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param players - Array containing all records from the Players table.
+   *  
    */
   public static function allPlayers($players)
   {
@@ -49,13 +74,25 @@ class Components {
         $filename = Utils::escape($player["filename"]);
 
 
-        require("components/player-card.php");
+        require("components/player-card.php"); ///< Output information on each player.
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+       
+      require("components/no-players-found.php"); ///< Output a message if the $players array is empty
     }
   }
+
+  /**
+   *  @fn    public static function allCoaches($coaches)
+   * 
+   *  @brief This function takes in an array of coach records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param coaches - Array containing all records from the Coaches table.
+   *  
+   */
 
   public static function allCoaches($coaches)
   {
@@ -71,10 +108,22 @@ class Components {
         $emailAddress = Utils::escape($coach["email_address"]);
         $filename = Utils::escape($coach["filename"]);
 
-        require("components/coach-card.php");
+        require("components/coach-card.php"); ///< Output information on each coach.
       }
     } 
   }
+
+  /**
+   *  @fn    public static function allGuardians($guardians)
+   * 
+   *  @brief This function takes in an array of records from a JOIN SQL command.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param guardians - Array containing all records from the JOIN SQL command, which joins Guardians and Addresses tables.
+   *  
+   */
 
   public static function allGuardians($guardians){
     if(!empty($guardians)){
@@ -90,12 +139,25 @@ class Components {
         $county = Utils::escape($guardian["county"]);
         $postcode = Utils::escape($guardian["postcode"]);
 
-        require("components/guardian-card.php");
+        require("components/guardian-card.php"); ///< Output information on each guardian.
 
       }
     }
 
   }
+
+
+  /**
+   *  @fn    public static function singleCoach($coach)
+   * 
+   *  @brief This function takes in single record from the coaches table.
+   *         Checks if the record isn't empty.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if the record isn't empty.
+   *  
+   *  @param coach - String containing single record from the coaches table.
+   *  
+   */
 
   public static function singleCoach($coach){
     if (!empty($coach)) {
@@ -107,11 +169,24 @@ class Components {
       $mobileNumber = Utils::escape($coach["mobile_no"]);
       $emailAddress = Utils::escape($coach["email_address"]);
       $filename = Utils::escape($coach["filename"]);
-      require("components/coach-single.php");
+
+      require("components/coach-single.php"); ///< Output information on single coach.
 
     }
 
   }
+
+  /**
+   *  @fn    public static function allDoctors($doctors)
+   * 
+   *  @brief This function takes in an array of doctor records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param doctors - Array containing all records from the Doctors table.
+   *  
+   */
 
   public static function allDoctors($doctors){
     if (!empty($doctors)) {
@@ -121,11 +196,23 @@ class Components {
         $lastName = Utils::escape($doctor["doctor_last_name"]);
         $contactNumber = Utils::escape($doctor["doctor_contact_no"]);
 
-        require("components/doctor-card.php");
+        require("components/doctor-card.php"); ///< Output information on each doctor.
 
       }
   }
 }
+
+  /**
+   *  @fn    public static function allAddresses($addresses)
+   * 
+   *  @brief This function takes in an array of address records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param addresses - Array containing all records from the Addresses table.
+   *  
+   */
 
   public static function allAddresses($addresses)
   {
@@ -140,15 +227,23 @@ class Components {
 
 
 
-        require("components/address-card.php");
+        require("components/address-card.php"); ///< Output information on each address 
       }
     } else {
-      require("components/no-players-found.php");
+      require("components/no-players-found.php"); ///< Output a message if the $addresses array is empty
     }
   }
 
   /**
-   * Renders a player array to the page.
+   *  @fn    public static function singleplayer($player)
+   * 
+   *  @brief This function takes in a single player record from the Players table.
+   *         Checks if the record isn't empty.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param player - String containing single record from the Players table.
+   *  
    */
   public static function singleplayer($player)
   {
@@ -177,13 +272,25 @@ class Components {
       $doctorLastName = Utils::escape($player["doctor_last_name"]);
       $doctorContact = Utils::escape($player["doctor_contact_no"]);
 
-      // Output information on a single player
-      require("components/player-single.php");
+       
+      require("components/player-single.php"); ///< Output information on a single player
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-single-player-found.php");
+       
+      require("components/no-single-player-found.php");  ///< Output a message if the $players array is empty
     }
   }
+
+  /**
+   *  @fn    public static function allJuniors($juniors)
+   * 
+   *  @brief This function takes in an array of junior records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param juniors - Array containing all records from the Juniors table.
+   *  
+   */
 
   public static function allJuniors($juniors)
   {
@@ -205,16 +312,23 @@ class Components {
 
 
 
-        require("components/junior-card.php");
+        require("components/junior-card.php"); ///<  Output information on each junior.
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+      require("components/no-players-found.php");  ///< Output a message if the $juniors array is empty
     }
   }
 
-    /**
-   * Renders a player array to the page.
+  /**
+   *  @fn    public static function singleJunior($junior)
+   * 
+   *  @brief This function takes in a single junior player record from the Juniors table.
+   *         Checks if the record isn't empty.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param junior - String containing single record from the Juniors table.
+   *  
    */
   public static function singleJunior($junior)
   {
@@ -242,13 +356,24 @@ class Components {
       $doctorContact = Utils::escape($junior["doctor_contact_no"]);
 
 
-      // Output information on a single player
-      require("components/junior-single.php");
+      require("components/junior-single.php"); ///<  Output information on a single junior
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-single-player-found.php");
+       
+      require("components/no-single-player-found.php"); ///< Output a message if the $juniors array is empty
     }
   }
+
+    /**
+   *  @fn    public static function juniorGuardians($juniors)
+   * 
+   *  @brief This function takes in an array of recrods from the JOIN SQL command.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param juniors - Array containing all records from the JOIN SQL command, which joins Junior_associations and Guardians tables.
+   *  
+   */
 
   public static function juniorGuardians($juniors)
   {
@@ -260,22 +385,34 @@ class Components {
         $guardianContactNum = Utils::escape($junior["guardian_contact_no"]);
         $relationship = Utils::escape($junior["relationship"]);
 
-        require("components/guardian-single.php");
+        require("components/guardian-single.php"); ///<  Output information on a each Guardians associated with a Junior.
 
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+       
+      require("components/no-players-found.php"); ///<  Output a message if the $juniors array is empty
     }
   }
+
+  /**
+   *  @fn    public static function juniorPassingSkill($juniors)
+   * 
+   *  @brief This function takes in an array of junior records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Only points records which are under "Passing" Category to the right component.
+   *  
+   *  @param juniors - Array containing all records from the Juniors table.
+   *  
+   */
 
   public static function juniorPassingSkill($juniors)
   {
     if (!empty($juniors)) {
-      // Output a player card for each player in the $players array
+      /// Output a junior skill card for each junior in the $juniors array
       foreach ($juniors as $junior) {
         $skillCategory = Utils::escape($junior["category"]);
         $skillName = Utils::escape($junior["skill_name"]);
@@ -283,22 +420,34 @@ class Components {
         $comment = Utils::escape($junior["comment"]);
 
         if($skillCategory == "Passing"){
-          require("components/junior-skill.php");
+          require("components/junior-skill.php"); ///<  Output information on a each junior skill under "Passing" category
         }
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+      
+      require("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
     }
   }
 
+
+  /**
+   *  @fn    public static function juniorTacklingSkill($juniors)
+   * 
+   *  @brief This function takes in an array of junior records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Only points records which are under "Tackling" Category to the right component.
+   *  
+   *  @param juniors - Array containing all records from the Juniors table.
+   *  
+   */
   public static function juniorTacklingSkill($juniors)
   {
     if (!empty($juniors)) {
-      // Output a player card for each player in the $players array
+      /// Output a junior skill card for each junior in the $juniors array
       foreach ($juniors as $junior) {
         $skillCategory = Utils::escape($junior["category"]);
         $skillName = Utils::escape($junior["skill_name"]);
@@ -306,22 +455,34 @@ class Components {
         $comment = Utils::escape($junior["comment"]);
 
         if($skillCategory == "Tackling"){
-          require("components/junior-skill.php");
+          require("components/junior-skill.php"); ///<  Output information on a each junior skill under "Tackling" category
         }
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+      
+      require("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
     }
   }
 
+
+  /**
+   *  @fn    public static function juniorKickingSkill($juniors)
+   * 
+   *  @brief This function takes in an array of junior records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Only points records which are under "Kicking" Category to the right component.
+   *  
+   *  @param juniors - Array containing all records from the Juniors table.
+   *  
+   */
   public static function juniorKickingSkill($juniors)
   {
     if (!empty($juniors)) {
-      // Output a player card for each player in the $players array
+      /// Output a junior skill card for each junior in the $juniors array
       foreach ($juniors as $junior) {
         $skillCategory = Utils::escape($junior["category"]);
         $skillName = Utils::escape($junior["skill_name"]);
@@ -329,22 +490,34 @@ class Components {
         $comment = Utils::escape($junior["comment"]);
 
         if($skillCategory == "Kicking"){
-          require("components/junior-skill.php");
+          require("components/junior-skill.php"); ///<  Output information on a each junior skill under "Kicking" category
         }
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+       
+      require("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
     }
   }
+
+  /**
+   *  @fn    public static function playerPassingSkill($players)
+   * 
+   *  @brief This function takes in an array of player records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Only points records which are under "Passing" Category to the right component.
+   *  
+   *  @param players - Array containing all records from the Players table.
+   *  
+   */
 
   public static function playerPassingSkill($players)
   {
     if (!empty($players)) {
-      // Output a player card for each player in the $players array
+     /// Output a player skill card for each player in the $players array
       foreach ($players as $player) {
         $skillCategory = Utils::escape($player["category"]);
         $skillName = Utils::escape($player["skill_name"]);
@@ -352,22 +525,34 @@ class Components {
         $comment = Utils::escape($player["comment"]);
 
         if($skillCategory == "Passing"){
-          require("components/junior-skill.php");
+          require("components/junior-skill.php"); ///<  Output information on a each player skill under "Passing" category
         }
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+
+      require("components/no-players-found.php"); ///< Output a message if the $players array is empty
     }
   }
+
+  /**
+   *  @fn    public static function playerTacklingSkill($players)
+   * 
+   *  @brief This function takes in an array of player records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Only points records which are under "Tackling" Category to the right component.
+   *  
+   *  @param players - Array containing all records from the Players table.
+   *  
+   */
 
   public static function playerTacklingSkill($players)
   {
     if (!empty($players)) {
-      // Output a player card for each player in the $players array
+     /// Output a player skill card for each player in the $players array
       foreach ($players as $player) {
         $skillCategory = Utils::escape($player["category"]);
         $skillName = Utils::escape($player["skill_name"]);
@@ -375,22 +560,33 @@ class Components {
         $comment = Utils::escape($player["comment"]);
 
         if($skillCategory == "Tackling"){
-          require("components/junior-skill.php");
+          require("components/junior-skill.php");  ///<  Output information on a each player skill under "Tackling" category
         }
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+      require("components/no-players-found.php"); ///<  Output a message if the $players array is empty
     }
   }
+
+  /**
+   *  @fn    public static function playerTacklingSkill($players)
+   * 
+   *  @brief This function takes in an array of player records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Only points records which are under "Kicking" Category to the right component.
+   *  
+   *  @param players - Array containing all records from the Players table.
+   *  
+   */
 
   public static function playerKickingSkill($players)
   {
     if (!empty($players)) {
-      // Output a player card for each player in the $players array
+      /// Output a player skill card for each player in the $players array
       foreach ($players as $player) {
         $skillCategory = Utils::escape($player["category"]);
         $skillName = Utils::escape($player["skill_name"]);
@@ -398,64 +594,99 @@ class Components {
         $comment = Utils::escape($player["comment"]);
 
         if($skillCategory == "Kicking"){
-          require("components/junior-skill.php");
+          require("components/junior-skill.php"); ///<  Output information on a each player skill under "Kicking" category
         }
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+       
+      require("components/no-players-found.php"); ///<  Output a message if the $players array is empty
     }
   }
+
+  /**
+   *  @fn    public static function juniorPositions($juniors)
+   * 
+   *  @brief This function takes in an array of junior records from the JOIN SQL command.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variable for position field.
+   *  
+   *  @param juniors - Array containing all records from the JOIN SQL command, which joins Juniors, Junior Positions and Positions tables.
+   *  
+   */
 
   public static function juniorPositions($juniors)
   {
     if (!empty($juniors)) {
-      // Output a player card for each player in the $players array
+      /// Output a junior positions card for each junior in the $juniors array
       foreach ($juniors as $junior) {
         $position = Utils::escape($junior["position"]);
 
 
-        require("components/junior-positions.php");
+        require("components/junior-positions.php"); ///<  Output information on a each junior position.
 
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+       
+      require("components/no-players-found.php"); ///<  Output a message if the $juniors array is empty
     }
   }
+  /**
+   *  @fn    public static function playerPositions($players)
+   * 
+   *  @brief This function takes in an array of player records from the JOIN SQL command.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variable for position field.
+   *         Points to the component which should be displayed if records aren't empty.
+   * 
+   *  @param players - Array containing all records from the JOIN SQL command, which joins Players, Player Positions and Positions tables.
+   *  
+   */
+  
 
   public static function playerPositions($players)
   {
     if (!empty($players)) {
-      // Output a player card for each player in the $players array
+      /// Output a player positions card for each player in the $players array
       foreach ($players as $player) {
         $position = Utils::escape($player["position"]);
 
 
-        require("components/junior-positions.php");
+        require("components/junior-positions.php");  ///<  Output information on a each player position.
 
 
 
 
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+       
+      require("components/no-players-found.php"); ///<  Output a message if the $players array is empty
     }
   }
 
+  
+  /**
+   *  @fn    public static function allMembers($members)
+   * 
+   *  @brief This function takes in an array of member records.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param members - Array containing all records from the Members table.
+   *  
+   */
 
 
   public static function allMembers($members)
   {
     if (!empty($members)) {
-      // Output a player card for each player in the $players array
+      /// Output a member card for each member in the $members array
       foreach ($members as $member) {
         $member_id = Utils::escape($member["member_id"]);
         $address_id = Utils::escape($member["address_id"]);
@@ -474,16 +705,24 @@ class Components {
 
 
 
-        require("components/member-card.php");
+        require("components/member-card.php"); ///<  Output information on a single player.
       }
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-players-found.php");
+       
+      require("components/no-players-found.php"); ///<  Output a message if the $players array is empty
     }
   }
 
   /**
-   * Renders a player array to the page.
+   *  @fn    public static function singleMember($member)
+
+   *  @brief This function takes in single member record.
+   *         Checks if the record isn't empty.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param member - String containing single record from the Members table.
+   *  
    */
   public static function singleMember($member)
   {
@@ -506,17 +745,28 @@ class Components {
       $postcode = Utils::escape($member["postcode"]);
 
 
-      // Output information on a single player
-      require("components/member-single.php");
+      require("components/member-single.php"); ///<  Output information on a single player.
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-single-player-found.php");
+      require("components/no-single-player-found.php"); ///<  Output a message if the $players array is empty
     }
   }
 
+  /**
+   *  @fn    public static function allEvents($events)
+   * 
+   *  @brief This function takes in an array of event records from UNION SQL command.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Sets event type based on the type field - this is so we can differenciate between Game and training session in the timetable.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param events - Array containing all event records from UNION SQL command, which unions Games and Sessions tables.
+   *  
+   */
+
   public static function allEvents($events){
     if (!empty($events)) {
-      // Output a player card for each player in the $players array
+      // Output a event card for each event in the $events array
       foreach ($events as $event) {
 
         $type = Utils::escape($event["type"]); // Retrieve the type of event
@@ -539,10 +789,22 @@ class Components {
 
 
 
-        require("components/event-card.php");
+        require("components/event-card.php");  ///<  Output information on each event.
       }
     } 
   }
+
+  /**
+   *  @fn    public static function singleGame($game)
+   * 
+   *  @brief This function takes in single game record.
+   *         Checks if the record isn't empty.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param game - String containing single record from the Games table.
+   *  
+   */
 
   public static function singleGame($game)
   {
@@ -558,16 +820,21 @@ class Components {
       $gameResult = Utils::escape($game["result"]);
       $gameScore = Utils::escape($game["score"]);
 
-
-
-
-
-
-
-      // Output information on a single player
-      require("components/game-single.php");
+      require("components/game-single.php");  ///<  Output information on a single game.
     }
   }
+
+  /**
+   *  @fn    public static function gameHalves($gameHalves)
+   * 
+   *  @brief This function takes in an array of game halves records from Game Halves table.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param gameHalves - Array containing all game halves records from the Game Halves table.
+   *  
+   */
 
   public static function gameHalves($gameHalves){
 
@@ -582,12 +849,24 @@ class Components {
         $oppositionScore = Utils::escape($gameHalf["opposition_score"]);
         $oppositionComment = Utils::escape($gameHalf["opposition_comment"]);
 
-        require("components/game-half-single.php");
+        require("components/game-half-single.php");  ///<  Output information on each game half.
 
       } 
     }
 
   }
+
+  /**
+   *  @fn    public static function trainingDetails($trainingDetails)
+   * 
+   *  @brief This function takes in an array of training details records from Training Details table.
+   *         Goes through each of these records.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param trainingDetails - Array containing all training details records from the Training Details table.
+   *  
+   */
 
   public static function trainingDetails($trainingDetails){
 
@@ -604,12 +883,24 @@ class Components {
         $accidents = Utils::escape($trainingDetail["accidents"]);
         $injuries = Utils::escape($trainingDetail["injuries"]);
 
-        require("components/training-detail-single.php");
+        require("components/training-detail-single.php");  ///<  Output information on each training details.
 
       } 
     }
 
   }
+
+  /**
+   *  @fn    public static function singleSession($session)
+   * 
+   *  @brief This function takes in single session record.
+   *         Checks if the record isn't empty.
+   *         Retrieves & assigns variables based on fields in the database.
+   *         Points to the component which should be displayed if records aren't empty.
+   *  
+   *  @param session - String containing single record from the Sessions table.
+   *  
+   */
 
   public static function singleSession($session)
   {
@@ -627,11 +918,10 @@ class Components {
 
 
 
-      // Output information on a single player
-      require("components/session-single.php");
+      require("components/session-single.php"); ///<  Output information on a single player
+
     } else {
-      // Output a message if the $players array is empty
-      require("components/no-single-player-found.php");
+      require("components/no-single-player-found.php"); ///< Output a message if the $players array is empty
     }
   }
 }
