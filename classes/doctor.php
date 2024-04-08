@@ -76,7 +76,7 @@ class Doctor{
     /**
      *  @fn public static function createNewDoctor($firstName, $lastName, $contactNo)
      *  
-     *  @brief This function creates a new record into the Doctors table.
+     *  @brief This function inserts a new record into the Doctors table.
      *         It also returns id of just created record.
      *  
      *  @param firstName - Stores information about Doctor's first name.

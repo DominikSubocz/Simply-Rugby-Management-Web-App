@@ -74,7 +74,7 @@ class Address
     /**
      *  @fn public static function createNewAddress($address1, $address2, $city, $county, $postcode)
      *  
-     *  @brief This function creates a new record in the database.
+     *  @brief This function inserts a new record into the addresses table.
      *         It also Returns the id of the address which was just created.
      *  
      *  @param address1 - Stores information about Address Line 1.
