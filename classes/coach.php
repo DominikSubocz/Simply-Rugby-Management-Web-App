@@ -27,15 +27,15 @@ class Coach {
      */
 
     public static function getCoach($coachId){
-        $conn = Connection::connect();  ///< Connect to database
+        $conn = Connection::connect();  
 
 
-        $stmt = $conn->prepare(SQL::$getCoachById); ///< SQL Command
-        $stmt->execute([$coachId]); ///< Pass parameters and execute SQL command.
+        $stmt = $conn->prepare(SQL::$getCoachById); 
+        $stmt->execute([$coachId]); 
 
-        $coach = $stmt->fetch(); ///< Get single record
+        $coach = $stmt->fetch(); 
 
-        return $coach; ///< Return record.
+        return $coach; 
     }
 
 
@@ -48,15 +48,15 @@ class Coach {
      *  @return coaches - All coach records.
      */
     public static function getAllCoaches(){
-        $conn = Connection::connect();  ///< Connect to database
+        $conn = Connection::connect();  
 
 
-        $stmt = $conn->prepare(SQL::$getAllCoaches); ///< SQL Command
+        $stmt = $conn->prepare(SQL::$getAllCoaches); 
         $stmt->execute();
 
-        $coaches = $stmt->fetchAll(); ///< Get multiple records.
+        $coaches = $stmt->fetchAll(); 
 
-        return $coaches; ///< Return records.
+        return $coaches; 
     }
 
     /**
@@ -67,11 +67,11 @@ class Coach {
      *  
      */
     public static function deleteCoach($coachId){
-        $conn = Connection::connect();  ///< Connect to database
+        $conn = Connection::connect();  
 
 
-        $stmt = $conn->prepare(SQL::$deleteCoach); ///< SQL Command
-        $stmt->execute([$coachId]); ///< Pass parameters and execute SQL command.
+        $stmt = $conn->prepare(SQL::$deleteCoach); 
+        $stmt->execute([$coachId]); 
 
     }
 
@@ -94,11 +94,11 @@ class Coach {
      */
 
     public static function updateCoach($firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId){
-        $conn = Connection::connect();  ///< Connect to database
+        $conn = Connection::connect();  
 
 
-        $stmt = $conn->prepare(SQL::$updateCoach); ///< SQL Command
-        $stmt->execute([$firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId]); ///< Pass parameters and execute SQL command.
+        $stmt = $conn->prepare(SQL::$updateCoach); 
+        $stmt->execute([$firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId]); 
     }
 }
 

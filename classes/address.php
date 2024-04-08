@@ -37,14 +37,14 @@ class Address
 
     public static function addressExists($address1, $address2, $city, $county, $postcode){
 
-    $conn = Connection::connect(); ///< Connect to database
+    $conn = Connection::connect();
 
 
-    $stmt = $conn->prepare(SQL::$addressExists); ///< SQL Command
-    $stmt->execute([$address1, $address2, $city, $county, $postcode]); ///< Pass parameters and execute SQL command.
-    $existingAddress = $stmt->fetch(PDO::FETCH_COLUMN); ///< Get single record
+    $stmt = $conn->prepare(SQL::$addressExists); 
+    $stmt->execute([$address1, $address2, $city, $county, $postcode]); 
+    $existingAddress = $stmt->fetch(PDO::FETCH_COLUMN); 
 
-    return $existingAddress; ///< Return record.
+    return $existingAddress;
 
     }
 
@@ -60,14 +60,14 @@ class Address
 
     public static function getAllAddresses(){
 
-        $conn = Connection::connect(); ///< Connect to database.
+        $conn = Connection::connect();
     
     
-        $stmt = $conn->prepare(SQL::$getAllAddresses); ///< SQL Command.
-        $stmt->execute(); ///< Execute SQL command.
-        $addreses = $stmt->fetchAll();  ///< Get multiple records.
+        $stmt = $conn->prepare(SQL::$getAllAddresses);
+        $stmt->execute(); 
+        $addreses = $stmt->fetchAll();  
     
-        return $addreses; ///< Return records.
+        return $addreses; 
     
         }
 
@@ -87,13 +87,13 @@ class Address
      */    
     public static function createNewAddress($address1, $address2, $city, $county, $postcode){
 
-        $conn = Connection::connect(); ///< Connect to database
+        $conn = Connection::connect();
 
-        $stmt = $conn->prepare(SQL::$createNewAddress); ///< SQL Command
-        $stmt->execute([$address1, $address2, $city, $county, $postcode]); ///< Pass parameters and execute SQL command.
-        $addressId = $conn->lastInsertId(); ///< Get id of last inserted item.
+        $stmt = $conn->prepare(SQL::$createNewAddress); 
+        $stmt->execute([$address1, $address2, $city, $county, $postcode]); 
+        $addressId = $conn->lastInsertId(); 
 
-        return $addressId; ///< Return ID.
+        return $addressId; 
     }
 
     /**
@@ -119,13 +119,13 @@ class Address
 
     public static function getExistingAddress($address1, $address2, $city, $county, $postcode){
 
-        $conn = Connection::connect(); ///< Connect to database
+        $conn = Connection::connect();
 
-        $stmt = $conn->prepare(SQL::$getExistingAddressId); ///< SQL Command
-        $stmt->execute([$address1, $address2, $city, $county, $postcode]); ///< Pass parameters and execute SQL command.
-        $addressId = $stmt->fetch(PDO::FETCH_COLUMN); ///< Get single record
+        $stmt = $conn->prepare(SQL::$getExistingAddressId); 
+        $stmt->execute([$address1, $address2, $city, $county, $postcode]); 
+        $addressId = $stmt->fetch(PDO::FETCH_COLUMN); 
 
-        return $addressId; ///< Return ID.
+        return $addressId; 
 
     }
 
@@ -140,13 +140,13 @@ class Address
      */    
 
     public static function getAddress($addressId){
-        $conn = Connection::connect(); ///< Connect to database
-        $stmt = $conn->prepare(SQL::$getAddress); ///< SQL Command
-        $stmt->execute([$addressId]); ///< Pass parameters and execute SQL command.
+        $conn = Connection::connect();
+        $stmt = $conn->prepare(SQL::$getAddress); 
+        $stmt->execute([$addressId]); 
         
-        $address = $stmt->fetch(); ///< Get single record
+        $address = $stmt->fetch(); 
 
-        return $address; ///< Return record
+        return $address; 
     }
 
     /**
@@ -161,9 +161,9 @@ class Address
 
     public static function deleteAddress($addressId){
         
-        $conn = Connection::connect(); ///< Connect to database
-        $stmt = $conn->prepare(SQL::$deleteAddress); ///< SQL Command
-        $stmt->execute([$addressId]); ///< Pass parameters and execute SQL command.
+        $conn = Connection::connect();
+        $stmt = $conn->prepare(SQL::$deleteAddress); 
+        $stmt->execute([$addressId]); 
         
     }
 }
