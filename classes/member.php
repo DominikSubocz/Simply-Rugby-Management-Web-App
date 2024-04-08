@@ -43,7 +43,7 @@ class Member
   /**
    * Get a member with a specific ID from the database.
    * 
-   * @param playerId - Stores information about member's ID number.
+   * @param playerId - String containing member's ID number.
    * 
    */
   public static function getMember($playerId)
@@ -61,7 +61,7 @@ class Member
   /**
    * Delete a member with specific ID from the database.
    * 
-   * @param playerId - Stores information about member's ID number.
+   * @param playerId - String containing member's ID number.
    * 
    */
 
@@ -80,16 +80,16 @@ class Member
   /**
    * Update a existing record with specific member ID number.
    * 
-   * @param address_id - Stores information about address ID number.
-   * @param firstName - Stores information about member's first name.
-   * @param lastName - Stores information about member's last name.
-   * @param dob - Stores information about member's date of birth
-   * @param sru - Stores information about member's SRU number.
-   * @param contactNo - Stores information about member's contact number.
-   * @param mobileNo - Stores information about members's mobile number.
-   * @param email - Stores information about member's emaila address.
-   * @param filename - Stores information about member's profile picture filename.
-   * @param memberId - Stores information about member's ID number.
+   * @param address_id - String containing address ID number.
+   * @param firstName - String containing member's first name.
+   * @param lastName - String containing member's last name.
+   * @param dob - String containing member's date of birth
+   * @param sru - String containing member's SRU number.
+   * @param contactNo - String containing member's contact number.
+   * @param mobileNo - String containing members's mobile number.
+   * @param email - String containing member's emaila address.
+   * @param filename - String containing member's profile picture filename.
+   * @param memberId - String containing member's ID number.
    * 
    */
 
@@ -107,13 +107,13 @@ class Member
   /**
    * Check if member specific exists and get single record result for that member.
    * 
-   * @param playerId - Stores information about member's ID number.
-   * @param firstName - Stores information about member's first name.
-   * @param lastName - Stores information about member's last name.
-   * @param dob - Stores information about member's date of birth
-   * @param sru - Stores information about member's SRU number.
-   * @param contactNo - Stores information about member's contact number.
-   * @param mobileNo - Stores information about members's mobile number.
+   * @param playerId - String containing member's ID number.
+   * @param firstName - String containing member's first name.
+   * @param lastName - String containing member's last name.
+   * @param dob - String containing member's date of birth
+   * @param sru - String containing member's SRU number.
+   * @param contactNo - String containing member's contact number.
+   * @param mobileNo - String containing members's mobile number.
    */
 
   public static function memberExists($firstName, $lastName, $dob, $sru, $contactNo, $mobileNo){

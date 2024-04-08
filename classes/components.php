@@ -4,13 +4,13 @@
  * 
  * @brief This class is responsible for displaying right components of the webapp.
  * 
- *        These include:
- *              - Header & Footer.
- *              - Card containers
- *              - Single Profile Pages 
+ * These include:
+ *  - Header & Footer.
+ *  - Card containers.
+ *  - Single Profile Pages.
  *  
- *        Future Additions:
- *        @todo - Possibly more components, and some tweaks :)
+ * Future Additions:
+ *  @todo - Possibly more components, and some tweaks :)
  */
 
 class Components {
@@ -37,17 +37,9 @@ class Components {
     require("components/footer.php"); ///< Output footer component.
   }
 
-  /**
-   * Renders an array of player arrays as a gallery.
-   */
 
   /**
-   *  @fn   public static function allPlayers($players)
-   * 
-   *  @brief This function takes in an array of player records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
+   *  Renders an array of player as table rows.
    *  
    *  @param players - Array containing all records from the Players table.
    *  
@@ -55,7 +47,7 @@ class Components {
   public static function allPlayers($players)
   {
     if (!empty($players)) {
-      // Output a player card for each player in the $players array
+      /// Output a player card for each player in the $players array
       foreach ($players as $player) {
         $player_id = Utils::escape($player["player_id"]);
         $address_id = Utils::escape($player["address_id"]);
@@ -83,13 +75,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function allCoaches($coaches)
+   *  Renders an array of coaches as table rows.
    * 
-   *  @brief This function takes in an array of coach records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param coaches - Array containing all records from the Coaches table.
    *  
    */
@@ -114,13 +101,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function allGuardians($guardians)
+   *  Renders an array of guardians as table rows. 
    * 
-   *  @brief This function takes in an array of records from a JOIN SQL command.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param guardians - Array containing all records from the JOIN SQL command, which joins Guardians and Addresses tables.
    *  
    */
@@ -148,13 +130,8 @@ class Components {
 
 
   /**
-   *  @fn    public static function singleCoach($coach)
+   *  Renders single coach record string as a individual profile page
    * 
-   *  @brief This function takes in single record from the coaches table.
-   *         Checks if the record isn't empty.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if the record isn't empty.
-   *  
    *  @param coach - String containing single record from the coaches table.
    *  
    */
@@ -177,13 +154,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function allDoctors($doctors)
+   *  Renders an array of doctors as table rows. 
    * 
-   *  @brief This function takes in an array of doctor records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param doctors - Array containing all records from the Doctors table.
    *  
    */
@@ -203,13 +175,8 @@ class Components {
 }
 
   /**
-   *  @fn    public static function allAddresses($addresses)
+   *  Renders an array of addresses as table rows. 
    * 
-   *  @brief This function takes in an array of address records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param addresses - Array containing all records from the Addresses table.
    *  
    */
@@ -235,13 +202,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function singleplayer($player)
+   *  Renders single player record string as a individual profile page
    * 
-   *  @brief This function takes in a single player record from the Players table.
-   *         Checks if the record isn't empty.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param player - String containing single record from the Players table.
    *  
    */
@@ -281,13 +243,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function allJuniors($juniors)
+   *  Renders an array of juniors as table rows. 
    * 
-   *  @brief This function takes in an array of junior records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param juniors - Array containing all records from the Juniors table.
    *  
    */
@@ -320,13 +277,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function singleJunior($junior)
+   *  Renders single junior player record string as a individual profile page
    * 
-   *  @brief This function takes in a single junior player record from the Juniors table.
-   *         Checks if the record isn't empty.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param junior - String containing single record from the Juniors table.
    *  
    */
@@ -363,14 +315,10 @@ class Components {
     }
   }
 
-    /**
-   *  @fn    public static function juniorGuardians($juniors)
-   * 
-   *  @brief This function takes in an array of recrods from the JOIN SQL command.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
+  /**
    *  
+   *  Renders an array of guardians as a div card
+   * 
    *  @param juniors - Array containing all records from the JOIN SQL command, which joins Junior_associations and Guardians tables.
    *  
    */
@@ -398,13 +346,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function juniorPassingSkill($juniors)
+   *  Only renders an array of junior skills as a div card that are under the "Passing Category"
    * 
-   *  @brief This function takes in an array of junior records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Only points records which are under "Passing" Category to the right component.
-   *  
    *  @param juniors - Array containing all records from the Juniors table.
    *  
    */
@@ -434,13 +377,8 @@ class Components {
 
 
   /**
-   *  @fn    public static function juniorTacklingSkill($juniors)
+   *  Only renders an array of junior skills as a div card that are under the "Tackling Category"
    * 
-   *  @brief This function takes in an array of junior records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Only points records which are under "Tackling" Category to the right component.
-   *  
    *  @param juniors - Array containing all records from the Juniors table.
    *  
    */
@@ -469,13 +407,8 @@ class Components {
 
 
   /**
-   *  @fn    public static function juniorKickingSkill($juniors)
+   *  Only renders an array of junior skills as a div card that are under the "Kicking Category"
    * 
-   *  @brief This function takes in an array of junior records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Only points records which are under "Kicking" Category to the right component.
-   *  
    *  @param juniors - Array containing all records from the Juniors table.
    *  
    */
@@ -503,13 +436,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function playerPassingSkill($players)
+   *  Only renders an array of player skills as a div card that are under the "Passing Category"
    * 
-   *  @brief This function takes in an array of player records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Only points records which are under "Passing" Category to the right component.
-   *  
    *  @param players - Array containing all records from the Players table.
    *  
    */
@@ -538,13 +466,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function playerTacklingSkill($players)
+   *  Only renders an array of player skills as a div card that are under the "Tackling Category"
    * 
-   *  @brief This function takes in an array of player records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Only points records which are under "Tackling" Category to the right component.
-   *  
    *  @param players - Array containing all records from the Players table.
    *  
    */
@@ -572,13 +495,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function playerTacklingSkill($players)
+   *  Only renders an array of player skills as a div card that are under the "Kicking Category"
    * 
-   *  @brief This function takes in an array of player records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Only points records which are under "Kicking" Category to the right component.
-   *  
    *  @param players - Array containing all records from the Players table.
    *  
    */
@@ -607,12 +525,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function juniorPositions($juniors)
+   *  Renders an array of junior positions as a div card.
    * 
-   *  @brief This function takes in an array of junior records from the JOIN SQL command.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variable for position field.
-   *  
    *  @param juniors - Array containing all records from the JOIN SQL command, which joins Juniors, Junior Positions and Positions tables.
    *  
    */
@@ -636,14 +550,9 @@ class Components {
       require("components/no-players-found.php"); ///<  Output a message if the $juniors array is empty
     }
   }
+  
   /**
-   *  @fn    public static function playerPositions($players)
-   * 
-   *  @brief This function takes in an array of player records from the JOIN SQL command.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variable for position field.
-   *         Points to the component which should be displayed if records aren't empty.
-   * 
+   *  Renders an array of player positions as a div card.
    *  @param players - Array containing all records from the JOIN SQL command, which joins Players, Player Positions and Positions tables.
    *  
    */
@@ -671,13 +580,8 @@ class Components {
 
   
   /**
-   *  @fn    public static function allMembers($members)
+   *  Renders an array of members as table rows.
    * 
-   *  @brief This function takes in an array of member records.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param members - Array containing all records from the Members table.
    *  
    */
@@ -714,13 +618,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function singleMember($member)
-
-   *  @brief This function takes in single member record.
-   *         Checks if the record isn't empty.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
+   *  Renders single member record string as a individual profile page
+   * 
    *  @param member - String containing single record from the Members table.
    *  
    */
@@ -752,14 +651,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function allEvents($events)
+   *  Renders an array of events as table rows.
    * 
-   *  @brief This function takes in an array of event records from UNION SQL command.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Sets event type based on the type field - this is so we can differenciate between Game and training session in the timetable.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param events - Array containing all event records from UNION SQL command, which unions Games and Sessions tables.
    *  
    */
@@ -795,13 +688,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function singleGame($game)
+   *  Renders single game record string as a individual profile page.
    * 
-   *  @brief This function takes in single game record.
-   *         Checks if the record isn't empty.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param game - String containing single record from the Games table.
    *  
    */
@@ -825,13 +713,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function gameHalves($gameHalves)
+   *  Renders an array of game halves as table rows.
    * 
-   *  @brief This function takes in an array of game halves records from Game Halves table.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param gameHalves - Array containing all game halves records from the Game Halves table.
    *  
    */
@@ -857,13 +740,7 @@ class Components {
   }
 
   /**
-   *  @fn    public static function trainingDetails($trainingDetails)
-   * 
-   *  @brief This function takes in an array of training details records from Training Details table.
-   *         Goes through each of these records.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
+   *  Renders an array of training details as table rows. (Skills, Activities, Accidents, Injuries, etc)
    *  @param trainingDetails - Array containing all training details records from the Training Details table.
    *  
    */
@@ -891,13 +768,8 @@ class Components {
   }
 
   /**
-   *  @fn    public static function singleSession($session)
+   *  Renders single session record string as a individual profile page.
    * 
-   *  @brief This function takes in single session record.
-   *         Checks if the record isn't empty.
-   *         Retrieves & assigns variables based on fields in the database.
-   *         Points to the component which should be displayed if records aren't empty.
-   *  
    *  @param session - String containing single record from the Sessions table.
    *  
    */

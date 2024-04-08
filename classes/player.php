@@ -9,6 +9,8 @@ class player
 {
   /**
    * Get all players from the database.
+   * 
+   * @return players - Array with all player records
    */
   public static function getallPlayers()
   {
@@ -27,6 +29,8 @@ class player
 
   /**
    * Get a player with a specific ID from the database.
+   * 
+   * @return player - Single player record
    */
   public static function getplayer($playerId)
   {
@@ -40,6 +44,16 @@ class player
 
     return $player;
   }
+
+  /**
+   * 
+   * Get all player positions for specific player
+   * 
+   * @param playerId - String containing ID number of a player
+   * 
+   * @return players - Array of player positions
+   * 
+   */
 
   public static function getPlayerPositions($playerId)
   {
@@ -56,6 +70,16 @@ class player
     return $players;
   }
 
+  /**
+   * 
+   * Get all player skills for specific player
+   * 
+   * @param playerId - String containing ID number of a player
+   * 
+   * @return players - Array of player positions
+   * 
+   */
+
   public static function getPlayerSkills($playerId)
   {
     $conn = Connection::connect();
@@ -69,6 +93,17 @@ class player
     return $players;
   }
 
+  /**
+   * 
+   * Update all skills for specific player
+   * 
+   * @param skillLevel - A rating for specific skill (1-5)
+   * @param comment - Coach's comment for a specific skill
+   * @param skillId - ID number of specific skill
+   * @param playerId - String containing ID number of a player
+   * 
+   */
+
   public static function upatePlayerSkills($skillLevel, $comment, $skillId, $playerId){
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updatePlayerSkill);
@@ -78,19 +113,29 @@ class player
 
   }
 
-  public static function test($playerId){
+  /// I don't think this is used anywhere, but I'll comment it out just in case it is.
 
-    $conn = Connection::connect();
-    $stmt = $conn->prepare(SQL::$selectPlayer);
-    $stmt->execute([$playerId]);
-    $player = $stmt->fetchAll();
+  // public static function test($playerId){
 
-    return $player;
+  //   $conn = Connection::connect();
+  //   $stmt = $conn->prepare(SQL::$selectPlayer);
+  //   $stmt->execute([$playerId]);
+  //   $player = $stmt->fetchAll();
 
-    $conn = null;
+  //   return $player;
+
+  //   $conn = null;
 
       
-  }
+  // }
+
+  /**
+   * 
+   * Delete all details associated with specific player
+   * 
+   * @param playerId - String containing ID number of a player
+
+   */
 
   public static function deletePlayer($playerId){
     $conn = Connection::connect();
@@ -108,6 +153,26 @@ class player
     
   }
 
+  /**
+   * 
+   * Update existing player in database.
+   * 
+   * @param address_id - ID number of address
+   * @param doctor_id - ID number of doctor 
+   * @param firstName - String containing player's first name
+   * @param lastName - String containing player's last name
+   * @param dob - String containing player's date of birth
+   * @param sru - String containing player's SRU number
+   * @param contactNo  - String containing player's contact number
+   * @param mobileNo - String containing player's mobile number
+   * @param email - String containing player's email address
+   * @param kin - String containing full name of next of kin
+   * @param kinContact  - String containing next of kin contact number information
+   * @param healthIssues  - String containing information regarding player's health issues
+   * @param filename - String containing filename of player's profile picture
+   * @param playerId - String containing ID number of a player
+   */
+
   public static function updatePlayer($address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId){
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updatePlayer);
@@ -118,6 +183,20 @@ class player
 
 
   }
+
+  /**
+   * 
+   * Check if player with specific details exists in database and output single record.
+   * 
+   * @param firstName - String containing player's first name
+   * @param lastName - String containing player's last name
+   * @param sqlDate - String containing player's date of birth (converted to sql format)
+   * @param sru - String containing player's SRU number
+   * @param contactNo  - String containing player's contact number
+   * @param mobileNo - String containing player's mobile number
+   * 
+   * @return existingUser - Single player record
+   */
 
   public static function playerExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo){
     

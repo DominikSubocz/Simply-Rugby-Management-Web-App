@@ -4,13 +4,13 @@
  * 
  * @brief This class is responsible for actions related to Guardian information.
  * 
- *        These include:
- *              - Retrieving records from database (Multiple & Single).
- *              - Deleting records from database.
+ * These include:
+ *  - Retrieving records from database (Multiple & Single).
+ *  - Deleting records from database.
  * 
- *        Future Additions:
- *        @todo - Move $stmt code from the add-event.php page here.
- *        @todo - Update record function.
+ * Future Additions:
+ *  @todo - Move $stmt code from the add-event.php page here.
+ *  @todo - Update record function.
  * 
  */
 
@@ -19,14 +19,12 @@ class Guardian
 
     /**
      *  
-     *  
-     *  @brief This function checks if a record that matches with the passed parameters exists in the Guardians table.
-     *         It passes these 3 parameters to SELECT SQL command, and returns results.
+     *  Check if guardian with specific details exists and output single record.
      * 
      * 
-     *  @param firstName - Stores information about first name of the guardian.
-     *  @param lastName - Stores information about last name of the guardian.
-     *  @param contactNo - Stores information about guardian's contact number.
+     *  @param firstName - String containing first name of the guardian.
+     *  @param lastName - String containing last name of the guardian.
+     *  @param contactNo - String containing guardian's contact number.
      *         
      * 
      *  @return guardian - Single record result.
@@ -46,14 +44,13 @@ class Guardian
     /**
      *  
      *  
-     *  @brief This function inserts a single record into the Guardians table.
+     *  Create new guardian in database.
      * 
-     * 
-     *  @param addressId - Stores information about address ID number
-     *  @param firstName - Stores information about first name of the guardian.
-     *  @param lastName - Stores information about last name of the guardian.
-     *  @param contactNo - Stores information about guardian's contact number.
-     *  @param relationshipStores - Stores information about guardian's relationship.
+     *  @param addressId - String containing address ID number
+     *  @param firstName - String containing first name of the guardian.
+     *  @param lastName - String containing last name of the guardian.
+     *  @param contactNo - String containing guardian's contact number.
+     *  @param relationshipStores - String containing guardian's relationship.
      *         
      * 
      *  @return guardianId - ID of just created record.
@@ -74,17 +71,15 @@ class Guardian
         }
 
     /**
-     *  
+     *  Get all guardians for specific junior.
      * 
      *  @note The name of the function isn't quite right, I think it's meant to be called get Guardians.
-     *        I won't change it now, but I'll do that in future updates.
+     *  I won't change it now, but I'll do that in future updates.
      *  
-     *  @brief This function returns all records for guardians associated with specific Junior.
-     *         It takes a parameter and passes it onto SELECT SQL command and returns array of records.
      *         
      * 
      * 
-     *  @param juniorId - Stores information about ID number of junior.
+     *  @param juniorId - String containing ID number of junior.
 
      *         
      * 
@@ -105,8 +100,7 @@ class Guardian
 
     /**
      *  
-     * 
-     *  @brief This function returns all records from the Guardians table.
+     * Get all guardians from database, and output all records.
      *        
      *  @return guardians - All records from the Guardians table.
      */
@@ -125,11 +119,9 @@ class Guardian
 
     /**
      *  
-     * 
-     *  @brief This function returns single record of address details that match the parameter.
-     *         It passes the parameter onto SQL SELECT command and returns single result.
+     * Get address details of specific guardian.
      *        
-     *  @param guardianId - Stores information about guardian ID Number
+     *  @param guardianId - String containing guardian ID Number
      * 
      *  @return address - Single record result.
      */
@@ -148,10 +140,9 @@ class Guardian
 
      /**
      *  
-     * 
-     *  @brief This function retrieves single record from Guardians table based on the parameter.
+     * Get specific guardian by their ID number and output single record.
      *        
-     *  @param guardianId - Stores information about guardian ID Number
+     *  @param guardianId - String containing guardian ID Number
      * 
      *  @return guardian - Single record from Guardians table.
      */
@@ -170,10 +161,9 @@ class Guardian
 
     /**
      *  
-     * 
-     *  @brief This function removes single record from Guardians table based on the parameter.
+     * Delete specific guardian from database.
      *        
-     *  @param guardianId - Stores information about guardian ID Number
+     *  @param guardianId - String containing guardian ID Number
      *      
      */
 

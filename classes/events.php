@@ -4,21 +4,20 @@
  * 
  * @brief This class is responsible for actions related to event information.
  * 
- *        These include:
- *              - Retrieving records from database (Multiple & Single).
- *              - Updating records in the Games & Session tables.
- *              - Deleting records from database.
+ * These include:
+ *  - Retrieving records from database (Multiple & Single).
+ *  - Updating records in the Games & Session tables.
+ *  - Deleting records from database.
  * 
- *        Future Additions:
- *        @todo - Move $stmt code from the add-event.php page here.
+ * Future Additions:
+ *  @todo - Move $stmt code from the add-event.php page here.
  */
 
 class Events {
 
     /**
      *  
-     *  
-     *  @brief This function retrieves all records from UNION SQL command.
+     *  Get all events from database.
      *         
      * 
      *  @return events - All records from the UNION SQL command, which unions the Games & Sessions table.
@@ -41,10 +40,9 @@ class Events {
 
     /**
      *  
-     *  
-     *  @brief This function retrieves single record from the games table.
+     *  Get specific game from database
      * 
-     *  @param gameId - Stores information about Game ID number.
+     *  @param gameId - String containing Game ID number.
      *         
      * 
      *  @return game - Single game record.
@@ -65,10 +63,9 @@ class Events {
 
     /**
      *  
-     *  
-     *  @brief This function gets all records from Game Halves tables that match the passed parameter.
+     *  Get all game halves for specific game
      * 
-     *  @param gameId - Stores information about Game ID number.
+     *  @param gameId - String containing Game ID number.
      * 
      *  @return gameHalves - All records that match the parameter.
      *         
@@ -89,10 +86,9 @@ class Events {
 
     /**
      *  
-     *  
-     *  @brief This function removes single record from the Games & Game Halves tables.
+     *  Delete specific game from database
      * 
-     *  @param gameId - Stores information about Game ID number.
+     *  @param gameId - String containing Game ID number.
      *         
      */
 
@@ -110,17 +106,15 @@ class Events {
 
     /**
      *  
+     *  Update existing game halves for specific game
      *  
-     *  @brief This function updates records for Game Halves table.
-     *         It takes in multiple parameters and passes them onto UPDATE SQL command.
-     *  
-     *  @param gameHalfId - Stores information about which Game Half to update (1 or 2)
-     *  @param home_team - Stores information about name of the home team.
-     *  @param homeScore - Stores information about score for the home team.
-     *  @param homeComment - Stores information about comments from the home team.
-     *  @param opposition - Stores information about name of the opposition team.
-     *  @param oppositionScore - Stores information about score for the opposition team.
-     *  @param oppositionComment - Stores information about comments from the opposition team.
+     *  @param gameHalfId - String containing which Game Half to update (1 or 2)
+     *  @param home_team - String containing name of the home team.
+     *  @param homeScore - String containing score for the home team.
+     *  @param homeComment - String containing comments from the home team.
+     *  @param opposition - String containing name of the opposition team.
+     *  @param oppositionScore - String containing score for the opposition team.
+     *  @param oppositionComment - String containing comments from the opposition team.
      * 
      */
     
@@ -137,20 +131,18 @@ class Events {
 
     /**
      *  
+     *  Update existing game in the database 
      *  
-     *  @brief This function updates records for Games table.
-     *         It takes in multiple parameters and passes them onto UPDATE SQL command.
-     *  
-     *  @param squad - Stores information about squad ID.
-     *  @param name - Stores information about name of the game.
-     *  @param opposition - Stores information about name of the opposition team.
-     *  @param start - Stores information about start date of the game.
-     *  @param end - Stores information about end date of the game.
-     *  @param location - Stores information about location of the game.
-     *  @param kickoff - Stores information about kickoff time of the game.
-     *  @param result - Stores information about final result of the game.
-     *  @param score - Stores information about final score of the game.
-     *  @param gameId - Stores information about Game ID, which will be used to determine which game to update.
+     *  @param squad - String containing squad ID.
+     *  @param name - String containing name of the game.
+     *  @param opposition - String containing name of the opposition team.
+     *  @param start - String containing start date of the game.
+     *  @param end - String containing end date of the game.
+     *  @param location - String containing location of the game.
+     *  @param kickoff - String containing kickoff time of the game.
+     *  @param result - String containing final result of the game.
+     *  @param score - String containing final score of the game.
+     *  @param gameId - String containing Game ID, which will be used to determine which game to update.
      * 
      */
     public static function updateGame($squad, $name, $opposition, $start, $end, $location, $kickoff, $result, $score, $gameId) {
@@ -165,11 +157,9 @@ class Events {
     
     /**
      *  
-     *  
-     *  @brief This function retrieves single record from the sessions table.
+     *  Get specific session
      * 
-     *  @param sessionId - Stores information about Session ID number.
-     *         
+     *  @param sessionId - String containing ID number of specific training session.        
      * 
      *  @return session - All records from the Sessions table.
      */
@@ -188,11 +178,12 @@ class Events {
 
     /**
      *  
-     *  
-     *  @brief This function gets all records from Training Details tables that match the passed parameter.
+     *  Get all training details for specific training session
      * 
-     *  @param sessionId - Stores information about Session ID number.
+     *  @note If there is only one training details record for each training session why do we fetchAll?
+     *  Perpahs I need to rework this in future update.
      * 
+     *  @param sessionId - String containing ID number of specific training session. 
      *  @return trainingDetails - All records that match the parameter.
      *         
      */
@@ -215,11 +206,9 @@ class Events {
 
     /**
      *  
-     *  
-     *  @brief This function removes single record from the Sessions & Training Details tables.
+     *  Delete all details associated with specific Training Session
      * 
-     *  @param sessionId - Stores information about Session ID number.
-     *         
+     *  @param sessionId - String containing ID number of specific training session.      
      */
 
     public static function deleteSession($sessionId){
@@ -236,23 +225,21 @@ class Events {
 
     /**
      *  
+     *  Update existing training session in database
      *  
-     *  @brief This function updates records for Sessions & Training Details tables.
-     *         It takes in multiple parameters and passes them onto UPDATE SQL command.
-     *  
-     *  @param coach - Stores information about Coach ID number
-     *  @param squad - Stores information about Squad ID number
-     *  @param name - Stores information about name of training session
-     *  @param start - Stores information about start date of training session
-     *  @param end - Stores information about end date of training session
-     *  @param location - Stores information about location of training session
-     *  @param skills - Stores information about skills practiced
-     *  @param activities - Stores information about activities practiced
-     *  @param playersPresent - Stores information about all present players
-     *  @param accidents - Stores information about accidents
-     *  @param injuries - Stores information about injuries
-     *  @param sessionId - Stores information about Session ID number, which will be used to determine which session to update.
-     *  @param trainingDetailId - Stores information Training Detail ID number, which will be used to determine which session to update.
+     *  @param coach - String containing coach's ID number.
+     *  @param squad - String containing ID number of specific squad.
+     *  @param name - String containing name of the event.
+     *  @param start - String containing start date of a event.
+     *  @param end- String containing end date of a event.
+     *  @param location - String containing location of a event.
+     *  @param skills - String containing skills practiced at the training session.
+     *  @param activities - String containing activities practiced at the training session.
+     *  @param playersPresent - String containing all present players.
+     *  @param accidents - String containing information about the accidents.
+     *  @param injuries - String containing information about injuries
+     *  @param sessionId - String containing ID number of specific training session.
+     *  @param trainingDetailId - String containing ID number of specific training detail.
      */
 
     public static function updateSession($coach, $squad, $name, $start, $end, $location, $skills, $activities, $playersPresent, $accidents, $injuries, $sessionId, $trainingDetailId){

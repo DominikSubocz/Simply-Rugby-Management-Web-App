@@ -4,13 +4,13 @@
  * 
  * @brief This class is responsible for actions related to coach information.
  * 
- *        These include:
- *              - Retrieving records from database (Multiple & Single).
- *              - Deleting records from database.
+ * These include:
+ *  - Retrieving records from database (Multiple & Single).
+ *  - Deleting records from database.
  * 
- *        Future Additions:
- *        @todo - Update record function.
- *        @todo - Create coach function.
+ * Future Additions:
+ *  @todo - Update record function.
+ *  @todo - Create coach function.
  */
 
 class Coach {
@@ -18,10 +18,9 @@ class Coach {
 
     /**
      *  
+     *  Get specific Coach from database
      *  
-     *  @brief This function retrieves single record from the coaches table based on the coach_id.
-     *  
-     *  @param coachId - Stores information about coach_id.
+     * @param coachId - String containing ID number of specific coach.
      *  
      *  @return coach - Single coach record.
      */
@@ -42,8 +41,7 @@ class Coach {
     /**
      *  
      *  
-     *  @brief This function retrieves all records from the coaches table.
-     *  
+     *  Get all Coaches from database
      *  
      *  @return coaches - All coach records.
      */
@@ -61,9 +59,9 @@ class Coach {
 
     /**
      *  
+     *  Delete specific coach from database
      *  
-     *  @brief This function removes single record from coaches table.
-     *  
+     * @param coachId - String containing ID number of specific coach.
      *  
      */
     public static function deleteCoach($coachId){
@@ -78,19 +76,17 @@ class Coach {
      /**
      *  
      *  
-     *  @brief This function updates single record in the coaches table.
-     *         It takes couple of parameters which are then passed onto SQL update command.
+     *  Update existing database record for specific coach
      *  
+     * @param firstName - String containing coach's first name.
+     * @param lastName - String containing coach's last name.
+     * @param dob - String containing coach's date of birth.
+     * @param contactNo - String containing coach's contact number.
+     * @param mobileNo - String containing coach's mobile number.
+     * @param email - String containing coach's email address.
+     * @param filename - String containing coach's profile picture filename.
+     * @param coachId - String containing ID number of specific coach.
      *  
-     *  @return firstName - Stores information about coach's first name.
-     * @return lastName -Stores information about coach's last name.
-     * @return dob - Stores information about coach's date of birth.
-     * @return contactNo - Stores information about coach's contact number.
-     * @return mobileNo - Stores information about coach's mobile number.
-     * @return email - Stores information about coach's email address.
-     * @return filename - Stores information about coach's profile picture.
-     * @return coachId - Stores information about coach's ID number, it is used to update the right record.
-     * 
      */
 
     public static function updateCoach($firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId){

@@ -21,7 +21,9 @@ require_once("classes/utils.php");
 class Junior
 {
   /**
-   * Get all players from the database.
+   * Get all junior records from the database.
+   * 
+   * @return juniors - Array of all junior player records
    */
 
   public static function getAllJuniors()
@@ -40,12 +42,12 @@ class Junior
   }
 
     /**
-     * Update skills of specific junior player. 
+     *  Update skills of specific junior player. 
      * 
-     *  @param skillLevel - Stores information about the Skill level for specific skill.
-     *  @param comment - Stores information about any comments made by the coach - it can be empty.
-     *  @param skillId - Stores information about Skill ID number, used to determine which skill to update.
-     *  @param playerId - Stores information about ID number of the player, used to dermine which skill to update for which player.
+     *  @param skillLevel - String containing the Skill level for specific skill.
+     *  @param comment - String containing any comments made by the coach - it can be empty.
+     *  @param skillId - String containing Skill ID number, used to determine which skill to update.
+     *  @param playerId - String containing ID number of the player, used to dermine which skill to update for which player.
      * 
      */
 
@@ -58,10 +60,10 @@ class Junior
 
   }
 
-     /**
-     * Get skills of specific junior player
+    /**
+     *  Get skills of specific junior player
      * 
-     *  @param playerId - Stores information about the Skill level for specific skill.
+     *  @param playerId - String containing the Skill level for specific skill.
      * 
      *  @return juniors - Returns all records from the Junior Skills table that match the parameter.
      * 
@@ -71,22 +73,22 @@ class Junior
   {
     $conn = Connection::connect();
 
-    // Prepare and execute the query and get the results
+    /// Prepare and execute the query and get the results
     $stmt = $conn->prepare(SQL::$getJuniorSkills);
     $stmt->execute([$playerId]);
     $juniors = $stmt->fetchAll();
 
-    // Null the connection object when we no longer need it
+    /// Null the connection object when we no longer need it
     $conn = null;
 
     return $juniors;
   }
 
-      /**
+    /**
      *  Get positions of specific junior player
      * 
      * 
-     *  @param playerId - Stores information about the Skill level for specific skill.
+     *  @param playerId - String containing the Skill level for specific skill.
      * 
      *  @return juniors - Returns all records from the Junior Positions table that match the parameter.
      * 
@@ -96,12 +98,12 @@ class Junior
   {
     $conn = Connection::connect();
 
-    // Prepare and execute the query and get the results
+    /// Prepare and execute the query and get the results
     $stmt = $conn->prepare(SQL::$getJuniorPositions);
     $stmt->execute([$playerId]);
     $juniors = $stmt->fetchAll();
 
-    // Null the connection object when we no longer need it
+    /// Null the connection object when we no longer need it
     $conn = null;
 
     return $juniors;
@@ -111,11 +113,12 @@ class Junior
      * 
      *  Get record for specific Junior.
      * 
-     *  @param playerId - Stores information about the Skill level for specific skill.
+     *  @param playerId - String containing the Skill level for specific skill.
      * 
      *  @return junior - Single record with information about specific player.
      * 
      */
+    
   public static function getJunior($playerId)
   {
     $conn = Connection::connect();
@@ -133,7 +136,7 @@ class Junior
      * 
      *  Get guardian information for specific Junior.
      * 
-     *  @param playerId - Stores information about the Skill level for specific skill.
+     *  @param playerId - String containing the Skill level for specific skill.
      * 
      *  @return juniors - All records that match the parameter.
      * 
@@ -156,7 +159,7 @@ class Junior
      * 
      * Delete details about specific Junior from multiple tables.
      * 
-     *  @param playerId - Stores information about the Skill level for specific skill.
+     *  @param playerId - String containing the Skill level for specific skill.
      * 
      */
 
@@ -183,17 +186,17 @@ class Junior
      * 
      * Update existing record for specific Junior
      * 
-     *  @param address_id - Stores information about address ID number
-     *  @param firstName - Stores information about first name.
-     *  @param lastName  - Stores information about last name.
-     *  @param dob - Stores information about date of birth.
-     *  @param sru - Stores information about SRU number.
-     *  @param contactNo - Stores information about contact number.
-     *  @param mobileNo  - Stores information about mobile number.
-     *  @param email - Stores information about email address.
-     *  @param healthIssues - Stores information about health issues.
-     *  @param filename - Stores information about profile picture file name.
-     *  @param juniorId - Stores information about junior's ID number, which will be used to update the right record.
+     *  @param address_id - String containing address ID number of specific address
+     *  @param firstName - String containing junior's first name.
+     *  @param lastName  - String containing junior's first name.
+     *  @param dob - String containing date of birth.
+     *  @param sru - String containing junior's SRU number.
+     *  @param contactNo - String containing junior's contact number.
+     *  @param mobileNo  - String containing junior's mobile number.
+     *  @param email - String containing junior's email address.
+     *  @param healthIssues - String containing junior's health issues
+     *  @param filename - String containing junior's profile picture file name.
+     *  @param juniorId - String containing junior's ID number, which will be used to update the right record.
      * 
      * 
      */
@@ -210,17 +213,17 @@ class Junior
      * Update association information for specific junior (Guardians, Doctors)
      * 
      * 
-     *  @param address_id - Stores information about address ID number
-     *  @param firstName - Stores information about first name.
-     *  @param lastName  - Stores information about last name.
-     *  @param dob - Stores information about date of birth.
-     *  @param sru - Stores information about SRU number.
-     *  @param contactNo - Stores information about contact number.
-     *  @param mobileNo  - Stores information about mobile number.
-     *  @param email - Stores information about email address.
-     *  @param healthIssues - Stores information about health issues.
-     *  @param filename - Stores information about profile picture file name.
-     *  @param juniorId - Stores information about junior's ID number, which will be used to update the right record.
+     *  @param address_id - String containing address ID number of specific address
+     *  @param firstName - String containing junior's first name.
+     *  @param lastName  - String containing junior's first name.
+     *  @param dob - String containing date of birth.
+     *  @param sru - String containing junior's SRU number.
+     *  @param contactNo - String containing junior's contact number.
+     *  @param mobileNo  - String containing junior's mobile number.
+     *  @param email - String containing junior's email address.
+     *  @param healthIssues - String containing junior's health issues
+     *  @param filename - String containing junior's profile picture file name.
+     *  @param juniorId - String containing junior's ID number, which will be used to update the right record.
      * 
      * 
      */
@@ -237,12 +240,12 @@ class Junior
    * 
    * Check if specific Junior exists and output single record.
    * 
-   * @param firstName - Stores information about first name.
-   * @param lastName  - Stores information about last name.
-   * @param sqlDate  - Stores information about date of birth. (Converted to SQL date format.)
-   * @param sru - Stores information about SRU number.
-   * @param contactNo - Stores information about contact number.
-   * @param mobileNo  - Stores information about mobile number.
+   * @param firstName - String containing junior's first name.
+   * @param lastName  - String containing junior's first name.
+   * @param sqlDate  - String containing date of birth. (Converted to SQL date format.)
+   * @param sru - String containing junior's SRU number.
+   * @param contactNo - String containing junior's contact number.
+   * @param mobileNo  - String containing junior's mobile number.
    */
 
   public static function juniorExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo){
@@ -260,23 +263,17 @@ class Junior
    * 
    * Create new Junior record in the database.
    * 
-   * @param firstName - Stores information about first name.
-   * @param lastName  - Stores information about last name.
-   * @param sqlDate  - Stores information about date of birth. (Converted to SQL date format.)
-   * @param sru - Stores information about SRU number.
-   * @param contactNo - Stores information about contact number.
-   * @param mobileNo  - Stores information about mobile number.
+   * @param firstName - String containing junior's first name.
+   * @param lastName  - String containing junior's first name.
+   * @param sqlDate  - String containing date of birth. (Converted to SQL date format.)
+   * @param sru - String containing junior's SRU number.
+   * @param contactNo - String containing junior's contact number.
+   * @param mobileNo  - String containing junior's mobile number.
    * 
-   * $addressId, 
-   * $firstName, 
-   * $lastName, 
-   * $dob, 
-   * $sru, 
-   * $contactNo,
-   * $mobileNo, 
-   * $email, 
-   * healthIssues, 
-   * $filename
+   * @param addressId - String containing ID number of specific address
+   * @param email - String containing junior's junior's email address
+   * @param healthIssues - String containing junior's health issues
+   * @param filename - String containing filename of junior's profile picture.
    */
 
   public static function createNewJunior($addressId, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename){

@@ -4,14 +4,14 @@
  * 
  * @brief This class is responsible for actions related to doctor information.
  * 
- *        These include:
- *              - Retrieving records from database (Multiple & Single).
- *              - Creating new records in database.
- *              - Deleting records from database.
+ * These include:
+ * - Retrieving records from database (Multiple & Single).
+ * - Creating new records in database.
+ * - Deleting records from database.
  * 
- *        Future Additions:
- *        @todo - Update record function.
- *        @todo - Remove redundant functions.
+ * Future Additions:
+ *  @todo - Update record function.
+ *  @todo - Remove redundant functions.
  */
 
 class Doctor{
@@ -20,14 +20,11 @@ class Doctor{
     
     /**
      *  
+     * Check if doctor with specific details exists and get single record result. 
      *  
-     *  @brief This function checks if doctor exists.
-     *         If doctor exists it will return results for that doctor.
-     *         If doctor doesn't exist, no results will show up.
-     *  
-     *  @param firstName - Stores information about Doctor's first name.
-     *  @param lastName - Stores information about Doctor's last name.
-     *  @param contactNo - Stores information about Doctor's contact number.
+     *  @param firstName - String containing Doctor's first name.     
+     *  @param lastName - String containing coach's last name.
+     *  @param contactNo - String containing coach's contact number.
 
      * 
      *  @return doctor - Single result.
@@ -45,18 +42,13 @@ class Doctor{
 
     /**
      *  
+     * Check if doctor exists by using ID and get single record result. 
      * 
-     *  @note Seems like this is a redundant function, I won't remove it as for now.
-     *        This is because I'm afraid the whole thing is going to get messed up.
-     *        However, I plan to remove it in furture updates to clean up this class.
      *  
-     *  @brief This function checks if doctor exists.
-     *         If doctor exists it will return results for that doctor.
-     *         If doctor doesn't exist, no results will show up.
      *  
-     *  @param firstName - Stores information about Doctor's first name.
-     *  @param lastName - Stores information about Doctor's last name.
-     *  @param contactNo - Stores information about Doctor's contact number.
+     *  @param firstName - String containing Doctor's first name.     
+     *  @param lastName - String containing coach's last name.
+     *  @param contactNo - String containing coach's contact number.
 
      * 
      *  @return doctorId - Single result.
@@ -75,13 +67,11 @@ class Doctor{
 
     /**
      *  
+     *  Create new doctor record in database.
      *  
-     *  @brief This function inserts a new record into the Doctors table.
-     *         It also returns id of just created record.
-     *  
-     *  @param firstName - Stores information about Doctor's first name.
-     *  @param lastName - Stores information about Doctor's last name.
-     *  @param contactNo - Stores information about Doctor's contact number.
+     *  @param firstName - String containing Doctor's first name.
+     *  @param lastName - String containing coach's last name.
+     *  @param contactNo - String containing coach's contact number.
      * 
      * 
      *  @return id - ID of just created record.
@@ -102,8 +92,7 @@ class Doctor{
 
     /**
      *  
-     *  
-     *  @brief This function retrieves all records from the Doctors table.
+     *  Get all doctors from the database.
      *        
      * 
      *  @return doctors - Array of all doctor records.
@@ -121,11 +110,10 @@ class Doctor{
 
     /**
      *  
-     *  
-     *  @brief This function retrieves single record from the Doctors table, based on doctor_id field.
+     *  Get specific doctor, output single record result.
      *        
      * 
-     *  @param doctorId - Stores information about Doctor's ID number.
+     *  @param doctorId - String containing Doctor's ID number
      * 
      *  @return doctor - Single record.
      */
@@ -142,12 +130,9 @@ class Doctor{
     }
 
     /**
-     *  
-     *  
-     *  @brief This function removes single record from the Doctors table.
-     *        
+     *   Delete specific doctor from database     
      * 
-     *  @param doctorId - Stores information about Doctor's ID number.
+     *  @param doctorId - String containing Doctor's ID number
      * 
      */
 
