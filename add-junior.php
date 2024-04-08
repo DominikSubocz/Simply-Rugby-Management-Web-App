@@ -786,6 +786,13 @@ enctype="multipart/form-data">
         let guardianCityInput = document.forms[0]["guardianCity1"].value.trim();
         let guardianPostcodeInput = document.forms[0]["guardianPostcode1"].value.trim();
 
+        let guardianName2Input = document.forms[0]["guardianName2"].value.trim();
+        let guardianContact2Input = document.forms[0]["guardianContact2"].value.trim();
+        let guardianRelationship2Input = document.forms[0]["relationship2"].value.trim();
+        let guardianAddress2Input = document.forms[0]["guardianAddress21"].value.trim();
+        let guardianCity2Input = document.forms[0]["guardianCity2"].value.trim();
+        let guardianPostcode2Input = document.forms[0]["guardianPostcode2"].value.trim();
+
         let doctorNameInput = document.forms[0]["doctorName"].value.trim();
         let doctorContactInput = document.forms[0]["doctorContact"].value.trim();
 
@@ -834,6 +841,69 @@ enctype="multipart/form-data">
             return false;
         }
 
+        if (guardianName1Input == "") {
+                alert("Full name of Guardian 1 must be filled out");
+                return false;
+            }
+
+        if (guardianContactInput == "") {
+                alert("Contact number of Guardian 1 number must be filled out");
+                return false;
+        }
+
+        if (guardianRelationshipInput == "") {
+                alert("Relationship of Guardian 1 must be filled out");
+                return false;
+        }
+
+        if (guardianAddressInput == "") {
+            alert("Address Line of Guardian 1 must be filled out");
+            return false;
+        }
+
+        if (guardianCityInput == "") {
+                alert("City of Guardian 1 must be filled out");
+                return false;
+        }
+
+        if (guardianPostcodeInput == "") {
+                alert("Postcode of Guardian 1 must be filled out");
+                return false;
+        }
+
+
+        if(hiddenInput.value == 1){
+            if (guardianName2Input == "") {
+                alert("Full Name of Guardian 2 must be filled out");
+                return false;
+            }
+
+            if (guardianContact2Input == "") {
+                    alert("Contact number of Guardian 2 must be filled out");
+                    return false;
+            }
+
+            if (guardianRelationship2Input == "") {
+                    alert("Relationship of Guardian 2 must be filled out");
+                    return false;
+            }
+
+            if (guardianAddress2Input == "") {
+                alert("Address Line of Guardian 2 must be filled out");
+                return false;
+            }
+
+            if (guardianCity2Input == "") {
+                    alert("City of Guardian 2 must be filled out");
+                    return false;
+            }
+
+            if (guardianPostcode2Input == "") {
+                    alert("Postcode of Guardian 2 must be filled out");
+                    return false;
+            }
+        } 
+
         if (doctorNameInput == "") {
             alert("Doctor's full name must be filled out");
             return false;
@@ -843,41 +913,6 @@ enctype="multipart/form-data">
             alert("Doctor's contact number must be selected.");
             return false;
         }
-
-        if (guardianName1Input == "") {
-                alert("Guardian's Full Name must be filled out");
-                return false;
-            }
-
-            if (guardianContactInput == "") {
-                alert("Guardian's contact number must be filled out");
-                return false;
-            }
-
-            if (guardianRelationshipInput == "") {
-                alert("Relationship must be filled out");
-                return false;
-            }
-
-            if (guardianAddressInput == "") {
-                alert("Address Line 1 must be filled out");
-                return false;
-            }
-
-            if (guardianCityInput == "") {
-                alert("City must be filled out");
-                return false;
-            }
-
-            if (guardianPostcodeInput == "") {
-                alert("Postcode must be filled out");
-                return false;
-            }
-
-
-            if(hiddenInput.value == 1){
-        
-            } 
     }
 
 </script>

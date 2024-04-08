@@ -300,11 +300,11 @@ enctype="multipart/form-data">
         <p class="alert alert-danger"><?php echo $postcodeErr;?></p><br>  
         <div>
             <input class="btn btn-dark" type="button" value="Previous" onclick="prevTab()">
-            <input class="btn btn-dark" type="submit" name="submit" value="Submit">  
         </div>
 
  </div>
 
+ <input class="btn btn-dark" type="submit" onclick="return validateForm()" name="submit" value="Submit">  
 
 
 
@@ -345,7 +345,63 @@ enctype="multipart/form-data">
         }
     }
 
+    function validateForm() {
+        let nameInput = document.forms[0]["name"].value.trim();
+        let sruInput = document.forms[0]["sru"].value.trim();
+        let dobInput = document.forms[0]["dob"].value.trim();
+        let emailInput = document.forms[0]["email"].value.trim();
+        let contactInput = document.forms[0]["contactNo"].value.trim();
+        let pfpInput = document.forms[0]["profileImage"].value.trim();
 
+        let addressInput = document.forms[0]["address1"].value.trim();
+        let cityInput = document.forms[0]["city"].value.trim();
+        let postcodeInput = document.forms[0]["postcode"].value.trim();
+        
+        if (nameInput == "") {
+            alert("Name must be filled out");
+            return false;
+        }
+
+        if (sruInput == "") {
+            alert("SRU number must be filled out");
+            return false;
+        }
+
+        if (dobInput == "") {
+            alert("Date of Birth must be filled out");
+            return false;
+        }
+
+        if (emailInput == "") {
+            alert("Email Address must be filled out");
+            return false;
+        }
+
+        if (contactInput == "") {
+            alert("Contact Number must be filled out");
+            return false;
+        }
+
+        if (pfpInput == "") {
+            alert("Profile picture must be selected.");
+            return false;
+        }
+
+        if (addressInput == "") {
+            alert("Address Line 1 must be filled out");
+            return false;
+        }
+
+        if (cityInput == "") {
+            alert("City must be filled out");
+            return false;
+        }
+
+        if (postcodeInput == "") {
+            alert("Postcode must be selected.");
+            return false;
+        }
+    }
 </script>
 </main>
 
