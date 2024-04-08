@@ -18,7 +18,7 @@ class Guardian
     {
 
     /**
-     *  @fn public static function guardianExists($firstName, $lastName, $contactNo)
+     *  
      *  
      *  @brief This function checks if a record that matches with the passed parameters exists in the Guardians table.
      *         It passes these 3 parameters to SELECT SQL command, and returns results.
@@ -44,7 +44,7 @@ class Guardian
         }
 
     /**
-     *  @fn public static function createGuardian($addressId, $firstName, $lastName, $contactNo, $relationship)
+     *  
      *  
      *  @brief This function inserts a single record into the Guardians table.
      * 
@@ -74,7 +74,7 @@ class Guardian
         }
 
     /**
-     *  @fn public static function getGuardian($juniorId)
+     *  
      * 
      *  @note The name of the function isn't quite right, I think it's meant to be called get Guardians.
      *        I won't change it now, but I'll do that in future updates.
@@ -104,7 +104,7 @@ class Guardian
         }
 
     /**
-     *  @fn public static function getAllGuardians()
+     *  
      * 
      *  @brief This function returns all records from the Guardians table.
      *        
@@ -124,7 +124,7 @@ class Guardian
         }
 
     /**
-     *  @fn public static function getGuardianAddress($guardianId)
+     *  
      * 
      *  @brief This function returns single record of address details that match the parameter.
      *         It passes the parameter onto SQL SELECT command and returns single result.
@@ -147,7 +147,7 @@ class Guardian
         }
 
      /**
-     *  @fn public static function getGuardianById($guardianId)
+     *  
      * 
      *  @brief This function retrieves single record from Guardians table based on the parameter.
      *        
@@ -169,7 +169,7 @@ class Guardian
         }
 
     /**
-     *  @fn public static function deleteGuardian($guardianId)
+     *  
      * 
      *  @brief This function removes single record from Guardians table based on the parameter.
      *        

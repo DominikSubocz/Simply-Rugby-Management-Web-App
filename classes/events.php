@@ -16,7 +16,7 @@
 class Events {
 
     /**
-     *  @fn public static function getAllEvents()
+     *  
      *  
      *  @brief This function retrieves all records from UNION SQL command.
      *         
@@ -40,7 +40,7 @@ class Events {
     }
 
     /**
-     *  @fn public static function getGame($gameId)
+     *  
      *  
      *  @brief This function retrieves single record from the games table.
      * 
@@ -64,7 +64,7 @@ class Events {
     }
 
     /**
-     *  @fn public static function getGameHalves($gameId)
+     *  
      *  
      *  @brief This function gets all records from Game Halves tables that match the passed parameter.
      * 
@@ -88,7 +88,7 @@ class Events {
     }
 
     /**
-     *  @fn public static function deleteGame($gameId)
+     *  
      *  
      *  @brief This function removes single record from the Games & Game Halves tables.
      * 
@@ -109,7 +109,7 @@ class Events {
     }
 
     /**
-     *  @fn public static function updateGameHalf($gameHalfId, $home_team, $homeScore, $homeComment, $opposition, $oppositionScore, $oppositionComment)
+     *  
      *  
      *  @brief This function updates records for Game Halves table.
      *         It takes in multiple parameters and passes them onto UPDATE SQL command.
@@ -136,7 +136,7 @@ class Events {
     }
 
     /**
-     *  @fn public static function updateGame($squad, $name, $opposition, $start, $end, $location, $kickoff, $result, $score, $gameId)
+     *  
      *  
      *  @brief This function updates records for Games table.
      *         It takes in multiple parameters and passes them onto UPDATE SQL command.
@@ -164,7 +164,7 @@ class Events {
     }
     
     /**
-     *  @fn public static function getSession($sessionId)
+     *  
      *  
      *  @brief This function retrieves single record from the sessions table.
      * 
@@ -187,7 +187,7 @@ class Events {
     }
 
     /**
-     *  @fn public static function getTrainingDetails($sessionId)
+     *  
      *  
      *  @brief This function gets all records from Training Details tables that match the passed parameter.
      * 
@@ -214,7 +214,7 @@ class Events {
     }
 
     /**
-     *  @fn public static function deleteSession($sessionId)
+     *  
      *  
      *  @brief This function removes single record from the Sessions & Training Details tables.
      * 
@@ -235,7 +235,7 @@ class Events {
     }
 
     /**
-     *  @fn public static function updateSession($coach, $squad, $name, $start, $end, $location, $skills, $activities, $playersPresent, $accidents, $injuries, $sessionId, $trainingDetailId)
+     *  
      *  
      *  @brief This function updates records for Sessions & Training Details tables.
      *         It takes in multiple parameters and passes them onto UPDATE SQL command.

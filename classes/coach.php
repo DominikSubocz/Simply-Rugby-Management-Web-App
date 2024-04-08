@@ -17,7 +17,7 @@ class Coach {
 
 
     /**
-     *  @fn public static function getCoach($coachId)
+     *  
      *  
      *  @brief This function retrieves single record from the coaches table based on the coach_id.
      *  
@@ -40,7 +40,7 @@ class Coach {
 
 
     /**
-     *  @fn public static function getCoach($coachId)
+     *  
      *  
      *  @brief This function retrieves all records from the coaches table.
      *  
@@ -60,7 +60,7 @@ class Coach {
     }
 
     /**
-     *  @fn public static function deleteCoach($coachId)
+     *  
      *  
      *  @brief This function removes single record from coaches table.
      *  
@@ -76,7 +76,7 @@ class Coach {
     }
 
      /**
-     *  @fn public static function updateCoach($firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId)
+     *  
      *  
      *  @brief This function updates single record in the coaches table.
      *         It takes couple of parameters which are then passed onto SQL update command.

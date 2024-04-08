@@ -19,7 +19,7 @@ class Doctor{
 
     
     /**
-     *  @fn public static function doctorExists($firstName, $lastName, $contactNo)
+     *  
      *  
      *  @brief This function checks if doctor exists.
      *         If doctor exists it will return results for that doctor.
@@ -44,7 +44,7 @@ class Doctor{
     }
 
     /**
-     *  @fn public static function existingDoctorId($firstName, $lastName, $contactNo)
+     *  
      * 
      *  @note Seems like this is a redundant function, I won't remove it as for now.
      *        This is because I'm afraid the whole thing is going to get messed up.
@@ -74,7 +74,7 @@ class Doctor{
     }
 
     /**
-     *  @fn public static function createNewDoctor($firstName, $lastName, $contactNo)
+     *  
      *  
      *  @brief This function inserts a new record into the Doctors table.
      *         It also returns id of just created record.
@@ -101,7 +101,7 @@ class Doctor{
     }
 
     /**
-     *  @fn public static function getAllDoctors()
+     *  
      *  
      *  @brief This function retrieves all records from the Doctors table.
      *        
@@ -120,7 +120,7 @@ class Doctor{
     }
 
     /**
-     *  @fn public static function getDoctor($doctorId)
+     *  
      *  
      *  @brief This function retrieves single record from the Doctors table, based on doctor_id field.
      *        
@@ -142,7 +142,7 @@ class Doctor{
     }
 
     /**
-     *  @fn public static function deleteDoctor($doctorId)
+     *  
      *  
      *  @brief This function removes single record from the Doctors table.
      *        

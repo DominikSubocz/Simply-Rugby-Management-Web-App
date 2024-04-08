@@ -10,12 +10,11 @@ require_once("classes/utils.php");
  * 
  * @brief This class is responsible for actions related to Junior Player information.
  * 
- *        These include:
- *              - Retrieving records from database (Multiple & Single).
- *              - Inserting new records to the database.
- *              - Updating existing records in the database.
- *              - Deleting records from database.
- * 
+ * These include:
+ *  - Retrieving records from database (Multiple & Single).
+ *  - Inserting new records to the database.
+ *  - Updating existing records in the database.
+ *  - Deleting records from database.
  * 
  */
 
@@ -41,10 +40,7 @@ class Junior
   }
 
     /**
-     *  @fn public static function updateJuniorSkills($skillLevel, $comment, $skillId, $playerId)
-     *  
-     *  @brief This function updates existing record for Junior Skills table.
-     * 
+     * Update skills of specific junior player. 
      * 
      *  @param skillLevel - Stores information about the Skill level for specific skill.
      *  @param comment - Stores information about any comments made by the coach - it can be empty.
@@ -63,11 +59,7 @@ class Junior
   }
 
      /**
-     *  @fn public static function getJuniorSkills($playerId)
-     *  
-     *  @brief This function gets all records from the Juniors Skills table based on parameter.
-     * 
-     * 
+     * Get skills of specific junior player
      * 
      *  @param playerId - Stores information about the Skill level for specific skill.
      * 
@@ -91,10 +83,7 @@ class Junior
   }
 
       /**
-     *  @fn public static function getJuniorPositions($playerId)
-     *  
-     *  @brief This function gets all records from the Juniors Positions table based on parameter.
-     * 
+     *  Get positions of specific junior player
      * 
      * 
      *  @param playerId - Stores information about the Skill level for specific skill.
@@ -118,12 +107,9 @@ class Junior
     return $juniors;
   }
 
-      /**
-     *  @fn public static function getJunior($playerId)
-     *  
-     *  @brief This function gets single record of specific player based on the parameter.
+    /**
      * 
-     * 
+     *  Get record for specific Junior.
      * 
      *  @param playerId - Stores information about the Skill level for specific skill.
      * 
@@ -144,10 +130,8 @@ class Junior
   }
 
     /**
-     *  @fn public static function getGuardians($playerId)
-     *  
-     *  @brief This function gets all records from the Junior Associations table based on the parameter
      * 
+     *  Get guardian information for specific Junior.
      * 
      *  @param playerId - Stores information about the Skill level for specific skill.
      * 
@@ -169,15 +153,8 @@ class Junior
   }
 
     /**
-     *  @fn  public static function deleteJunior($playerId)
-     *  
-     *  @brief This function deletes single record from multiple tables, based on parameter.
-     *         It deletes a record from Junior Associations table.
-     *         It deletes a record from Junior Positions table.
-     *         It deletes a record from Junior Junior Skills table.
-     *         It deletes a record from Junior table.
      * 
-     * 
+     * Delete details about specific Junior from multiple tables.
      * 
      *  @param playerId - Stores information about the Skill level for specific skill.
      * 
@@ -203,10 +180,8 @@ class Junior
   }
 
     /**
-     *  @fn   public static function updateJunior($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId)
-     *  
-     *  @brief This function updates existing record in the Junior Database.
      * 
+     * Update existing record for specific Junior
      * 
      *  @param address_id - Stores information about address ID number
      *  @param firstName - Stores information about first name.
@@ -231,9 +206,8 @@ class Junior
   }
 
     /**
-     *  @fn    public static function updateJuniorAssociation($guardianId, $doctorId, $juniorId)
-     *  
-     *  @brief This function updates existing record in the Junior Database.
+     * 
+     * Update association information for specific junior (Guardians, Doctors)
      * 
      * 
      *  @param address_id - Stores information about address ID number
@@ -259,6 +233,18 @@ class Junior
 
   }
 
+  /**
+   * 
+   * Check if specific Junior exists and output single record.
+   * 
+   * @param firstName - Stores information about first name.
+   * @param lastName  - Stores information about last name.
+   * @param sqlDate  - Stores information about date of birth. (Converted to SQL date format.)
+   * @param sru - Stores information about SRU number.
+   * @param contactNo - Stores information about contact number.
+   * @param mobileNo  - Stores information about mobile number.
+   */
+
   public static function juniorExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo){
 
     $conn = Connection::connect();
@@ -269,6 +255,29 @@ class Junior
 
     return $existingUser;
   }
+
+  /**
+   * 
+   * Create new Junior record in the database.
+   * 
+   * @param firstName - Stores information about first name.
+   * @param lastName  - Stores information about last name.
+   * @param sqlDate  - Stores information about date of birth. (Converted to SQL date format.)
+   * @param sru - Stores information about SRU number.
+   * @param contactNo - Stores information about contact number.
+   * @param mobileNo  - Stores information about mobile number.
+   * 
+   * $addressId, 
+   * $firstName, 
+   * $lastName, 
+   * $dob, 
+   * $sru, 
+   * $contactNo,
+   * $mobileNo, 
+   * $email, 
+   * healthIssues, 
+   * $filename
+   */
 
   public static function createNewJunior($addressId, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename){
 

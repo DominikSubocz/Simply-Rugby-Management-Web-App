@@ -20,7 +20,7 @@ class Address
     {
 
     /**
-     *  @fn public static function addressExists($address1, $address2, $city, $county, $postcode)
+     *  
      *  
      *  @brief This function checks if address exists.
      *         If address exists it will return results for that address.
@@ -50,7 +50,7 @@ class Address
 
 
     /**
-     *  @fn public static function getAllAddresses()
+     *  
      *  
      *  @brief This function retrieves all records from addresses table.
      *  
@@ -72,7 +72,7 @@ class Address
         }
 
     /**
-     *  @fn public static function createNewAddress($address1, $address2, $city, $county, $postcode)
+     *  
      *  
      *  @brief This function inserts a new record into the addresses table.
      *         It also Returns the id of the address which was just created.
@@ -102,7 +102,7 @@ class Address
      *        This is because I'm afraid the whole thing is going to get messed up.
      *        However, I plan to remove it in furture updates to clean up this class.
      * 
-     *  @fn public static function getExistingAddress($address1, $address2, $city, $county, $postcode)
+     *  
      *  
      *  @brief This function checks if address exists.
      *         If address exists it will return results for that address.
@@ -130,7 +130,7 @@ class Address
     }
 
     /**
-     *  @fn public static function getAddress($addressId)
+     *  
      *  
      *  @brief This function retrieves single record from database.
      *  
@@ -150,7 +150,7 @@ class Address
     }
 
     /**
-     *  @fn public static function deleteAddress($addressId)
+     *  
      *  
      *  @brief This function removes one record from the addresses table.
      *         Based on the address_id field, passed as parameter.
