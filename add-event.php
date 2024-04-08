@@ -280,7 +280,8 @@ function test_input($data) {
         <form
         method="POST"
         action="<?php echo $_SERVER["PHP_SELF"]; ?>"
-        class="form">
+        class="form"
+        onsubmit="return validateForm()">
     
         <div id="radio-container">
             <label class="radio" >Game
@@ -344,11 +345,11 @@ function test_input($data) {
         <div id="training-form">
             <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
     
-            <label for="sessionName">Training session name:</label><br>
+            <label for="sessionName"><span class="required">*</span>Training session name:</label><br>
             <input type="text" name="sessionName" value="<?php echo $sessionName;?>">
             <p class="alert alert-danger"><?php echo $sessionNameErr;?></p><br>
     
-            <label for="coachName">Coach:</label><br>
+            <label for="coachName"><span class="required">*</span>Coach:</label><br>
             <select name="coachName">
             <?php
             foreach($coaches as $coach){
@@ -364,7 +365,7 @@ function test_input($data) {
             <br>
 
             
-            <label for="trainingSquad">Squad number:</label><br>
+            <label for="trainingSquad"><span class="required">*</span>Squad number:</label><br>
             <select name="trainingSquad">
             <?php
             foreach($squads as $squad){
@@ -380,23 +381,23 @@ function test_input($data) {
             <br>
     
     
-            <label for="trainingStart">Start Date:</label><br>
+            <label for="trainingStart"><span class="required">*</span>Start Date:</label><br>
             <input type="datetime-local" id="trainingStart" name="trainingStart"  >
             <p class="alert alert-danger"><?php echo $trainingStartErr;?></p><br>
     
-            <label for="trainingEnd">End Date:</label><br>
+            <label for="trainingEnd"><span class="required">*</span>End Date:</label><br>
             <input type="datetime-local" id="trainingEnd" name="trainingEnd"  >
             <p class="alert alert-danger"><?php echo $trainingEndErr;?></p><br>
     
     
-            <label for="trainingLocation">Location:</label><br>
+            <label for="trainingLocation"><span class="required">*</span>Location:</label><br>
             <input type="text" name="trainingLocation" value="<?php echo $trainingLocation;?>">
             <p class="alert alert-danger"><?php echo $trainingLocationErr;?></p><br>
         </div>
     
     
     
-        <input type="submit" name="submit" value="Submit">
+        <input type="submit" name="submit" onclick="return validateForm()"value="Submit">
     
     
         </form>
@@ -424,6 +425,75 @@ function radioChecked(){
 
 radioChecked();
 
+function validateForm() {
+  let hiddenInput = document.getElementById('elementForVar1HiddenField');
+  let gameNameInput = document.forms[0]["sessionName"].value.trim();
+  let oppositionInput = document.forms[0]["oppisition"].value.trim();
+  let startInput = document.forms[0]["start"].value.trim();
+  let endInput = document.forms[0]["end"].value.trim();
+  let locationInput = document.forms[0]["location"].value.trim();
+  let kickoffInput = document.forms[0]["kickoff"].value.trim();
+
+  let sessionNameInput = document.forms[0]["sessionName"].value.trim();
+  let sessionStartInput = document.forms[0]["trainingStart"].value.trim();
+  let sessionEndInput = document.forms[0]["trainingEnd"].value.trim();
+  let sessionLocationInput = document.forms[0]["trainingLocation"].value.trim();
+
+  if(hiddenInput.value == 0){
+    if (gameNameInput == "") {
+      alert("Name of the game must be filled out");
+      return false;
+    }
+
+    if (oppositionInput == "") {
+      alert("Opposition name must be filled out");
+      return false;
+    }
+
+    
+    if (startInput == "") {
+      alert("Start date must be filled out");
+      return false;
+    }
+
+    if (endInput == "") {
+      alert("End date must be filled out");
+      return false;
+    }
+
+    if (locationInput == "") {
+      alert("Location of the game must be filled out");
+      return false;
+    }
+
+    if (kickoffInput == "") {
+      alert("Kickoff time must be filled out");
+      return false;
+    }
+  } else {
+    if (sessionNameInput == "") {
+      alert("Name of the training session must be filled out");
+      return false;
+    }
+
+    if (sessionStartInput == "") {
+      alert("Start date must be filled out");
+      return false;
+    }
+
+    if (sessionEndInput == "") {
+      alert("End date must be filled out");
+      return false;
+    }
+
+    if (sessionLocationInput == "") {
+      alert("Location of training session be filled out");
+      return false;
+    }
+  }
+
+
+}
 
 
 </script>
