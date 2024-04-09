@@ -5,6 +5,18 @@ require_once("classes/connection.php");
 require_once("classes/sql.php");
 require_once("classes/utils.php");
 
+
+/**
+ * @brief This class is responsible for actions related to Player information.
+ * 
+ * These include:
+ * - Retrieving records from database (Multiple & Single).
+ * - Inserting new records to the database.
+ * - Updating existing records in the database.
+ * - Deleting records from database.
+ * 
+ */
+
 class player
 {
   /**
@@ -12,6 +24,7 @@ class player
    * 
    * @return players - Array with all player records
    */
+  
   public static function getallPlayers()
   {
     $conn = Connection::connect();
