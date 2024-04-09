@@ -20,7 +20,7 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
  */
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
-// Initialize variables for game details
+/// Initialize variables for game details
 $gameName = $squad = $opposition = $start = $end = $location = $result = $score = "";
 $gameNameErr = $squadErr = $oppositionErr = $startErr = $endErr = $locationErr = $kickoffErr = $resultErr = $scoreErr = "";
 
@@ -28,7 +28,7 @@ $gameNameErr = $squadErr = $oppositionErr = $startErr = $endErr = $locationErr =
 $sessionName = $coachName = $trainingSquad = $trainingLocation = "";
 $sessionNameErr = $coachNameErr = $trainingSquadErr = $trainingStartErr = $trainingEndErr = $trainingLocationErr = "";
 
-/// SQL query to retrieve coach names
+/// Retrieve coach names
 $coachSql = "SELECT first_name, last_name FROM simplyrugby.coaches";
 
 /// Establish database connection
@@ -43,9 +43,6 @@ $coaches = $stmt->fetchAll();
 $stmt = $conn->prepare(SQL::$getSquads);
 $stmt->execute();
 $squads = $stmt->fetchAll();
-
-
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

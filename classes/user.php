@@ -233,7 +233,7 @@ class User{
     
         $profileId = User::checkIfUserExists($username, $filteredEmail); /// Returns appropiate profileId, points to the right profile page.
 
-        if($profileId){
+        if(($profileId) && ($role !== "Admin")){
 
             $_SESSION["loggedIn"] = true;  ///< Login state
             $_SESSION["user_id"] = $insertedId;
@@ -250,7 +250,7 @@ class User{
             header("Location: " . Utils::$projectFilePath . "/success.php");
             exit(); /// Terminate script execution after redirect
 
-        } else{
+        } else if ($role !== "Admin"){
             $_SESSION["loggedIn"] = true; 
             $_SESSION["user_id"] = $insertedId;
             $_SESSION["username"] = $username; 
@@ -258,6 +258,13 @@ class User{
             $_SESSION["justRegistered"] = true; 
             $_SESSION["newMember"] = true; ///< Variable used to determine if member can access add-member.php to fill their info
             header("Location: " . Utils::$projectFilePath . "/add-member.php"); 
+        } else {
+            $_SESSION["loggedIn"] = true; 
+            $_SESSION["user_id"] = $insertedId;
+            $_SESSION["username"] = $username; 
+            $_SESSION["user_role"] = $role; 
+            $_SESSION["justRegistered"] = true; 
+            header("Location: " . Utils::$projectFilePath .  "/success.php");
         }
     
 
