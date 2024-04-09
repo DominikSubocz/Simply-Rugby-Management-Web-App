@@ -44,97 +44,143 @@ $stmt = $conn->prepare(SQL::$getSquads);
 $stmt->execute();
 $squads = $stmt->fetchAll();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+/**
+ * 
+ * Form validation.
+ * 
+ * Fields will be checked if they are empty.
+ * Some of the fields are not required but all fields will be checked for correct data type.
+ * 
+ * If all error messages are empty, the form is valid and new event can be added.
+ * 
+ * User can switch between game and training session
+ * 
+ */
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    /**
+     * 
+     * Validate game details if value for hidden field is 0.
+     * It is 0 by default, or if user has picked game from radio options)
+     * 
+     *  
+     * */ 
   if ($_POST['elementForVar1HiddenField'] == 0) {
 
-    // Game name validation
+    /// Game name validation
 
     if (empty($_POST["gameName"])) {
-      $gameNameErr = "Name of the game is required";
+      $gameNameErr = "Name of the game is required"; ///< Display error if game name is empty
     } else {
-        $gameName = test_input($_POST["gameName"]);
+        $gameName = test_input($_POST["gameName"]); ///< Sanitize game name input
     }
 
-    // Squad validation
+    /// Squad validation
 
     if (empty($_POST["squad"])){
-      $squadErr = "Squad is required";
+      $squadErr = "Squad is required"; ///< Display error if squad is not selected
 
     } else {
-        $squad = test_input($_POST["squad"]);
+        $squad = test_input($_POST["squad"]); ///< Sanitize squad name input
     }
 
 
-    // Opposition team validation
+    /// Opposition team validation
 
-    if (empty($_POST["oppisition"])) {
-      $oppisitionErr = "Opposition's name is required";
+    if (empty($_POST["opposition"])) {
+      $oppositionErr = "Opposition's name is required"; ///< Display error if opposition name is empty
     } else {
-        $oppisition = test_input($_POST["oppisition"]);
+        $opposition = test_input($_POST["opposition"]); ///< Sanitize oppisition name input
     }
 
-    // Date validation
+    /// Date validation
 
     if (empty($_POST["start"])) {
-      $startErr = "Start date is required";
+      $startErr = "Start date is required"; ///< Display error if start date is not selected
     } else {
         $start = test_input($_POST["start"]);
 
         
-        $sqlStart = date('Y-m-d H:i:s', strtotime($start));
+        $sqlStart = date('Y-m-d H:i:s', strtotime($start)); ///< Format start date for SQL
     }
 
     if (empty($_POST["end"])) {
-      $endErr = "End date is required";
+      $endErr = "End date is required"; ///< Display error if end date is not selected
     } else {
         $end = test_input($_POST["end"]);
 
-        $sqlEnd = date('Y-m-d H:i:s', strtotime($end));
+        $sqlEnd = date('Y-m-d H:i:s', strtotime($end)); ///< Format end date for SQL
 
     }
 
-    // Location validation
+    /// Location validation
 
     if (empty($_POST["location"])) {
-      $locationErr = "Location is required";
+      $locationErr = "Location is required"; ///< Display error if location is empty
     } else {
-        $location = test_input($_POST["location"]);
+        $location = test_input($_POST["location"]); ///< Sanitize location input
     }
 
-    // Kickoff time validation
+    /// Kickoff time validation
 
     if (empty($_POST["kickoff"])) {
-      $kickoffErr = "Kickoff time is required";
+      $kickoffErr = "Kickoff time is required"; ///< Display error if kickoff time is empty
     } else {
-        $kickoff = test_input($_POST["kickoff"]);
+        $kickoff = test_input($_POST["kickoff"]); ///< Sanitize game name input
     }
 
     if (empty($_POST["score"])) {
-      $score = 0;
+      $score = 0; ///< Set score to 0 if not provided
     } else {
-        $score = test_input($_POST["score"]);
+        $score = test_input($_POST["score"]); ///< Sanitize score input
     }
 
     if (empty($gameNameErr) && empty($squadErr) && empty($oppisitionErr) && empty($startErr)  && empty($endErr)  && empty($locationErr) && empty($kickoffErr)){
-      $conn = Connection::connect();
+      $conn = Connection::connect(); ///< Connect to database
+
+      /**
+       * 
+       * Check if game already exists
+       * 
+       */
 
       $stmt = $conn->prepare(SQL::$getGame);
       $stmt->execute([$gameName, $start, $end]);
       $game = $stmt->fetch();
 
       if($game){
-        var_dump("Game already exists");
+
+        ///Probably easy way, but I plan to rework it in future version.
+
+        var_dump("Game already exists"); ///< Display error if game already exists
       } else {
+
+        /**
+         * Get ID of selected squad
+         */
         $stmt = $conn->prepare(SQL::$getSquad);
         $stmt->execute([$squad]);
         $squadExists = $stmt->fetch();
         $squadId = $squadExists['squad_id'];
         
+
   
         if(!$squad){
-          var_dump("ERROR: Squad doesn't exist");
+          /**
+           * 
+           * I changed way of selecting squad so there's no way this will run.
+           * 
+           * I'll fix it in future update
+           * 
+           */
+          var_dump("ERROR: Squad doesn't exist"); ///< Display error if squad doesn't exist
         } else {
+
+          /**
+           * SQL querries to create new game and 2 game halves.
+           * 
+           * There can only be 2 game halves for each game.
+           */
           $stmt = $conn->prepare(SQL::$createGame);
           $stmt->execute([$squadId, $gameName, $oppisition, $sqlStart, $sqlEnd, $location, $kickoff, $result, $score]);
           $gameId = $conn->lastInsertId();
@@ -142,9 +188,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $stmt = $conn->prepare(SQL::$createGameHalf);
           $result1 = $stmt->execute([$gameId, 1, $squad, $oppisition]);
           $result2 = $stmt->execute([$gameId, 2, $squad, $oppisition]);
-
-          var_dump($result1);
-          var_dump($result2);
 
         }
       }
@@ -155,97 +198,122 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   } else {
 
-    // Session name validation
+    /**
+     * 
+     * Training session validation
+     * 
+     * Validate training session details if value of hidden field is not 0
+     * Only if user picks session option from the radio input
+     */
 
     if (empty($_POST["sessionName"])) {
-      $sessionNameErr = "Name of the session is required";
+      $sessionNameErr = "Name of the session is required";  ///< Display error if session name is empty
     } else {
-        $sessionName = test_input($_POST["sessionName"]);
+        $sessionName = test_input($_POST["sessionName"]); ///< Sanitize session name input
     }
 
-        // Coach name validation
+        /// Coach name validation
 
 
     if (empty($_POST["coachName"])) {
-      $coachNameErr = "Coach name is required";
+      $coachNameErr = "Coach name is required"; ///< Display error if coach name is empty
     } else {
         $coachName = test_input($_POST["coachName"]);
         $coachNameParts = explode(" ", $coachName);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $coachFirstName = $coachNameParts[0];
         $coachLastName = end($coachNameParts);
     }
 
     if (empty($_POST["trainingSquad"])) {
-      $trainingSquadErr = "Squad is required";
+      $trainingSquadErr = "Squad is required";  ///< Display error if squad is not selected
 
     } else {
-        $trainingSquad = test_input($_POST["trainingSquad"]);
+        $trainingSquad = test_input($_POST["trainingSquad"]); ///< Sanitize squad input
     }
 
     if (empty($_POST["trainingStart"])) {
-      $trainingStartErr = "Start date is required";
+      $trainingStartErr = "Start date is required"; ///< Display error if start date is not selected
     } else {
         $trainingStart = test_input($_POST["trainingStart"]);
         
-        $sqlTrainingStart = date('Y-m-d H:i:s', strtotime($trainingStart));
+        $sqlTrainingStart = date('Y-m-d H:i:s', strtotime($trainingStart)); ///< Format start date for SQL
 
 
     }
 
     if (empty($_POST["trainingEnd"])) {
-      $trainingEndErr = "End date is required";
+      $trainingEndErr = "End date is required"; ///< Display error if end date is not selected
     } else {
         $trainingEnd = test_input($_POST["trainingEnd"]);
 
-        $sqlTrainingEnd = date('Y-m-d H:i:s', strtotime($trainingEnd));
+        $sqlTrainingEnd = date('Y-m-d H:i:s', strtotime($trainingEnd)); ///< Format end date for SQL
 
 
     }
 
-    // Location validation
+    /// Location validation
 
     if (empty($_POST["trainingLocation"])) {
-      $trainingLocationErr = "Location is required";
+      $trainingLocationErr = "Location is required"; ///< Display error if location is empty
     } else {
-        $trainingLocation = test_input($_POST["trainingLocation"]);
+        $trainingLocation = test_input($_POST["trainingLocation"]); ///< Sanitize location input
     }
 
 
+    /**
+     * If there are no errors proceed and run querries
+     */
     if (empty($sessionNameErr) && empty($coachNameErr) && empty($trainingSquadErr)  && empty($trainingStartErr)  && empty($trainingEndErr)  && empty($trainingLocationErr)){
       
-      $conn = Connection::connect();
+      $conn = Connection::connect(); ///< Connect to database
+
+      /**
+       * 
+       * Check if session already exists
+       * 
+       */
 
       $stmt = $conn->prepare(SQL::$getSession);
       $stmt->execute([$sessionName, $trainingStart, $trainingEnd]);
       $session = $stmt->fetch();
 
       if($session){
-        var_dump("ERROR: Game already exists");
+        /// Will be improved in future updates.
+        var_dump("ERROR: Session already exists"); ///< Display error if session already exists
       } else {
+
+        /// Get coach by his name
         $stmt = $conn->prepare(SQL::$getCoach);
         $stmt->execute([$coachFirstName, $coachLastName]);
         $coach = $stmt->fetch();
 
         if(!$coach){
-          var_dump("ERROR: Coach doesn't exist");
+          /// Will be improved in future updates.
+          var_dump("ERROR: Coach doesn't exist"); ///< Display error if coach doesn't exist
         } else {
 
-          $coachId = $coach['coach_id'];
+          $coachId = $coach['coach_id']; ///< Get id of coach
 
+          /// Get Squad by its name
           $stmt = $conn->prepare(SQL::$getSquad);
           $stmt->execute([$trainingSquad]);
           $squadExists = $stmt->fetch();
 
           if(!$squadExists){
-            var_dump("ERROR: Squad doesn't exist");
+            /// Will be improved in future updates.
+
+            var_dump("ERROR: Squad doesn't exist"); ///< Display error if squad doesn't exist
 
           } else {
-            $squadId = $squadExists['squad_id'];
+            $squadId = $squadExists['squad_id']; ///< Get id of squad
 
-            var_dump($squadId);
-
+            /**
+             * 
+             * Create new training session, and training details record
+             * 
+             */
             $stmt = $conn->prepare(SQL::$createSession);
             $stmt->execute([$coachId, $squadId, $sessionName, $sqlTrainingStart, $sqlTrainingEnd, $trainingLocation]);
             $sessionId = $conn->lastInsertId();
@@ -263,17 +331,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
 
-
-  // Training session name validation
-
-
-  
-
-
-
-
-
 }
+
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
 
 function test_input($data) {
   $data = trim($data);
@@ -285,6 +352,13 @@ function test_input($data) {
 
 <main class="content-wrapper contact-content">
 
+<!--  
+
+  On submit form will be validated using JavaScript.
+
+  Further form validation will be carried out using PHP.
+
+-->
     <div class="form-container">
         <form
         method="POST"
@@ -294,7 +368,7 @@ function test_input($data) {
     
         <div id="radio-container">
             <label class="radio" >Game
-            <input type="radio" id="radio-one" checked="checked" name="radio" onclick="radioChecked()">
+            <input type="radio" id="radio-one" checked="checked" name="radio" onclick="radioChecked()"> <!-- This function will check which radio input is checked -->
             <span class="checkmark"></span>
             </label>
             <label class="radio" >Training Session
@@ -305,9 +379,11 @@ function test_input($data) {
 
         <div id="game-form">
             <label for="gameName"><span class="required">*</span>Game name:</label><br>
-            <input type="text" name="gameName" value="<?php echo $gameName;?>">
-            <p class="alert alert-danger"><?php echo $gameNameErr;?></p><br>
+            <input type="text" name="gameName" value="<?php echo $gameName;?>">  <!-- Empty by default, but will be set after you fill it and once you submit -->
+            <p class="alert alert-danger"><?php echo $gameNameErr;?></p><br> <!-- Error variable -->
     
+
+            <!-- Dropdown input populated with php code and sql querries -->
             <label for="squad">Squad number:</label><br>
             <select name="squad">
             <?php
@@ -323,8 +399,8 @@ function test_input($data) {
             <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
     
             <label for="oppisition"><span class="required">*</span>Opposition team name:</label><br>
-            <input type="text" name="oppisition" value="<?php echo $oppisition;?>">
-            <p class="alert alert-danger"><?php echo $oppisitionErr;?></p><br>
+            <input type="text" name="oppisition" value="<?php echo $opposition;?>">
+            <p class="alert alert-danger"><?php echo $oppositionErr;?></p><br>
     
             <label for="start"><span class="required">*</span>Start Date:</label><br>
             <input type="datetime-local" id="start" name="start" >
@@ -352,12 +428,20 @@ function test_input($data) {
         </div>
     
         <div id="training-form">
-            <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
+
+        <!-- 
+          Hidden input that is used to determine which section should not be validated because it's hidden.
+
+          This will change depending on the radio option picked by user.
+        -->
+            <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" /> 
     
             <label for="sessionName"><span class="required">*</span>Training session name:</label><br>
             <input type="text" name="sessionName" value="<?php echo $sessionName;?>">
             <p class="alert alert-danger"><?php echo $sessionNameErr;?></p><br>
     
+          <!-- Dropdown input populated with php code and sql querries -->
+
             <label for="coachName"><span class="required">*</span>Coach:</label><br>
             <select name="coachName">
             <?php
@@ -373,7 +457,7 @@ function test_input($data) {
             <p class="alert alert-danger"><?php echo $coachNameErr;?></p><br>
             <br>
 
-            
+          <!-- Dropdown input populated with php code and sql querries -->
             <label for="trainingSquad"><span class="required">*</span>Squad number:</label><br>
             <select name="trainingSquad">
             <?php
@@ -415,42 +499,60 @@ function test_input($data) {
 
 <script>
 
-  const gForm = document.getElementById("game-form");
-  const tForm = document.getElementById("training-form");
+  const gForm = document.getElementById("game-form"); ///< ID of div containing form to add a game
+  const tForm = document.getElementById("training-form"); ///< ID of div containing form to add a training session
 
-
+/**
+ * 
+ * This runs when user checks one of the radio options
+ * 
+ * If radio option two is checked, hide game form and display session form & set value of hidden input to 1.
+ * Otherwise, hide session form and display game form & set value of hidden input to 0.
+ * 
+ */
 function radioChecked(){
   if (document.getElementById("radio-two").checked){
     gForm.style.display = "none";
     tForm.style.display = "block";
-    document.getElementById('elementForVar1HiddenField').value = 1;
+    document.getElementById('elementForVar1HiddenField').value = 1; ///< Game form won't be validated
 
   } else {
       gForm.style.display = "block";
       tForm.style.display = "none";
-      document.getElementById('elementForVar1HiddenField').value = 0;
+      document.getElementById('elementForVar1HiddenField').value = 0; ///< Session form won't be validated
     }
 }
 
-radioChecked();
+radioChecked(); 
+
+/**
+ * 
+ * JS form validation
+ * 
+ * There are probably better ways of doing it but it works.
+ * 
+ * Nothing much happening here, just checking if this is empty then display alert for each field.
+ * 
+ */
 
 function validateForm() {
   let hiddenInput = document.getElementById('elementForVar1HiddenField');
-  let gameNameInput = document.forms[0]["sessionName"].value.trim();
-  let oppositionInput = document.forms[0]["oppisition"].value.trim();
-  let startInput = document.forms[0]["start"].value.trim();
-  let endInput = document.forms[0]["end"].value.trim();
-  let locationInput = document.forms[0]["location"].value.trim();
-  let kickoffInput = document.forms[0]["kickoff"].value.trim();
+  let gameNameInput = document.forms[0]["gameName"].value.trim(); ///< Session's name
+  let oppositionInput = document.forms[0]["oppisition"].value.trim(); ///< Opposition name
+  let startInput = document.forms[0]["start"].value.trim(); ///< Start date
+  let endInput = document.forms[0]["end"].value.trim(); ///< End date
+  let locationInput = document.forms[0]["location"].value.trim(); ///< location
+  let kickoffInput = document.forms[0]["kickoff"].value.trim(); ///< kickoff time
 
-  let sessionNameInput = document.forms[0]["sessionName"].value.trim();
-  let sessionStartInput = document.forms[0]["trainingStart"].value.trim();
-  let sessionEndInput = document.forms[0]["trainingEnd"].value.trim();
-  let sessionLocationInput = document.forms[0]["trainingLocation"].value.trim();
+  let sessionNameInput = document.forms[0]["sessionName"].value.trim(); ///< Session name
+  let sessionStartInput = document.forms[0]["trainingStart"].value.trim(); ///<
+  let sessionEndInput = document.forms[0]["trainingEnd"].value.trim(); ///<
+  let sessionLocationInput = document.forms[0]["trainingLocation"].value.trim(); ///<
 
+  /// Validate game if hidden input is set to 0
   if(hiddenInput.value == 0){
     if (gameNameInput == "") {
-      alert("Name of the game must be filled out");
+      alert("Name of the game must be filled out"); ///< Display alert
       return false;
     }
 
@@ -479,7 +581,10 @@ function validateForm() {
       alert("Kickoff time must be filled out");
       return false;
     }
-  } else {
+  } 
+  
+  /// If hidden element's value is not 0 validate Session form.
+  else {
     if (sessionNameInput == "") {
       alert("Name of the training session must be filled out");
       return false;
