@@ -1,8 +1,6 @@
 <?php
 
-/**
- * Start session and include required PHP files
- */
+
 session_start();
 require("classes/components.php");
 require("classes/connection.php");
@@ -140,9 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $conn = Connection::connect(); ///< Connect to database
 
       /**
-       * 
-       * Check if game already exists
-       * 
+       * Check if a game with the given name already exists within the specified time frame.
        */
 
       $stmt = $conn->prepare(SQL::$getGame);
@@ -156,8 +152,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var_dump("Game already exists"); ///< Display error message
       } else {
 
+
         /**
-         * Get ID of selected squad
+         * Get the squad information from the database.
          */
         $stmt = $conn->prepare(SQL::$getSquad);
         $stmt->execute([$squad]);
@@ -178,9 +175,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
           /**
-           * SQL querries to create new game and 2 game halves.
-           * 
-           * There can only be 2 game halves for each game.
+           * Creates a new game record & two game half records in the database.
+           *
            */
           $stmt = $conn->prepare(SQL::$createGame);
           $stmt->execute([$squadId, $gameName, $oppisition, $sqlStart, $sqlEnd, $location, $kickoff, $result, $score]);
@@ -263,19 +259,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
+
     /**
-     * If there are no errors proceed and run querries
+     * Checks if all the error messages are empty, and proceed with SQL querries.
      */
     if (empty($sessionNameErr) && empty($coachNameErr) && empty($trainingSquadErr)  && empty($trainingStartErr)  && empty($trainingEndErr)  && empty($trainingLocationErr)){
       
       $conn = Connection::connect(); ///< Connect to database
 
-      /**
-       * 
-       * Check if session already exists
-       * 
-       */
 
+      /**
+       * Check if a session already exists in the database based on session name, training start, and training end dates.
+       * If the session already exists, it outputs an error message.
+       */
       $stmt = $conn->prepare(SQL::$getSession);
       $stmt->execute([$sessionName, $trainingStart, $trainingEnd]);
       $session = $stmt->fetch();
@@ -285,10 +281,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var_dump("ERROR: Session already exists"); ///< Display error 
       } else {
 
-      /**
-        * Check if a coach exists in the database based on first and last name
-        */
 
+
+        /**
+         * Checks if a coach exists in the database, based on the provided first and last name.
+         * If the coach does not exist, an error message is displayed.
+         */
         $stmt = $conn->prepare(SQL::$getCoach);
         $stmt->execute([$coachFirstName, $coachLastName]);
         $coach = $stmt->fetch();
@@ -299,6 +297,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
 
           $coachId = $coach['coach_id']; ///< Get id of coach
+
 
           /**
            * Check if a squad exists in the database based on the provided training squad.

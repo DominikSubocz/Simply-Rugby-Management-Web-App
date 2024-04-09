@@ -1,8 +1,6 @@
 <?php
-/**
- * Start session and include required PHP files
- */
-session_start();
+
+session_start(); 
 require("classes/components.php");
 require("classes/utils.php");
 require_once("classes/connection.php");
@@ -47,17 +45,14 @@ $guardianAddress21 = $guardianAddress22 = $guardianCity2 = $guardianCounty2 = $g
 $address1 = $address2 = $city = $county = $postcode = "";
 $doctorName = $doctorContact = "";
 
+
 /**
- * 
- * Form validation.
- * 
- * Fields will be checked if they are empty.
- * Some of the fields are not required but all fields will be checked for correct data type.
- * 
- * If all error messages are empty, the form is valid and new event can be added.
- * 
- * User can add 1 or 2 guardians
- * 
+ * Validates and processes form data submitted via POST method.
+ *
+ * This function checks each form field for validity and sanitizes the input data. It performs various checks such as ensuring required fields are not empty, validating email and date formats, and checking input lengths.
+ * If all validations pass, it saves the data to the database after creating necessary associations between entities like Junior, Guardian, Doctor, and Address.
+ * If any validation fails, appropriate error messages are set for each field.
+ *
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name
@@ -339,8 +334,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $genuineErr = "ERROR: Player already exists!";
         }
 
+
         /**
-         * Check if the address exists in the database and retrieve its ID if found, otherwise create a new address.
+         * Check if the address exists in the database based on the provided parameters.
+         * If the address does not exist, create a new address and return its ID.
+         *
          */
         $existingAddress = Address::addressExists($address1, $address2, $city, $county, $postcode);
         $guardian1Address = Address::addressExists($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);

@@ -43,12 +43,11 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
             name="username"
             value="<?php
 
+
             /**
-             * If there is an error, then the login form was submitted and the username
-             * exists, so we can preserve the username in the form.
+             * Check if $output is true and if the "loginSubmit" and "username" keys are set in the $_POST array.
+             * If conditions are met, echo the escaped value of the "username" key using the Utils::escape method.
              *
-             * We need to check if the username is set since the previous form
-             * submission may have omitted it.
              */
             if ($output && isset($_POST["loginSubmit"]) && isset($_POST["username"])) {
                 echo Utils::escape($_POST["username"]);

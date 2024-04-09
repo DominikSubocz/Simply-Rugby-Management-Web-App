@@ -16,15 +16,14 @@
 class Coach {
 
 
-    /**
-     *  
-     *  Get specific Coach from database
-     *  
-     * @param coachId - String containing ID number of specific coach.
-     *  
-     *  @return coach - Single coach record.
-     */
 
+
+    /**
+     * Retrieves a coach from the database based on the provided coach ID.
+     *
+     * @param int $coachId The ID of the coach to retrieve.
+     * @return string $coach The coach data if found, or null if not found.
+     */
     public static function getCoach($coachId){
         $conn = Connection::connect();  
 
@@ -38,12 +37,11 @@ class Coach {
     }
 
 
+
     /**
-     *  
-     *  
-     *  Get all Coaches from database
-     *  
-     *  @return coaches - All coach records.
+     * Retrieves all coaches from the database.
+     *
+     * @return array $coaches An array containing all the coach records
      */
     public static function getAllCoaches(){
         $conn = Connection::connect();  
@@ -57,12 +55,12 @@ class Coach {
         return $coaches; 
     }
 
+
     /**
-     *  
-     *  Delete specific coach from database
-     *  
-     * @param coachId - String containing ID number of specific coach.
-     *  
+     * Delete a coach from the database based on the provided coach ID.
+     *
+     * @param int $coachId The ID of the coach to be deleted.
+     * @throws PDOException If there is an error with the database operation. - There is a try catch code in corresponding page.
      */
     public static function deleteCoach($coachId){
         $conn = Connection::connect();  
@@ -73,22 +71,20 @@ class Coach {
 
     }
 
-     /**
-     *  
-     *  
-     *  Update existing database record for specific coach
-     *  
-     * @param firstName - String containing coach's first name.
-     * @param lastName - String containing coach's last name.
-     * @param dob - String containing coach's date of birth.
-     * @param contactNo - String containing coach's contact number.
-     * @param mobileNo - String containing coach's mobile number.
-     * @param email - String containing coach's email address.
-     * @param filename - String containing coach's profile picture filename.
-     * @param coachId - String containing ID number of specific coach.
-     *  
-     */
 
+
+    /**
+     * Update coach information in the database.
+     *
+     * @param string $firstName The first name of the coach.
+     * @param string $lastName The last name of the coach.
+     * @param string $dob The date of birth of the coach.
+     * @param string $contactNo The contact number of the coach.
+     * @param string $mobileNo The mobile number of the coach.
+     * @param string $email The email address of the coach.
+     * @param string $filename The filename of the coach's image.
+     * @param int $coachId The ID of the coach to update.
+     */
     public static function updateCoach($firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId){
         $conn = Connection::connect();  
 

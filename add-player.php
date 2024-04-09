@@ -210,9 +210,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $conn = Connection::connect();
 
+
         /**
-         * Check if a player exists in the database.
-         *
+         * Check if a player already exists in the database based on the provided parameters.
          */
         $stmt = $conn->prepare(SQL::$playerExists);
         $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);

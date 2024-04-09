@@ -17,18 +17,15 @@
 class Guardian
     {
 
-    /**
-     *  
-     *  Check if guardian with specific details exists and output single record.
-     * 
-     * 
-     *  @param firstName - String containing first name of the guardian.
-     *  @param lastName - String containing last name of the guardian.
-     *  @param contactNo - String containing guardian's contact number.
-     *         
-     * 
-     *  @return guardian - Single record result.
-     */
+
+        /**
+         * Check if a guardian with the given first name, last name, and contact number exists in the database.
+         *
+         * @param string $firstName The first name of the guardian
+         * @param string $lastName The last name of the guardian
+         * @param string $contactNo The contact number of the guardian
+         * @return string $guardian The guardian if found, null otherwise
+         */
         public static function guardianExists($firstName, $lastName, $contactNo){
 
             $conn = Connection::connect();
@@ -41,21 +38,18 @@ class Guardian
 
         }
 
-    /**
-     *  
-     *  
-     *  Create new guardian in database.
-     * 
-     *  @param addressId - String containing address ID number
-     *  @param firstName - String containing first name of the guardian.
-     *  @param lastName - String containing last name of the guardian.
-     *  @param contactNo - String containing guardian's contact number.
-     *  @param relationshipStores - String containing guardian's relationship.
-     *         
-     * 
-     *  @return guardianId - ID of just created record.
-     */
 
+
+        /**
+         * Creates a new guardian with the provided information and returns the guardian ID.
+         *
+         * @param int $addressId The ID of the guardian's address
+         * @param string $firstName The first name of the guardian
+         * @param string $lastName The last name of the guardian
+         * @param string $contactNo The contact number of the guardian
+         * @param string $relationship The relationship of the guardian
+         * @return int $guardianId The ID of the newly created guardian
+         */
         public static function createGuardian($addressId, $firstName, $lastName, $contactNo, $relationship){
 
             $conn = Connection::connect();
@@ -70,22 +64,16 @@ class Guardian
 
         }
 
-    /**
-     *  Get all guardians for specific junior.
-     * 
-     *  @note The name of the function isn't quite right, I think it's meant to be called get Guardians.
-     *  I won't change it now, but I'll do that in future updates.
-     *  
-     *         
-     * 
-     * 
-     *  @param juniorId - String containing ID number of junior.
-
-     *         
-     * 
-     *  @return id - Array with all records that match the parameter | Needs renaming.
-     */
-
+   /**
+    *     * 
+    * Retrieves the guardian information for a given junior ID.
+    *
+    *  @note The name of the function isn't quite right, I think it's meant to be called get Guardians.
+    *  I won't change it now, but I'll do that in future updates.
+    * 
+    * @param int $juniorId The ID of the junior for whom the guardian information is requested.
+    * @return array $id An array containing the guardian information.
+    */
         public static function getGuardian($juniorId){
 
             $conn = Connection::connect();
@@ -98,13 +86,13 @@ class Guardian
             
         }
 
-    /**
-     *  
-     * Get all guardians from database, and output all records.
-     *        
-     *  @return guardians - All records from the Guardians table.
-     */
 
+
+        /**
+         * Retrieves all guardians from the database.
+         *
+         * @return array $guardians An array containing all guardians retrieved from the database.
+         */
         public static function getAllGuardians(){
 
             $conn = Connection::connect();
@@ -117,15 +105,14 @@ class Guardian
             
         }
 
-    /**
-     *  
-     * Get address details of specific guardian.
-     *        
-     *  @param guardianId - String containing guardian ID Number
-     * 
-     *  @return address - Single record result.
-     */
 
+
+        /**
+         * Retrieves the address of a guardian based on the provided guardian ID.
+         *
+         * @param int $guardianId The ID of the guardian whose address is to be retrieved.
+         * @return string $address The address information of the guardian.
+         */
         public static function getGuardianAddress($guardianId){
 
             $conn = Connection::connect();
@@ -138,15 +125,14 @@ class Guardian
             
         }
 
-     /**
-     *  
-     * Get specific guardian by their ID number and output single record.
-     *        
-     *  @param guardianId - String containing guardian ID Number
-     * 
-     *  @return guardian - Single record from Guardians table.
-     */
 
+
+        /**
+         * Retrieves a guardian from the database based on the provided guardian ID.
+         *
+         * @param int $guardianId The ID of the guardian to retrieve.
+         * @return string $guardian The guardian information if found, or null if not found.
+         */
         public static function getGuardianById($guardianId){
 
             $conn = Connection::connect();
@@ -159,14 +145,13 @@ class Guardian
             
         }
 
-    /**
-     *  
-     * Delete specific guardian from database.
-     *        
-     *  @param guardianId - String containing guardian ID Number
-     *      
-     */
 
+        /**
+         * Deletes a guardian from the database based on the provided guardian ID.
+         *
+         * @param int $guardianId The ID of the guardian to be deleted.
+         * @throws PDOException If there is an error with the database operation. - There is a try catch code in corresponding page.
+         */
         public static function deleteGuardian($guardianId){
 
             $conn = Connection::connect();

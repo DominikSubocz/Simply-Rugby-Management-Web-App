@@ -19,12 +19,13 @@ require_once("classes/utils.php");
 
 class Member
 {
-  /**
-   * Get all members from the database.
-   * 
-   * @return members - Array with all records from database.
-   */
 
+
+  /**
+   * Retrieves all members from the database.
+   *
+   * @return array An array containing all the members fetched from the database.
+   */
   public static function getAllMembers()
   {
     $conn = Connection::connect();
@@ -40,11 +41,12 @@ class Member
     return $members;
   }
 
+
   /**
-   * Get a member with a specific ID from the database.
-   * 
-   * @param playerId - String containing member's ID number.
-   * 
+   * Retrieves a member from the database based on the provided player ID.
+   *
+   * @param int $playerId The ID of the player whose member information is to be retrieved.
+   * @return string $member The member information retrieved from the database.
    */
   public static function getMember($playerId)
   {
@@ -58,14 +60,14 @@ class Member
     return $member;
   }
 
+
+
+
   /**
-   * Delete a member with specific ID from the database.
-   * 
-   * @param playerId - String containing member's ID number.
-   * 
+   * Deletes a member from the database based on the provided player ID.
+   *
+   * @param int $playerId The ID of the player to be deleted.
    */
-
-
   public static function deleteMember ($playerId){
     $conn = Connection::connect();
 
@@ -77,22 +79,22 @@ class Member
 
     }
 
-  /**
-   * Update a existing record with specific member ID number.
-   * 
-   * @param address_id - String containing address ID number.
-   * @param firstName - String containing member's first name.
-   * @param lastName - String containing member's last name.
-   * @param dob - String containing member's date of birth
-   * @param sru - String containing member's SRU number.
-   * @param contactNo - String containing member's contact number.
-   * @param mobileNo - String containing members's mobile number.
-   * @param email - String containing member's emaila address.
-   * @param filename - String containing member's profile picture filename.
-   * @param memberId - String containing member's ID number.
-   * 
-   */
 
+
+  /**
+   * Update a member's information in the database.
+   *
+   * @param int $address_id The address ID of the member
+   * @param string $firstName The first name of the member
+   * @param string $lastName The last name of the member
+   * @param string $dob The date of birth of the member
+   * @param string $sru The SRU (Some Relevant Unit) of the member
+   * @param string $contactNo The contact number of the member
+   * @param string $mobileNo The mobile number of the member
+   * @param string $email The email address of the member
+   * @param string $filename The filename associated with the member
+   * @param int $memberId The ID of the
+   */
   public static function updateMember($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $filename, $memberId){
     $conn = Connection::connect();
 
@@ -104,23 +106,25 @@ class Member
 
   }
 
-  /**
-   * Check if member specific exists and get single record result for that member.
-   * 
-   * @param playerId - String containing member's ID number.
-   * @param firstName - String containing member's first name.
-   * @param lastName - String containing member's last name.
-   * @param dob - String containing member's date of birth
-   * @param sru - String containing member's SRU number.
-   * @param contactNo - String containing member's contact number.
-   * @param mobileNo - String containing members's mobile number.
-   */
 
+  /**
+   * Check if a member with the given details exists in the database.
+   *
+   * @param string $firstName
+   * @param string $lastName
+   * @param string $dob
+   * @param string $sru
+   * @param string $contactNo
+   * @param string $mobileNo
+   * @return string $existingUser The existing user if found, or null if not found
+   */
   public static function memberExists($firstName, $lastName, $dob, $sru, $contactNo, $mobileNo){
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$memberExists);
     $stmt->execute([$firstName, $lastName, $dob, $sru, $contactNo, $mobileNo]);
     $existingUser = $stmt->fetch();
+
+    return $existingUser;
   }
 }

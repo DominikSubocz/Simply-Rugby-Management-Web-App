@@ -18,20 +18,16 @@
 
 class Address
     {
-
     /**
-     *  
-     * Check if address exists and return single record result.
-     *  
-     *  @param address1 - String containing Address Line 1.
-     *  @param address2 - String containing Address Line 2.
-     *  @param city - String containing City.
-     *  @param county - String containing County.
-     *  @param postcode- String containing Postcode.
-     * 
-     *  @return existingAddress - Results for existing address.
+     * Check if an address already exists in the database based on the provided address details.
+     *
+     * @param string $address1
+     * @param string $address2
+     * @param string $city
+     * @param string $county
+     * @param string $postcode
+     * @return string $existingAddress The existing address if found, or null if not found
      */
-
     public static function addressExists($address1, $address2, $city, $county, $postcode){
 
     $conn = Connection::connect();
@@ -46,13 +42,13 @@ class Address
     }
 
 
-    /**
-     *  
-     *  Get all address records from database
-     * 
-     *  @return addreses - All records from the addresses table.
-     */
 
+
+    /**
+     * Retrieves all addresses from the database.
+     *
+     * @return array $addresses An array containing all addresses fetched from the database.
+     */
     public static function getAllAddresses(){
 
         $conn = Connection::connect();
@@ -66,18 +62,17 @@ class Address
     
         }
 
+ 
     /**
-     *  
-     *  Insert new record into Addresses table
-     *  
-     *  @param address1 - String containing Address Line 1.
-     *  @param address2 - String containing Address Line 2.
-     *  @param city - String containing City.
-     *  @param county - String containing County.
-     *  @param postcode- String containing Postcode.
-     * 
-     *  @return addressId - ID of address which was just created.
-     */    
+     * Creates a new address record in the database with the provided address details.
+     *
+     * @param string $address1 The first line of the address
+     * @param string $address2 The second line of the address
+     * @param string $city The city of the address
+     * @param string $county The county of the address
+     * @param string $postcode The postcode of the address
+     * @return int $addressId The ID of the newly created address record
+     */
     public static function createNewAddress($address1, $address2, $city, $county, $postcode){
 
         $conn = Connection::connect();
@@ -89,24 +84,17 @@ class Address
         return $addressId; 
     }
 
-    /**
-     * Check if address exists and get single record result.
-     * 
-     *  @note Seems like this is a redundant function, I won't remove it as for now.
-     *  This is because I'm afraid the whole thing is going to get messed up.
-     *  However, I plan to remove it in furture updates to clean up this class.
-     * 
-     *  
-     *  
-     *  @param address1 - String containing Address Line 1.
-     *  @param address2 - String containing Address Line 2.
-     *  @param city - String containing City.
-     *  @param county - String containing County.
-     *  @param postcode- String containing Postcode.
-     * 
-     *  @return addressId - Results for existing address.
-     */
 
+    /**
+     * Retrieves the existing address ID from the database based on the provided address details.
+     *
+     * @param string $address1
+     * @param string $address2
+     * @param string $city
+     * @param string $county
+     * @param string $postcode
+     * @return string $addressId The address ID if found, null otherwise
+     */
     public static function getExistingAddress($address1, $address2, $city, $county, $postcode){
 
         $conn = Connection::connect();
@@ -119,15 +107,13 @@ class Address
 
     }
 
-    /**
-     *  
-     *  Get record of specific address
-     *  
-     *  @param addressId - String containing ID number of specific Address.
-     * 
-     *  @return address - Single address record from the addresses table.
-     */    
 
+    /**
+     * Get the address details for the given address ID.
+     *
+     * @param int $addressId The ID of the address to retrieve
+     * @return array $addresses The address details as an associative array, or null if address not found
+     */
     public static function getAddress($addressId){
         $conn = Connection::connect();
         $stmt = $conn->prepare(SQL::$getAddress); 
@@ -138,15 +124,14 @@ class Address
         return $address; 
     }
 
-    /**
-     *  
-     *  
-     *  Delete specific address from database
-     *  
-     *  @param addressId - String containing ID number of specific Address.
-     * 
-     */  
 
+
+    /**
+     * Delete an address from the database based on the given address ID.
+     *
+     * @param int $addressId The ID of the address to be deleted.
+     * @throws PDOException If there is an error with the database operation. - There is a try catch code in corresponding page.
+     */
     public static function deleteAddress($addressId){
         
         $conn = Connection::connect();

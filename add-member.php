@@ -158,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn = Connection::connect();
 
         /**
-         * Executes a prepared SQL statement to check if a member exists in the database.
+         * Check if a member exists in the database.
          */
         $stmt = $conn->prepare(SQL::$memberExists);
         $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);

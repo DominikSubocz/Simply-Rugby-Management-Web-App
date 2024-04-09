@@ -15,14 +15,12 @@
 
 class Events {
 
-    /**
-     *  
-     *  Get all events from database.
-     *         
-     * 
-     *  @return events - All records from the UNION SQL command, which unions the Games & Sessions table.
-     */
 
+    /**
+     * Retrieves all events from the database.
+     *
+     * @return array $events An array containing all events fetched from the database.
+     */
     public static function getAllEvents()
     {
       $conn = Connection::connect();
@@ -38,16 +36,14 @@ class Events {
       return $events;
     }
 
-    /**
-     *  
-     *  Get specific game from database
-     * 
-     *  @param gameId - String containing Game ID number.
-     *         
-     * 
-     *  @return game - Single game record.
-     */
 
+
+    /**
+     * Retrieves a single game record from the database based on the provided game ID.
+     *
+     * @param int $gameId The ID of the game to retrieve.
+     * @return string $game The game record as an associative array, or null if not found.
+     */
     public static function getGame($gameId){
       $conn = Connection::connect();
 
@@ -61,16 +57,14 @@ class Events {
 
     }
 
-    /**
-     *  
-     *  Get all game halves for specific game
-     * 
-     *  @param gameId - String containing Game ID number.
-     * 
-     *  @return gameHalves - All records that match the parameter.
-     *         
-     */
 
+
+    /**
+     * Retrieves the game halves for a given game ID from the database.
+     *
+     * @param int $gameId The ID of the game for which to retrieve the halves.
+     * @return array $gameHalves An array containing the game halves fetched from the database.
+     */
     public static function getGameHalves($gameId){
 
       $conn = Connection::connect();
@@ -84,14 +78,14 @@ class Events {
       return $gameHalves;
     }
 
-    /**
-     *  
-     *  Delete specific game from database
-     * 
-     *  @param gameId - String containing Game ID number.
-     *         
-     */
 
+
+    /**
+     * Delete a game and its associated halves from the database based on the provided game ID.
+     *
+     * @param int $gameId The ID of the game to be deleted.
+     * @throws PDOException If there is an error with the database operation. - There is a try catch code in corresponding page.
+     */
     public static function deleteGame($gameId){
       $conn = Connection::connect();
 
@@ -104,20 +98,19 @@ class Events {
 
     }
 
-    /**
-     *  
-     *  Update existing game halves for specific game
-     *  
-     *  @param gameHalfId - String containing which Game Half to update (1 or 2)
-     *  @param home_team - String containing name of the home team.
-     *  @param homeScore - String containing score for the home team.
-     *  @param homeComment - String containing comments from the home team.
-     *  @param opposition - String containing name of the opposition team.
-     *  @param oppositionScore - String containing score for the opposition team.
-     *  @param oppositionComment - String containing comments from the opposition team.
-     * 
-     */
+
     
+    /**
+     * Update the details of a game half in the database.
+     *
+     * @param int $gameHalfId The ID of the game half to update
+     * @param string $home_team The name of the home team
+     * @param int $homeScore The score of the home team
+     * @param string $homeComment A comment for the home team
+     * @param string $opposition The name of the opposing team
+     * @param int $oppositionScore The score of the opposing team
+     * @param string $oppositionComment A comment for the opposing team
+     */
     public static function updateGameHalf($gameHalfId, $home_team, $homeScore, $homeComment, $opposition, $oppositionScore, $oppositionComment){
       $conn = Connection::connect();
 
@@ -130,20 +123,18 @@ class Events {
     }
 
     /**
-     *  
-     *  Update existing game in the database 
-     *  
-     *  @param squad - String containing squad ID.
-     *  @param name - String containing name of the game.
-     *  @param opposition - String containing name of the opposition team.
-     *  @param start - String containing start date of the game.
-     *  @param end - String containing end date of the game.
-     *  @param location - String containing location of the game.
-     *  @param kickoff - String containing kickoff time of the game.
-     *  @param result - String containing final result of the game.
-     *  @param score - String containing final score of the game.
-     *  @param gameId - String containing Game ID, which will be used to determine which game to update.
-     * 
+     * Update a game record in the database with the provided information.
+     *
+     * @param string $squad
+     * @param string $name
+     * @param string $opposition
+     * @param string $start
+     * @param string $end
+     * @param string $location
+     * @param string $kickoff
+     * @param string $result
+     * @param string $score
+     * @param int $gameId
      */
     public static function updateGame($squad, $name, $opposition, $start, $end, $location, $kickoff, $result, $score, $gameId) {
       $conn = Connection::connect();
@@ -155,15 +146,14 @@ class Events {
 
     }
     
-    /**
-     *  
-     *  Get specific session
-     * 
-     *  @param sessionId - String containing ID number of specific training session.        
-     * 
-     *  @return session - All records from the Sessions table.
-     */
 
+
+    /**
+     * Retrieves a session from the database based on the provided session ID.
+     *
+     * @param int $sessionId The ID of the session to retrieve.
+     * @return string $session The session data retrieved from the database.
+     */
     public static function getSession($sessionId){
       $conn = Connection::connect();
 
@@ -176,18 +166,14 @@ class Events {
       return $session;
     }
 
-    /**
-     *  
-     *  Get all training details for specific training session
-     * 
-     *  @note If there is only one training details record for each training session why do we fetchAll?
-     *  Perpahs I need to rework this in future update.
-     * 
-     *  @param sessionId - String containing ID number of specific training session. 
-     *  @return trainingDetails - All records that match the parameter.
-     *         
-     */
 
+
+    /**
+     * Retrieves training details for a specific session ID from the database.
+     *
+     * @param int $sessionId The ID of the session for which training details are to be retrieved.
+     * @return array $trainingDetails An array containing the training details for the specified session.
+     */
     public static function getTrainingDetails($sessionId){
 
 
@@ -204,13 +190,13 @@ class Events {
 
     }
 
-    /**
-     *  
-     *  Delete all details associated with specific Training Session
-     * 
-     *  @param sessionId - String containing ID number of specific training session.      
-     */
 
+
+    /**
+     * Delete a session from the database based on the provided session ID.
+     *
+     * @param int $sessionId The ID of the session to be deleted
+     */
     public static function deleteSession($sessionId){
       $conn = Connection::connect();
 
@@ -223,25 +209,24 @@ class Events {
 
     }
 
-    /**
-     *  
-     *  Update existing training session in database
-     *  
-     *  @param coach - String containing coach's ID number.
-     *  @param squad - String containing ID number of specific squad.
-     *  @param name - String containing name of the event.
-     *  @param start - String containing start date of a event.
-     *  @param end- String containing end date of a event.
-     *  @param location - String containing location of a event.
-     *  @param skills - String containing skills practiced at the training session.
-     *  @param activities - String containing activities practiced at the training session.
-     *  @param playersPresent - String containing all present players.
-     *  @param accidents - String containing information about the accidents.
-     *  @param injuries - String containing information about injuries
-     *  @param sessionId - String containing ID number of specific training session.
-     *  @param trainingDetailId - String containing ID number of specific training detail.
-     */
 
+    /**
+     * Update session and training details in the database.
+     *
+     * @param int $coach ID number of specific coach
+     * @param int $squad ID number of specific squad
+     * @param string $name Name of the training session
+     * @param date $start Start date of training session
+     * @param date $end End date of training session
+     * @param string $location Location of training session
+     * @param string $skills Skills practiced at training session
+     * @param string $activities Activities practiced at training session
+     * @param string $playersPresent Present players at training session
+     * @param string $accidents Accidents that happened at training session
+     * @param string $injuries Injuries that happened at training session
+     * @param string $sessionId ID number of specific training session.
+     * @param int $trainingDetailId ID number of specific training detail
+     */
     public static function updateSession($coach, $squad, $name, $start, $end, $location, $skills, $activities, $playersPresent, $accidents, $injuries, $sessionId, $trainingDetailId){
       $conn = Connection::connect();
 

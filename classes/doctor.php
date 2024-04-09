@@ -18,18 +18,16 @@ class Doctor{
 
 
     
+
+
     /**
-     *  
-     * Check if doctor with specific details exists and get single record result. 
-     *  
-     *  @param firstName - String containing Doctor's first name.     
-     *  @param lastName - String containing coach's last name.
-     *  @param contactNo - String containing coach's contact number.
-
-     * 
-     *  @return doctor - Single result.
+     * Check if a doctor exists based on the provided first name, last name, and contact number.
+     *
+     * @param string $firstName The first name of the doctor
+     * @param string $lastName The last name of the doctor
+     * @param string $contactNo The contact number of the doctor
+     * @return string $doctor The doctor information if found, null otherwise
      */
-
     public static function doctorExists($firstName, $lastName, $contactNo){
         $conn = Connection::connect();
 
@@ -40,20 +38,16 @@ class Doctor{
         return $doctor;
     }
 
+
+
     /**
-     *  
-     * Check if doctor exists by using ID and get single record result. 
-     * 
-     *  
-     *  
-     *  @param firstName - String containing Doctor's first name.     
-     *  @param lastName - String containing coach's last name.
-     *  @param contactNo - String containing coach's contact number.
-
-     * 
-     *  @return doctorId - Single result.
+     * Retrieve the existing doctor ID based on the provided first name, last name, and contact number.
+     *
+     * @param string $firstName The first name of the doctor.
+     * @param string $lastName The last name of the doctor.
+     * @param string $contactNo The contact number of the doctor.
+     * @return string $doctorid The existing doctor ID if found, otherwise null.
      */
-
     public static function existingDoctorId($firstName, $lastName, $contactNo){
 
         $conn = Connection::connect();
@@ -65,18 +59,16 @@ class Doctor{
         return $doctorId;
     }
 
-    /**
-     *  
-     *  Create new doctor record in database.
-     *  
-     *  @param firstName - String containing Doctor's first name.
-     *  @param lastName - String containing coach's last name.
-     *  @param contactNo - String containing coach's contact number.
-     * 
-     * 
-     *  @return id - ID of just created record.
-     */
 
+
+    /**
+     * Creates a new doctor with the given first name, last name, and contact number.
+     *
+     * @param string $firstName The first name of the doctor
+     * @param string $lastName The last name of the doctor
+     * @param string $contactNo The contact number of the doctor
+     * @return int $id The ID of the newly created doctor
+     */
     public static function createNewDoctor($firstName, $lastName, $contactNo){
 
         $conn = Connection::connect();
@@ -90,14 +82,13 @@ class Doctor{
 
     }
 
-    /**
-     *  
-     *  Get all doctors from the database.
-     *        
-     * 
-     *  @return doctors - Array of all doctor records.
-     */
 
+
+    /**
+     * Retrieves all doctors from the database.
+     *
+     * @return array $doctors An array containing all the doctors fetched from the database.
+     */
     public static function getAllDoctors(){
         $conn = Connection::connect();
 
@@ -108,17 +99,15 @@ class Doctor{
         return $doctors;
     }
 
+
+
+
     /**
-     *  
-     *  Get specific doctor, output single record result.
-     *        
-     * 
-     *  @param doctorId - String containing Doctor's ID number
-     * 
-     *  @return doctor - Single record.
+     * Retrieves a doctor's information based on the provided doctor ID.
+     *
+     * @param int $doctorId The ID of the doctor to retrieve.
+     * @return string $doctor The details of the doctor if found, or null if not found.
      */
-
-
     public static function getDoctor($doctorId){
         $conn = Connection::connect();
 
@@ -129,13 +118,13 @@ class Doctor{
         return $doctor;
     }
 
-    /**
-     *   Delete specific doctor from database     
-     * 
-     *  @param doctorId - String containing Doctor's ID number
-     * 
-     */
 
+
+    /**
+     * Deletes a doctor from the database based on the provided doctor ID.
+     *
+     * @param int $doctorId The ID of the doctor to be deleted.
+     */
     public static function deleteDoctor($doctorId){
         $conn = Connection::connect();
 
