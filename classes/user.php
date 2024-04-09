@@ -49,6 +49,8 @@ class User{
          * If not, nothing should be returned
          * 
          */
+
+        ///  Prepare SQL querry to check if user exists
         $stmt = $conn->prepare(SQL::$getUser);
         $stmt->execute([$_POST["username"]]);
         $user = $stmt->fetch();
@@ -86,6 +88,8 @@ class User{
          * This wil also be moved to sql class in future updates.
          * 
          */
+
+        ///  Prepare SQL querry to retrieve email address based on username
         $sql_login = "SELECT email FROM users WHERE username = ?";
         $stmt_login = $conn->prepare($sql_login);
         $stmt_login->bindValue(1, $_POST["username"]);
@@ -128,7 +132,7 @@ class User{
             }
 
         $_SESSION["successMessage"] = "Login Successful!";
-        header("Location: " . Utils::$projectFilePath . "/success.php");
+        header("Location: " . Utils::$projectFilePath . "/success.php"); ///< This redirects user to another page.
 
         return "";
         
@@ -192,6 +196,8 @@ class User{
          * If user doesn't exist - returns empty results.
          * 
          */
+
+        ///  Prepare SQL querry to check if user exists
         $stmt = $conn->prepare(SQL::$getUser);
         $stmt->execute([$username]);
         $user = $stmt->fetch();
@@ -218,7 +224,7 @@ class User{
             $role = "Coach";
         }
 
-        /// Create new user
+        ///  Prepare SQL querry to create new user
     
         $stmt = $conn->prepare(SQL::$createUser);
         $stmt->execute([$username, $email, $hashedPassword, $role]);
@@ -226,91 +232,122 @@ class User{
         $insertedId = $conn->lastInsertId(); ///< Id of just created user
     
         $profileId = User::checkIfUserExists($username, $filteredEmail); /// Returns appropiate profileId, points to the right profile page.
+
+        if($profileId){
+
+            $_SESSION["loggedIn"] = true;  ///< Login state
+            $_SESSION["user_id"] = $insertedId;
+            $_SESSION["profileId"] = $profileId;
+            $_SESSION["username"] = $username;
+            $_SESSION["user_role"] = $role; 
+            $_SESSION["justRegistered"] = true; ///< Variable used to determine if user has just registered
+        
+            /// Close database connection
+            $conn = null; ///< Close the connection
+        
+            /// Set success message and redirect
+            $_SESSION["successMessage"] = "Registration Successful!";
+            header("Location: " . Utils::$projectFilePath . "/success.php");
+            exit(); /// Terminate script execution after redirect
+
+        } else{
+            $_SESSION["loggedIn"] = true; 
+            $_SESSION["user_id"] = $insertedId;
+            $_SESSION["username"] = $username; 
+            $_SESSION["user_role"] = "Member"; 
+            $_SESSION["justRegistered"] = true; 
+            $_SESSION["newMember"] = true; ///< Variable used to determine if member can access add-member.php to fill their info
+            header("Location: " . Utils::$projectFilePath . "/add-member.php"); 
+        }
     
-        $_SESSION["loggedIn"] = true;
-        $_SESSION["user_id"] = $insertedId;
-        $_SESSION["profileId"] = $profileId;
-        $_SESSION["username"] = $username;
-        $_SESSION["user_role"] = $role;
-        $_SESSION["justRegistered"] = true;
-    
-        /// Close database connection
-        $conn = null;
-    
-        /// Set success message and redirect
-        $_SESSION["successMessage"] = "Registration Successful!";
-        header("Location: " . Utils::$projectFilePath . "/success.php");
-        exit(); /// Terminate script execution after redirect
+
     }
 
-    public static function checkIfUserExists($username, $filteredEmail){
-        $conn = Connection::connect();
+    /**
+     * 
+     * @brief This function basically checks if email address entered by user is used by any of the members of the club.
+     * If it is used, appropiate profile page link will be assigned.
+     * Otherwise value of false will be returned.
+     * 
+     * New members will be redirected to another page that will prompt them to enter more information about them.
+     * Only after they do so
+     * 
+     */
 
-        $sql_coaches = "SELECT * FROM simplyrugby.coaches WHERE email_address = ?";
-        $stmt_coaches = $conn->prepare($sql_coaches);
-        $stmt_coaches->bindValue(1, $filteredEmail);
-        $stmt_coaches->execute();
-        $result_coaches = $stmt_coaches->fetchAll();
-    
-        $sql_players = "SELECT * FROM players WHERE email_address = ?";
-        $stmt_players = $conn->prepare($sql_players);
-        $stmt_players->bindValue(1, $filteredEmail);
-        $stmt_players->execute();
-        $result_players = $stmt_players->fetchAll();
+   public static function checkIfUserExists($username, $filteredEmail){
 
-    
-        $sql_juniors = "SELECT * FROM juniors WHERE email_address = ?";
-        $stmt_juniors = $conn->prepare($sql_juniors);
-        $stmt_juniors->bindValue(1, $filteredEmail);
-        $stmt_juniors->execute();
-        $result_juniors = $stmt_juniors->fetchAll();
-
-        $sql_members = "SELECT * FROM members WHERE email_address = ?";
-        $stmt_members = $conn->prepare($sql_members);
-        $stmt_members->bindValue(1, $filteredEmail);
-        $stmt_members->execute();
-        $result_members = $stmt_members->fetchAll();
+    $conn = Connection::connect(); ///< Connect to the database
 
 
-        if (!empty($result_coaches) && strpos($username, 'coach') !== false) {
-            $coachId = $result_coaches[0]['coach_id'];
-            $profileId = "coach-page.php?id=";
-            return $profileId . $coachId;
-        }
-        
-        if (!empty($result_players) && strpos($username, 'coach') === false) {
-            $playerId = $result_players[0]['player_id'];
-            $profileId = "player.php?id=";
-            return $profileId . $playerId;
-        }
-        
-        if (!empty($result_juniors) && strpos($username, 'coach') === false) {
-            $juniorId = $result_juniors[0]['junior_id'];
-            $profileId = "junior-page.php?id=";
-            return $profileId . $juniorId;
-        }
-        
-        if (!empty($result_members) && strpos($username, 'coach') === false) {
-            $memberId = $result_members[0]['member_id'];
-            $profileId = "member-page.php?id=";
-            return $profileId . $memberId;
-        }
+    /**
+     * Checks if email address is used in any of the member tables (Coaches, Players, Juniors & Members).
+     */
+    $sql_coaches = "SELECT * FROM simplyrugby.coaches WHERE email_address = ?";
+    $stmt_coaches = $conn->prepare($sql_coaches);
+    $stmt_coaches->bindValue(1, $filteredEmail);
+    $stmt_coaches->execute();
+    $result_coaches = $stmt_coaches->fetchAll();
 
+    $sql_players = "SELECT * FROM players WHERE email_address = ?";
+    $stmt_players = $conn->prepare($sql_players);
+    $stmt_players->bindValue(1, $filteredEmail);
+    $stmt_players->execute();
+    $result_players = $stmt_players->fetchAll();
 
-    
-        /// Check if the email exists in any of the tables
-        if (empty($result_players) || empty($result_members) || empty($result_juniors) || empty($result_coaches)) {
-            /// Close database connections and return true if the email exists
-            $conn = null;
-            return 0;
-        }
+    $sql_juniors = "SELECT * FROM juniors WHERE email_address = ?";
+    $stmt_juniors = $conn->prepare($sql_juniors);
+    $stmt_juniors->bindValue(1, $filteredEmail);
+    $stmt_juniors->execute();
+    $result_juniors = $stmt_juniors->fetchAll();
+
+    $sql_members = "SELECT * FROM members WHERE email_address = ?";
+    $stmt_members = $conn->prepare($sql_members);
+    $stmt_members->bindValue(1, $filteredEmail);
+    $stmt_members->execute();
+    $result_members = $stmt_members->fetchAll();
+
+    /// Check if user exists and return appropiate profile link
+    if (!empty($result_coaches) && strpos($username, 'coach') !== false) {
+        $coachId = $result_coaches[0]['coach_id'];
+        $profileId = "coach-page.php?id=";
+        return $profileId . $coachId; 
     }
+    
+    if (!empty($result_players) && strpos($username, 'coach') === false) {
+        $playerId = $result_players[0]['player_id'];
+        $profileId = "player.php?id=";
+        return $profileId . $playerId; 
+    }
+    
+    if (!empty($result_juniors) && strpos($username, 'coach') === false) {
+        $juniorId = $result_juniors[0]['junior_id'];
+        $profileId = "junior-page.php?id=";
+        return $profileId . $juniorId; 
+    }
+    
+    if (!empty($result_members) && strpos($username, 'coach') === false) {
+        $memberId = $result_members[0]['member_id'];
+        $profileId = "member-page.php?id=";
+        return $profileId . $memberId; 
+    }
+
+    /// If user not found, close db connection and return false
+    $conn = null; ///< Close the connection
+    return 0;
+}
 
     public static function updateRecord($username, $insertedId, $filteredEmail) {  
         $conn = Connection::connect();
     
-        $tableName = '';
+        $tableName = ''; ///< Empty by default, it will be set after if satement checks
     
+        /**
+         * 
+         * Checks if email address is used in any of the member tables (Coaches, Players, Juniors & Members).
+         * 
+         * If used, it sets $tableName to appropiate table name.
+         * 
+         */
         $sql_coaches = "SELECT * FROM coaches WHERE email_address = :email";
         $stmt_coaches = $conn->prepare($sql_coaches);
         $stmt_coaches->bindParam(':email', $filteredEmail);
@@ -346,6 +383,14 @@ class User{
         if (!empty($result_members) && strpos($username, 'coach') === false) {
             $tableName = 'members';
         }
+
+        /**
+         * 
+         * Update user_id in the specific table for specific user.
+         * 
+         * This command is executed differently because it can accept dynamic tables, and isn't just set to update one specific table.
+         * 
+         */
     
         if (!empty($tableName)) {
             $sql = sprintf(SQL::$assignUserId, $tableName);
@@ -358,7 +403,7 @@ class User{
             echo "Email address does not exist in any table.";
         }
     
-        $conn = null;
+        $conn = null; ///< Close the connection
     }
 
     

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Start session and include required PHP files
+ */
 session_start();
 require("classes/components.php");
 require("classes/connection.php");
@@ -7,27 +10,36 @@ require("classes/sql.php");
 require("classes/events.php");
 require("classes/utils.php");
 
-if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
+/// Redirect to logout page if user role is neither Admin nor Coach
+if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
+/**
+ * Render page header with specified styles and navigation options
+ */
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
-$gameName = $squad = $oppisition = $start = $end = $location = $result = $score = "";
-$gameNameErr = $squadErr = $oppisitionErr = $startErr = $endErr = $locationErr = $kickoffErr = $resultErr = $scoreErr = "";
+// Initialize variables for game details
+$gameName = $squad = $opposition = $start = $end = $location = $result = $score = "";
+$gameNameErr = $squadErr = $oppositionErr = $startErr = $endErr = $locationErr = $kickoffErr = $resultErr = $scoreErr = "";
 
-
+/// Initialize variables for training session details
 $sessionName = $coachName = $trainingSquad = $trainingLocation = "";
 $sessionNameErr = $coachNameErr = $trainingSquadErr = $trainingStartErr = $trainingEndErr = $trainingLocationErr = "";
 
+/// SQL query to retrieve coach names
 $coachSql = "SELECT first_name, last_name FROM simplyrugby.coaches";
 
+/// Establish database connection
 $conn = Connection::connect();
 
+/// Retrieve coaches' names from the database
 $stmt = $conn->prepare($coachSql);
 $stmt->execute();
 $coaches = $stmt->fetchAll();
 
+/// Retrieve squads from the database
 $stmt = $conn->prepare(SQL::$getSquads);
 $stmt->execute();
 $squads = $stmt->fetchAll();
