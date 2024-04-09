@@ -1,6 +1,8 @@
 <?php
+/**
+ * Start session and include required PHP files
+ */
 session_start();
-
 require("classes/components.php");
 require("classes/utils.php");
 require_once("classes/connection.php");
@@ -9,11 +11,12 @@ require("classes/address.php");
 require("classes/guardian.php");
 require("classes/doctor.php");
 
+/// Redirect to logout page if user role is neither Admin nor Coach
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
 
-// Define variables and initialize them
+/// Initialize Error variables
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $guardianNameErr = $guardianContactErr = $relationshipErr = "";
 $guardianAddress11Err = $guardianAddress12Err = $guardianCity1Err = $guardianCounty1Err = $guardianPostcode1Err = "";
@@ -23,341 +26,300 @@ $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $doctorNameErr = $doctorContactErr = "";
 $genuineErr = $profileImageErr = "";
 
+/// Initialize variables for doctor details
 $doctorId = $addressId = "";
 
-
+/// Initialize variables for junior details
 $name = $dob = $email = $sru = $contactNo = $mobileNo = $healthIssues = $profileImage = $filename = "";
 $firstName = $lastName = "";
 
+/// Initialize variables for guardian number 1
 $guardianFirstName = $guardianLastName = "";
 $guardianName = $guardianContact = $relationship = "";
 $guardianAddress11 = $guardianAddress12 = $guardianCity1 = $guardianCounty1 = $guardianPostcode1 = "";
 
+/// Initialize variables for guardian number 2
 $guardianFirstName2 = $guardianLastName2 ="";
 $guardianName2 = $guardianContact2 = $relationship2 ="";
 $guardianAddress21 = $guardianAddress22 = $guardianCity2 = $guardianCounty2 = $guardianPostcode2 = "";
 
-
+/// Initialize variables for address details
 $address1 = $address2 = $city = $county = $postcode = "";
 $doctorName = $doctorContact = "";
 
-
+/**
+ * 
+ * Form validation.
+ * 
+ * Fields will be checked if they are empty.
+ * Some of the fields are not required but all fields will be checked for correct data type.
+ * 
+ * If all error messages are empty, the form is valid and new event can be added.
+ * 
+ * User can add 1 or 2 guardians
+ * 
+ */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
+    /// Validate name
     if (empty($_POST["name"])) {
-        $nameErr = "Name is required";
+        $nameErr = "Name is required"; ///< Display error message
     } else {
         $name = test_input($_POST["name"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
-            $nameErr = "Only letters and white space allowed";
+            $nameErr = "Only letters and white space allowed"; ///< Display error message
         }
 
-        $nameParts = explode(" ", $name);
+        $nameParts = explode(" ", $name); ///< Split name into first and last name
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $firstName = $nameParts[0];
         $lastName = end($nameParts);
     }
 
-    // Validate email
+    /// Validate email
     if (empty($_POST["email"])) {
-        $emailErr = "Email is required";
+        $emailErr = "Email is required"; ///< Display error message
     } else {
-        $email = test_input($_POST["email"]);
-        // Check if email address is well-formed
+        $email = test_input($_POST["email"]); ///< Sanitize email address
+        /// Check if email address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Invalid email format";
+            $emailErr = "Invalid email format"; ///< Display error message
         }
     }
 
+    /// Validate SRU number
     if (empty($_POST["sru"])){
-        $sruErr = "SRU Number is required";
-
-
+        $sruErr = "SRU Number is required"; ///< Display error message
     } else {
-        $sru = test_input($_POST["sru"]);
+        $sru = test_input($_POST["sru"]); ///< Sanitize sru number
         if (!preg_match("/^\d+$/", $sru)) {
             $sruErr = "Only digits allowed";
         }
     }
 
+    /// Validate date of birth
     if (empty($_POST["dob"])){
-        $dobErr = "Date of birth is required";
-
-
+        $dobErr = "Date of birth is required";  ///< Display error message
     } else {
-        $dob = test_input($_POST["dob"]);
+        $dob = test_input($_POST["dob"]);  ///< Sanitize date of birth
         if (!preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $dob)) {
             $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
         }
 
-        $dateTime = DateTime::createFromFormat('d/m/Y', $dob);
-        $sqlDate = $dateTime->format('Y-m-d');
+        $dateTime = DateTime::createFromFormat('d/m/Y', $dob); ///< Create DateTime object from date of birth
+        $sqlDate = $dateTime->format('Y-m-d'); ///< Format date of birth to YYYY-MM-DD
     }
 
+    /// Validate contact number
     if(empty($_POST["contactNo"])){
-        $contactNoErr = "Contact Number is required";
-
+        $contactNoErr = "Contact Number is required"; ///< Display error message
     } else {
-        $contactNo = test_input($_POST["contactNo"]);
+        $contactNo = test_input($_POST["contactNo"]);  ///< Sanitize contact number
         if (!preg_match("/^\d+$/", $contactNo)) {
-            $contactNoErr = "Only digits allowed";
+            $contactNoErr = "Only digits allowed"; ///< Display error message
         }
     }
 
+    /// Validate address line 1
     if(empty($_POST["address1"])){
-        $address1Err = "Address Line 1 is required";
-
+        $address1Err = "Address Line 1 is required"; ///< Display error message
     } else {
-        $address1 = test_input($_POST["address1"]);
+        $address1 = test_input($_POST["address1"]);  ///< Sanitize address line 1
         if ((strlen($address1)<10) || (strlen($address1) > 50)){
-            $address1Err = "Address Line 1 must be between 10 and 50 characters long!";
+            $address1Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
-    if(!empty($_POST["address2"])){
-        $address2 = test_input($_POST["address2"]);
-    }
-
-    if(!empty($_POST["mobileNo"])){
-        $mobileNo = test_input($_POST["mobileNo"]);
-        if (!preg_match("/^\d+$/", $mobileNo)) {
-            $mobileNoErr = "Only digits allowed";
-        }
-    } 
-
+    /// Validate city
     if(empty($_POST["city"])){
-        $cityErr = "City is required";
-
+        $cityErr = "City is required"; ///< Display error message
     } else {
-        $city = test_input($_POST["city"]);
+        $city = test_input($_POST["city"]);  ///< Sanitize city
         if ((strlen($city)<5) || (strlen($city) > 50)){
-            $cityErr = "City must be between 10 and 50 characters long!";
+            $cityErr = "City must be between 5 and 50 characters long!"; ///< Display error message
         }
     }
 
-    if(!empty($_POST["county"])){
-        $county = test_input($_POST["county"]);
-        if ((strlen($county)<5) || (strlen($county) > 50)){
-            $countyErr = "County must be between 10 and 50 characters long!";
-        }
-    }
-
+    /// Validate postcode
     if(empty($_POST["postcode"])){
-        $postcodeErr = "Postcode is required";
-
+        $postcodeErr = "Postcode is required"; ///< Display error message
     } else {
-        $postcode = test_input($_POST["postcode"]);
+        $postcode = test_input($_POST["postcode"]);  ///< Sanitize postcode
         if ((strlen($postcode)<6) || (strlen($postcode) > 8)){
-            $postcodeErr = "Postcode must be 6 characters long!";
+            $postcodeErr = "Postcode must be between 6 and 8 characters long!"; ///< Display error message
         }
     }
 
-
- 
-
-
-    // Guardian Contact Details
-
+    /// Validate guardian's name
     if (empty($_POST["guardianName"])) {
-        $guardianNameErr = "Guardian's name is required";
+        $guardianNameErr = "Guardian's name is required"; ///< Display error message
     } else {
-        $guardianName = test_input($_POST["guardianName"]);
-        // Check if name only contains letters and whitespace
+        $guardianName = test_input($_POST["guardianName"]);   ///< Sanitize guardian's name
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $guardianName)) {
-            $guardianNameErr = "Only letters and white space allowed";
+            $guardianNameErr = "Only letters and white space allowed"; ///< Display error message
         }
 
-        $guardianNameParts = explode(" ", $guardianName);
+        $guardianNameParts = explode(" ", $guardianName); ///< Split name into first and last name
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $guardianFirstName = $guardianNameParts[0];
         $guardianLastName = end($guardianNameParts);
     }
 
+    /// Validate guardian's contact number
     if(empty($_POST["guardianContact"])){
-        $guardianContactErr = "Contact Number is required";
-
+        $guardianContactErr = "Contact Number is required"; ///< Display error messages
     } else {
-        $guardianContact = test_input($_POST["guardianContact"]);
+        $guardianContact = test_input($_POST["guardianContact"]);  ///< Sanitize guardian's contact number
         if (!preg_match("/^\d+$/", $guardianContact)) {
-            $guardianContactErr = "Only digits allowed";
+            $guardianContactErr = "Only digits allowed"; ///< Display error message
         }
     }
 
+    /// Validate guardian's relationship
     if(empty($_POST["relationship"])){
-        $relationshipErr = "Relationship is required";
+        $relationshipErr = "Relationship is required"; ///< Display error message
     } else{
-        $relationship = test_input($_POST["relationship"]);
-        // Check if name only contains letters and whitespace
+        $relationship = test_input($_POST["relationship"]);  ///< Sanitize relationship
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship)) {
-            $relationshipErr = "Only letters and white space allowed";
+            $relationshipErr = "Only letters and white space allowed"; ///< Display error message
         }
     }
 
-
+    /// Validate guardian's address line 1
     if(empty($_POST["guardianAddress11"])){
-        $guardianAddress11Err = "Address Line 1 is required";
-
+        $guardianAddress11Err = "Address Line 1 is required"; ///< Display error message
     } else {
-        $guardianAddress11 = test_input($_POST["guardianAddress11"]);
+        $guardianAddress11 = test_input($_POST["guardianAddress11"]);  ///< Sanitize guardian's address line 1
         if ((strlen($guardianAddress11)<10) || (strlen($guardianAddress11) > 50)){
-            $guardianAddress11Err = "Address Line 1 must be between 10 and 50 characters long!";
+            $guardianAddress11Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
-    if(!empty($_POST["guardianAddress12"])){
-        $guardianAddress12 = test_input($_POST["guardianAddress12"]);
-    }
-
+    /// Validate guardian's city
     if(empty($_POST["guardianCity1"])){
-        $guardianCity1Err = "City is required";
-
+        $guardianCity1Err = "City is required"; ///< Display error message
     } else {
-        $guardianCity1 = test_input($_POST["guardianCity1"]);
+        $guardianCity1 = test_input($_POST["guardianCity1"]);  ///< Sanitize guardian's city
         if ((strlen($guardianCity1)<5) || (strlen($guardianCity1) > 50)){
-            $guardianCity1Err = "City must be between 10 and 50 characters long!";
+            $guardianCity1Err = "City must be between 5 and 50 characters long!"; ///< Display error message
         }
     }
 
-    if(!empty($_POST["guardianCounty1"])){
-        $guardianCounty1 = test_input($_POST["guardianCounty1"]);
-        if ((strlen($guardianCounty1)<5) || (strlen($guardianCounty1) > 50)){
-            $guardianCounty1Err = "County must be between 10 and 50 characters long!";
-        }
-    }
-
+    /// Validate guardian's postcode
     if(empty($_POST["guardianPostcode1"])){
-        $guardianPostcode1Err = "Postcode is required";
-
+        $guardianPostcode1Err = "Postcode is required"; ///< Display error message
     } else {
-        $guardianPostcode1 = test_input($_POST["guardianPostcode1"]);
+        $guardianPostcode1 = test_input($_POST["guardianPostcode1"]);  ///< Sanitize guardian's postcode
         if ((strlen($guardianPostcode1)<6) || (strlen($guardianPostcode1) > 8)){
-            $guardianPostcode1Err = "Postcode must be 6 characters long!";
+            $guardianPostcode1Err = "Postcode must be 6 characters long!"; ///< Display error message
         }
     }
 
-
-
-
-
-    
-
-    //Secondary Guradian
-
+    /// Check if secondary guardian details are provided
     if($_POST['elementForVar1HiddenField'] == 1){
+        /// Validate secondary guardian's name
         if(empty($_POST["guardianName2"])){
-            $guardianName2Err =  "Guardian's name is required";
+            $guardianName2Err =  "Guardian's name is required"; ///< Display error message
         } else {
-            $guardianName2 = test_input($_POST["guardianName2"]);
-            // Check if name only contains letters and whitespace
+            $guardianName2 = test_input($_POST["guardianName2"]);  ///< Sanitize guardian's name
+            /// Check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z-' ]*$/", $guardianName2)) {
-                $guardianName2Err = "Only letters and white space allowed";
+                $guardianName2Err = "Only letters and white space allowed"; ///< Display error message
             }
-    
-            $guardianNameParts2 = explode(" ", $guardianName2);
-    
-            // Extract the first and last names
+
+            $guardianNameParts2 = explode(" ", $guardianName2); ///< Split name into first and last name
+
+            /// Extract the first and last names
             $guardianFirstName2 = $guardianNameParts2[0];
             $guardianLastName2 = end($guardianNameParts2);
         }
-    
+
+        /// Validate secondary guardian's contact number
         if(empty($_POST["guardianContact2"])){
-            $guardianContact2Err = "Contact Number is required";
-    
+            $guardianContact2Err = "Contact Number is required"; ///< Display error message
         } else {
-            $guardianContact2 = test_input($_POST["guardianContact"]);
+            $guardianContact2 = test_input($_POST["guardianContact2"]);  ///< Sanitize guardian's contact number
             if (!preg_match("/^\d+$/", $guardianContact2)) {
-                $guardianContact2Err = "Only digits allowed";
-            }
-        }
-    
-        if(empty($_POST["relationship2"])){
-            $relationship2Err = "Relationship is required";
-        } else{
-            $relationship2 = test_input($_POST["relationship2"]);
-            // Check if name only contains letters and whitespace
-            if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship2)) {
-                $relationship2Err = "Only letters and white space allowed";
+                $guardianContact2Err = "Only digits allowed"; ///< Display error message
             }
         }
 
+        /// Validate secondary guardian's relationship
+        if(empty($_POST["relationship2"])){
+            $relationship2Err = "Relationship is required"; ///< Display error message
+        } else{
+            $relationship2 = test_input($_POST["relationship2"]);  ///< Sanitize relationship
+            /// Check if name only contains letters and whitespace
+            if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship2)) {
+                $relationship2Err = "Only letters and white space allowed"; ///< Display error message
+            }
+        }
+
+        /// Validate secondary guardian's address line 1
         if(empty($_POST["guardianAddress21"])){
-            $guardianAddress21Err = "Address Line 1 is required";
-    
+            $guardianAddress21Err = "Address Line 1 is required"; ///< Display error message
         } else {
-            $guardianAddress21 = test_input($_POST["guardianAddress21"]);
+            $guardianAddress21 = test_input($_POST["guardianAddress21"]);  ///< Sanitize guardian's address line 1
             if ((strlen($guardianAddress21)<10) || (strlen($guardianAddress21) > 50)){
-                $guardianAddress21Err = "Address Line 1 must be between 10 and 50 characters long!";
+                $guardianAddress21Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
             }
         }
-    
-        if(!empty($_POST["guardianAddress22"])){
-            $guardianAddress22 = test_input($_POST["guardianAddress22"]);
-        }
-    
+
+        /// Validate secondary guardian's city
         if(empty($_POST["guardianCity2"])){
-            $guardianCity2Err = "City is required";
-    
+            $guardianCity2Err = "City is required"; ///< Display error message
         } else {
-            $guardianCity2 = test_input($_POST["guardianCity2"]);
+            $guardianCity2 = test_input($_POST["guardianCity2"]);  ///< Sanitize guardian's city
             if ((strlen($guardianCity2)<5) || (strlen($guardianCity2) > 50)){
-                $guardianCity2Err = "City must be between 10 and 50 characters long!";
+                $guardianCity2Err = "City must be between 5 and 50 characters long!"; ///< Display error message
             }
         }
-    
-        if(!empty($_POST["guardianCounty2"])){
-            $guardianCounty2 = test_input($_POST["guardianCounty2"]);
-            if ((strlen($guardianCounty2)<5) || (strlen($guardianCounty2) > 50)){
-                $guardianCounty2Err = "County must be between 10 and 50 characters long!";
-            }
-        }
-    
+
+        /// Validate secondary guardian's postcode
         if(empty($_POST["guardianPostcode2"])){
-            $guardianPostcode2Err = "Postcode is required";
-    
+            $guardianPostcode2Err = "Postcode is required"; ///< Display error message
         } else {
-            $guardianPostcode2 = test_input($_POST["guardianPostcode2"]);
+            $guardianPostcode2 = test_input($_POST["guardianPostcode2"]);  ///< Sanitize guardian's postcode
             if ((strlen($guardianPostcode2)<6) || (strlen($guardianPostcode2) > 8)){
-                $guardianPostcode2Err = "Postcode must be 6 characters long!";
+                $guardianPostcode2Err = "Postcode must be 6 characters long!"; ///< Display error message
             }
         }
     }
-  
 
-    // Doctor Details
-
-    // Validate name
+    /// Validate doctor's name
     if (empty($_POST["doctorName"])) {
-        $doctorNameErr = "Doctor's name is required";
+        $doctorNameErr = "Doctor's name is required"; ///< Display error message
     } else {
-        $doctorName = test_input($_POST["doctorName"]);
-        // Check if name only contains letters and whitespace
+        $doctorName = test_input($_POST["doctorName"]);  ///< Sanitize doctor's name
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
-            $doctorNameErr = "Only letters and white space allowed";
+            $doctorNameErr = "Only letters and white space allowed"; ///< Display error message
         }
 
-        $doctorNameParts = explode(" ", $doctorName);
+        $doctorNameParts = explode(" ", $doctorName); ///< Split name into first and last name
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $doctorFirstName = $doctorNameParts[0];
         $doctorLastName = end($doctorNameParts);
     }
 
+    /// Validate doctor's contact number
     if(empty($_POST["doctorContact"])){
-        $doctorContactErr = "Contact Number is required";
-
+        $doctorContactErr = "Contact Number is required"; ///< Display error message
     } else {
-        $doctorContact = test_input($_POST["doctorContact"]);
+        $doctorContact = test_input($_POST["doctorContact"]);  ///< Sanitize doctor's contact number
         if (!preg_match("/^\d+$/", $doctorContact)) {
-            $doctorContactErr = "Only digits allowed";
+            $doctorContactErr = "Only digits allowed"; ///< Display error message
         }
     }
 
     
 
-    // If there are no errors, redirect to success page
+    /// If there are no errors, proceed with sql querries
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
         && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
         && empty($guardianNameErr) && empty($guardianContactErr) && empty($relationshipErr) 
@@ -366,34 +328,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         && empty($guardianName2Err) && empty($guardianContact2Err) && empty($relationship2Err)  
         && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
 
-        $conn = Connection::connect();
+        $conn = Connection::connect(); ///< Connect to database
 
-        $guardian1AddressId = $guardian2AddressId = $guardian2AddressId = $guardianId = $guardianId2 = "";
+        $guardian1AddressId = $guardian2AddressId = $guardian2AddressId = $guardianId = $guardianId2 = ""; ///< Empty for now, but will be set and passed as parameter to SQL querries
         
-        $existingUser = Junior::juniorExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo);
+        $existingUser = Junior::juniorExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo); /// Check if junior exists
 
+        /// If junior exists output error message
         if($existingUser){
             $genuineErr = "ERROR: Player already exists!";
         }
 
+        /**
+         * Check if the address exists in the database and retrieve its ID if found, otherwise create a new address.
+         */
         $existingAddress = Address::addressExists($address1, $address2, $city, $county, $postcode);
         $guardian1Address = Address::addressExists($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
         
         if (!$guardian1Address) {
-            // Create guardian address if it doesn't exist
             $guardian1AddressId = Address::createNewAddress($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
         } else {
-            // Use the existing guardian address ID
             $guardian1AddressId = $guardian1Address;
         }
 
-
-
-
-
-        // First guardian
-        // Check existing guardian
-
+        /**
+         * Check if a guardian already exists based on first name, last name, and contact.
+         * If the guardian exists, retrieve the guardian ID.
+         * If the guardian does not exist, create a new guardian and retrieve the guardian ID.
+         *
+         */
         $existingGuardian = Guardian::guardianExists($guardianFirstName, $guardianLastName, $guardianContact);
         
         if ($existingGuardian) {
@@ -402,9 +365,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $guardianId = Guardian::createGuardian($guardian1AddressId, $guardianFirstName, $guardianLastName, $guardianContact, $relationship);
         }
 
-        
+        /// Validation for second guardian if radio option 2 is selected.
         if ($_POST['elementForVar1HiddenField'] == 1) {
 
+            /**
+             * Check if the address already exists in the database. 
+             * If it does not exist, create a new address.
+             */
             $guardian2Address = Address::addressExists($guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2);
     
             if (!$guardian2Address) {
@@ -413,6 +380,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $guardian2AddressId = $guardian2Address;
             }
 
+
+            
+            /**
+             * Checks if a guardian with the given first name, last name, and contact exists in the database. 
+             * If the guardian exists, retrieves the guardian ID. 
+             * If the guardian does not exist, creates a new guardian with the provided details and assigns the generated guardian ID.
+             */
             $existingGuardian2 = Guardian::guardianExists($guardianFirstName2, $guardianLastName2, $guardianContact2);
             
             if ($existingGuardian2) {
@@ -427,36 +401,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
 
 
-
+        /// Check if address exists. If not, create new address.
         if($existingAddress){
             $addressId = Address::getExistingAddress($address1, $address2, $city, $county, $postcode);
         }
-
         else{
             $addressId = Address::createNewAddress($address1, $address2, $city, $county, $postcode);
 
         }
-
+        
+        /**
+         * Check if a doctor already exists based on first name, last name, and contact.
+         * If the doctor exists, retrieve the doctor ID. If not, create a new doctor and return the ID.
+         *
+         */
         $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);
-
+        
         if($existingDoctor){
 
             $doctorId = Doctor::existingDoctorId($doctorFirstName, $doctorLastName, $doctorContact);
         }
-
         else{
             $doctorId = Doctor::createNewDoctor($doctorFirstName, $doctorLastName, $doctorContact);
         
-        
         }
 
+        /// If genuine error like "not all field filled/correct" is empty
         if(empty($genuineErr)){
+
+            /**
+             * Handles the upload of a profile image file.
+             *
+             * This function checks if a profile image file has been uploaded, validates its format and size,
+             * and moves the file to the designated directory if it meets the criteria.
+             *
+             */
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
                 $filetype = Utils::getFileExtension($filename);
-                $isValidImage = in_array($filetype, ["jpg", "jpeg", "png", "gif"]);
+                $isValidImage = in_array($filetype, ["jpg", "jpeg", "png", "gif"]); ///< Valid image formats
             
-                $isValidSize = $_FILES["profileImage"]["size"] <= 1000000;
+                $isValidSize = $_FILES["profileImage"]["size"] <= 1000000; ///< Max image size
             
                 if (!$isValidImage || !$isValidSize) {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: Invalid file size/format</p>";
@@ -468,16 +453,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             }
-
+            /// Create a new junior player 
             $juniorId = Junior::createNewJunior($addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename);
 
+
+            /**
+             * Create a new association between a junior, guardian, and doctor.
+             */
             Junior::createAssociation($juniorId, $guardianId, $doctorId);
 
+            /**
+             * Check if the value of the 'elementForVar1HiddenField' in the $_POST array is equal to 1.
+             * If true, create an association using the Junior model with the provided $juniorId, $guardianId2, and $doctorId.
+             *
+             */
             if ($_POST['elementForVar1HiddenField'] == 1) {
                 Junior::createAssociation($juniorId, $guardianId2, $doctorId);
             }
         }
-
+        /// Redirect back to junior list to see changes
         header("Location: " . Utils::$projectFilePath . "/junior-list.php");
 
 
@@ -488,13 +482,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 
 components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 ?>
@@ -703,6 +705,9 @@ enctype="multipart/form-data">
     const sGuardDetails = document.getElementById("second-guardian-form");
 
     
+    /**
+     * Function to check if a radio button is checked and display or hide a specific element accordingly.
+     */
     function radioChecked(){
         if (document.getElementById("radio-two").checked){
             sGuardDetails.style.display = "block";
@@ -720,6 +725,9 @@ enctype="multipart/form-data">
     showTab();
     radioChecked();
 
+    /**
+     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     */
     function nextTab(){
         currentTab += 1;
         showTab();
@@ -730,6 +738,10 @@ enctype="multipart/form-data">
         showTab();
     }
 
+    /**
+     * Show the tab based on the currentTab value.
+     * Display the corresponding details section based on the currentTab value.
+     */
     function showTab(){
         if ( currentTab == 0){
             pDetails.style.display = "block";
@@ -766,6 +778,9 @@ enctype="multipart/form-data">
         }
     }
 
+    /**
+     * Function to validate a form with multiple input fields.
+     */
     function validateForm() {
         let hiddenInput = document.getElementById('elementForVar1HiddenField');
         let nameInput = document.forms[0]["name"].value.trim();

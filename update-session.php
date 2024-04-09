@@ -85,14 +85,14 @@ $name = $coach = $squad = $start = $end = $location = "";
 $nameErr = $coachErr = $squadErr = $startErr = $endErr = $locationErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
+    /// Validate name
     if (empty($_POST["name"])) {
         $name = $sessionName;
     } else {
         $name = test_input($_POST["name"]);
     }
 
-        // Validate name
+        /// Validate name
         if (empty($_POST["coach"])) {
             $coach = $coachNamePlaceholder;
         } else {
@@ -123,9 +123,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $location = test_input($_POST["location"]);
         }
 
-        // Training Details
+        /// Training Details
 
-        // Validate name
+        /// Validate name
         if (empty($_POST["skills"])) {
             $skills = $skillsPlaceholder;
         } else {
@@ -179,13 +179,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
+
 function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-?>
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}?>
 
 <main class="content-wrapper profile-list-content">
     <form 

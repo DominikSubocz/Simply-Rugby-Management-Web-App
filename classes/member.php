@@ -1,6 +1,6 @@
 <?php
 
-// If one of these file has already been included, do not do so again
+/// If one of these file has already been included, do not do so again
 require_once("classes/connection.php");
 require_once("classes/sql.php");
 require_once("classes/utils.php");
@@ -29,12 +29,12 @@ class Member
   {
     $conn = Connection::connect();
 
-    // Prepare and execute the query and get the results.
+    /// Prepare and execute the query and get the results.
     $stmt = $conn->prepare(SQL::$getAllMembers);
     $stmt->execute();
     $members = $stmt->fetchAll();
 
-    // Null the connection object when we no longer need it
+    /// Null the connection object when we no longer need it
     $conn = null;
 
     return $members;

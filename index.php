@@ -19,7 +19,7 @@ if(isset($_SESSION["user_role"])){
 }
 
 
-// Output page header with a given title, stylesheet, and script
+/// Output page header with a given title, stylesheet, and script
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 ?>

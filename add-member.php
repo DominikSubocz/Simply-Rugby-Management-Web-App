@@ -6,6 +6,10 @@ require("classes/sql.php");
 require("classes/utils.php");
 require_once("classes/connection.php");
 
+/**
+ * Check if the session variable "newMember" is not set, and if the user role is not "Admin" or "Coach",
+ * redirect to the logout page.
+ */
 if(!isset($_SESSION["newMember"])){
     if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
         header("Location: " . Utils::$projectFilePath . "/logout.php");
@@ -13,136 +17,149 @@ if(!isset($_SESSION["newMember"])){
 } 
 
 
-// Define variables and initialize them
+/**
+ * Initialize error variables for form validation.
+ * These variables will be used to display error messages on the form.
+ */
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $genuineErr = $profileImageErr = "";
 
+/// Initialize variables
 $name = $dob = $email = $sru = $contactNo = $mobileNo = $profileImage = $filename = "";
 $address1 = $address2 = $city = $county = $postcode = "";
 $firstName = $lastName = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
+    /// Validate name
     if (empty($_POST["name"])) {
         $nameErr = "Name is required";
     } else {
         $name = test_input($_POST["name"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
-            $nameErr = "Only letters and white space allowed";
+            $nameErr = "Only letters and white space allowed"; ///< Display error message
         }
 
-        $nameParts = explode(" ", $name);
+        $nameParts = explode(" ", $name); ///< Split the name into first and last name
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $firstName = $nameParts[0];
         $lastName = end($nameParts);
     }
 
-    // Validate email
+    /// Validate email
     if (empty($_POST["email"])) {
         $emailErr = "Email is required";
     } else {
         $email = test_input($_POST["email"]);
-        // Check if email address is well-formed
+        /// Check if email address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Invalid email format";
+            $emailErr = "Invalid email format"; ///< Display error message
         }
     }
-
+    /// Validate SRU number
     if (empty($_POST["sru"])){
-        $sruErr = "SRU Number is required";
+        $sruErr = "SRU Number is required"; ///< Display error message
 
 
     } else {
         $sru = test_input($_POST["sru"]);
         if (!preg_match("/^\d+$/", $sru)) {
-            $sruErr = "Only digits allowed";
+            $sruErr = "Only digits allowed"; ///< Display error message
         }
     }
 
+    /// Validate DOB 
     if (empty($_POST["dob"])){
-        $dobErr = "Date of birth is required";
+        $dobErr = "Date of birth is required"; ///< Display error message
 
 
     } else {
         $dob = test_input($_POST["dob"]);
         if (!preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $dob)) {
-            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
+            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY"; ///< Display error message
         }
 
-        $dateTime = DateTime::createFromFormat('d/m/Y', $dob);
-        $sqlDate = $dateTime->format('Y-m-d');
+        $dateTime = DateTime::createFromFormat('d/m/Y', $dob); ///< Create a DateTime object from the DOB
+        $sqlDate = $dateTime->format('Y-m-d');  ///< Format the DateTime object to YYYY-MM-DD
     }
-
+    /// Validate Contact number
     if(empty($_POST["contactNo"])){
-        $contactNoErr = "Contact Number is required";
+        $contactNoErr = "Contact Number is required"; ///< Display error message
 
     } else {
-        $contactNo = test_input($_POST["contactNo"]);
+        $contactNo = test_input($_POST["contactNo"]); ///< Sanitize the contact number
         if (!preg_match("/^\d+$/", $contactNo)) {
-            $contactNoErr = "Only digits allowed";
+            $contactNoErr = "Only digits allowed"; ///< Display error message
         }
     }
-
+    /// Validate Mobile number if it isn't empty
     if(!empty($_POST["mobileNo"])){
-        $mobileNo = test_input($_POST["mobileNo"]);
+        $mobileNo = test_input($_POST["mobileNo"]); ///< Sanitize the mobile number
         if (!preg_match("/^\d+$/", $mobileNo)) {
-            $mobileNoErr = "Only digits allowed";
+            $mobileNoErr = "Only digits allowed"; ///< Display error message
         }
     } 
-
+    /// Validate Address Line 1
     if(empty($_POST["address1"])){
-        $address1Err = "Address Line 1 is required";
+        $address1Err = "Address Line 1 is required"; ///< Display error message
 
     } else {
-        $address1 = test_input($_POST["address1"]);
+        $address1 = test_input($_POST["address1"]); ///< Sanitize the address line 1
         if ((strlen($address1)<10) || (strlen($address1) > 50)){
             $address1Err = "Address Line 1 must be between 10 and 50 characters long!";
         }
     }
-
+    /// Validate Address Line 2 if it isn't empty
     if(!empty($_POST["address2"])){
-        $address2 = test_input($_POST["address2"]);
+        $address2 = test_input($_POST["address2"]); ///< Sanitize the address line 2
     }
-
+    /// Validate city
     if(empty($_POST["city"])){
-        $cityErr = "City is required";
+        $cityErr = "City is required"; ///< Display error message
 
     } else {
-        $city = test_input($_POST["city"]);
+        $city = test_input($_POST["city"]); ///< Sanitize the city  
         if ((strlen($city)<5) || (strlen($city) > 50)){
-            $cityErr = "City must be between 10 and 50 characters long!";
+            $cityErr = "City must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
-
+    /// Validate county if it isn't empty
     if(!empty($_POST["county"])){
-        $county = test_input($_POST["county"]);
+        $county = test_input($_POST["county"]); ///< Sanitize the county
         if ((strlen($county)<5) || (strlen($county) > 50)){
-            $countyErr = "County must be between 10 and 50 characters long!";
+            $countyErr = "County must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
-
+    /// Validate postcode
     if(empty($_POST["postcode"])){
-        $postcodeErr = "Postcode is required";
+        $postcodeErr = "Postcode is required"; ///< Display error message
 
     } else {
-        $postcode = test_input($_POST["postcode"]);
+        $postcode = test_input($_POST["postcode"]); ///< Sanitize the postcode
         if ((strlen($postcode)<6) || (strlen($postcode) > 8)){
-            $postcodeErr = "Postcode must be 6 characters long!";
+            $postcodeErr = "Postcode must be 6 characters long!"; ///< Display error message
         }
     }
 
 
     
-    // If there are no errors, redirect to success page
+    /**
+     * Validates form data and creates a new member if all fields are valid.
+     * 
+     * This function checks for errors in various form fields and then proceeds to create a new member in the database if no errors are found.
+     *
+     */
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty ($genuineErr)) {
         $conn = Connection::connect();
 
+        /**
+         * Executes a prepared SQL statement to check if a member exists in the database.
+         */
         $stmt = $conn->prepare(SQL::$memberExists);
         $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
         $existingUser = $stmt->fetch();
@@ -152,12 +169,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $genuineErr = "ERROR: Member already exists!";
         }
 
+        /**
+         * Check if an address already exists in the database.
+         *
+         */
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
         $existingAddress = $stmt->fetch();
 
         if($existingAddress){
 
+            /**
+             * Retrieves the existing address ID from the database.
+             *
+             */
             $stmt = $conn->prepare(SQL::$getExistingAddressId);
             $stmt->execute([$address1, $address2, $city, $county, $postcode]);
             $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
@@ -165,9 +190,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         else{
 
+            /**
+             * Prepares and executes a SQL statement to create a new address.
+             */
             $stmt = $conn->prepare(SQL::$createNewAddress);
             $stmt->execute([$address1, $address2, $city, $county, $postcode]);
 
+            /**
+             * Retrieves the existing address ID from the database.
+             */
             $stmt = $conn->prepare(SQL::$getExistingAddressId);
             $stmt->execute([$address1, $address2, $city, $county, $postcode]);
             $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
@@ -177,6 +208,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(empty($genuineErr)){
 
 
+            /**
+             * Handles the upload of a profile image file.
+             *
+             * This function checks if a profile image file has been uploaded, validates its format and size,
+             * and moves the file to the designated directory if it meets the criteria.
+             *
+             */
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
                 $filetype = Utils::getFileExtension($filename);
@@ -195,8 +233,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
 
+            /**
+             * Prepares and executes a SQL statement to create a new member in the database.
+             */
             $stmt = $conn->prepare(SQL::$createNewMember);
             $stmt->execute([$addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $filename]);
+
+            /**
+             * Redirects the user based on the session data.
+             * If the session variable "newMember" is set, it sets a success message and redirects to success.php.
+             * If the session variable "newMember" is not set, it redirects to member-list.php.
+             */
             if(isset($_SESSION["newMember"])){
                 $_SESSION["successMessage"] = "Registration Successful!";
                 header("Location: " . Utils::$projectFilePath . "/success.php");
@@ -208,11 +255,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         }
-
-
-
-
-
     }
 
     else{
@@ -221,13 +263,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 ?>
 
@@ -324,6 +374,9 @@ enctype="multipart/form-data">
 
     showTab();
 
+    /**
+     * Functions to navigate to the next and previous tabs in a multi-step form.
+     */
     function nextTab(){
         currentTab += 1;
         showTab();
@@ -334,6 +387,11 @@ enctype="multipart/form-data">
         showTab();
     }
 
+    /**
+     * Show the tab based on the currentTab value.
+     * If currentTab is 0, display the paragraph details and hide the anchor details.
+     * If currentTab is not 0, hide the paragraph details and display the anchor details.
+     */
     function showTab(){
         if ( currentTab == 0){
             pDetails.style.display = "block";
@@ -348,6 +406,12 @@ enctype="multipart/form-data">
         }
     }
 
+    /**
+     * Validates the form fields to ensure all required fields are filled out.
+     * Displays an alert message if any required field is empty.
+     * 
+     * @return boolean - Returns false if any required field is empty, otherwise returns true.
+     */
     function validateForm() {
         let nameInput = document.forms[0]["name"].value.trim();
         let sruInput = document.forms[0]["sru"].value.trim();

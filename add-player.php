@@ -6,11 +6,16 @@ require("classes/sql.php");
 require("classes/utils.php");
 require_once("classes/connection.php");
 
+/// Check if the user role is not Admin or Coach, then redirect to the logout page.
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
 
-// Define variables and initialize them
+/**
+ * Initialize variables to store error messages and form data for a user registration form.
+ * Also, initialize variables for doctor and address IDs.
+ * 
+ */
 $nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $kinErr = $kinContactErr = $doctorNameErr = $doctorContactErr = "";
@@ -25,115 +30,119 @@ $address1 = $address2 = $city = $county = $postcode = "";
 $kin = $kinContact = $doctorName = $doctorContact = "";
 
 
+/**
+ * This function is used to handle form submission when the HTTP request method is POST. 
+ * It validates the form inputs and processes the data accordingly.
+ */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
+    /// Validate name
     if (empty($_POST["name"])) {
-        $nameErr = "Name is required";
+        $nameErr = "Name is required"; ///< Display error message
     } else {
-        $name = test_input($_POST["name"]);
-        // Check if name only contains letters and whitespace
+        $name = test_input($_POST["name"]); ///< Sanitize name
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
-            $nameErr = "Only letters and white space allowed";
+            $nameErr = "Only letters and white space allowed";///< Display error message
         }
 
         $nameParts = explode(" ", $name);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $firstName = $nameParts[0];
         $lastName = end($nameParts);
     }
 
-    // Validate email
+    /// Validate email
     if (empty($_POST["email"])) {
-        $emailErr = "Email is required";
+        $emailErr = "Email is required"; ///< Display error message
     } else {
-        $email = test_input($_POST["email"]);
-        // Check if email address is well-formed
+        $email = test_input($_POST["email"]); ///< Sanitize email
+        /// Check if email address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Invalid email format";
+            $emailErr = "Invalid email format"; ///< Display error message
         }
     }
 
     if (empty($_POST["sru"])){
-        $sruErr = "SRU Number is required";
+        $sruErr = "SRU Number is required"; ///< Display error message
 
 
     } else {
-        $sru = test_input($_POST["sru"]);
+        $sru = test_input($_POST["sru"]); ///< Sanitize sru number
         if (!preg_match("/^\d+$/", $sru)) {
-            $sruErr = "Only digits allowed";
+            $sruErr = "Only digits allowed"; ///< Display error message
         }
     }
 
     if (empty($_POST["dob"])){
-        $dobErr = "Date of birth is required";
+        $dobErr = "Date of birth is required"; ///< Display error message
 
 
     } else {
-        $dob = test_input($_POST["dob"]);
+        $dob = test_input($_POST["dob"]); ///< Sanitize dob
         if (!preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $dob)) {
-            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
+            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY"; ///< Display error message
         }
 
-        $dateTime = DateTime::createFromFormat('d/m/Y', $dob);
-        $sqlDate = $dateTime->format('Y-m-d');
+        $dateTime = DateTime::createFromFormat('d/m/Y', $dob); ///< Create a DateTime object from the formatted date
+        $sqlDate = $dateTime->format('Y-m-d'); ///< Format the date as YYYY-MM-DD
     }
 
     if(empty($_POST["contactNo"])){
-        $contactNoErr = "Contact Number is required";
+        $contactNoErr = "Contact Number is required"; ///< Display error message
 
     } else {
-        $contactNo = test_input($_POST["contactNo"]);
+        $contactNo = test_input($_POST["contactNo"]); ///< Sanitize contact number
         if (!preg_match("/^\d+$/", $contactNo)) {
-            $contactNoErr = "Only digits allowed";
+            $contactNoErr = "Only digits allowed"; ///< Display error message
         }
     }
 
     if(empty($_POST["address1"])){
-        $address1Err = "Address Line 1 is required";
+        $address1Err = "Address Line 1 is required"; ///< Display error message
 
     } else {
-        $address1 = test_input($_POST["address1"]);
+        $address1 = test_input($_POST["address1"]); ///< Sanitize address line 1
         if ((strlen($address1)<10) || (strlen($address1) > 50)){
-            $address1Err = "Address Line 1 must be between 10 and 50 characters long!";
+            $address1Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
     if(!empty($_POST["address2"])){
-        $address2 = test_input($_POST["address2"]);
+        $address2 = test_input($_POST["address2"]); ///< Display error message
     }
 
     if(!empty($_POST["mobileNo"])){
-        $mobileNo = test_input($_POST["mobileNo"]);
+        $mobileNo = test_input($_POST["mobileNo"]); ///< Sanitize mobile number
         if (!preg_match("/^\d+$/", $mobileNo)) {
-            $mobileNoErr = "Only digits allowed";
+            $mobileNoErr = "Only digits allowed"; ///< Display error message
         }
     } 
 
     if(empty($_POST["city"])){
-        $cityErr = "City is required";
+        $cityErr = "City is required"; ///< Display error message
 
     } else {
-        $city = test_input($_POST["city"]);
+        $city = test_input($_POST["city"]); ///< Sanitize city
         if ((strlen($city)<5) || (strlen($city) > 50)){
-            $cityErr = "City must be between 10 and 50 characters long!";
+            $cityErr = "City must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
     if(!empty($_POST["county"])){
-        $county = test_input($_POST["county"]);
+        $county = test_input($_POST["county"]); ///< Sanitize county
         if ((strlen($county)<5) || (strlen($county) > 50)){
-            $countyErr = "County must be between 10 and 50 characters long!";
+            $countyErr = "County must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
     if(empty($_POST["postcode"])){
-        $postcodeErr = "Postcode is required";
+        $postcodeErr = "Postcode is required"; ///< Display error message
 
     } else {
-        $postcode = test_input($_POST["postcode"]);
+        $postcode = test_input($_POST["postcode"]); ///< Sanitize postcode
         if ((strlen($postcode)<6) || (strlen($postcode) > 8)){
-            $postcodeErr = "Postcode must be 6 characters long!";
+            $postcodeErr = "Postcode must be 6 characters long!"; ///< Display error message
         }
     }
 
@@ -141,78 +150,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
 
 
-    // Emergency Contact Details
+    /// Emergency Contact Details
 
     if (empty($_POST["kin"])) {
-        $kinErr = "Name is required";
+        $kinErr = "Name is required"; ///< Display error message
     } else {
-        $kin = test_input($_POST["kin"]);
-        // Check if name only contains letters and whitespace
+        $kin = test_input($_POST["kin"]); ///< Sanitize kin
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $kin)) {
-            $kinErr = "Only letters and white space allowed";
+            $kinErr = "Only letters and white space allowed"; ///< Display error message
         }
     }
 
     if(empty($_POST["kinContact"])){
-        $kinContactErr = "Contact Number is required";
+        $kinContactErr = "Contact Number is required"; ///< Display error message
 
     } else {
-        $kinContact = test_input($_POST["kinContact"]);
+        $kinContact = test_input($_POST["kinContact"]); ///< Sanitize kin's contact number
         if (!preg_match("/^\d+$/", $kinContact)) {
-            $kinContactErr = "Only digits allowed";
+            $kinContactErr = "Only digits allowed"; ///< Display error message
         }
     }
 
-    // Doctor Details
+    /// Doctor Details
 
-    // Validate name
+    /// Validate name
     if (empty($_POST["doctorName"])) {
-        $doctorNameErr = "Doctor's name is required";
+        $doctorNameErr = "Doctor's name is required"; ///< Display error message
     } else {
-        $doctorName = test_input($_POST["doctorName"]);
-        // Check if name only contains letters and whitespace
+        $doctorName = test_input($_POST["doctorName"]); ///< Sanitize doctor's name
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
-            $doctorNameErr = "Only letters and white space allowed";
+            $doctorNameErr = "Only letters and white space allowed"; ///< Display error message
         }
 
-        $doctorNameParts = explode(" ", $doctorName);
+        $doctorNameParts = explode(" ", $doctorName); ///< Split the name into an array
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $doctorFirstName = $doctorNameParts[0];
         $doctorLastName = end($doctorNameParts);
     }
 
     if(empty($_POST["doctorContact"])){
-        $doctorContactErr = "Contact Number is required";
+        $doctorContactErr = "Contact Number is required"; ///< Display error message
 
     } else {
-        $doctorContact = test_input($_POST["doctorContact"]);
+        $doctorContact = test_input($_POST["doctorContact"]); ///< Sanitize doctor's contact number
         if (!preg_match("/^\d+$/", $kinContact)) {
-            $doctorContactErr = "Only digits allowed";
+            $doctorContactErr = "Only digits allowed"; ///< Display error message
         }
     }
 
     
 
-    // If there are no errors, redirect to success page
+    /// If there are no errors, redirect to success page
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
 
         $conn = Connection::connect();
 
+        /**
+         * Check if a player exists in the database.
+         *
+         */
         $stmt = $conn->prepare(SQL::$playerExists);
         $stmt->execute([$firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo]);
         $existingUser = $stmt->fetch();
 
 
         if($existingUser){
-            $genuineErr = "ERROR: Player already exists!";
+            $genuineErr = "ERROR: Player already exists!"; ///< Display error message
         }
 
+        /**
+         * Checks if an existing address exists in the database. If it does, retrieves the address ID.
+         * If not, creates a new address in the database and then retrieves the newly created address ID.
+         */
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
         $existingAddress = $stmt->fetch();
+
 
         if($existingAddress){
 
@@ -232,6 +250,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
 
+        /**
+         * Check if a doctor already exists in the database based on first name, last name, and contact.
+         * If the doctor exists, retrieve the doctor's ID. If not, create a new doctor and retrieve the new doctor's ID.
+         */
         $stmt = $conn->prepare(SQL::$doctorExists);
         $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
         $existingDoctor = $stmt->fetch();
@@ -252,6 +274,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if(empty($genuineErr)){
+            /**
+             * Handles the upload of a profile image file.
+             *
+             * This function checks if a profile image file has been uploaded, validates its format and size,
+             * and moves the file to the appropriate directory if it meets the criteria.
+             *
+             */
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
                 $filetype = Utils::getFileExtension($filename);
@@ -260,15 +289,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $isValidSize = $_FILES["profileImage"]["size"] <= 1000000;
             
                 if (!$isValidImage || !$isValidSize) {
-                    $profileImageErr = "<p class='alert alert-danger'>ERROR: Invalid file size/format</p>";
+                    $profileImageErr = "<p class='alert alert-danger'>ERROR: Invalid file size/format</p>"; ///< Display error message
                 }
             
                 $tmpname = $_FILES["profileImage"]["tmp_name"];
             
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
-                    $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
+                    $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>"; ///< Display error message
                 }
             }
+            /// Create a new player in the database
             $stmt = $conn->prepare(SQL::$createNewPlayer);
             $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename]);
         
@@ -285,13 +315,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 
 components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 ?>
@@ -414,6 +452,10 @@ enctype="multipart/form-data">
 
     showTab();
 
+
+    /**
+     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     */
     function nextTab(){
         currentTab += 1;
         showTab();
@@ -424,6 +466,10 @@ enctype="multipart/form-data">
         showTab();
     }
 
+    /**
+     * Show the tab based on the value of the currentTab variable.
+     * Depending on the value of currentTab, display the corresponding tab details.
+     */
     function showTab(){
         if ( currentTab == 0){
             pDetails.style.display = "block";
@@ -460,6 +506,12 @@ enctype="multipart/form-data">
         }
     }
 
+    /**
+     * Validates the form fields to ensure all required fields are filled out.
+     * Displays an alert message if any field is empty and returns false.
+     * 
+     * @return boolean
+     */
     function validateForm() {
         let nameInput = document.forms[0]["name"].value.trim();
         let sruInput = document.forms[0]["sru"].value.trim();

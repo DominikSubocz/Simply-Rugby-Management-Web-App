@@ -1,6 +1,6 @@
 <?php
 
-// This must come first when we need access to the current session
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
@@ -13,7 +13,7 @@ require("classes/utils.php");
 
 $output = "";
 
-// Detect if this page has received a POST request
+/// Detect if this page has received a POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require("classes/user.php");
 

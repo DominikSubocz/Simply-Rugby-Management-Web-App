@@ -84,7 +84,7 @@ class Components {
   public static function allCoaches($coaches)
   {
     if (!empty($coaches)) {
-      // Output a player card for each player in the $players array
+      /// Output a player card for each player in the $players array
       foreach ($coaches as $coach) {
         $coachId = Utils::escape($coach["coach_id"]);
         $firstName = Utils::escape($coach["first_name"]);
@@ -252,7 +252,7 @@ class Components {
   public static function allJuniors($juniors)
   {
     if (!empty($juniors)) {
-      // Output a player card for each player in the $players array
+      /// Output a player card for each player in the $players array
       foreach ($juniors as $junior) {
         $junior_id = Utils::escape($junior["junior_id"]);
         $address_id = Utils::escape($junior["address_id"]);
@@ -326,7 +326,7 @@ class Components {
   public static function juniorGuardians($juniors)
   {
     if (!empty($juniors)) {
-      // Output a player card for each player in the $players array
+      /// Output a player card for each player in the $players array
       foreach ($juniors as $junior) {
         $guardianFirstName = Utils::escape($junior["guardian_first_name"]);
         $guardianLastName = Utils::escape($junior["guardian_last_name"]);
@@ -659,10 +659,10 @@ class Components {
 
   public static function allEvents($events){
     if (!empty($events)) {
-      // Output a event card for each event in the $events array
+      /// Output a event card for each event in the $events array
       foreach ($events as $event) {
 
-        $type = Utils::escape($event["type"]); // Retrieve the type of event
+        $type = Utils::escape($event["type"]); /// Retrieve the type of event
 
         if($type == "game_id"){
           $eventType = "Game";

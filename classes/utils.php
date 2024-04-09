@@ -1,11 +1,11 @@
 <?php
 class Utils {
-  // public static $projectFilePath = "http://localhost/Simply-Rugby-Management-Web-App"; // Comment line below and uncomment this one to switch to localhost.
+  /// public static $projectFilePath = "http:///localhost/Simply-Rugby-Management-Web-App"; /// Comment line below and uncomment this one to switch to localhost.
 
 
-  public static $projectFilePath = "http://192.168.0.14:8080/Simply-Rugby-Management-Web-App";
+  public static $projectFilePath = "http:///192.168.0.14:8080/Simply-Rugby-Management-Web-App";
 
-  // public static $projectFilePath = "http://100.115.92.201:8080/Simply-Rugby-Management-Web-App";
+  /// public static $projectFilePath = "http:///100.115.92.201:8080/Simply-Rugby-Management-Web-App";
 
 
   public static $defaultplayerCover = "default.png";
@@ -33,10 +33,10 @@ class Utils {
     return trim(htmlspecialchars($input));
   }
 
-  // Get the file extension of a given file
+  /// Get the file extension of a given file
   public static function getFileExtension($filename) {
     $parts = explode(".", $filename);
-    // end() must receive a variable
+    /// end() must receive a variable
     return end($parts);
   }
 }

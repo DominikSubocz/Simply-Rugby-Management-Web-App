@@ -28,7 +28,7 @@ $playerFirstName = Utils::escape($player["first_name"]);
 $playerLastName = Utils::escape($player["last_name"]);
 
 $dobPlaceholder = Utils::escape($player["dob"]);
-$user_idPlaceholder = Utils::escape($player["user_id"]); // Might implement update for that later
+$user_idPlaceholder = Utils::escape($player["user_id"]); /// Might implement update for that later
 $sruNumberPlaceholder = Utils::escape($player["sru_no"]);
 $contactNumberPlaceholder = Utils::escape($player["contact_no"]);
 $mobileNumberPlaceholder = Utils::escape($player["mobile_no"]);
@@ -65,29 +65,29 @@ $address1 = $address2 = $city = $county = $postcode = "";
 $kin = $kinContact = $doctorName = $doctorContact = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
+    /// Validate name
     if (empty($_POST["name"])) {
         $name = $playerFirstName . ' ' . $playerLastName;
     } else {
         $name = test_input($_POST["name"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
             $nameErr = "Only letters and white space allowed";
         }
 
         $nameParts = explode(" ", $name);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $firstName = $nameParts[0];
         $lastName = end($nameParts);
     }
 
-    // Validate email
+    /// Validate email
     if (empty($_POST["email"])) {
         $email = $emailAddressPlaceholder;
     } else {
         $email = test_input($_POST["email"]);
-        // Check if email address is well-formed
+        /// Check if email address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $emailErr = "Invalid email format";
         }
@@ -188,13 +188,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
 
 
-    // Emergency Contact Details
+    /// Emergency Contact Details
 
     if (empty($_POST["kin"])) {
         $kin = $nextOfKinPlaceholder;
     } else {
         $kin = test_input($_POST["kin"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $kin)) {
             $kinErr = "Only letters and white space allowed";
         }
@@ -210,28 +210,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Doctor Details
+    /// Doctor Details
 
-    // Validate name
+    /// Validate name
     if (empty($_POST["doctorName"])) {
         $doctorName = $doctorFirstNamePlaceholder . ' ' . $doctorLastNamePlaceholder;
 
         $doctorNameParts = explode(" ", $doctorName);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $doctorFirstName = $doctorNameParts[0];
         $doctorLastName = end($doctorNameParts);
 
     } else {
         $doctorName = test_input($_POST["doctorName"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
             $doctorNameErr = "Only letters and white space allowed";
         }
 
         $doctorNameParts = explode(" ", $doctorName);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $doctorFirstName = $doctorNameParts[0];
         $doctorLastName = end($doctorNameParts);
     }
@@ -252,7 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
 
-    // If there are no errors, redirect to success page
+    /// If there are no errors, redirect to success page
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
@@ -309,7 +309,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             } else if (!isset($_POST["profileImage"])) {
-                $filename = $filenamePlaceholder;  //Okay so this doesn't work here but it works in update player, I love php.
+                $filename = $filenamePlaceholder;  ///Okay so this doesn't work here but it works in update player, I love php.
 
 
             }   
@@ -328,13 +328,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 
 
 ?>

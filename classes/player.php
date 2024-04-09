@@ -1,6 +1,6 @@
 <?php
 
-// If one of these file has already been included, do not do so again
+/// If one of these file has already been included, do not do so again
 require_once("classes/connection.php");
 require_once("classes/sql.php");
 require_once("classes/utils.php");
@@ -29,12 +29,12 @@ class player
   {
     $conn = Connection::connect();
 
-    // Prepare and execute the query and get the results
+    /// Prepare and execute the query and get the results
     $stmt = $conn->prepare(SQL::$getallPlayers);
     $stmt->execute();
     $players = $stmt->fetchAll();
 
-    // Null the connection object when we no longer need it
+    /// Null the connection object when we no longer need it
     $conn = null;
 
     return $players;
@@ -72,12 +72,12 @@ class player
   {
     $conn = Connection::connect();
 
-    // Prepare and execute the query and get the results
+    /// Prepare and execute the query and get the results
     $stmt = $conn->prepare(SQL::$getPlayerPositions);
     $stmt->execute([$playerId]);
     $players = $stmt->fetchAll();
 
-    // Null the connection object when we no longer need it
+    /// Null the connection object when we no longer need it
     $conn = null;
 
     return $players;
@@ -128,19 +128,19 @@ class player
 
   /// I don't think this is used anywhere, but I'll comment it out just in case it is.
 
-  // public static function test($playerId){
+  /// public static function test($playerId){
 
-  //   $conn = Connection::connect();
-  //   $stmt = $conn->prepare(SQL::$selectPlayer);
-  //   $stmt->execute([$playerId]);
-  //   $player = $stmt->fetchAll();
+  ///   $conn = Connection::connect();
+  ///   $stmt = $conn->prepare(SQL::$selectPlayer);
+  ///   $stmt->execute([$playerId]);
+  ///   $player = $stmt->fetchAll();
 
-  //   return $player;
+  ///   return $player;
 
-  //   $conn = null;
+  ///   $conn = null;
 
       
-  // }
+  /// }
 
   /**
    * 

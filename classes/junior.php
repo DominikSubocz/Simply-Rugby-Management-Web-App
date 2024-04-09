@@ -30,12 +30,12 @@ class Junior
   {
     $conn = Connection::connect();
 
-    // Prepare and execute the query and get the results
+    /// Prepare and execute the query and get the results
     $stmt = $conn->prepare(SQL::$getAllJuniors);
     $stmt->execute();
     $juniors = $stmt->fetchAll();
 
-    // Null the connection object when we no longer need it
+    /// Null the connection object when we no longer need it
     $conn = null;
 
     return $juniors;

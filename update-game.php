@@ -49,7 +49,7 @@ $squadErr = $nameErr = $oppositionErr = $startErr = $endErr = $locationErr = $ki
 
 $homeScore1 = $homeScore2 = $homeComment1 = $homeComment2 = $oppositionScore1 = $oppositionScore2 = $oppositionComment1 = $oppositionComment2 = "";
 
-//Game halves error messages
+///Game halves error messages
 $scoreHome1Err = $commentHome1Err = $scoreOpposition1Err = $commentOpposition1Err = "";
 $scoreHome2Err = $commentHome2Err = $scoreOpposition2Err = $commentOpposition2Err = "";
 
@@ -81,21 +81,21 @@ $gameHalfId2 = Utils::escape($gameHalves[1]["game_half_id"]);
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
+    /// Validate name
     if (empty($_POST["name"])) {
         $name = $gameName;
     } else {
         $name = test_input($_POST["name"]);
     }
 
-    // Validate squad
+    /// Validate squad
     if (empty($_POST["squad"])) {
         $squad = $homeTeam;
     } else {
         $squad = test_input($_POST["squad"]);
     }
 
-    // Validate opposition
+    /// Validate opposition
     if (empty($_POST["opposition"])) {
         $opposition = $oppositionName;
     } else {
@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $score = test_input($_POST["score"]);
     }
 
-    // Game Halves Validation
+    /// Game Halves Validation
 
     if (empty($_POST["home_score_1"])) {
         $scoreHome1 = $homeScorePlaceholder1;
@@ -212,13 +212,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
+
 function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-?>
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}?>
 <main class="content-wrapper profile-list-content">
 
     <h2>Update Game Details</h2>

@@ -5,7 +5,7 @@ session_start();
 require("classes/components.php");
 require("classes/member.php");
 
-// Output page header with a given title, stylesheet, and script
+/// Output page header with a given title, stylesheet, and script
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 if(!isset($_SESSION["loggedIn"])){
@@ -74,7 +74,7 @@ if(isset($_POST['removeSubmit'])){
 
     <?php
 
-    // Get all players from the database and output list of players
+    /// Get all players from the database and output list of players
     $members = Member::getAllMembers();
     Components::allMembers($members);
 
@@ -147,19 +147,19 @@ let settingsBtn = document.getElementById("settingsBtn");
 var span = document.getElementsByClassName("close")[0];
 
 settingsBtn.onclick = function(event) {
-    // Prevent the default form submission action
+    /// Prevent the default form submission action
     event.preventDefault();
     modal.style.display = "block";
   }
 
 
-  // When the user clicks on <span> (x), close the modal
+  /// When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
   }
 
 
-  // When the user clicks anywhere outside of the modal, close it
+  /// When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
@@ -184,7 +184,7 @@ var contact = document.querySelectorAll(".contact-label");
 var email = document.querySelectorAll(".email-label");
 var pfp = document.querySelectorAll(".pfp-label");
 
-// Check if checkbox 1 is checked
+/// Check if checkbox 1 is checked
 if (checkBox1.checked) {
   for (var i = 0; i < firstName.length; i++) {
     firstName[i].style.display = "table-cell";

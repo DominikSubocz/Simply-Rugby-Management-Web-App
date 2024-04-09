@@ -40,7 +40,7 @@ $postcodePlaceholder = Utils::escape($member["postcode"]);
 $phpdate = strtotime( $dobPlaceholder );
 $ukDobPlaceholder = date( 'd/m/Y', $phpdate );
 
-// Define variables and initialize them
+/// Define variables and initialize them
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $genuineErr = $profileImageErr = "";
@@ -51,35 +51,35 @@ $firstName = $lastName = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
+    /// Validate name
     if (empty($_POST["name"])) {
         $name = $firstNamePlaceholder . ' ' . $lastNamePlaceholder;
 
         $nameParts = explode(" ", $name);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $firstName = $nameParts[0];
         $lastName = end($nameParts);
     } else {
         $name = test_input($_POST["name"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
             $nameErr = "Only letters and white space allowed";
         }
 
         $nameParts = explode(" ", $name);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $firstName = $nameParts[0];
         $lastName = end($nameParts);
     }
 
-    // Validate email
+    /// Validate email
     if (empty($_POST["email"])) {
         $email = $emailAddressPlaceholder;
     } else {
         $email = test_input($_POST["email"]);
-        // Check if email address is well-formed
+        /// Check if email address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $emailErr = "Invalid email format";
         }
@@ -177,10 +177,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     
-    // This will execute regardless of the file upload status
+    /// This will execute regardless of the file upload status
     var_dump($filename);
 
-    // If there are no errors, redirect to success page
+    /// If there are no errors, redirect to success page
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty ($genuineErr)) {
@@ -219,7 +219,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             } else if (!isset($_POST["profileImage"])) {
-                $filename = $filenamePlaceholder;  // Turns out I was using $player instead of $member, so easy fix.
+                $filename = $filenamePlaceholder;  /// Turns out I was using $player instead of $member, so easy fix.
 
 
             }   
@@ -239,13 +239,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 ?>
 

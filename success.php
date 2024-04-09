@@ -18,16 +18,16 @@ $profileId = $_SESSION["profileId"];
 
 if (isset($_SESSION["successMessage"])) {
     $message = $_SESSION["successMessage"];
-    unset($_SESSION["successMessage"]); // Remove the session variable
+    unset($_SESSION["successMessage"]); /// Remove the session variable
 } else {
 
     if(isset($_SESSION["loggedIn"])){
       if($_SESSION["user_role"] === "Admin"){
         header("Location: " . Utils::$projectFilePath . "/index.php");
-        $message = "Success message not found."; // Default message
+        $message = "Success message not found."; /// Default message
       } else {
         header("Location: " . Utils::$projectFilePath . "/$profileId");
-        $message = "Success message not found."; // Default message
+        $message = "Success message not found."; /// Default message
       }
 
       if(isset($_SESSION["newMember"])){
@@ -47,7 +47,7 @@ if (isset($_SESSION["successMessage"])) {
 </div>
 
 <script>
-  // Refresh the page after 5 seconds
+  /// Refresh the page after 5 seconds
   setTimeout(function() {
       location.reload();
   }, 5000);

@@ -30,7 +30,7 @@ if(!isset($_SESSION["loggedIn"])){
 $player = Player::getplayer($_GET["id"]);
 $playerId = $player['player_id'];
 
-// Set the document title to the title and author of the player if it exists
+/// Set the document title to the title and author of the player if it exists
 $pageTitle = "player not found";
 
 if (!empty($player)) {
@@ -126,7 +126,7 @@ $standardComment = $spinComment = $popComment = $frontComment = $rearComment = $
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  // Passing Skills
+  /// Passing Skills
   if (empty($_POST["standard"])){
     $standard = $standardPlaceholder;
 
@@ -160,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-  // Tackling Skills
+  /// Tackling Skills
 
 
   if (empty($_POST["front"])){
@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-  // Kicking Category
+  /// Kicking Category
 
   if (empty($_POST["drop"])){
     $drop = $dropPlaceholder;
@@ -249,7 +249,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
-  //Comment Validation
+  ///Comment Validation
 
   if(empty($_POST["standardComment"])){
     $standardComment = $standardCommentPlaceholder;
@@ -350,6 +350,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
 
 }
+
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
 
 function test_input($data) {
   $data = trim($data);

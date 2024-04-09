@@ -24,7 +24,7 @@ if(!isset($_SESSION["loggedIn"])){
 
 $member = Member::getMember($_GET["id"]);
 
-// Set the document title to the title and author of the player if it exists
+/// Set the document title to the title and author of the player if it exists
 $pageTitle = "player not found";
 
 if (!empty($member)) {

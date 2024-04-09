@@ -27,12 +27,12 @@ class Events {
     {
       $conn = Connection::connect();
   
-      // Prepare and execute the query and get the results
+      /// Prepare and execute the query and get the results
       $stmt = $conn->prepare(SQL::$getEvents);
       $stmt->execute();
       $events = $stmt->fetchAll();
   
-      // Null the connection object when we no longer need it
+      /// Null the connection object when we no longer need it
       $conn = null;
   
       return $events;

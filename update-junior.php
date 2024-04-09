@@ -24,7 +24,7 @@ $playerFirstName = Utils::escape($junior["first_name"]);
 $playerLastName = Utils::escape($junior["last_name"]);
 
 $dobPlaceholder = Utils::escape($junior["dob"]);
-$user_idPlaceholder = Utils::escape($junior["user_id"]); // Might implement update for that later
+$user_idPlaceholder = Utils::escape($junior["user_id"]); /// Might implement update for that later
 $sruNumberPlaceholder = Utils::escape($junior["sru_no"]);
 $contactNumberPlaceholder = Utils::escape($junior["contact_no"]);
 $mobileNumberPlaceholder = Utils::escape($junior["mobile_no"]);
@@ -83,7 +83,7 @@ if (count($guardians) >= 1) {
 $phpdate = strtotime( $dobPlaceholder );
 $ukDobPlaceholder = date( 'd/m/Y', $phpdate );
 
-// Define variables and initialize them
+/// Define variables and initialize them
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $guardianNameErr = $guardianContactErr = $relationshipErr = "";
 $guardianAddress11Err = $guardianAddress12Err = $guardianCity1Err = $guardianCounty1Err = $guardianPostcode1Err = "";
@@ -113,35 +113,35 @@ $doctorName = $doctorContact = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
+    /// Validate name
     if (empty($_POST["name"])) {
         $name = $playerFirstName . ' ' . $playerLastName;
 
         $nameParts = explode(" ", $name);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $firstName = $nameParts[0];
         $lastName = end($nameParts);
     } else {
         $name = test_input($_POST["name"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
             $nameErr = "Only letters and white space allowed";
         }
 
         $nameParts = explode(" ", $name);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $firstName = $nameParts[0];
         $lastName = end($nameParts);
     }
 
-    // Validate email
+    /// Validate email
     if (empty($_POST["email"])) {
         $email = $emailAddressPlaceholder;
     } else {
         $email = test_input($_POST["email"]);
-        // Check if email address is well-formed
+        /// Check if email address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $emailErr = "Invalid email format";
         }
@@ -243,26 +243,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
 
 
-    // Guardian Contact Details
+    /// Guardian Contact Details
 
     if (empty($_POST["guardianName"])) {
         $guardianName = $guardianFirstNamePlaceholder1 . ' ' . $guardianLastNamePlaceholder1;
 
         $guardianNameParts = explode(" ", $guardianName);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $guardianFirstName = $guardianNameParts[0];
         $guardianLastName = end($guardianNameParts);
     } else {
         $guardianName = test_input($_POST["guardianName"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $guardianName)) {
             $guardianNameErr = "Only letters and white space allowed";
         }
 
         $guardianNameParts = explode(" ", $guardianName);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $guardianFirstName = $guardianNameParts[0];
         $guardianLastName = end($guardianNameParts);
     }
@@ -281,7 +281,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $relationship = $guardianRelationshipPlaceholder1;
     } else{
         $relationship = test_input($_POST["relationship"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship)) {
             $relationshipErr = "Only letters and white space allowed";
         }
@@ -339,7 +339,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
 
-    //Secondary Guradian
+    ///Secondary Guradian
 
     if($_POST['elementForVar1HiddenField'] == 1){
         if(empty($_POST["guardianName2"])){
@@ -349,20 +349,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 $guardianNameParts2 = explode(" ", $guardianName2);
         
-                // Extract the first and last names
+                /// Extract the first and last names
                 $guardianFirstName2 = $guardianNameParts2[0];
                 $guardianLastName2 = end($guardianNameParts2);
             } 
         } else {
             $guardianName2 = test_input($_POST["guardianName2"]);
-            // Check if name only contains letters and whitespace
+            /// Check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z-' ]*$/", $guardianName2)) {
                 $guardianName2Err = "Only letters and white space allowed";
             }
     
             $guardianNameParts2 = explode(" ", $guardianName2);
     
-            // Extract the first and last names
+            /// Extract the first and last names
             $guardianFirstName2 = $guardianNameParts2[0];
             $guardianLastName2 = end($guardianNameParts2);
         }
@@ -386,7 +386,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else{
             $relationship2 = test_input($_POST["relationship2"]);
-            // Check if name only contains letters and whitespace
+            /// Check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship2)) {
                 $relationship2Err = "Only letters and white space allowed";
             }
@@ -450,27 +450,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   
 
-    // Doctor Details
+    /// Doctor Details
 
-    // Validate name
+    /// Validate name
     if (empty($_POST["doctorName"])) {
         $doctorName = $doctorFirstNamePlaceholder . ' ' . $doctorLastNamePlaceholder;
 
         $doctorNameParts = explode(" ", $doctorName);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $doctorFirstName = $doctorNameParts[0];
         $doctorLastName = end($doctorNameParts);
     } else {
         $doctorName = test_input($_POST["doctorName"]);
-        // Check if name only contains letters and whitespace
+        /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
             $doctorNameErr = "Only letters and white space allowed";
         }
 
         $doctorNameParts = explode(" ", $doctorName);
 
-        // Extract the first and last names
+        /// Extract the first and last names
         $doctorFirstName = $doctorNameParts[0];
         $doctorLastName = end($doctorNameParts);
     }
@@ -487,7 +487,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
 
-    // If there are no errors, redirect to success page
+    /// If there are no errors, redirect to success page
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
         && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
         && empty($guardianNameErr) && empty($guardianContactErr) && empty($relationshipErr) 
@@ -507,10 +507,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $guardian1Address = Address::addressExists($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
         
         if (!$guardian1Address) {
-            // Create guardian address if it doesn't exist
+            /// Create guardian address if it doesn't exist
             $guardian1AddressId = Address::createNewAddress($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
         } else {
-            // Use the existing guardian address ID
+            /// Use the existing guardian address ID
             $guardian1AddressId = $guardian1Address;
         }
 
@@ -518,8 +518,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-        // First guardian
-        // Check existing guardian
+        /// First guardian
+        /// Check existing guardian
         $existingGuardian = Guardian::guardianExists($guardianFirstName, $guardianLastName, $guardianContact);
         
         if ($existingGuardian) {
@@ -534,7 +534,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $guardian2Address = Address::addressExists($guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2);
     
             if (!$guardian2Address) {
-                // Create guardian address if it doesn't exist
+                /// Create guardian address if it doesn't exist
                 $guardian2AddressId = Address::createNewAddress($guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2);
             } else {
                 $guardian2AddressId = $guardian2Address;
@@ -596,11 +596,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             } else {
-                $filename = $filenamePlaceholder; // Okay this is very funny, this line of code works here as well but not in member.
+                $filename = $filenamePlaceholder; /// Okay this is very funny, this line of code works here as well but not in member.
 
                 
-                // PS: The issue was that instead of getting the filename from '$member' I was getting it from '$player' which didnt exist.
-                // Fixed it by swapping '$player' with '$member'
+                /// PS: The issue was that instead of getting the filename from '$member' I was getting it from '$player' which didnt exist.
+                /// Fixed it by swapping '$player' with '$member'
             }
 
             Junior::updateJunior($addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId);
@@ -613,7 +613,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 Junior::updateJuniorAssociation($guardianId2, $doctorId, $juniorId);
 
-            // header("Location: " . Utils::$projectFilePath . "/index.php");
+            /// header("Location: " . Utils::$projectFilePath . "/index.php");
             }
         }
 
@@ -624,13 +624,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+/**
+ * 
+ * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
+ * 
+ * @param data - Input data to be sanitized
+ * @return data - String containing sanitized input data.
+ * 
+ */
 
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
 components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 ?>
 
