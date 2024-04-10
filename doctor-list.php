@@ -10,16 +10,31 @@ require("classes/doctor.php");
 
 Components::pageHeader("List of Doctors", ["style"], ["mobile-nav"]);
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ * 
+ * If the user is logged in check priveledge level, and proceed.
+ */
+
+if(!isset($_SESSION["loggedIn"])){
+
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+
+}
+/**
+ * Check if the user role is not "Admin" and redirect to logout page if true.
+ */
 if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
-if(!isset($_SESSION["loggedIn"])){
 
-    header("Location: " . Utils::$projectFilePath . "/login.php");
-  
-  }
-
+/**
+ * Check if the remove button was clicked.
+ * If clicked check if the 'check_list' POST parameter is not empty.
+ * Redirect to the 'delete-doctor.php' page with the IDs from the 'check_list' array as query parameters.
+ */
   
 if(isset($_POST['removeSubmit'])){
   if(!empty($_POST['check_list'])) {
@@ -126,7 +141,10 @@ settingsBtn.onclick = function(event) {
     }
   }
 
-
+/**
+ * Display or hide columns based on the checkboxes checked.
+ * If a checkbox is checked, display the corresponding column; otherwise, hide it.
+ */
 function displayColumn(){
 
   var checkBox1 = document.getElementById("inlineCheckbox1");
@@ -140,11 +158,11 @@ function displayColumn(){
   /// Check if checkbox 1 is checked
   if (checkBox1.checked) {
     for (var i = 0; i < firstName.length; i++) {
-      firstName[i].style.display = "table-cell";
+      firstName[i].style.display = "table-cell"; ///< Display each element in the firstName array as a table cell.
     }
   } else {
     for (var i = 0; i < firstName.length; i++) {
-      firstName[i].style.display = "none";
+      firstName[i].style.display = "none"; ///< Hide each element in the firstName array.
     }
   }
 
@@ -172,6 +190,13 @@ function displayColumn(){
 
 displayColumn();
 
+/**
+ * Changes the checkbox state by unchecking all checkboxes with class "cb" and checking the checkbox passed as a parameter.
+ * Additionally, it displays buttons with the specified style.
+ *
+ * @param {Object} obj - The checkbox object to be checked.
+ */
+
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
     for (var i = 0; i < cbs.length; i++) {
@@ -180,7 +205,9 @@ function cbChange(obj) {
     obj.checked = true;
     displayButtons("block");
 }
-
+/**
+ * Function to display buttons based on the type and role value.
+ */
 function displayButtons(type){
   if(type == "block"){
     removeBtn.style.display="block";

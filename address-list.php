@@ -10,18 +10,32 @@ require("classes/address.php");
 
 Components::pageHeader("List of Addresses", ["style"], ["mobile-nav"]);
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ * 
+ * If the user is logged in check priveledge level, and proceed.
+ */
+if(!isset($_SESSION["loggedIn"])){
+
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+
+}
+
+/**
+ * Check if the user role is not Admin or Coach, then redirect to logout page.
+ * @param string $_SESSION["user_role"]: The role of the user stored in the session.
+ */
+
 if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
-if(!isset($_SESSION["loggedIn"])){
-
-    header("Location: " . Utils::$projectFilePath . "/login.php");
-  
-  }
-
-  
-  
+/**
+ * Check if the remove button was clicked.
+ * If clicked check if the 'check_list' POST parameter is not empty.
+ * Redirect to the 'delete-address.php' page with the IDs from the 'check_list' array as query parameters.
+ */
 if(isset($_POST['removeSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
@@ -66,7 +80,7 @@ if(isset($_POST['removeSubmit'])){
 
     <?php
 
-    /// Get all players from the database and output list of players
+    /// Get all addresses from the database and output addresses as table rows
     $addresses = Address::getAllAddresses();
     Components::allAddresses($addresses);
 
@@ -141,6 +155,10 @@ settingsBtn.onclick = function(event) {
   }
 
 
+/**
+ * Display or hide columns based on the checkboxes checked.
+ * If a checkbox is checked, display the corresponding column; otherwise, hide it.
+ */
 function displayColumn(){
 
   var checkBox1 = document.getElementById("inlineCheckbox1");
@@ -158,11 +176,12 @@ function displayColumn(){
   /// Check if checkbox 1 is checked
   if (checkBox1.checked) {
     for (var i = 0; i < addressLine1.length; i++) {
-      addressLine1[i].style.display = "table-cell";
+      addressLine1[i].style.display = "table-cell";    ///< Display each element in the addressLine1 array as a table cell.
+
     }
   } else {
     for (var i = 0; i < addressLine1.length; i++) {
-      addressLine1[i].style.display = "none";
+      addressLine1[i].style.display = "none";   ///< Hide each element in the addressLine1 array.
     }
   }
 
@@ -209,6 +228,12 @@ function displayColumn(){
 
 displayColumn();
 
+/**
+ * Changes the checkbox state by unchecking all checkboxes with class "cb" and checking the checkbox passed as a parameter.
+ * Additionally, it displays buttons with the specified style.
+ *
+ * @param {Object} obj - The checkbox object to be checked.
+ */
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
     for (var i = 0; i < cbs.length; i++) {
@@ -218,6 +243,9 @@ function cbChange(obj) {
     displayButtons("block");
 }
 
+/**
+ * Function to display buttons based on the type provided.
+ */
 function displayButtons(type){
 
   if(type == "block"){
