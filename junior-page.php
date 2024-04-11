@@ -1,40 +1,51 @@
 <?php
 
 require("classes/components.php");
-require("classes/utils.php");
-require("classes/junior.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/junior.php");
 
+/// This must come first when we need access to the current session
 session_start();
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ */
 if(!isset($_SESSION["loggedIn"])){
-
   header("Location: " . Utils::$projectFilePath . "/login.php");
-
 }
-/*
-  Attempt to get the id from the URL parameter.
-  If it isn't set or it isn't a number, redirect
-  to player list page.
-*/
+
+/**
+ * Check if the "id" parameter is set in the $_GET superglobal and if it is a numeric value.
+ * If not, redirect to the junior-list.php page.
+ */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   header("Location: " . Utils::$projectFilePath . "/junior-list.php");
 }
 
 
 
-$junior = Junior::getJunior($_GET["id"]);
+$junior = Junior::getJunior($_GET["id"]); ///< Get Junior details by ID number
 
 
 
-/// Set the document title to the title and author of the player if it exists
-$pageTitle = "player not found";
 
+$pageTitle = "Junior not found"; ///< Default title
+
+/**
+ * Check if the $junior array is not empty and set the $pageTitle to the value of the "first_name" key in the $junior array.
+ * 
+ * @param array $junior 
+ */
 if (!empty($junior)) {
   $pageTitle = $junior["first_name"];
 }
 
-Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
-Components::singleJunior($junior);
-Components::pageFooter();
+Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]); ///< Render page header
+Components::singleJunior($junior); ///< Render single Junior card
+Components::pageFooter(); ///< Render page footer
 
 ?>

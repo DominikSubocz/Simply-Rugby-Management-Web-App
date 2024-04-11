@@ -1,26 +1,39 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
-require("classes/utils.php");
-require("classes/events.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/events.php");
 require("classes/connection.php");
 require("classes/sql.php");
 
+/**
+ * Redirects to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ */
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
     header("Location: " . Utils::$projectFilePath . "/player-list.php");
 } 
 
-$session = Events::getSession($_GET["id"]);
+$session = Events::getSession($_GET["id"]); ///< Get session's details based on ID number.
 
-$pageTitle = "Session not found";
+$pageTitle = "Session not found"; ///< Default page title
 
+/**
+ * Generates a page title based on the session name.
+ * If the session array is not empty, the page title is constructed by appending "Details" to the session name.
+ *
+ * @param array $session An array containing session information.
+ */
 if(!empty($session)){
     $pageTitle = $session["name"] . "Details";
 }
 
-Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
+Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]); ///< Render page header
 ?>
 
 <main class="content-wrapper profile-list-content my-5">
@@ -40,7 +53,7 @@ Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
 
     <?php
 
-    Components::singleSession($session);
+    Components::singleSession($session); ///< Render single session
     ?>
 
   </tbody>
@@ -49,6 +62,6 @@ Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
 
 <?php
 
-    Components::pageFooter();
+    Components::pageFooter(); ///< Render page footer
 
 ?>

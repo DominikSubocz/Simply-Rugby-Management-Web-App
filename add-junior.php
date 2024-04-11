@@ -1,9 +1,13 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start(); 
 require("classes/components.php");
-require("classes/utils.php");
-require_once("classes/connection.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require_once("classes/connection.php");
 require("classes/junior.php");
 require("classes/address.php");
 require("classes/guardian.php");

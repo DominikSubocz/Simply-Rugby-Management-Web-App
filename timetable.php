@@ -1,16 +1,26 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start();
 require("classes/components.php");
 require("classes/connection.php");
 require("classes/sql.php");
 require("classes/events.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
 require("classes/utils.php");
 
+Components::pageHeader("All players", ["style"], ["mobile-nav"]); ///< Render page header
 
-Components::pageHeader("All players", ["style"], ["mobile-nav"]);
-
-
+/**
+ * Check if the update button was clicked.
+ * If clicked redirect to the update page for each checked item in the 'check_list'.
+ * The update page URL is constructed using the project file path and the checked item.
+ *
+ * @param array $_POST The associative array containing POST data.
+ */
 if(isset($_POST['updateSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
@@ -18,12 +28,23 @@ if(isset($_POST['updateSubmit'])){
     }
   }
 }
-
+/**
+ * Check if the add button was clicked.
+ * Redirect to the 'add-event.php' page if clicked
+ */
 if(isset($_POST['addSubmit'])){
   header("Location: " . Utils::$projectFilePath . "/add-event.php");
 
 }
 
+/**
+ * Check if the delete button was clicked.
+ * and redirect to the delete page for each checked item.
+ * 
+ * The update page URL is constructed using the project file path and the checked item.
+ *
+ * @param array $_POST The associative array containing POST data.
+ */
 if(isset($_POST['removeSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
@@ -63,8 +84,8 @@ if(isset($_POST['removeSubmit'])){
     <?php
 
 
-      $events = Events::getAllEvents();
-      Components::allEvents($events);
+      $events = Events::getAllEvents(); ///< Get all events
+      Components::allEvents($events); ///< Render row for each event
 
     ?>
 
@@ -77,6 +98,13 @@ if(isset($_POST['removeSubmit'])){
 let updateBtn = document.getElementById("updateBtn");
 let removeBtn = document.getElementById("removeBtn");
 
+/**
+ * Changes the checkbox state by unchecking all checkboxes with class "cb" and checking the checkbox passed as a parameter.
+ * Additionally, it displays buttons with the specified style.
+ *
+ * @param {Object} obj - The checkbox object to be checked.
+ */
+
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
     for (var i = 0; i < cbs.length; i++) {
@@ -85,6 +113,10 @@ function cbChange(obj) {
     obj.checked = true;
     displayButtons("block");
 }
+
+/**
+ * Function to display buttons based on the type provided.
+ */
 
 function displayButtons(type){
   if(type == "block"){

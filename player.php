@@ -1,37 +1,47 @@
 <?php
 
-require("classes/components.php");
-require("classes/utils.php");
-require("classes/player.php");
-
+/// This must come first when we need access to the current session
 session_start();
 
-/*
-  Attempt to get the id from the URL parameter.
-  If it isn't set or it isn't a number, redirect
-  to player list page.
-*/
-if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-  header("Location: " . Utils::$projectFilePath . "/player-list.php");
-}
+require("classes/components.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/player.php");
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ */
 if(!isset($_SESSION["loggedIn"])){
 
   header("Location: " . Utils::$projectFilePath . "/login.php");
 
 }
 
-$player = Player::getplayer($_GET["id"]);
+/**
+ * Redirects the user to the player list page if the 'id' parameter is not set or is not numeric.
+ */
+if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+  header("Location: " . Utils::$projectFilePath . "/player-list.php");
+}
 
-/// Set the document title to the title and author of the player if it exists
-$pageTitle = "player not found";
 
+
+$player = Player::getplayer($_GET["id"]); ///< Get player's details based on their ID number
+
+$pageTitle = "player not found"; ///< Default title
+
+/**
+ * Check if the player array is not empty and set the page title to the player's first name.
+ */
 if (!empty($player)) {
   $pageTitle = $player["first_name"];
 }
 
-Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
-Components::singleplayer($player);
-Components::pageFooter();
+Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]); ///< Render page header
+Components::singleplayer($player); ///< Render card for single player
+Components::pageFooter(); ///< Render page footer
 
 ?>

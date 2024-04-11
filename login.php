@@ -11,14 +11,22 @@ require("classes/components.php");
  */
 require("classes/utils.php");
 
-/// Redirect user from this page if they're already logged in
+/**
+ * Redirects the user to the player list page if the user is logged in.
+ *
+ * @param array $_SESSION The session array containing user login information.
+ */
 if (isset($_SESSION["loggedIn"])) {
     header("Location: " . Utils::$projectFilePath . "/player-list.php");
 }
 
-$output = "";
+$output = ""; ///< To store output of login
 
-/// Detect if this page has received a POST request
+
+/**
+ * Detect if this page has received a POST request and processes the login form submission.
+ * If the login form is submitted, it calls the login method of the User class.
+ */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require("classes/user.php");
 
@@ -28,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-Components::pageHeader("Login", ["style"], ["mobile-nav"]);
+Components::pageHeader("Login", ["style"], ["mobile-nav"]); ///< Render page header
 
 ?>
 
@@ -72,6 +80,6 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]);
 
 <?php
 
-Components::pageFooter();
+Components::pageFooter(); ///< Render page footer
 
 ?>

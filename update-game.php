@@ -1,24 +1,39 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
-require("classes/utils.php");
-require("classes/events.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/events.php");
 require("classes/connection.php");
 require("classes/sql.php");
 
+/**
+ * Check if the user role is not Admin or Coach, then redirect to logout page.
+ */
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
-  }
+}
 
+/**
+ * Redirects to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ */
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
     header("Location: " . Utils::$projectFilePath . "/player-list.php");
 } 
 
-$game = Events::getGame($_GET["id"]);
-$pageTitle = "Game not found";
+$game = Events::getGame($_GET["id"]); ///< Get game's details based on the ID number
+$pageTitle = "Game not found"; ///< Default title
 
+/**
+ * Set the page title to display the details of a game if the game array is not empty.
+ *
+ * @param array $game An array containing information about the game.
+ */
 if(!empty($game)){
     $pageTitle = $game["name"] . "'s Details";
 }
@@ -30,6 +45,11 @@ $stmt->execute();
 $squads = $stmt->fetchAll();
 
 
+/**
+ * Escape and assign values from the $game array to respective variables for security purposes.
+ *
+ * @param array $game An array containing information about the game.
+ */
 $gameId = Utils::escape($game["game_id"]);
 $squadId = Utils::escape($game["squad_id"]);
 $gameName = Utils::escape($game["name"]);
@@ -42,6 +62,27 @@ $gameKickoff = Utils::escape($game["kickoff_time"]);
 $gameResult = Utils::escape($game["result"]);
 $gameScore = Utils::escape($game["score"]);
 
+/**
+ * Variables to store information related to a sports squad match.
+ *
+ * @var string $squad: The squad name
+ * @var string $name: The name of the match
+ * @var string $opposition: The opposing team
+ * @var \DateTime $start: The start date of the match
+ * @var \DateTime  $end: The end date of the match
+ * @var string $location: The location of the match
+ * @var \DateTime  $kickoff: The kickoff time of the match
+ * @var string $result: The result of the match
+ * @var string $score: The score of the match
+ * @var string $home: The home team
+ *
+ * Error variables for each corresponding field to handle validation errors:
+ * @var string $squadErr
+ * @var string $nameErr
+ * @var string $oppositionErr
+ * @var string $startErr
+ * @var string $endErr
+ */
 $squad = $name = $opposition = $start = $end = $location = $kickoff = $result = $score = "";
 $home = "";
 
@@ -49,18 +90,27 @@ $squadErr = $nameErr = $oppositionErr = $startErr = $endErr = $locationErr = $ki
 
 $homeScore1 = $homeScore2 = $homeComment1 = $homeComment2 = $oppositionScore1 = $oppositionScore2 = $oppositionComment1 = $oppositionComment2 = "";
 
-///Game halves error messages
 $scoreHome1Err = $commentHome1Err = $scoreOpposition1Err = $commentOpposition1Err = "";
 $scoreHome2Err = $commentHome2Err = $scoreOpposition2Err = $commentOpposition2Err = "";
 
 
-$gameHalves = Events::getGameHalves($gameId);
+$gameHalves = Events::getGameHalves($gameId); ///< Get all game halves (2) for a specific game
 
+/**
+ * Iterates over an array of game halves and retrieves the half number and home team for each game half.
+ *
+ * @param array $gameHalves An array containing game halves data.
+ */
 foreach($gameHalves as $gameHalf){
     $gameHalfNumber = Utils::escape($gameHalf["half_number"]);
     $homeTeam = Utils::escape($gameHalf["home_team"]);
 }
 
+/**
+ * Assigns escaped values from the gameHalves array to corresponding variables for further use.
+ *
+ * @param array $gameHalves An array containing game halves data.
+ */
 $homeScorePlaceholder1 = Utils::escape($gameHalves[0]["home_score"]);
 $homeScorePlaceholder2 = Utils::escape($gameHalves[1]["home_score"]);
 
@@ -78,122 +128,125 @@ $gameHalfId2 = Utils::escape($gameHalves[1]["game_half_id"]);
 
 
 
-Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
+Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]); ///< Render page header
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name
     if (empty($_POST["name"])) {
-        $name = $gameName;
+        $name = $gameName; ///< Set value to placeholder if left empty
     } else {
-        $name = test_input($_POST["name"]);
+        $name = test_input($_POST["name"]); ///< Sanitize name
     }
 
     /// Validate squad
     if (empty($_POST["squad"])) {
-        $squad = $homeTeam;
+        $squad = $homeTeam; ///< Set value to placeholder if left empty
     } else {
-        $squad = test_input($_POST["squad"]);
+        $squad = test_input($_POST["squad"]); ///< Sanitize squad name
     }
 
     /// Validate opposition
     if (empty($_POST["opposition"])) {
-        $opposition = $oppositionName;
+        $opposition = $oppositionName; ///< Set value to placeholder if left empty
     } else {
-        $opposition = test_input($_POST["opposition"]);
+        $opposition = test_input($_POST["opposition"]); ///< Sanitize opposition name
     }
 
     if (empty($_POST["start"])) {
-        $start = $gameStartPlaceholder;
+        $start = $gameStartPlaceholder; ///< Set value to placeholder if left empty
     } else {
         $start = test_input($_POST["start"]);
         
-        $sqlStart = date('Y-m-d H:i:sa', strtotime($start));
+        $sqlStart = date('Y-m-d H:i:sa', strtotime($start)); ///< Converts the given start date to a formatted SQL datetime string.
 
     }
 
     if (empty($_POST["end"])) {
-        $end = $gameEndPlaceholder;
+        $end = $gameEndPlaceholder; ///< Set value to placeholder if left empty
     } else {
         $end = test_input($_POST["end"]);
 
-        $sqlEnd = date('Y-m-d H:i:sa', strtotime($end));
+        $sqlEnd = date('Y-m-d H:i:sa', strtotime($end)); ///< Converts the given end date to a formatted SQL datetime string.
 
     }
 
     if (empty($_POST["location"])) {
-        $location = $gameLocation;
+        $location = $gameLocation; ///< Set value to placeholder if left empty
     } else {
-        $location = test_input($_POST["location"]);
+        $location = test_input($_POST["location"]); ///< Sanitize game's location
     }
 
     if (empty($_POST["kickoff"])) {
-        $kickoff = $gameKickoff;
+        $kickoff = $gameKickoff; ///< Set value to placeholder if left empty
     } else {
-        $kickoff = test_input($_POST["kickoff"]);
+        $kickoff = test_input($_POST["kickoff"]); ///< Sanitize game's kickoff time
     }
 
     if (empty($_POST["result"])) {
-        $result = $gameResult;
+        $result = $gameResult; ///< Set value to placeholder if left empty
     } else {
-        $result = test_input($_POST["result"]);
+        $result = test_input($_POST["result"]); ///< Sanitize game's result
     }
 
     if (empty($_POST["score"])) {
-        $score = $gameScore;
+        $score = $gameScore; ///< Set value to placeholder if left empty
     } else {
-        $score = test_input($_POST["score"]);
+        $score = test_input($_POST["score"]); ///< Sanitize game's score
     }
 
     /// Game Halves Validation
 
     if (empty($_POST["home_score_1"])) {
-        $scoreHome1 = $homeScorePlaceholder1;
+        $scoreHome1 = $homeScorePlaceholder1; ///< Set value to placeholder if left empty
     } else {
-        $homeScore1 = test_input($_POST["home_score_1"]);
+        $homeScore1 = test_input($_POST["home_score_1"]); ///< Sanitize home score for half number 1
     } 
 
     if (empty($_POST["home_comment_1"])) {
-        $commentHome1 = $homeCommentPlaceholder1;
+        $commentHome1 = $homeCommentPlaceholder1; ///< Set value to placeholder if left empty
     } else {
-        $homeComment1 = test_input($_POST["home_comment_1"]);
+        $homeComment1 = test_input($_POST["home_comment_1"]); ///< Sanitize home team's comment for half number 1
     } 
 
     if (empty($_POST["opposition_score_1"])) {
-        $scoreOpposition1 = $oppositionScorePlaceholder1;
+        $scoreOpposition1 = $oppositionScorePlaceholder1; ///< Set value to placeholder if left empty
     } else {
-        $oppositionScore1 = test_input($_POST["opposition_score_1"]);
+        $oppositionScore1 = test_input($_POST["opposition_score_1"]); ///< Sanitize opposition score for half number 1
     } 
 
     if (empty($_POST["opposition_comment_1"])) {
-        $commentOpposition1 = $oppositionCommentPlaceholder1;
+        $commentOpposition1 = $oppositionCommentPlaceholder1; ///< Set value to placeholder if left empty
     } else {
-        $oppositionComment1 = test_input($_POST["opposition_comment_1"]);
+        $oppositionComment1 = test_input($_POST["opposition_comment_1"]); ///< Sanitize opposition team's comment for half number 1
     } 
 
     if (empty($_POST["home_score_2"])) {
-        $scoreHome2E = $homeScorePlaceholder2;
+        $scoreHome2E = $homeScorePlaceholder2; ///< Set value to placeholder if left empty
     } else {
-        $homeScore2 = test_input($_POST["home_score_2"]);
+        $homeScore2 = test_input($_POST["home_score_2"]); ///< Sanitize home score for half number 2
     } 
 
     if (empty($_POST["home_comment_2"])) {
-        $commentHome2 = $homeCommentPlaceholder2;
+        $commentHome2 = $homeCommentPlaceholder2; ///< Set value to placeholder if left empty
     } else {
-        $homeComment2 = test_input($_POST["home_comment_2"]);
+        $homeComment2 = test_input($_POST["home_comment_2"]);  ///< Sanitize home team's comment for half number 2
     } 
 
     if (empty($_POST["opposition_score_2"])) {
-        $scoreOpposition2 = $oppositionScorePlaceholder2;
+        $scoreOpposition2 = $oppositionScorePlaceholder2; ///< Set value to placeholder if left empty
     } else {
-        $oppositionScore2 = test_input($_POST["opposition_score_2"]);
+        $oppositionScore2 = test_input($_POST["opposition_score_2"]); //< Sanitize opposition score for half number 2
     } 
 
     if (empty($_POST["opposition_comment_2"])) {
-        $commentOpposition2 = $oppositionCommentPlaceholder2;
+        $commentOpposition2 = $oppositionCommentPlaceholder2; ///< Set value to placeholder if left empty
     } else {
-        $oppositionComment2 = test_input($_POST["opposition_comment_2"]);
+        $oppositionComment2 = test_input($_POST["opposition_comment_2"]); ///< Sanitize opposition team's comment for half number 2
     } 
 
+    /**
+     * Validates all the error messages and if there are no errors, updates the game details in the database.
+     */
     if (empty($nameErr) && empty($squadErr) && empty($startErr) && empty($endErr) && empty($locationErr) && empty($kickoffErr) && empty($resultErr) && empty($scoreErr) && empty($homeErr) && empty($scoreHome1Err) && empty($commentHome1Err) && empty($scoreOpposition1Err) && empty($commentOpposition1Err) && empty($scoreHome2Err) && empty($commentHome2Err) && empty($scoreOpposition2Err) && empty($commentOpposition2Err)) {
 
         $stmt = $conn->prepare(SQL::$getSquad);
@@ -201,15 +254,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $squadExists = $stmt->fetch();
         $squadId = $squadExists['squad_id'];
 
+        /**
+         * Update a game with the provided details.
+         *
+         * @param int $squadId The ID of the squad associated with the game
+         * @param string $name The name of the game
+         * @param string $opposition The opposing team
+         * @param string $start The start date and time of the game
+         * @param string $end The end date and time of the game
+         * @param string $location The location of the game
+         * @param string $kickoff The kickoff time of the game
+         * @param string $result The result of the game
+         * @param string $score The score of the game
+         * @param int $gameId The ID of the game to update
+         */
         Events::updateGame($squadId, $name, $opposition, $start, $end, $location, $kickoff, $result, $score, $gameId);
 
+        /**
+         * Update the game half details with the provided information.
+         *
+         * @param int $gameHalfId1 The ID of the game half to update.
+         * @param string $squad The squad information.
+         * @param int $homeScore1 The home team score.
+         * @param string $homeComment1 The comment for the home team.
+         * @param string $opposition The opposition team information.
+         * @param int $oppositionScore1 The opposition team score.
+         * @param string $oppositionComment1 The comment for the opposition team.
+         */
         Events::updateGameHalf($gameHalfId1, $squad, $homeScore1, $homeComment1, $opposition, $oppositionScore1, $oppositionComment1);
 
+        /**
+         * Update the game half details with the provided information.
+         *
+         * @param int $gameHalfId2 The ID of the game half to update.
+         * @param string $squad The squad information.
+         * @param int $homeScore2 The home team's score.
+         * @param string $homeComment2 The home team's comment.
+         * @param string $opposition The opposition team's information.
+         * @param int $oppositionScore2 The opposition team's score.
+         * @param string $oppositionComment2 The opposition team's comment.
+         */
         Events::updateGameHalf($gameHalfId2, $squad, $homeScore2, $homeComment2, $opposition, $oppositionScore2, $oppositionComment2);
 
-        header("Location: " . Utils::$projectFilePath . "/timetable.php");
+        header("Location: " . Utils::$projectFilePath . "/timetable.php"); ///< Redirect back to timetabe to see changes
     }
-    }
+}
 
 
 /**
@@ -241,9 +330,17 @@ function test_input($data) {
         <input type="text" name="name" placeholder="<?php echo $gameName;?>" value="<?php echo $name;?>">
         <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
 
+        <!-- Populate dropdown with values from database -->
         <label for="squad">Home Team:</label><br>
             <select name="squad">
             <?php
+            /**
+             * Loops through an array of squads and creates an <option> element for each squad.
+             *
+             * @param array $squads An array of squads to generate dropdown options for.
+             * @param string $homeTeam The name of the home team to mark as selected.
+             * @return string The HTML dropdown options for the squads.
+             */
             foreach($squads as $squad){
                 ?>
                 <option value="<?php echo $squad["squad_name"]; ?>" <?php if($squad['squad_name'] == $homeTeam) {echo "selected";}?>>
@@ -286,13 +383,19 @@ function test_input($data) {
 
         <input type="button" value="Next" onclick="nextTab()">
     </div>
-
     <div id="game-half-form">
         <?php foreach ($gameHalves as $gameHalf): ?>
             <div class="game-half">
+                <!-- Generates HTML code for displaying a form input field for home score based on the game half number. -->
                 <h3>Game Half <?php echo $gameHalf["half_number"]; ?></h3>
                 <label class="col-sm-2 col-form-label-sm"for="home_score_<?php echo $gameHalf["half_number"]; ?>">Home Score:</label><br>
                 <input type="text" name="home_score_<?php echo $gameHalf["half_number"]; ?>" placeholder="<?php if($gameHalf["half_number"] == 1){echo $homeScorePlaceholder1;} else{ echo $homeScorePlaceholder2;}?>" value="<?php if ($gameHalf["half_number"] == 1){echo $homeScore1;}else{echo $homeScore2;}?>"><br>
+                <!--
+                 * Display an alert message based on the half number of the game.
+                 *
+                 * If the half number is 1, display the $scoreHome1Err message in a red alert box.
+                 * If the half number is not 1, display the $scoreHome2Err message in a red alert box.
+                -->
                 <?php if ($gameHalf["half_number"] == 1){
                     ?>
                     <p class="alert alert-danger"><?php echo $scoreHome1Err;?></p><br>
@@ -302,6 +405,7 @@ function test_input($data) {
                     <p class="alert alert-danger"><?php echo $scoreHome2Err;?></p><br>
                     <?php
                 }?>
+
                 <label class="col-sm-2 col-form-label-sm"for="home_comment_<?php echo $gameHalf["half_number"]; ?>">Home Comment:</label><br>
                 <input type="text" name="home_comment_<?php echo $gameHalf["half_number"]; ?>" placeholder="<?php if($gameHalf["half_number"] == 1){echo $homeCommentPlaceholder1;} else{ echo $homeCommentPlaceholder2;}?>" value="<?php if ($gameHalf["half_number"] == 1){echo $homeComment1;}else{echo $homeComment2;}?>"><br>
                 <?php if ($gameHalf["half_number"] == 1){
@@ -313,6 +417,7 @@ function test_input($data) {
                     <p class="alert alert-danger"><?php echo $commentHome2Err;?></p><br>
                     <?php
                 }?>
+
                 <!-- Opposition team bit -->
                 <label class="col-sm-2 col-form-label-sm"for="opposition_score_<?php echo $gameHalf["half_number"]; ?>">Opposition Score:</label><br>
                 <input type="text" name="opposition_score_<?php echo $gameHalf["half_number"]; ?>" placeholder="<?php if($gameHalf["half_number"] == 1){echo $oppositionScorePlaceholder1;} else{ echo $oppositionScorePlaceholder2;}?>" value="<?php if ($gameHalf["half_number"] == 1){echo $oppositionScore1;}else{echo $oppositionScore2;}?>"><br>
@@ -356,16 +461,27 @@ function test_input($data) {
 
         showTab();
 
+        /**
+         * Increases the current tab index by 1 and displays the next tab.
+         */
         function nextTab(){
             currentTab += 1;
             showTab();
         }
 
+        /**
+         * Decrements the current tab index by 1 and displays the updated tab.
+         */
         function prevTab(){
             currentTab -= 1;
             showTab();
         }
 
+        /**
+         * Show the tab based on the currentTab value.
+         * If currentTab is 0, display basicDetails and hide halfDetails.
+         * If currentTab is not 0, hide basicDetails and display halfDetails.
+         */
         function showTab(){
             if ( currentTab == 0){
                 basicDetails.style.display = "block";

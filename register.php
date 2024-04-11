@@ -11,9 +11,11 @@ require("classes/components.php");
  */
 require("classes/utils.php");
 
-$output = "";
+$output = ""; ///< Store output of register
 
-/// Detect if this page has received a POST request
+/**
+ * Handles the POST request method and registers a new user if the registerSubmit parameter is set.
+ */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require("classes/user.php");
 
@@ -22,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-Components::pageHeader("Register", ["style"], ["mobile-nav"]);
+Components::pageHeader("Register", ["style"], ["mobile-nav"]); ///< Render page header
 
 ?>
 
@@ -30,9 +32,6 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
 
 
     <h2>Register a new account</h2>
-
-
-
     <form method="POST" action="" class="form">
         <label class="col-sm-2 col-form-label-sm" >Username</label>
         <input
@@ -40,6 +39,10 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
             name="username"
             value="<?php
 
+            /**
+             * Check if $output is true and if the "registerSubmit" and "username" keys are set in the $_POST array.
+             * If conditions are met, echo the escaped value of the "username" key from the $_POST array.
+             */
             if ($output && isset($_POST["registerSubmit"]) && isset($_POST["username"])) {
                 echo Utils::escape($_POST["username"]);
             }
@@ -90,6 +93,11 @@ Components::pageHeader("Register", ["style"], ["mobile-nav"]);
 
 <script>
 
+/**
+ * Check the criteria of the password entered by the user.
+ * Compares the length of the password and if it matches the confirmation password.
+ * Updates the visual indicators based on the criteria.
+ */
 function checkPasswordCriteria(){
     let password = document.forms[0]["passwordOne"].value.trim();
     let password2 = document.forms[0]["passwordTwo"].value.trim();
@@ -130,25 +138,46 @@ function checkPasswordCriteria(){
 
 checkPasswordCriteria();
 
+/**
+ * Validates the registration form fields for username, email, password, and password confirmation.
+ * Displays an alert message if any field is empty.
+ * 
+ * @returns {boolean} Returns false if any field is empty, true otherwise.
+ */
 function validateRegister(){
 
     let username = document.forms[0]["username"].value.trim();
+    let email = document.forms[0]["email"].value.trim();
+    let password = document.forms[0]["passwordOne"].value.trim();
+    let password2 = document.forms[0]["passwordTwo"].value.trim();
 
     if (username === "") {
-        alert("Name must be filled out");
+        alert("Username must be filled out");
+        return false;
+    }
+
+    if (email === "") {
+        alert("Email must be filled out");
+        return false;
+    }
+
+    if (password === "") {
+        alert("Password must be filled out");
+        return false;
+    }
+
+    if (password2 === "") {
+        alert("Password Two must be filled out");
         return false;
     }
 
 
 
 }
+
 </script>
-
-
-
-
 <?php
 
-Components::pageFooter();
+Components::pageFooter(); ///< Render page footer
 
 ?>

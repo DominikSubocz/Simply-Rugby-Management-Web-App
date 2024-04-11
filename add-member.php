@@ -1,10 +1,14 @@
 <?php
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
 require("classes/sql.php");
-require("classes/utils.php");
-require_once("classes/connection.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require_once("classes/connection.php");
 
 /**
  * Check if the session variable "newMember" is not set, and if the user role is not "Admin" or "Coach",

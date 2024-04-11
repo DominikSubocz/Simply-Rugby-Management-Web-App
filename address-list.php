@@ -1,20 +1,22 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
 require("classes/connection.php");
 require("classes/sql.php");
-require("classes/utils.php");
-require("classes/address.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/address.php");
 
 Components::pageHeader("List of Addresses", ["style"], ["mobile-nav"]);
 
 /**
  * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
  * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
  */
 if(!isset($_SESSION["loggedIn"])){
 
@@ -260,3 +262,8 @@ displayButtons("none");
 
   
 </script>
+<?php
+
+Components::pageFooter(); ///< Render page footer
+
+?>

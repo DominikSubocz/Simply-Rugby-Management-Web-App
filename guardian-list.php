@@ -1,26 +1,43 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
 require("classes/connection.php");
 require("classes/sql.php");
-require("classes/utils.php");
-require("classes/guardian.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/guardian.php");
 
-Components::pageHeader("List of Guardians", ["style"], ["mobile-nav"]);
+Components::pageHeader("List of Guardians", ["style"], ["mobile-nav"]); ///< Render page header
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ */
+if(!isset($_SESSION["loggedIn"])){
+
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+
+}
+
+/**
+ * Check if the user role is not "Admin" and not "Coach", then redirect to logout page.
+ * 
+ * @param string $_SESSION["user_role"]
+ */
 if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
-if(!isset($_SESSION["loggedIn"])){
-
-    header("Location: " . Utils::$projectFilePath . "/login.php");
-  
-  }
-
-  
+/**
+ * Check if the remove button was clicked.
+ * If clicked check if the 'check_list' POST parameter is not empty.
+ * Redirect to the 'delete-doctor.php' page with the IDs from the 'check_list' array as query parameters.
+ */
 if(isset($_POST['removeSubmit'])){
   if(!empty($_POST['check_list'])) {
     foreach($_POST['check_list'] as $check) {
@@ -84,7 +101,6 @@ if(isset($_POST['removeSubmit'])){
   <div class="modal-content column-settings-content  w-50">
       <span class="close">&times;</span>
       <h3>Column Settings</h3>
- <!-- 8-->
       <div class="container">
         <div class="row">
           <div class="col">            
@@ -159,6 +175,10 @@ settingsBtn.onclick = function(event) {
   }
 
 
+/**
+ * Display or hide columns based on the checkboxes checked.
+ * If a checkbox is checked, display the corresponding column; otherwise, hide it.
+ */
 function displayColumn(){
 
   var checkBox1 = document.getElementById("inlineCheckbox1");
@@ -186,11 +206,11 @@ function displayColumn(){
   /// Check if checkbox 1 is checked
   if (checkBox1.checked) {
     for (var i = 0; i < firstName.length; i++) {
-      firstName[i].style.display = "table-cell";
+      firstName[i].style.display = "table-cell"; ///< Display each element in the addressLine1 array as a table cell.
     }
   } else {
     for (var i = 0; i < firstName.length; i++) {
-      firstName[i].style.display = "none";
+      firstName[i].style.display = "none"; ///< Hide each element in the addressLine1 array.
     }
   }
 
@@ -271,6 +291,12 @@ function displayColumn(){
 
 displayColumn();
 
+/**
+ * Changes the checkbox state by unchecking all checkboxes with class "cb" and checking the checkbox passed as a parameter.
+ * Additionally, it displays buttons with the specified style.
+ *
+ * @param {Object} obj - The checkbox object to be checked.
+ */
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
     for (var i = 0; i < cbs.length; i++) {
@@ -280,6 +306,9 @@ function cbChange(obj) {
     displayButtons("block");
 }
 
+/**
+ * Function to display buttons based on the type provided.
+ */
 function displayButtons(type){
   if(type == "block"){
     removeBtn.style.display="block";

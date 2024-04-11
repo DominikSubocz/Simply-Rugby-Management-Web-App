@@ -3,14 +3,22 @@
 require("classes/components.php");
 require("classes/junior.php");
 
+/// This must come first when we need access to the current session
 session_start();
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ */
 if(!isset($_SESSION["loggedIn"])){
   
     header("Location: " . Utils::$projectFilePath . "/login.php");
   
-  }
+}
 
+/**
+ * Check if the user role is not "Admin" or "Coach" and redirect to logout page if true.
+ */
 if(isset($_SESSION["user_role"])){
 
     if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
@@ -27,20 +35,6 @@ Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 
 <main class="content-wrapper index-content my-5">
-
-
-    <?php
-        if(isset($_SESSION["loggedIn"])){
-            if($_SESSION["user_role"] !== "Admin"){
-
-                header("Location: " . Utils::$projectFilePath . "/login.php");
-
-            }
-                
-        }
-
-    ?>
-
     <div class="container">
         <div class="row">
             <div class="col col1 card my-1  py-4">

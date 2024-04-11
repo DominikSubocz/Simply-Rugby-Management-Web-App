@@ -1,11 +1,15 @@
 <?php
 
 require("classes/components.php");
-require("classes/utils.php");
-require("classes/connection.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/connection.php");
 require("classes/sql.php");
 require("classes/events.php");
 
+/// This must come first when we need access to the current session
 session_start();
 /**
  * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.

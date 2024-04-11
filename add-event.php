@@ -1,13 +1,17 @@
 <?php
 
 
+/// This must come first when we need access to the current session
 session_start();
 require("classes/components.php");
 require("classes/connection.php");
 require("classes/sql.php");
 require("classes/events.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
 require("classes/utils.php");
-
 /// Redirect to logout page if user role is neither Admin nor Coach
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");

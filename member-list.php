@@ -1,5 +1,6 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
@@ -8,15 +9,28 @@ require("classes/member.php");
 /// Output page header with a given title, stylesheet, and script
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ */
 if(!isset($_SESSION["loggedIn"])){
 
   header("Location: " . Utils::$projectFilePath . "/login.php");
 
 }
 
+/**
+ * Check if the user role is not "Admin" and not "Coach", then redirect to logout page.
+ */
 if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
+
+/**
+ * Check if the update button was clicked.
+ * If clicked check if the 'check_list' POST parameter is not empty.
+ * Redirect to the 'update-member.php' page with the IDs from the 'check_list' array as query parameters.
+ */
 
 if(isset($_POST['updateSubmit'])){
   if(!empty($_POST['check_list'])) {
@@ -26,10 +40,21 @@ if(isset($_POST['updateSubmit'])){
   }
 }
 
+/**
+ * Check if the add button was clicked.
+ * Redirect to the 'add-member.php' page if clicked.
+ */
+
 if(isset($_POST['addSubmit'])){
   header("Location: " . Utils::$projectFilePath . "/add-member.php?");
 
 }
+
+/**
+ * Check if the delete button was clicked.
+ * If clicked check if the 'check_list' POST parameter is not empty.
+ * Redirect to the 'delete-member.php' page with the IDs from the 'check_list' array as query parameters.
+ */
 
 if(isset($_POST['removeSubmit'])){
   if(!empty($_POST['check_list'])) {
@@ -166,100 +191,110 @@ settingsBtn.onclick = function(event) {
     }
   }
 
-  function displayColumn(){
+/**
+ * Display or hide columns based on the checkboxes checked.
+ * If a checkbox is checked, display the corresponding column; otherwise, hide it.
+ */
 
-var checkBox1 = document.getElementById("inlineCheckbox1");
-var checkBox2 = document.getElementById("inlineCheckbox2");
-var checkBox3 = document.getElementById("inlineCheckbox3");
-var checkBox4 = document.getElementById("inlineCheckbox4");
-var checkBox5 = document.getElementById("inlineCheckbox5");
-var checkBox6 = document.getElementById("inlineCheckbox6");
-var checkBox7 = document.getElementById("inlineCheckbox7");
+function displayColumn(){
 
-var firstName = document.querySelectorAll(".first-name-label");
-var lastName = document.querySelectorAll(".last-name-label");
-var sru = document.querySelectorAll(".sru-label");
-var dob = document.querySelectorAll(".dob-label");
-var contact = document.querySelectorAll(".contact-label");
-var email = document.querySelectorAll(".email-label");
-var pfp = document.querySelectorAll(".pfp-label");
+  var checkBox1 = document.getElementById("inlineCheckbox1");
+  var checkBox2 = document.getElementById("inlineCheckbox2");
+  var checkBox3 = document.getElementById("inlineCheckbox3");
+  var checkBox4 = document.getElementById("inlineCheckbox4");
+  var checkBox5 = document.getElementById("inlineCheckbox5");
+  var checkBox6 = document.getElementById("inlineCheckbox6");
+  var checkBox7 = document.getElementById("inlineCheckbox7");
 
-/// Check if checkbox 1 is checked
-if (checkBox1.checked) {
-  for (var i = 0; i < firstName.length; i++) {
-    firstName[i].style.display = "table-cell";
-  }
-} else {
-  for (var i = 0; i < firstName.length; i++) {
-    firstName[i].style.display = "none";
-  }
-}
+  var firstName = document.querySelectorAll(".first-name-label");
+  var lastName = document.querySelectorAll(".last-name-label");
+  var sru = document.querySelectorAll(".sru-label");
+  var dob = document.querySelectorAll(".dob-label");
+  var contact = document.querySelectorAll(".contact-label");
+  var email = document.querySelectorAll(".email-label");
+  var pfp = document.querySelectorAll(".pfp-label");
 
-if (checkBox2.checked) {
-  for (var i = 0; i < lastName.length; i++) {
-    lastName[i].style.display = "table-cell";
+  /// Check if checkbox 1 is checked
+  if (checkBox1.checked) {
+    for (var i = 0; i < firstName.length; i++) {
+      firstName[i].style.display = "table-cell"; ///< Display each element in the firstName array as a table cell.
+    }
+  } else {
+    for (var i = 0; i < firstName.length; i++) {
+      firstName[i].style.display = "none"; ///< Hide each element in the firstName array.
+    }
   }
-} else {
-  for (var i = 0; i < lastName.length; i++) {
-    lastName[i].style.display = "none";
-  }
-}
 
-if (checkBox3.checked) {
-  for (var i = 0; i < sru.length; i++) {
-    sru[i].style.display = "table-cell";
+  if (checkBox2.checked) {
+    for (var i = 0; i < lastName.length; i++) {
+      lastName[i].style.display = "table-cell";
+    }
+  } else {
+    for (var i = 0; i < lastName.length; i++) {
+      lastName[i].style.display = "none";
+    }
   }
-} else {
-  for (var i = 0; i < sru.length; i++) {
-    sru[i].style.display = "none";
-  }
-}
 
-if (checkBox4.checked) {
-  for (var i = 0; i < dob.length; i++) {
-    dob[i].style.display = "table-cell";
+  if (checkBox3.checked) {
+    for (var i = 0; i < sru.length; i++) {
+      sru[i].style.display = "table-cell";
+    }
+  } else {
+    for (var i = 0; i < sru.length; i++) {
+      sru[i].style.display = "none";
+    }
   }
-} else {
-  for (var i = 0; i < dob.length; i++) {
-    dob[i].style.display = "none";
-  }
-}
 
-if (checkBox5.checked) {
-  for (var i = 0; i < contact.length; i++) {
-    contact[i].style.display = "table-cell";
+  if (checkBox4.checked) {
+    for (var i = 0; i < dob.length; i++) {
+      dob[i].style.display = "table-cell";
+    }
+  } else {
+    for (var i = 0; i < dob.length; i++) {
+      dob[i].style.display = "none";
+    }
   }
-} else {
-  for (var i = 0; i < contact.length; i++) {
-    contact[i].style.display = "none";
-  }
-}
 
-if (checkBox6.checked) {
-  for (var i = 0; i < email.length; i++) {
-    email[i].style.display = "table-cell";
+  if (checkBox5.checked) {
+    for (var i = 0; i < contact.length; i++) {
+      contact[i].style.display = "table-cell";
+    }
+  } else {
+    for (var i = 0; i < contact.length; i++) {
+      contact[i].style.display = "none";
+    }
   }
-} else {
-  for (var i = 0; i < email.length; i++) {
-    email[i].style.display = "none";
-  }
-}
 
-if (checkBox7.checked) {
-  for (var i = 0; i < pfp.length; i++) {
-    pfp[i].style.display = "table-cell";
+  if (checkBox6.checked) {
+    for (var i = 0; i < email.length; i++) {
+      email[i].style.display = "table-cell";
+    }
+  } else {
+    for (var i = 0; i < email.length; i++) {
+      email[i].style.display = "none";
+    }
   }
-} else {
-  for (var i = 0; i < pfp.length; i++) {
-    pfp[i].style.display = "none";
+
+  if (checkBox7.checked) {
+    for (var i = 0; i < pfp.length; i++) {
+      pfp[i].style.display = "table-cell";
+    }
+  } else {
+    for (var i = 0; i < pfp.length; i++) {
+      pfp[i].style.display = "none";
+    }
   }
-}
 }
 
 displayColumn();
 
 
-
+/**
+ * Changes the checkbox state by unchecking all checkboxes with class "cb" and checking the checkbox passed as a parameter.
+ * Additionally, it displays buttons with the specified style.
+ *
+ * @param {Object} obj - The checkbox object to be checked.
+ */
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
     for (var i = 0; i < cbs.length; i++) {
@@ -268,7 +303,9 @@ function cbChange(obj) {
     obj.checked = true;
     displayButtons("block");
 }
-
+/**
+ * Function to display buttons based on the type provided.
+ */
 function displayButtons(type){
   if(type == "block"){
     if(role.value === "Coach"){

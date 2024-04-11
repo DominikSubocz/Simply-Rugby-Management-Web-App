@@ -1,12 +1,16 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
 require("classes/connection.php");
 require("classes/sql.php");
-require("classes/utils.php");
-require("classes/doctor.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/doctor.php");
 
 Components::pageHeader("List of Doctors", ["style"], ["mobile-nav"]);
 

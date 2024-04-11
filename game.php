@@ -1,26 +1,38 @@
 <?php
 
+/// This must come first when we need access to the current session
 session_start();
 
 require("classes/components.php");
-require("classes/utils.php");
-require("classes/events.php");
+/**
+ * Included for the postValuesAreEmpty() and
+ * escape() functions and the project file path.
+ */
+require("classes/utils.php");require("classes/events.php");
 require("classes/connection.php");
 require("classes/sql.php");
 
+/**
+ * Redirects to the player list page if the 'id' parameter is not set or is not numeric.
+ */
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
     header("Location: " . Utils::$projectFilePath . "/player-list.php");
 } 
 
-$game = Events::getGame($_GET["id"]);
+$game = Events::getGame($_GET["id"]); ///< Get game details by ID
 
-$pageTitle = "Game not found";
+$pageTitle = "Game not found"; ///< Default title
 
+/**
+ * Set the page title to display the details of the game if the game array is not empty.
+ *
+ * @param array $game The game array containing the game details.
+ */
 if(!empty($game)){
     $pageTitle = $game["name"] . "'s Details";
 }
 
-Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
+Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]); ///< Render page header
 ?>
 
 
@@ -44,7 +56,7 @@ Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
 
     <?php
 
-        Components::singleGame($game);
+        Components::singleGame($game); ///< Render single game card
     ?>
 
   </tbody>
@@ -53,6 +65,6 @@ Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]);
 
 <?php
 
-    Components::pageFooter();
+    Components::pageFooter(); ///< Render page footer
 
 ?>
