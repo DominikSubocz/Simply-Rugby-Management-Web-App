@@ -34,6 +34,10 @@ $name = $dob = $email = $sru = $contactNo = $mobileNo = $profileImage = $filenam
 $address1 = $address2 = $city = $county = $postcode = "";
 $firstName = $lastName = "";
 
+/**
+ * This function is used to handle form submission when the HTTP request method is POST. 
+ * It validates the form inputs and processes the data accordingly.
+ */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name

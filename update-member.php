@@ -53,13 +53,18 @@ $name = $dob = $email = $sru = $contactNo = $mobileNo = $profileImage = $filenam
 $address1 = $address2 = $city = $county = $postcode = "";
 $firstName = $lastName = "";
 
+/**
+ * This function is used to handle form submission when the HTTP request method is POST. 
+ * It validates the form inputs and processes the data accordingly.
+ */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name
     if (empty($_POST["name"])) {
         $name = $firstNamePlaceholder . ' ' . $lastNamePlaceholder;
 
-        $nameParts = explode(" ", $name);
+        $nameParts = explode(" ", $name); ///< Split name into first and last name
+
 
         /// Extract the first and last names
         $firstName = $nameParts[0];
@@ -71,7 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nameErr = "Only letters and white space allowed";
         }
 
-        $nameParts = explode(" ", $name);
+        $nameParts = explode(" ", $name); ///< Split name into first and last name
+
 
         /// Extract the first and last names
         $firstName = $nameParts[0];

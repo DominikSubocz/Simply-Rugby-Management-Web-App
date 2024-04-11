@@ -77,11 +77,11 @@ $gameScore = Utils::escape($game["score"]);
  * @var string $home: The home team
  *
  * Error variables for each corresponding field to handle validation errors:
- * @var string $squadErr
- * @var string $nameErr
- * @var string $oppositionErr
- * @var string $startErr
- * @var string $endErr
+ * @var string $squadErr - Error message for squad validation
+ * @var string $nameErr - Error message for game's name validation
+ * @var string $oppositionErr - Error message for opposition team's name validation
+ * @var string $startErr - Error message for start date validation
+ * @var string $endErr - Error message for end date validation
  */
 $squad = $name = $opposition = $start = $end = $location = $kickoff = $result = $score = "";
 $home = "";

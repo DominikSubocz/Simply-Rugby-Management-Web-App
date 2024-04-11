@@ -51,12 +51,8 @@ $doctorName = $doctorContact = "";
 
 
 /**
- * Validates and processes form data submitted via POST method.
- *
- * This function checks each form field for validity and sanitizes the input data. It performs various checks such as ensuring required fields are not empty, validating email and date formats, and checking input lengths.
- * If all validations pass, it saves the data to the database after creating necessary associations between entities like Junior, Guardian, Doctor, and Address.
- * If any validation fails, appropriate error messages are set for each field.
- *
+ * This function is used to handle form submission when the HTTP request method is POST. 
+ * It validates the form inputs and processes the data accordingly.
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name

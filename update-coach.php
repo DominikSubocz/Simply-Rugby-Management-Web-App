@@ -38,7 +38,7 @@ $contactNumberPlaceholder = Utils::escape($coach["contact_no"]);
 $mobileNumberPlaceholder = Utils::escape($coach["mobile_no"]);
 $emailAddressPlaceholder = Utils::escape($coach["email_address"]);
 
-$phpdate = strtotime( $dobPlaceholder); ///< Converts a date string to a Unix timestamp.
+$phpdate = strtotime( $dobPlaceholder); ///< Converts a date of birth (dob) into a SQL date format (YYYY-MM-DD).
 $ukDobPlaceholder = date( 'd/m/Y', $phpdate ); ///< Format a Unix timestamp into a UK date of birth placeholder string.
 
 /**
@@ -72,7 +72,8 @@ $firstName = $lastName = "";
 
 
 /**
- * Processes form data submitted via POST method, validates input fields, and updates coach information if all validations pass.
+ * This function is used to handle form submission when the HTTP request method is POST. 
+ * It validates the form inputs and processes the data accordingly.
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name
@@ -119,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY"; //< Display error message
         }
 
-        $sqlDate = date('Y-m-d', strtotime($dob)); ///< Converts a date of birth to a SQL date format.
+        $sqlDate = date('Y-m-d', strtotime($dob)); ///< Converts a date of birth (dob) into a SQL date format (YYYY-MM-DD).
     }
 
     if(empty($_POST["contactNo"])){

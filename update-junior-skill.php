@@ -200,12 +200,8 @@ $standardComment = $spinComment = $popComment = $frontComment = $rearComment = $
 
 
 /**
- * Validates and processes form data submitted via POST method.
- *
- * This function checks each form field for validity and sanitizes the input data. It performs various checks such as ensuring required fields are not empty, validating email and date formats, and checking input lengths.
- * If all validations pass, it saves the data to the database after creating necessary associations between entities like Junior, Guardian, Doctor, and Address.
- * If any validation fails, appropriate error messages are set for each field.
- *
+ * This function is used to handle form submission when the HTTP request method is POST. 
+ * It validates the form inputs and processes the data accordingly.
  */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -419,6 +415,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   && empty($dropErr) && empty($puntErr) && empty($grubberErr) && empty($goalErr)){
 
 
+    /**
+     * Update the skills of a junior player with the provided parameters.
+     *
+     * @param int $skill - Int containing skill level to be updated
+     * @param string $comment - String containing coach's comment for that skill
+     * @param int $skillId - Int containing ID of skill to be updated
+     * @param int $juniorId - Int containing ID of junior for which skill will be updated.
+     */
     Junior::updateJuniorSkills($standard, $standardComment, 1, $juniorId);
     Junior::updateJuniorSkills($spin, $spinComment, 2, $juniorId);
     Junior::updateJuniorSkills($pop, $popComment, 3, $juniorId);
