@@ -41,7 +41,14 @@ $conn = Connection::connect(); ///< Connect to database
 
 $juniorId = $_GET["id"]; ///< Get ID of junior and store it in a variable
 
-$junior = Junior::getJunior($juniorId);
+$junior = Junior::getJunior($juniorId); ///< Get details of specific junior by its ID number.
+
+/**
+ * Escape and assign values from the $game array to respective variables for security purposes.
+ *
+ * @param array $junior An array containing information about the junior.
+ * 
+ */
 
 $playerFirstName = Utils::escape($junior["first_name"]);
 $playerLastName = Utils::escape($junior["last_name"]);
@@ -64,7 +71,7 @@ $doctorFirstNamePlaceholder = Utils::escape($junior["doctor_first_name"]);
 $doctorLastNamePlaceholder = Utils::escape($junior["doctor_last_name"]);
 $doctorContactPlaceholder = Utils::escape($junior["doctor_contact_no"]);
 
-$guardians = Guardian::getGuardian($juniorId);
+$guardians = Guardian::getGuardian($juniorId); ///< Get details about guardians based on ID number of specific junior
 
 if (count($guardians) >= 1) {
 
