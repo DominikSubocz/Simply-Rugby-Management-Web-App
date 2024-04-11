@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nameErr = "Only letters and white space allowed";///< Display error message
         }
 
-        $nameParts = explode(" ", $name);
+        $nameParts = explode(" ", $name); ///< Split player's name into first and last name
 
         /// Extract the first and last names
         $firstName = $nameParts[0];

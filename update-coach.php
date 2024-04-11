@@ -44,14 +44,14 @@ $ukDobPlaceholder = date( 'd/m/Y', $phpdate ); ///< Format a Unix timestamp into
 /**
  * Variables to hold error messages for form validation.
  *
- * @var string $nameErr
- * @var string $dobErr
- * @var string $emailErr
- * @var string $contactNoErr
- * @var string $mobileNoErr
- * @var string $profileImageErr
- * @var string $genuineErr
- * @var string $filename
+ * @var string $nameErr - Error message for name validation
+ * @var string $dobErr - Error message for date of birth validation
+ * @var string $emailErr - Error message for emaill validation
+ * @var string $contactNoErr - Error message for contact number validation
+ * @var string $mobileNoErr - Error message for mobile number validation
+ * @var string $profileImageErr - Error message for profile image validation
+ * @var string $genuineErr - Error message to be displayed on top of the form i.e "not all input fields filled/correct"
+ * @var string $filename - Error message for profile image validation
  *
  * Variables to hold form input values.
  *
@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["name"])) {
         $name = $firstNamePlaceholder . ' ' . $lastNamePlaceholder; ///< Set value to placeholder if left empty
 
-        $nameParts = explode(" ", $name);  
+        $nameParts = explode(" ", $name);   ///< Split coach name into first and last name
 
         /// Extract the first and last names
         $firstName = $nameParts[0];

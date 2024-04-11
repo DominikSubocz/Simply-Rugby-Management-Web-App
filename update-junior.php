@@ -10,14 +10,36 @@ require("classes/doctor.php");
 require("classes/address.php");
 require("classes/junior.php");
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ * 
+ * If the user is logged in check priveledge level, and proceed.
+ */
+if(!isset($_SESSION["loggedIn"])){
+  
+    header("Location: " . Utils::$projectFilePath . "/login.php");
+  
+  }
+
+/**
+ * Check if the user role is not Admin or Coach, then redirect to logout page.
+ */
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
 
+/**
+ * Redirects to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ */
+if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
+    header("Location: " . Utils::$projectFilePath . "/junior-list.php");
+}
 
-$conn = Connection::connect();
 
-$juniorId = $_GET["id"];
+$conn = Connection::connect(); ///< Connect to database
+
+$juniorId = $_GET["id"]; ///< Get ID of junior and store it in a variable
 
 $junior = Junior::getJunior($juniorId);
 
