@@ -32,7 +32,7 @@ if(!isset($_SESSION["loggedIn"])){
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
   
-  Components::blankPageHeader("Delete player", ["style"], ["mobile-nav"]); ///< Doesn't render anything it's just for keeping stylesheets on, etc.
+  Components::blankPageHeader("Delete address", ["style"], ["mobile-nav"]); ///< Doesn't render anything it's just for keeping stylesheets on, etc.
   
   /**
    * Redirects the user to the address-list.php page if the "id" parameter is not set in the GET request or is not numeric.

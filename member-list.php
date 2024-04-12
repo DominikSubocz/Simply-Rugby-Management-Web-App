@@ -7,7 +7,7 @@ require("classes/components.php");
 require("classes/member.php");
 
 /// Output page header with a given title, stylesheet, and script
-Components::pageHeader("All players", ["style"], ["mobile-nav"]);
+Components::pageHeader("All Members", ["style"], ["mobile-nav"]);
 
 /**
  * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
@@ -74,9 +74,9 @@ if(isset($_POST['removeSubmit'])){
     action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
       
 <div class="bg-dark text-white d-flex p-2">          
-  <input class="btn btn-primary mx-2 my-2" type="submit" id="addBtn" name="addSubmit" value="Add Player">
-  <input class="btn btn-secondary mx-2 my-2" type="submit" id="updateBtn" name="updateSubmit" value="Update Player">
-  <input class="btn btn-danger mx-2 my-2" type="submit" id="removeBtn" name="removeSubmit" value="Remove Player">
+  <input class="btn btn-primary mx-2 my-2" type="submit" id="addBtn" name="addSubmit" value="Add Member">
+  <input class="btn btn-secondary mx-2 my-2" type="submit" id="updateBtn" name="updateSubmit" value="Update Member">
+  <input class="btn btn-danger mx-2 my-2" type="submit" id="removeBtn" name="removeSubmit" value="Remove Member">
   <input type="button" id="settingsBtn" class="btn btn-info ms-auto my-2" value="Settings">  
   <input type="hidden" id="hidden-role-field" name="hidden-role-field" value="<?php echo $_SESSION["user_role"];?>">
 </div>
@@ -99,7 +99,7 @@ if(isset($_POST['removeSubmit'])){
 
     <?php
 
-    /// Get all players from the database and output list of players
+    /// Get all members from the database and output list of members
     $members = Member::getAllMembers();
     Components::allMembers($members);
 

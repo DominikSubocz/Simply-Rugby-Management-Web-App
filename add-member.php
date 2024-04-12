@@ -20,16 +20,41 @@ if(!isset($_SESSION["newMember"])){
       }
 } 
 
-
 /**
- * Initialize error variables for form validation.
- * These variables will be used to display error messages on the form.
+ * Variables to store error messages and input values for form validation.
+ * 
+ * @var string $nameErr: Error message for name field.
+ * @var string $dobErr: Error message for date of birth field.
+ * @var string $emailErr: Error message for email field.
+ * @var string $sruErr: Error message for SRU field.
+ * @var string $contactNoErr: Error message for contact number field.
+ * @var string $mobileNoErr: Error message for mobile number field.
+ * @var string $profileImageErr: Error message for profile image field.
+ * 
+ * @var string $address1Err: Error message for Address Line 1
+ * @var string $address2Err: Error message for Address Line 2
+ * @var string $cityErr: Error message for City
+ * @var string $countyErr: Error message for County
+ * @var string $postcodeErr: Error message for Postcode
+ * @var string $genuineErr: Error message that appers on top of the form i.e "Not all input fields filled/correct"
+ * 
+ * Personal Information:
+ * @var string $name: Holds value for Name input field
+ * @var \DateTime $dob: Holds value for Date of birth input field
+ * @var string  $email: Holds value for Email address input field
+ * @var int  $sru: Holds value for SRU input field
+ * @var int  $contactNo:  Holds value forContact number input field
+ * @var int  $mobileNo: Holds value for Mobile number input field
+ * @var string  $profileImage: Holds value for Profile image input field
+ * @var string  $filename: Holds value for Filename image validation
+ * @var string  $firstName: Holds value for First name after the splitting process
+ * @var string  $lastName: Holds value for Last name after the splitting process
  */
+
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $genuineErr = $profileImageErr = "";
 
-/// Initialize variables
 $name = $dob = $email = $sru = $contactNo = $mobileNo = $profileImage = $filename = "";
 $address1 = $address2 = $city = $county = $postcode = "";
 $firstName = $lastName = "";
@@ -281,7 +306,7 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
+components::pageHeader("Add Member", ["style"], ["mobile-nav"]);
 ?>
 
 <main class="content-wrapper contact-content my-5">

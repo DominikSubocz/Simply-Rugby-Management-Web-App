@@ -20,12 +20,41 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
 /**
  * Render page header with specified styles and navigation options
  */
-Components::pageHeader("All players", ["style"], ["mobile-nav"]);
+Components::pageHeader("Add Event", ["style"], ["mobile-nav"]);
 
 /**
- * Variables for storing game details such as game name, squad, opposition, start time, end time, location, result, and score.
- * Also includes variables for storing any corresponding error messages.
+ * Variables to store information related to a sports squad match.
+ *
+ * @var string $squad: The squad name
+ * @var string $gameName: The name of the game
+ * @var string $opposition: The opposing team
+ * @var \DateTime $start: The start date of the event
+ * @var \DateTime  $end: The end date of the event
+ * @var string $location: The location of the event
+ * @var \DateTime  $kickoff: The kickoff time of the game
+ * @var string $result: The result of the game
+ * @var string $score: The score of the game
+ * @var string $home: The home team
+ *
+ * Error variables for each corresponding field to handle validation errors:
+ * @var string $squadErr - Error message for squad validation
+ * @var string $gameNameErr - Error message for game's name validation
+ * @var string $oppositionErr - Error message for opposition team's name validation
+ * @var string $startErr - Error message for start date validation
+ * @var string $endErr - Error message for end date validation
+ * 
+ * @var string $sessionName: Name of the training session
+ * @var string $coachName: Name of the selected coach
+ * @var string $trainingSquad: Name of the selected squad
+ * @var string $trainingLocation: Location of training session
+ * @var string $sessionNameErr: Error message for sessions's name validation
+ * @var string $coachNameErr: Error message for coach's name validation
+ * @var string $trainingSquadErr: Error message for squad's name validation
+ * @var string $trainingStartErr: Error message for start date validation
+ * @var string $trainingEndErr: Error message for end date validation
+ * @var string $trainingLocationErr: Error message for location of training session validation
  */
+
 $gameName = $squad = $opposition = $start = $end = $location = $result = $score = "";
 $gameNameErr = $squadErr = $oppositionErr = $startErr = $endErr = $locationErr = $kickoffErr = $resultErr = $scoreErr = "";
 
@@ -50,18 +79,8 @@ $squads = $stmt->fetchAll();
 
 
 /**
- * Processes form data submitted via POST method to create a new game or training session.
- * 
- * For game creation:
- * - Validates and sanitizes input fields for game details such as name, squad, opposition, start/end dates, location, kickoff time, and score.
- * - Checks if the game already exists in the database.
- * - If the squad does not exist, throws an error.
- * - Inserts the new game details into the database.
- * 
- * For session creation:
- * - Validates and sanitizes input fields for session details such as name, coach name, training squad, start/end dates, and location.
- * - Checks if the session already exists in the database.
- * - If the coach or squad does not exist,
+ * This function is used to handle form submission when the HTTP request method is POST. 
+ * It validates the form inputs and processes the data accordingly.
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -169,18 +188,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
         if(!$squad){
           /**
-           * 
            * I changed way of selecting squad so there's no way this will run.
-           * 
            * I'll fix it in future update
-           * 
            */
           var_dump("ERROR: Squad doesn't exist"); ///< Display error message
         } else {
 
           /**
            * Creates a new game record & two game half records in the database.
-           *
            */
           $stmt = $conn->prepare(SQL::$createGame);
           $stmt->execute([$squadId, $gameName, $oppisition, $sqlStart, $sqlEnd, $location, $kickoff, $result, $score]);
@@ -192,10 +207,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
       }
-      
-
-
-
     }
   } else {
 

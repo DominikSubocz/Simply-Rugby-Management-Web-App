@@ -33,7 +33,7 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
 }
 
 /**
- * Redirects to the player timetable page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ * Redirects to the timetable page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
  */
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
     header("Location: " . Utils::$projectFilePath . "/timetable.php");

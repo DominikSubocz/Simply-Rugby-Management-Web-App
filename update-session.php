@@ -63,9 +63,9 @@ $session = Events::getSession($_GET["id"]); ///< Get specific session by its ID 
 $pageTitle = "Session not found"; ///< Default title
 
 /**
- * If the $game variable is not empty, set the title of the page to the session name.
+ * If the $session variable is not empty, set the title of the page to the session name.
  */
-if(!empty($game)){
+if(!empty($session)){
     $pageTitle = $session["name"] . "Details";
 }
 

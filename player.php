@@ -20,9 +20,9 @@ if(!isset($_SESSION["loggedIn"])){
 
 }
 
-/**
- * Redirects the user to the player list page if the 'id' parameter is not set or is not numeric.
- */
+  /**
+   * Redirects the user to the player-list.php page if the "id" parameter is not set in the GET request or is not numeric.
+   */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   header("Location: " . Utils::$projectFilePath . "/player-list.php");
 }

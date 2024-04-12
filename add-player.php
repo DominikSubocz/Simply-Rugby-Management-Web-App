@@ -16,9 +16,36 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
   }
 
 /**
- * Initialize variables to store error messages and form data for a user registration form.
- * Also, initialize variables for doctor and address IDs.
+ * Variables to store error messages and input values for form validation.
  * 
+ * @var string $nameErr: Error message for name field.
+ * @var string $dobErr: Error message for date of birth field.
+ * @var string $emailErr: Error message for email field.
+ * @var string $sruErr: Error message for SRU field.
+ * @var string $contactNoErr: Error message for contact number field.
+ * @var string $mobileNoErr: Error message for mobile number field.
+ * @var string $healthIssuesErr: Error message for health issues field.
+ * @var string $profileImageErr: Error message for profile image field.
+ * 
+ * @var string $address1Err: Error message for Address Line 1
+ * @var string $address2Err: Error message for Address Line 2
+ * @var string $cityErr: Error message for City
+ * @var string $countyErr: Error message for County
+ * @var string $postcodeErr: Error message for Postcode
+ * @var string $genuineErr: Error message that appers on top of the form i.e "Not all input fields filled/correct"
+ * 
+ * Personal Information:
+ * @var string $name: Holds value for Name input field
+ * @var \DateTime $dob: Holds value for Date of birth input field
+ * @var string  $email: Holds value for Email address input field
+ * @var int  $sru: Holds value for SRU input field
+ * @var int  $contactNo:  Holds value forContact number input field
+ * @var int  $mobileNo: Holds value for Mobile number input field
+ * @var string  $healthIssues: Holds value for Health issues input field
+ * @var string  $profileImage: Holds value for Profile image input field
+ * @var string  $filename: Holds value for Filename image validation
+ * @var string  $firstName: Holds value for First name after the splitting process
+ * @var string  $lastName: Holds value for Last name after the splitting process
  */
 $nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";

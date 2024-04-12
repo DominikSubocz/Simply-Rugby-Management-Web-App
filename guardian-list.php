@@ -87,7 +87,7 @@ if(isset($_POST['removeSubmit'])){
 
     <?php
 
-    /// Get all players from the database and output list of players
+    /// Get all guardians from the database and output list of guardians
     $guardians = Guardian::getAllGuardians();
     Components::allGuardians($guardians);
 

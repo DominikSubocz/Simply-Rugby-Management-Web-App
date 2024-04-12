@@ -287,7 +287,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             } else if (!isset($_POST["profileImage"])) {
-                $filename = $filenamePlaceholder;  /// Turns out I was using $player instead of $member, so easy fix.
+                $filename = $filenamePlaceholder;  
 
 
             }   
@@ -325,12 +325,12 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
+components::pageHeader("Update Member", ["style"], ["mobile-nav"]);
 ?>
 
 <main class="content-wrapper contact-content">
 
-<h2>Add New Player</h2>
+<h2>Update Existing Member</h2>
 <form 
 method="post" 
 action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $member["member_id"];?>"

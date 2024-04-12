@@ -13,10 +13,10 @@ require("classes/connection.php");
 require("classes/sql.php");
 
 /**
- * Redirects to the player list page if the 'id' parameter is not set or is not numeric.
+ * Redirects to the timetable page if the 'id' parameter is not set or is not numeric.
  */
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
-    header("Location: " . Utils::$projectFilePath . "/player-list.php");
+    header("Location: " . Utils::$projectFilePath . "/timetable.php");
 } 
 
 $game = Events::getGame($_GET["id"]); ///< Get game details by ID

@@ -30,7 +30,7 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
 }
 
 /**
- * Redirects to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ * Redirects to the junior list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
  */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     header("Location: " . Utils::$projectFilePath . "/junior-list.php");
@@ -44,7 +44,7 @@ $juniorId = $_GET["id"]; ///< Get ID of junior and store it in a variable
 $junior = Junior::getJunior($juniorId); ///< Get details of specific junior by its ID number.
 
 /**
- * Escape and assign values from the $game array to respective variables for security purposes.
+ * Escape and assign values from the $junior array to respective variables for security purposes.
  *
  * @param array $junior An array containing information about the junior.
  * 
@@ -203,7 +203,6 @@ $ukDobPlaceholder = date( 'd/m/Y', $phpdate ); ///< Format a Unix timestamp into
  * @var string $doctorName: Holds value for Doctor's name input field 
  * @var string $doctorContact: Holds value for Doctor's contact number input field 
  * 
- * Variables to store input values for form validation.
  */
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $guardianNameErr = $guardianContactErr = $relationshipErr = "";

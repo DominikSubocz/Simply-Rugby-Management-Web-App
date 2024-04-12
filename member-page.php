@@ -21,17 +21,16 @@ if(!isset($_SESSION["loggedIn"])){
 
 
 /**
- * Check if the "id" parameter is set in the $_GET superglobal and if it is a numeric value.
- * If not, redirect to the junior-list.php page.
+ * Redirects the user to the member-list.php page if the "id" parameter is not set in the GET request or is not numeric.
  */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
-  header("Location: " . Utils::$projectFilePath . "/junior-list.php");
+  header("Location: " . Utils::$projectFilePath . "/member-list.php");
 }
 
 
 $member = Member::getMember($_GET["id"]); ///< Get member's details by their ID
 
-$pageTitle = "player not found"; ///< Default title
+$pageTitle = "Member not found"; ///< Default title
 
 /**
  * Check if the $member array is not empty and set the $pageTitle to the value of the "first_name" key in the $member array.

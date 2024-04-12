@@ -19,8 +19,7 @@ if(!isset($_SESSION["loggedIn"])){
 }
 
 /**
- * Check if the "id" parameter is set in the $_GET superglobal and if it is a numeric value.
- * If not, redirect to the junior-list.php page.
+ * Redirects the user to the junior-list.php page if the "id" parameter is not set in the GET request or is not numeric.
  */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   header("Location: " . Utils::$projectFilePath . "/junior-list.php");

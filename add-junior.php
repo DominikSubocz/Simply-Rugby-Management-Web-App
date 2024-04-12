@@ -18,7 +18,88 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
 
-/// Initialize Error variables
+/**
+ * Variables to store error messages and input values for form validation.
+ * 
+ * @var string $nameErr: Error message for name field.
+ * @var string $dobErr: Error message for date of birth field.
+ * @var string $emailErr: Error message for email field.
+ * @var string $sruErr: Error message for SRU field.
+ * @var string $contactNoErr: Error message for contact number field.
+ * @var string $mobileNoErr: Error message for mobile number field.
+ * @var string $healthIssuesErr: Error message for health issues field.
+ * @var string $profileImageErr: Error message for profile image field.
+ * @var string $guardianNameErr: Error message for guardian name field.
+ * @var string $guardianContactErr: Error message for guardian contact field.
+ * @var string $relationshipErr: Error message for relationship
+ * 
+ * @var string $guardianAddress11Err: Error message for Address Line 1 of Guardian number 1.
+ * @var string $guardianAddress12Err: Error message for Address Line 2 of Guardian number 1.
+ * @var string $guardianCity1Err: Error message for City of Guardian number 1.
+ * @var string $guardianCounty1Err: Error message for County of Guardian number 1.
+ * @var string $guardianPostcode1Err: Error message for Postcode of Guardian number 1.
+ * @var string $guardianAddress21Err: Error message for Address Line 1 of Guardian number 2.
+ * @var string $guardianAddress22Err: Error message for Address Line 2 of Guardian number 2.
+ * @var string $guardianCity2Err: Error message for City of Guardian number 2.
+ * @var string $guardianCounty2Err: Error message for County of Guardian number 2.
+ * @var string $guardianPostcode2Err: Error message for Postcode of Guardian number 2.
+ * 
+ * @var string $address1Err: Error message for Address Line 1
+ * @var string $address2Err: Error message for Address Line 2
+ * @var string $cityErr: Error message for City
+ * @var string $countyErr: Error message for County
+ * @var string $postcodeErr: Error message for Postcode
+ * @var string $doctorNameErr: Error message for Doctor's name
+ * @var string $doctorContactErr: Error message for Doctor's contact number
+ * @var string $genuineErr: Error message that appers on top of the form i.e "Not all input fields filled/correct"
+ * 
+ * Personal Information:
+ * @var string $name: Holds value for Name input field
+ * @var \DateTime $dob: Holds value for Date of birth input field
+ * @var string  $email: Holds value for Email address input field
+ * @var int  $sru: Holds value for SRU input field
+ * @var int  $contactNo:  Holds value forContact number input field
+ * @var int  $mobileNo: Holds value for Mobile number input field
+ * @var string  $healthIssues: Holds value for Health issues input field
+ * @var string  $profileImage: Holds value for Profile image input field
+ * @var string  $filename: Holds value for Filename image validation
+ * @var string  $firstName: Holds value for First name after the splitting process
+ * @var string  $lastName: Holds value for Last name after the splitting process
+ *
+ * Guardian 1 Information:
+ * @var string  $guardianFirstName: Holds value for Guardian's first name after the splitting process
+ * @var string  $guardianLastName: Holds value for Guardian's last name after the splitting process
+ * @var string  $guardianName: Holds value for Guardian's name input field
+ * @var string  $guardianContact: Holds value for Guardian's contact number input field
+ * @var string  $relationship: Holds value for Guardian's relationship input field
+ * @var string  $guardianAddress11: Holds value for Guardian's Address Line 1 input field 
+ * @var string  $guardianAddress12: Holds value for Guardian's Address Line 2 input field 
+ * @var string  $guardianCity1: Holds value for Guardian's City input field 
+ * @var string  $guardianCounty1: Holds value for Guardian's County input field 
+ * @var string  $guardianPostcode1: Holds value for Guardian's Postcode input field 
+ * 
+ * Guardian 2 Information:
+ * @var string  $guardianFirstName2: Holds value for Guardian's first name after the splitting process
+ * @var string  $guardianLastName2: Holds value for Guardian's last name after the splitting process
+ * @var string  $guardianName2: Holds value for Guardian's name input field
+ * @var string  $guardianContact2: Holds value for Guardian's contact number input field
+ * @var string  $relationship2: Holds value for Guardian's relationship input field
+ * @var string  $guardianAddress21: Holds value for Guardian's Address Line 1 input field 
+ * @var string  $guardianAddress22: Holds value for Guardian's Address Line 2 input field 
+ * @var string  $guardianCity2: Holds value for Guardian's City input field 
+ * @var string  $guardianCounty2: Holds value for Guardian's County input field 
+ * @var string  $guardianPostcode2: Holds value for Guardian's Postcode input field 
+ * 
+ * Address Information
+ * @var string $address1: Holds value for Address Line 1 input field
+ * @var string $address2: Holds value for Address Line 2 input field
+ * @var string $city: Holds value for City input field 
+ * @var string $county: Holds value for County input field 
+ * @var string $postcode: Holds value for Postcode input field 
+ * @var string $doctorName: Holds value for Doctor's name input field 
+ * @var string $doctorContact: Holds value for Doctor's contact number input field 
+ * 
+ */
 $nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $guardianNameErr = $guardianContactErr = $relationshipErr = "";
 $guardianAddress11Err = $guardianAddress12Err = $guardianCity1Err = $guardianCounty1Err = $guardianPostcode1Err = "";
@@ -28,24 +109,19 @@ $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
 $doctorNameErr = $doctorContactErr = "";
 $genuineErr = $profileImageErr = "";
 
-/// Initialize variables for doctor details
 $doctorId = $addressId = "";
 
-/// Initialize variables for junior details
 $name = $dob = $email = $sru = $contactNo = $mobileNo = $healthIssues = $profileImage = $filename = "";
 $firstName = $lastName = "";
 
-/// Initialize variables for guardian number 1
 $guardianFirstName = $guardianLastName = "";
 $guardianName = $guardianContact = $relationship = "";
 $guardianAddress11 = $guardianAddress12 = $guardianCity1 = $guardianCounty1 = $guardianPostcode1 = "";
 
-/// Initialize variables for guardian number 2
 $guardianFirstName2 = $guardianLastName2 ="";
 $guardianName2 = $guardianContact2 = $relationship2 ="";
 $guardianAddress21 = $guardianAddress22 = $guardianCity2 = $guardianCounty2 = $guardianPostcode2 = "";
 
-/// Initialize variables for address details
 $address1 = $address2 = $city = $county = $postcode = "";
 $doctorName = $doctorContact = "";
 
@@ -331,7 +407,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /// If junior exists output error message
         if($existingUser){
-            $genuineErr = "ERROR: Player already exists!";
+            $genuineErr = "ERROR: Junior already exists!";
         }
 
 
@@ -451,7 +527,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             }
-            /// Create a new junior player 
+            /// Create a new junior junior 
             $juniorId = Junior::createNewJunior($addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename);
 
 
@@ -496,7 +572,7 @@ function test_input($data) {
   return $data;
 }
 
-components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
+components::pageHeader("Add Junior Player", ["style"], ["mobile-nav"]);
 ?>
 
 <main class="content-wrapper contact-content my-5">

@@ -11,15 +11,6 @@ require("classes/components.php");
  */
 require("classes/utils.php");
 
-/**
- * Redirects the user to the player list page if the user is logged in.
- *
- * @param array $_SESSION The session array containing user login information.
- */
-if (isset($_SESSION["loggedIn"])) {
-    header("Location: " . Utils::$projectFilePath . "/player-list.php");
-}
-
 $output = ""; ///< To store output of login
 
 

@@ -33,10 +33,10 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
 }
 
 /**
- * Redirects back to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ * Redirects back to the coach list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
  */
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
-    header("Location: " . Utils::$projectFilePath . "/player-list.php");
+    header("Location: " . Utils::$projectFilePath . "/coach-list.php");
 } 
 
 $coach = Coach::getCoach($_GET["id"]); ///< Get coach's details based on ID number.

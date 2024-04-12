@@ -204,12 +204,12 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-components::pageHeader("Add Player", ["style"], ["mobile-nav"]); ///< Render page header
+components::pageHeader("Update Coach", ["style"], ["mobile-nav"]); ///< Render page header
 ?>
 
 <main class="content-wrapper contact-content">
 
-<h2>Add New Player</h2>
+<h2>Update Existing Coach</h2>
 <form 
 method="post" 
 action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $coach["coach_id"];?>"

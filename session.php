@@ -13,10 +13,10 @@ require("classes/connection.php");
 require("classes/sql.php");
 
 /**
- * Redirects to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ * Redirects to the timetable page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
  */
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
-    header("Location: " . Utils::$projectFilePath . "/player-list.php");
+    header("Location: " . Utils::$projectFilePath . "/timetable.php");
 } 
 
 $session = Events::getSession($_GET["id"]); ///< Get session's details based on ID number.

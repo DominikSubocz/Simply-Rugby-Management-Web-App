@@ -84,7 +84,7 @@ if(isset($_POST['removeSubmit'])){
 
     <?php
 
-    /// Get all players from the database and output list of players
+    /// Get all doctors from the database and output list of doctors
     $doctors = Doctor::getAllDoctors();
     Components::allDoctors($doctors);
 

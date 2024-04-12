@@ -30,7 +30,7 @@ if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
 }
 
 /**
- * Redirects to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ * Redirects to the junior list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
  */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     header("Location: " . Utils::$projectFilePath . "/junior-list.php");
@@ -94,8 +94,8 @@ Components::pageHeader("$pageTitle", ["style"], ["mobile-nav"]); ///< Render pag
 /**
  * Get level of each skill for specific junior
  */
-foreach($juniorSkills as $playerSkill){
-  $skillLevel = Utils::escape($playerSkill["skill_level"]);
+foreach($juniorSkills as $juniorSkill){
+  $skillLevel = Utils::escape($juniorSkill["skill_level"]);
 }
 /**
  * Array with error messages for each skill name
@@ -465,10 +465,10 @@ function test_input($data) {
       <div id="passing-form">
         <!-- Populate dropdown with records from database -->
         <h2>Passing Category</h2>
-        <?php foreach ($juniorSkills as $playerSkill): ?>
+        <?php foreach ($juniorSkills as $juniorSkill): ?>
             <?php
         
-            $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
+            $inputName = strtolower(Utils::escape($juniorSkill["skill_name"]));
 
             $errorMsg = $errorMessages[$inputName] ?? ''; ///< Check if $inputName matches a key in the $errorMessage array, and assign error message if there's a match
             $skillLevelPlaceholder = $placeHolders[$inputName] ?? ''; ///< Check if $inputName matches a key in the $placeHolders array, and assign placeholder variable for skill level if there's a match.
@@ -482,13 +482,13 @@ function test_input($data) {
             ?>
         
         <!-- Check for specific skill category, and only output records under that category -->
-        <?php if (Utils::escape($playerSkill["category"]) == "Passing"){
+        <?php if (Utils::escape($juniorSkill["category"]) == "Passing"){
             ?>
-            <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($juniorSkill["category"] == "Passing"){ echo Utils::escape($juniorSkill["skill_name"]) . ' Skill';} ?></label><br>
             <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo ${$skillLevelPlaceholder}; ?>" value="<?php echo ${strtolower($inputName)};?>"> <!-- Get placeholder from the array, and use the right value -->
             <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br> <!-- Get error message from the array -->
 
-            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Passing"){echo'Comment';} ?></label><br>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($juniorSkill["category"] == "Passing"){echo'Comment';} ?></label><br>
             <input type="text" name="<?php echo $commentField; ?>" placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
         <?php } ?>
         <?php endforeach; ?>
@@ -498,10 +498,10 @@ function test_input($data) {
 
       <div id="tackling-form">
         <h2>Tackling Category</h2>
-        <?php foreach ($juniorSkills as $playerSkill): ?>
+        <?php foreach ($juniorSkills as $juniorSkill): ?>
             <?php
         
-        $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
+        $inputName = strtolower(Utils::escape($juniorSkill["skill_name"]));
 
         $errorMsg = $errorMessages[$inputName] ?? ''; //< Check if $inputName matches a key in the $errorMessage array, and assign error message if there's a match
         $skillLevelPlaceholder = $placeHolders[$inputName] ?? ''; ///< Check if $inputName matches a key in the $placeHolders array, and assign placeholder variable for skill level if there's a match.
@@ -512,14 +512,14 @@ function test_input($data) {
 
             ?>
         <!-- Check for specific skill category, and only output records under that category -->
-        <?php if (Utils::escape($playerSkill["category"]) == "Tackling"){
+        <?php if (Utils::escape($juniorSkill["category"]) == "Tackling"){
             ?>
-            <h3><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?> </h3>
-            <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Tackling"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
-            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>"> <!-- Get placeholder from the array, and use the right value -->
+            <h3><?php if($juniorSkill["category"] == "Passing"){ echo Utils::escape($juniorSkill["skill_name"]) . ' Skill';} ?> </h3>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($juniorSkill["category"] == "Tackling"){ echo Utils::escape($juniorSkill["skill_name"]) . ' Skill';} ?></label><br>
+            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($juniorSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>"> <!-- Get placeholder from the array, and use the right value -->
             <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br> <!-- Get error message from the array -->
 
-            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Tackling"){echo'Comment';} ?></label><br>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($juniorSkill["category"] == "Tackling"){echo'Comment';} ?></label><br>
             <input type="text" name="<?php echo $commentField; ?>" placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
 
         <?php } ?>
@@ -531,10 +531,10 @@ function test_input($data) {
 
       <div id="kicking-form">
         <h2>Kicking Category</h2>
-            <?php foreach ($juniorSkills as $playerSkill): ?>
+            <?php foreach ($juniorSkills as $juniorSkill): ?>
             <?php
         
-        $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
+        $inputName = strtolower(Utils::escape($juniorSkill["skill_name"]));
 
         $errorMsg = $errorMessages[$inputName] ?? ''; //< Check if $inputName matches a key in the $errorMessage array, and assign error message if there's a match
         $skillLevelPlaceholder = $placeHolders[$inputName] ?? ''; ///< Check if $inputName matches a key in the $placeHolders array, and assign placeholder variable for skill level if there's a match.
@@ -545,14 +545,14 @@ function test_input($data) {
         
             ?>
         <!-- Check for specific skill category, and only output records under that category -->
-        <?php if (Utils::escape($playerSkill["category"]) == "Kicking"){
+        <?php if (Utils::escape($juniorSkill["category"]) == "Kicking"){
             ?>
-            <h3><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?> </h3>
-            <label  class="col-sm-2 col-form-label-sm"for="dob"><?php if($playerSkill["category"] == "Kicking"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
-            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>"> <!-- Get placeholder from the array, and use the right value -->
+            <h3><?php if($juniorSkill["category"] == "Passing"){ echo Utils::escape($juniorSkill["skill_name"]) . ' Skill';} ?> </h3>
+            <label  class="col-sm-2 col-form-label-sm"for="dob"><?php if($juniorSkill["category"] == "Kicking"){ echo Utils::escape($juniorSkill["skill_name"]) . ' Skill';} ?></label><br>
+            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($juniorSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>"> <!-- Get placeholder from the array, and use the right value -->
             <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br> <!-- Get error message from the array -->
 
-            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Kicking"){echo'Comment';} ?></label><br>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($juniorSkill["category"] == "Kicking"){echo'Comment';} ?></label><br>
             <input type="text" name="<?php echo $commentField; ?>"placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
 
         <?php } ?>
