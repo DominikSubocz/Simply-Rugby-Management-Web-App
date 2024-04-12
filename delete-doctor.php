@@ -1,4 +1,6 @@
 <?php
+/// This must come first when we need access to the current session
+session_start();
 
 require("classes/components.php");
 /**
@@ -9,14 +11,10 @@ require("classes/utils.php");require("classes/connection.php");
 require("classes/sql.php");
 require("classes/doctor.php");
 
-/// This must come first when we need access to the current session
-session_start();
+
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 
 if(!isset($_SESSION["loggedIn"])){
@@ -25,9 +23,8 @@ if(!isset($_SESSION["loggedIn"])){
 
 } else {
 
-/**
- * Check if the user role is not Admin or Coach, then redirect to logout page.
- */
+/// Redirect to logout page if user role is neither Admin nor Coach
+
   if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
@@ -51,7 +48,7 @@ if(!isset($_SESSION["loggedIn"])){
   
   /**
    * Try to delete an doctor by its ID. If successful, redirect to the doctor list page.
-   * If an exception of type PDOException is caught, display an error message and a link to go back to the coach list page.
+   * If doctor is used elsewhere, error will be thrown.
    *
    * @param int $doctorId The ID of the doctor to delete
    */

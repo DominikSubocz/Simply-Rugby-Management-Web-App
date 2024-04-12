@@ -513,9 +513,9 @@ function test_input($data) {
   const tForm = document.getElementById("training-form"); ///< ID of div containing form to add a training session
 
 
-/**
- * Function to handle radio button checked event and update form elements accordingly.
- */
+    /**
+     * Check if a radio button is checked and display or hide a specific element.
+     */
 function radioChecked(){
   if (document.getElementById("radio-two").checked){
     gForm.style.display = "none";
@@ -531,9 +531,9 @@ function radioChecked(){
 
 radioChecked(); 
 
-/**
- * Validates the form fields based on specific conditions and displays alerts for missing or incorrect inputs.
- */
+    /**
+     * Validates a form with multiple input fields.
+     */
 function validateForm() {
   let hiddenInput = document.getElementById('elementForVar1HiddenField');
   let gameNameInput = document.forms[0]["gameName"].value.trim(); ///< Session's name

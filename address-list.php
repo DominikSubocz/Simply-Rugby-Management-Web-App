@@ -23,10 +23,7 @@ if(!isset($_SESSION["loggedIn"])){
 
 }
 
-/**
- * Check if the user role is not Admin or Coach, then redirect to logout page.
- */
-
+/// Redirect to logout page if user role is neither Admin nor Coach
 if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
@@ -228,7 +225,7 @@ function displayColumn(){
 displayColumn();
 
 /**
- * Unchecks all checkboxes with the class "cb" on the document when the function is called.
+ * Selects one checkbox while hiding others and displays buttons
  */
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
@@ -240,7 +237,7 @@ function cbChange(obj) {
 }
 
 /**
- * Function to display buttons based on the type provided.
+ * Display buttons based on the type provided.
  */
 function displayButtons(type){
 

@@ -1,14 +1,14 @@
 <?php
 
+/// This must come first when we need access to the current session
+session_start();
+
 require("classes/components.php");
 /**
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
 require("classes/utils.php");require("classes/junior.php");
-
-/// This must come first when we need access to the current session
-session_start();
 
 /**
  * Check if the user is logged in; if not, redirect to login page

@@ -14,10 +14,7 @@ require("classes/address.php");
 session_start();
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
   
@@ -49,7 +46,7 @@ if(!isset($_SESSION["loggedIn"])){
   
   /**
    * Try to delete an address by its ID. If successful, redirect to the address list page.
-   * If an exception of type PDOException is caught, display an error message and a link to go back to the address list page.
+   * If address is used elsewhere, error will be thrown.
    *
    * @param int $addressId The ID of the address to delete
    */

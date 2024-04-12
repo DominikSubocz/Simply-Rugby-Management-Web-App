@@ -450,7 +450,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             
             /**
-             * Checks if a guardian with the given first name, last name, and contact exists in the database. 
+             * Checks if a guardian with the given first name, last name, and contact number exists in the database. 
              */
             $existingGuardian2 = Guardian::guardianExists($guardianFirstName2, $guardianLastName2, $guardianContact2);
             
@@ -476,7 +476,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         
         /**
-         * Check if a doctor already exists based on first name, last name, and contact.
+         * Check if a doctor already exists based on first name, last name, and contact number.
          */
         $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);
         

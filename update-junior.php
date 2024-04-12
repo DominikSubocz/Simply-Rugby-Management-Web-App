@@ -11,10 +11,7 @@ require("classes/address.php");
 require("classes/junior.php");
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
   
@@ -22,9 +19,8 @@ if(!isset($_SESSION["loggedIn"])){
   
 }
 
-/**
- * Check if the user role is not Admin or Coach, then redirect to logout page.
- */
+/// Redirect to logout page if user role is neither Admin nor Coach
+
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
@@ -76,8 +72,6 @@ $guardians = Guardian::getGuardian($juniorId); ///< Get details about guardians 
 
 /**
  * Assigns guardian information and address details to variables based on the number of guardians provided.
- * If there is only one guardian, assigns the guardian information and address details to variables with suffix 1.
- * If there are multiple guardians, assigns the guardian information and address details to variables with suffix 2.
  *
  * @param array $guardians An array containing guardian information.
  */
@@ -641,8 +635,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Checks if the address for guardian 1 exists in the database. If it does not exist, a new address is created.
-         * Then, checks if the guardian with the given details exists in the database, retrieve the ID of that guardian.
-         * If the guardian does not exist, a new guardian is created with the provided details.
          */
         $guardian1Address = Address::addressExists($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
         
@@ -691,8 +683,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Checks if an existing address exists based on the provided address details. 
-         * If the address exists, retrieves the address ID; otherwise, creates a new address and retrieves the address ID.
-         *  
          */ 
         if($existingAddress){
             $addressId = Address::getExistingAddress($address1, $address2, $city, $county, $postcode);
@@ -706,8 +696,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Checks if an existing doctor exists based on the provided doctor details. 
-         * If the doctor exists, retrieves the doctor ID; otherwise, creates a new doctor and retrieves the doctor ID.
-         * 
          */
 
         $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);
@@ -987,9 +975,9 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 
     const sGuardDetails = document.getElementById("second-guardian-form");
 
-/**
- * Function to handle radio button checked event and update form elements accordingly.
- */
+    /**
+     * Check if a radio button is checked and display or hide a specific element.
+     */
     function radioChecked(){
         if (document.getElementById("radio-two").checked){
             sGuardDetails.style.display = "block";

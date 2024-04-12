@@ -16,9 +16,7 @@ require("classes/utils.php");require_once("classes/connection.php");
  */
 if(!isset($_SESSION["newMember"])){
 
-    /**
-     * Check if the user role is not "Admin" or "Coach" and redirect to logout page if true.
-     */
+/// Redirect to logout page if user role is neither Admin nor Coach
     if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
         header("Location: " . Utils::$projectFilePath . "/logout.php");
       }
@@ -259,7 +257,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             /**
-             * Prepares and executes a SQL statement to create a new member in the database.
+             * Create a new member in the database.
              */
             $stmt = $conn->prepare(SQL::$createNewMember);
             $stmt->execute([$addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $filename]);

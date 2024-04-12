@@ -11,10 +11,7 @@ require("classes/doctor.php");
 require("classes/address.php");
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
   
@@ -22,9 +19,8 @@ if(!isset($_SESSION["loggedIn"])){
   
 }
 
-/**
- * Check if the user role is not Admin or Coach, then redirect to logout page.
- */
+/// Redirect to logout page if user role is neither Admin nor Coach
+
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
@@ -327,8 +323,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         /**
          * Checks if an address already exists in the database based on the provided address details. 
-         * If the address already exists, retrieves the existing address ID.
-         * Otherwise, creates a new address and return the newly created address ID.
          */
         $existingAddress = Address::addressExists($address1, $address2, $city, $county, $postcode);
 
@@ -340,8 +334,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Checks if an doctor already exists in the database based on the provided doctor details. 
-         * If the doctor already exists, retrieves the existing doctor ID.
-         * Otherwise, creates a new doctor and return the newly created doctor ID.
          */
 
         $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);

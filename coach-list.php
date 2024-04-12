@@ -17,10 +17,7 @@ require("classes/utils.php");
 Components::pageHeader("List of All Coaches", ["style"], ["mobile-nav"]);
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
 
@@ -30,7 +27,6 @@ if(!isset($_SESSION["loggedIn"])){
 
 /**
  * Check if the user role is not 'Admin' and redirect to the logout page if true.
- * @param string $_SESSION["user_role"]: The role of the user stored in the session.
  */
 if($_SESSION["user_role"] != "Admin"){
   header("Location: " . Utils::$projectFilePath . "/logout.php");
@@ -38,10 +34,8 @@ if($_SESSION["user_role"] != "Admin"){
 
 /**
  * If the update button was clicked.
- * If clicked check if the 'check_list' array is not empty.
  * 
- * 
- * Iterates through each element in the 'check_list' array and redirects to the 'update-coach.php' page
+ * If iterates through each element in the 'check_list' array and redirects to the 'update-coach.php' page
  * with the 'id' parameter set to the value of each element in the 'check_list' array.
  */
 if(isset($_POST['updateSubmit'])){
@@ -299,7 +293,7 @@ displayColumn();
 
 
 /**
- * Unchecks all checkboxes with the class "cb" on the document when the function is called.
+ * Selects one checkbox while hiding others and displays buttons
  */
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");
@@ -311,7 +305,7 @@ function cbChange(obj) {
 }
 
 /**
- * Function to display buttons based on the type and role value.
+ * Display buttons based on the type and role value.
  */
 function displayButtons(type){
   if(type == "block"){

@@ -11,7 +11,7 @@ require("classes/utils.php");require("classes/member.php");
 session_start();
 
 /**
- * Check if the user is not logged in and redirect to the login page if not.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
 

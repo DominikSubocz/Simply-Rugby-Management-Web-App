@@ -13,10 +13,7 @@ require("classes/connection.php");
 require("classes/sql.php");
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
   
@@ -25,9 +22,8 @@ if(!isset($_SESSION["loggedIn"])){
 }
   
 
-/**
- * Check if the user role is not Admin or Coach, then redirect to logout page.
- */
+/// Redirect to logout page if user role is neither Admin nor Coach
+
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
@@ -40,7 +36,7 @@ if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
 } 
 
 /**
- * Establishes a connection to the database and retrieves data from the 'coaches' and 'squads' tables.
+ * Retrieves data from the 'coaches' and 'squads' tables.
  * 
  * Later to be used in dropdown input fields
  */
@@ -389,8 +385,6 @@ function test_input($data) {
 
         /**
          * Show the tab based on the currentTab value.
-         * If currentTab is 0, display basicDetails and hide halfDetails.
-         * If currentTab is not 0, hide basicDetails and display halfDetails.
          */
         function showTab(){
             if ( currentTab == 0){

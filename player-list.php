@@ -10,16 +10,14 @@ require("classes/player.php");
 Components::pageHeader("All players", ["style"], ["mobile-nav"]);
 
 /**
- * Check if the user is logged in by verifying the presence of the "loggedIn" key in the session.
- * If the user is not logged in, redirect to the login page.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
   header("Location: " . Utils::$projectFilePath . "/login.php");
 }
 
-/**
- * Check if the user role is not Admin or Coach, then redirect to logout page.
- */
+/// Redirect to logout page if user role is neither Admin nor Coach
+
 if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
@@ -39,7 +37,6 @@ if(isset($_POST['updateSubmit'])){
 }
 
 /**
- * Check if the add button was clicked.
  * Redirect to the 'add-player.php' page if clicked.
  */
 
@@ -319,7 +316,7 @@ function displayColumn(){
 displayColumn();
 
 /**
- * Unchecks all checkboxes with the class "cb" on the document when the function is called.
+ * Selects one checkbox while hiding others and displays buttons
  */
 
 function cbChange(obj) {
@@ -332,7 +329,7 @@ function cbChange(obj) {
 }
 
 /**
- * Function to display buttons based on the type provided.
+ * Display buttons based on the type provided.
  */
 
 function displayButtons(type){

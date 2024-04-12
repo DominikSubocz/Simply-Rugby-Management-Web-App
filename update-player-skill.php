@@ -13,19 +13,15 @@ require("classes/utils.php");require("classes/player.php");
 
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
   
   header("Location: " . Utils::$projectFilePath . "/login.php");
 
 }
-/**
- * Check if the user role is not Admin or Coach, then redirect to logout page.
- */
+/// Redirect to logout page if user role is neither Admin nor Coach
+
 if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
@@ -598,13 +594,16 @@ function test_input($data) {
       showTab();
 
       /**
-       * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+       * Increments the current tab index and displays next tab.
        */
-
       function nextTab(){
           currentTab += 1;
           showTab();
       }
+
+      /**
+       * Decrements the current tab index and displays previous tab.
+       */
 
       function prevTab(){
           currentTab -= 1;

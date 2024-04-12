@@ -40,7 +40,6 @@ if(isset($_POST['updateSubmit'])){
   }
 }
 /**
- * Check if the add button was clicked.
  * Redirect to the 'add-junior.php' page if clicked.
  */
 if(isset($_POST['addSubmit'])){
@@ -306,7 +305,7 @@ function displayColumn(){
 displayColumn();
 
 /**
- * Unchecks all checkboxes with the class "cb" on the document when the function is called.
+ * Selects one checkbox while hiding others and displays buttons
  */
 
 function cbChange(obj) {
@@ -319,7 +318,7 @@ function cbChange(obj) {
 }
 
 /**
- * Function to display buttons based on the type provided.
+ * Display buttons based on the type provided.
  */
 
 function displayButtons(type){

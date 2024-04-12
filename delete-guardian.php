@@ -1,5 +1,8 @@
 <?php
 
+/// This must come first when we need access to the current session
+session_start();
+
 require("classes/components.php");
 /**
  * Included for the postValuesAreEmpty() and
@@ -9,14 +12,8 @@ require("classes/utils.php");require("classes/connection.php");
 require("classes/sql.php");
 require("classes/guardian.php");
 
-/// This must come first when we need access to the current session
-session_start();
-
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 
  if(!isset($_SESSION["loggedIn"])){
@@ -49,7 +46,7 @@ session_start();
   
   /**
    * Try to delete an guardian by its ID. If successful, redirect to the guardian list page.
-   * If an exception of type PDOException is caught, display an error message and a link to go back to the guardian list page.
+   * If guardian is used elsewhere, error will be thrown.
    *
    * @param int $coachId The ID of the guardian to delete
    */

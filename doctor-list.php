@@ -15,10 +15,7 @@ require("classes/utils.php");require("classes/doctor.php");
 Components::pageHeader("List of Doctors", ["style"], ["mobile-nav"]);
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
- * 
- * If the user is logged in check priveledge level, and proceed.
+ * Check if the user is logged in; if not, redirect to login page
  */
 
 if(!isset($_SESSION["loggedIn"])){
@@ -194,7 +191,7 @@ function displayColumn(){
 displayColumn();
 
 /**
- * Unchecks all checkboxes with the class "cb" on the document when the function is called.
+ * Selects one checkbox while hiding others and displays buttons
  */
 
 function cbChange(obj) {
@@ -206,7 +203,7 @@ function cbChange(obj) {
     displayButtons("block");
 }
 /**
- * Function to display buttons based on the type and role value.
+ * Display buttons based on the type and role value.
  */
 function displayButtons(type){
   if(type == "block"){

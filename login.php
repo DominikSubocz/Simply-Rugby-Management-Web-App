@@ -15,14 +15,13 @@ $output = ""; ///< To store output of login
 
 
 /**
- * Detect if this page has received a POST request and processes the login form submission.
  * If the login form is submitted, it calls the login method of the User class.
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require("classes/user.php");
 
     if(isset($_POST["loginSubmit"])){
-        $output = User::login();
+        $output = User::login(); ///< Any errors will be returned if any input field is not valid
     }
 
 }
@@ -44,9 +43,7 @@ Components::pageHeader("Login", ["style"], ["mobile-nav"]); ///< Render page hea
 
 
             /**
-             * Check if $output is true and if the "loginSubmit" and "username" keys are set in the $_POST array.
-             * If conditions are met, echo the escaped value of the "username" key using the Utils::escape method.
-             *
+             * Echoes escaped "username" if $output is true and "loginSubmit" and "username" keys are set in $_POST.
              */
             if ($output && isset($_POST["loginSubmit"]) && isset($_POST["username"])) {
                 echo Utils::escape($_POST["username"]);

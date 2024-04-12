@@ -24,10 +24,7 @@ if(!isset($_SESSION["loggedIn"])){
 $profileId = $_SESSION["profileId"]; ///< Get link to profile page
 
 /**
- * Checks if a success message is stored in the session. If found, retrieves the message and removes it from the session.
- * If no success message is found, it checks if the user is logged in as an admin or a regular user.
- * If the user is an admin, redirects to the index page with a default message. If the user is a regular user, redirects to their profile page with a default message.
- * If a new member is detected in the session, it logs out the user and removes the new member flag from the session.
+ * Checks if a success message is stored in the session. 
  */
 if (isset($_SESSION["successMessage"])) {
     $message = $_SESSION["successMessage"]; ///< Get success message

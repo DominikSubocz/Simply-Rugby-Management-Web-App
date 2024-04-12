@@ -170,15 +170,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }   
             /**
              * Update coach information in the database.
-             *
-             * @param string $firstName The first name of the coach.
-             * @param string $lastName The last name of the coach.
-             * @param string $dob The date of birth of the coach.
-             * @param string $contactNo The contact number of the coach.
-             * @param string $mobileNo The mobile number of the coach.
-             * @param string $email The email address of the coach.
-             * @param string $filename The filename of the coach's image.
-             * @param int $coachId The ID of the coach to update.
              */
             Coach::updateCoach($firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId);
         }

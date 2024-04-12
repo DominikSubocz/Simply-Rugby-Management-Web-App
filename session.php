@@ -24,9 +24,8 @@ $session = Events::getSession($_GET["id"]); ///< Get session's details based on 
 $pageTitle = "Session not found"; ///< Default page title
 
 /**
- * Generates a page title based on the session name.
- * If the session array is not empty, the page title is constructed by appending "Details" to the session name.
- *
+ * Sets a page title based on the session name.
+ * 
  * @param array $session An array containing session information.
  */
 if(!empty($session)){
