@@ -24,7 +24,7 @@ class Member
   /**
    * Retrieves all members from the database.
    *
-   * @return array An array containing all the members fetched from the database.
+   * @return array An array containing all the members
    */
   public static function getAllMembers()
   {
@@ -45,8 +45,8 @@ class Member
   /**
    * Retrieves a member from the database based on the provided player ID.
    *
-   * @param int $playerId The ID of the player whose member information is to be retrieved.
-   * @return string $member The member information retrieved from the database.
+   * @param int $playerId The ID of the player 
+   * @return string $member The member information 
    */
   public static function getMember($playerId)
   {
@@ -81,6 +81,7 @@ class Member
 
 
 
+
   /**
    * Update a member's information in the database.
    *
@@ -88,12 +89,12 @@ class Member
    * @param string $firstName The first name of the member
    * @param string $lastName The last name of the member
    * @param string $dob The date of birth of the member
-   * @param string $sru The SRU (Some Relevant Unit) of the member
+   * @param string $sru The SRU of the member
    * @param string $contactNo The contact number of the member
    * @param string $mobileNo The mobile number of the member
    * @param string $email The email address of the member
-   * @param string $filename The filename associated with the member
-   * @param int $memberId The ID of the
+   * @param string $filename The filename of the member
+   * @param int $memberId The ID of the member to update
    */
   public static function updateMember($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $filename, $memberId){
     $conn = Connection::connect();
@@ -107,16 +108,17 @@ class Member
   }
 
 
+
   /**
-   * Check if a member with the given details exists in the database.
+   * Check if a member with the given details already exists in the database.
    *
-   * @param string $firstName
-   * @param string $lastName
-   * @param string $dob
-   * @param string $sru
-   * @param string $contactNo
-   * @param string $mobileNo
-   * @return string $existingUser The existing user if found, or null if not found
+   * @param string $firstName The first name of the member
+   * @param string $lastName The last name of the member
+   * @param string $dob The date of birth of the member
+   * @param string $sru The SRU of the member
+   * @param string $contactNo The contact number of the member
+   * @param string $mobileNo The mobile number of the member
+   * @return array $existingUser Array containing existing user if found, or null if not found
    */
   public static function memberExists($firstName, $lastName, $dob, $sru, $contactNo, $mobileNo){
     $conn = Connection::connect();

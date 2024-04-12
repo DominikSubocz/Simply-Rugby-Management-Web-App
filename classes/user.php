@@ -21,11 +21,7 @@ require_once("classes/utils.php");
 class User{
 
     /**
-     * 
      * Validates entered details and logs user in.
-     * 
-     * Checks if fields are empty, if password is correct and if user exists.
-     * 
      */
 
 
@@ -43,14 +39,10 @@ class User{
 
         /**
          * 
-         * SQL querry that checks if user exists
-         * 
-         * If user exists, it should return a record.
-         * If not, nothing should be returned
+         * Checks if user exists
          * 
          */
 
-        ///  Prepare SQL querry to check if user exists
         $stmt = $conn->prepare(SQL::$getUser);
         $stmt->execute([$_POST["username"]]);
         $user = $stmt->fetch();
@@ -89,7 +81,6 @@ class User{
          * 
          */
 
-        ///  Prepare SQL querry to retrieve email address based on username
         $sql_login = "SELECT email FROM users WHERE username = ?";
         $stmt_login = $conn->prepare($sql_login);
         $stmt_login->bindValue(1, $_POST["username"]);
@@ -103,11 +94,7 @@ class User{
             
 
         /**
-         * 
-         * Cookies
-         * 
          * Setting some session variables so that the website remembers the user.
-         * 
          */
 
         $_SESSION["loggedIn"] = true;
@@ -127,6 +114,7 @@ class User{
          *  - If same email address exists in multiple tables, it might select wrong table
          * 
          */
+        
         if($profileId){
             User::updateRecord($_POST["username"], $_SESSION["user_id"], $login_email);
             }
@@ -139,20 +127,14 @@ class User{
     }
 
     /**
-     * 
      * Validates fields and creates new user if validation is successful.
-     * 
-     * It checks if username's length is valid, if both passwords match.
-     * 
-     * It also checks if entered email exists in database, if it does it assings appropiate page id.
-     * If it doesn't exist it prompts user to enter his full details so he can become a non player member.
-     * 
-     * It also checks if username contains words "admin" or "coach" to give admin or coach priveledges.
-     * I know this isn't the most secure registration system but it will be reworked in the future.
-     * 
      */
 
      public static function register() {
+        /**
+         * Check if the specified POST values are empty.
+         *
+         */
         if (Utils::postValuesAreEmpty(["username", "email", "passwordOne", "passwordTwo"])) {
             return "<p class='alert alert-danger'>ERROR: Not all form inputs filled</p>";
         }
@@ -189,12 +171,7 @@ class User{
         $conn = Connection::connect();
     
         /**
-         * 
          * Checks if user exists and outputs result.
-         * 
-         * If user exists - returns single row result and moves on.
-         * If user doesn't exist - returns empty results.
-         * 
          */
 
         ///  Prepare SQL querry to check if user exists
@@ -212,11 +189,7 @@ class User{
         $role = "Member"; /// Default role
     
         /**
-         * 
-         * If username contains words "admin" or "coach"
-         * 
-         * Update role to admin or coach
-         * 
+         * Update user role to admin or coach if username contains words "admin" or "coach"
          */
         if (stripos($username, "admin") !== false) {
             $role = "Admin";
@@ -224,7 +197,6 @@ class User{
             $role = "Coach";
         }
 
-        ///  Prepare SQL querry to create new user
     
         $stmt = $conn->prepare(SQL::$createUser);
         $stmt->execute([$username, $email, $hashedPassword, $role]);
@@ -270,24 +242,18 @@ class User{
 
     }
 
-    /**
-     * 
-     * @brief This function basically checks if email address entered by user is used by any of the members of the club.
-     * If it is used, appropiate profile page link will be assigned.
-     * Otherwise value of false will be returned.
-     * 
-     * New members will be redirected to another page that will prompt them to enter more information about them.
-     * Only after they do so
-     * 
-     */
 
+
+   /**
+    * Check if a user exists in the database based on the provided details.
+    */
    public static function checkIfUserExists($username, $filteredEmail){
 
     $conn = Connection::connect(); ///< Connect to the database
 
 
     /**
-     * Checks if email address is used in any of the member tables (Coaches, Players, Juniors & Members).
+     * Check if user exists and return appropiate profile link
      */
     $sql_coaches = "SELECT * FROM simplyrugby.coaches WHERE email_address = ?";
     $stmt_coaches = $conn->prepare($sql_coaches);
@@ -313,7 +279,6 @@ class User{
     $stmt_members->execute();
     $result_members = $stmt_members->fetchAll();
 
-    /// Check if user exists and return appropiate profile link
     if (!empty($result_coaches) && strpos($username, 'coach') !== false) {
         $coachId = $result_coaches[0]['coach_id'];
         $profileId = "coach-page.php?id=";
@@ -349,11 +314,7 @@ class User{
         $tableName = ''; ///< Empty by default, it will be set after if satement checks
     
         /**
-         * 
          * Checks if email address is used in any of the member tables (Coaches, Players, Juniors & Members).
-         * 
-         * If used, it sets $tableName to appropiate table name.
-         * 
          */
         $sql_coaches = "SELECT * FROM coaches WHERE email_address = :email";
         $stmt_coaches = $conn->prepare($sql_coaches);
@@ -392,11 +353,7 @@ class User{
         }
 
         /**
-         * 
          * Update user_id in the specific table for specific user.
-         * 
-         * This command is executed differently because it can accept dynamic tables, and isn't just set to update one specific table.
-         * 
          */
     
         if (!empty($tableName)) {

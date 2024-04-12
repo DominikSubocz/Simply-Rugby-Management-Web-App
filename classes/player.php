@@ -164,21 +164,25 @@ class player
   /**
    * Update player information in the database.
    *
-   * @param int $address_id
-   * @param int $doctor_id
-   * @param string $firstName
-   * @param string $lastName
-   * @param string $dob
-   * @param string $sru
-   * @param string $contactNo
-   * @param string $mobileNo
-   * @param string $email
-   * @param string $kin
-   * @param string $kinContact
-   * @param string $healthIssues
-   * @param string $filename
-   * @param int $playerId
+   * @param int $address_id The address ID of the player
+   * @param int $doctorId The ID of the doctor
+   * @param string $firstName The first name of the player
+   * @param string $lastName The last name of the player
+   * @param string $dob The date of birth of the player
+   * @param string $sru The SRU of the player
+   * @param string $contactNo The contact number of the player
+   * @param string $mobileNo The mobile number of the player
+   * @param string $email The email address of the player
+   * @param string $kin  Next of kin's name
+   * @param string $kinContact Next of Kin's Contact Number
+   * @param string $healthIssues Any health issues that player has
+   * @param string $filename The filename of the player
+   * @param int $playerId ID number of the player to be updated
    */
+
+
+ 
+  
   public static function updatePlayer($address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId){
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updatePlayer);

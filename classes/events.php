@@ -19,7 +19,7 @@ class Events {
     /**
      * Retrieves all events from the database.
      *
-     * @return array $events An array containing all events fetched from the database.
+     * @return array $events An array containing all events
      */
     public static function getAllEvents()
     {
@@ -41,8 +41,8 @@ class Events {
     /**
      * Retrieves a single game record from the database based on the provided game ID.
      *
-     * @param int $gameId The ID of the game to retrieve.
-     * @return string $game The game record as an associative array, or null if not found.
+     * @param int $gameId: The ID of the game to retrieve.
+     * @return string $game: The game record as an associative array, or null if not found.
      */
     public static function getGame($gameId){
       $conn = Connection::connect();
@@ -62,8 +62,8 @@ class Events {
     /**
      * Retrieves the game halves for a given game ID from the database.
      *
-     * @param int $gameId The ID of the game for which to retrieve the halves.
-     * @return array $gameHalves An array containing the game halves fetched from the database.
+     * @param int $gameId: The ID of the game for which to retrieve the halves.
+     * @return array $gameHalves: An array containing the game halves
      */
     public static function getGameHalves($gameId){
 
@@ -103,13 +103,13 @@ class Events {
     /**
      * Update the details of a game half in the database.
      *
-     * @param int $gameHalfId The ID of the game half to update
-     * @param string $home_team The name of the home team
-     * @param int $homeScore The score of the home team
-     * @param string $homeComment A comment for the home team
-     * @param string $opposition The name of the opposing team
-     * @param int $oppositionScore The score of the opposing team
-     * @param string $oppositionComment A comment for the opposing team
+     * @param int $gameHalfId: The ID of the game half to update
+     * @param string $home_team: The name of the home team
+     * @param int $homeScore: The score of the home team
+     * @param string $homeComment: A comment for the home team
+     * @param string $opposition: The name of the opposing team
+     * @param int $oppositionScore: The score of the opposing team
+     * @param string $oppositionComment: A comment for the opposing team
      */
     public static function updateGameHalf($gameHalfId, $home_team, $homeScore, $homeComment, $opposition, $oppositionScore, $oppositionComment){
       $conn = Connection::connect();
@@ -125,16 +125,16 @@ class Events {
     /**
      * Update a game record in the database with the provided information.
      *
-     * @param string $squad
-     * @param string $name
-     * @param string $opposition
-     * @param string $start
-     * @param string $end
-     * @param string $location
-     * @param string $kickoff
-     * @param string $result
-     * @param string $score
-     * @param int $gameId
+     * @param string $squad: Squad name
+     * @param string $name: Name of the game
+     * @param string $opposition: Opposition team name
+     * @param string $start: Start date of the game 
+     * @param string $end: End date of the game
+     * @param string $location: Location of the game
+     * @param string $kickoff: Kickoff time of the game
+     * @param string $result: Result of the game
+     * @param string $score: Final score of the game
+     * @param int $gameId: ID of the game to be updated
      */
     public static function updateGame($squad, $name, $opposition, $start, $end, $location, $kickoff, $result, $score, $gameId) {
       $conn = Connection::connect();
@@ -152,7 +152,7 @@ class Events {
      * Retrieves a session from the database based on the provided session ID.
      *
      * @param int $sessionId The ID of the session to retrieve.
-     * @return string $session The session data retrieved from the database.
+     * @return array $session The session data retrieved from the database.
      */
     public static function getSession($sessionId){
       $conn = Connection::connect();
@@ -171,8 +171,8 @@ class Events {
     /**
      * Retrieves training details for a specific session ID from the database.
      *
-     * @param int $sessionId The ID of the session for which training details are to be retrieved.
-     * @return array $trainingDetails An array containing the training details for the specified session.
+     * @param int $sessionId: The ID of the session
+     * @return array $trainingDetails: An array containing the training details
      */
     public static function getTrainingDetails($sessionId){
 
@@ -195,7 +195,7 @@ class Events {
     /**
      * Delete a session from the database based on the provided session ID.
      *
-     * @param int $sessionId The ID of the session to be deleted
+     * @param int $sessionId: The ID of the session to be deleted
      */
     public static function deleteSession($sessionId){
       $conn = Connection::connect();
@@ -213,19 +213,19 @@ class Events {
     /**
      * Update session and training details in the database.
      *
-     * @param int $coach ID number of specific coach
-     * @param int $squad ID number of specific squad
-     * @param string $name Name of the training session
-     * @param date $start Start date of training session
-     * @param date $end End date of training session
-     * @param string $location Location of training session
-     * @param string $skills Skills practiced at training session
-     * @param string $activities Activities practiced at training session
-     * @param string $playersPresent Present players at training session
-     * @param string $accidents Accidents that happened at training session
-     * @param string $injuries Injuries that happened at training session
-     * @param string $sessionId ID number of specific training session.
-     * @param int $trainingDetailId ID number of specific training detail
+     * @param int $coach: ID number of specific coach
+     * @param int $squad: ID number of specific squad
+     * @param string $name: Name of the training session
+     * @param date $start: Start date of training session
+     * @param date $end: End date of training session
+     * @param string $location: Location of training session
+     * @param string $skills: Skills practiced at training session
+     * @param string $activities: Activities practiced at training session
+     * @param string $playersPresent: Present players at training session
+     * @param string $accidents: Accidents that happened at training session
+     * @param string $injuries: Injuries that happened at training session
+     * @param string $sessionId: ID number of specific training session.
+     * @param int $trainingDetailId: ID number of specific training detail
      */
     public static function updateSession($coach, $squad, $name, $start, $end, $location, $skills, $activities, $playersPresent, $accidents, $injuries, $sessionId, $trainingDetailId){
       $conn = Connection::connect();

@@ -71,7 +71,7 @@ class Guardian
     *  @note The name of the function isn't quite right, I think it's meant to be called get Guardians.
     *  I won't change it now, but I'll do that in future updates.
     * 
-    * @param int $juniorId The ID of the junior for whom the guardian information is requested.
+    * @param int $juniorId The ID of the junior
     * @return array $id An array containing the guardian information.
     */
         public static function getGuardian($juniorId){
@@ -91,7 +91,7 @@ class Guardian
         /**
          * Retrieves all guardians from the database.
          *
-         * @return array $guardians An array containing all guardians retrieved from the database.
+         * @return array $guardians An array containing all guardians
          */
         public static function getAllGuardians(){
 
@@ -110,7 +110,7 @@ class Guardian
         /**
          * Retrieves the address of a guardian based on the provided guardian ID.
          *
-         * @param int $guardianId The ID of the guardian whose address is to be retrieved.
+         * @param int $guardianId The ID of the guardian 
          * @return string $address The address information of the guardian.
          */
         public static function getGuardianAddress($guardianId){
@@ -130,7 +130,7 @@ class Guardian
         /**
          * Retrieves a guardian from the database based on the provided guardian ID.
          *
-         * @param int $guardianId The ID of the guardian to retrieve.
+         * @param int $guardianId The ID of the guardian
          * @return string $guardian The guardian information if found, or null if not found.
          */
         public static function getGuardianById($guardianId){

@@ -93,12 +93,8 @@ class SQL {
 
   public static $getSquadName = "SELECT squad_name FROM simplyrugby.squads WHERE squad_id = ?"; ///< Only get squad name of specific squad
 
-   /**
-   * 
-   * Gets records from left table and matches them with records from the right table, if available.
-   * 
-   * One command to get matching records from multiple tables - joins matching records and retrieves information as one new table.
-   * 
+  /**
+   * Gets records from left table and matches them with records from the right table, if available. 
    */
 
   public static $getMember =   "SELECT m.*, a.* FROM simplyrugby.members m LEFT JOIN simplyrugby.addresses a ON m.address_id = a.address_id WHERE m.member_id = ?";  ///< Get member & address information of specific member
@@ -174,11 +170,7 @@ class SQL {
   VALUES (?,?,?,?,?,?,?,?,?,?)"; ///< Create new junior record
 
   /**
-   * 
    * Gets records from left table and matches them with records from the right table, if available.
-   * 
-   * One command to get matching records from multiple tables - joins matching records and retrieves information as one new table.
-   * 
    */
 
   public static $getJuniorSkills = "SELECT j.*, s.category, s.skill_name, js.skill_level, js.comment
@@ -188,11 +180,7 @@ class SQL {
   WHERE j.junior_id = ?"; 
 
   /**
-   * 
    * Gets records from left table and matches them with records from the right table, if available.
-   * 
-   * One command to get matching records from multiple tables - joins matching records and retrieves information as one new table.
-   * 
    */
 
   public static $getPlayerSkills = "SELECT p.*, s.skill_id, s.category, s.skill_name, ps.skill_level, ps.comment
@@ -206,11 +194,7 @@ class SQL {
 
 
   /**
-   * 
    * Gets records from left table and matches them with records from the right table, if available.
-   * 
-   * One command to get matching records from multiple tables - joins matching records and retrieves information as one new table.
-   * 
    */
 
   public static $getJuniorPositions = "SELECT j.*, p.position
@@ -220,11 +204,7 @@ class SQL {
   WHERE j.junior_id = ?";
 
   /**
-   * 
    * Gets records from left table and matches them with records from the right table, if available.
-   * 
-   * One command to get matching records from multiple tables - joins matching records and retrieves information as one new table.
-   * 
    */
 
 
@@ -237,9 +217,7 @@ class SQL {
   public static $selectPlayer = "SELECT * FROM simplyrugby.players WHERE player_id = ?"; ///< Get player with specific ID number
 
   /**
-   * 
    * Combines results of two or more SELECT querries into a single table.
-   * 
    */
 
   public static $getEvents = "SELECT session_id AS id, 'session_id' AS type, name, start, end, location FROM simplyrugby.sessions 

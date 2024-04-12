@@ -62,8 +62,7 @@ $kin = $kinContact = $doctorName = $doctorContact = "";
 
 
 /**
- * This function is used to handle form submission when the HTTP request method is POST. 
- * It validates the form inputs and processes the data accordingly.
+ * Validates the form inputs and processes the data accordingly.
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name
@@ -255,8 +254,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         /**
-         * Checks if an existing address exists in the database. If it does, retrieves the address ID.
-         * If not, creates a new address in the database and then retrieves the newly created address ID.
+         * Checks if an existing address exists in the database.
          */
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
@@ -282,8 +280,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         /**
-         * Check if a doctor already exists in the database based on first name, last name, and contact.
-         * If the doctor exists, retrieve the doctor's ID. If not, create a new doctor and retrieve the new doctor's ID.
+         * Check if a doctor already exists in the database based on first name, last name, and contact number.
          */
         $stmt = $conn->prepare(SQL::$doctorExists);
         $stmt->execute([$doctorFirstName, $doctorLastName, $doctorContact]);
@@ -307,10 +304,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(empty($genuineErr)){
             /**
              * Handles the upload of a profile image file.
-             *
-             * This function checks if a profile image file has been uploaded, validates its format and size,
-             * and moves the file to the appropriate directory if it meets the criteria.
-             *
              */
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
@@ -483,7 +476,6 @@ enctype="multipart/form-data">
 
     /**
      * Show the tab based on the value of the currentTab variable.
-     * Depending on the value of currentTab, display the corresponding tab details.
      */
     function showTab(){
         if ( currentTab == 0){
@@ -524,12 +516,16 @@ enctype="multipart/form-data">
     showTab();
 
     /**
-     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     * Increments the current tab index and displays next tab.
      */
     function nextTab(){
         currentTab += 1;
         showTab();
     }
+
+    /**
+     * Decrements the current tab index and displays previous tab.
+     */
 
     function prevTab(){
         currentTab -= 1;
@@ -537,10 +533,7 @@ enctype="multipart/form-data">
     }
 
     /**
-     * Validates the form fields to ensure all required fields are filled out.
-     * Displays an alert message if any field is empty and returns false.
-     * 
-     * @return boolean
+     * Validates a form with multiple input fields.
      */
     function validateForm() {
         let nameInput = document.forms[0]["name"].value.trim();

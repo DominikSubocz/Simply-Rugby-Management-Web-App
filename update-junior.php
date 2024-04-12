@@ -233,8 +233,7 @@ $address1 = $address2 = $city = $county = $postcode = "";
 $doctorName = $doctorContact = "";
 
 /**
- * This function is used to handle form submission when the HTTP request method is POST. 
- * It validates the form inputs and processes the data accordingly.
+ * Validates the form inputs and processes the data accordingly.
  */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -729,10 +728,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             /**
              * Handles the upload of a profile image file.
-             *
-             * This function checks if a profile image file has been uploaded, validates its format and size,
-             * and moves the file to the designated directory if it meets the criteria.
-             *
              */
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
@@ -1015,7 +1010,6 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 
     /**
      * Show the tab based on the currentTab value.
-     * Display the corresponding details section based on the currentTab value.
      */
     function showTab(){
         if ( currentTab == 0){
@@ -1056,12 +1050,16 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
     showTab();
 
     /**
-     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     * Increments the current tab index and displays next tab.
      */
     function nextTab(){
         currentTab += 1;
         showTab();
     }
+
+    /**
+     * Decrements the current tab index and displays previous tab.
+     */
 
     function prevTab(){
         currentTab -= 1;

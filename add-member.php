@@ -10,11 +10,15 @@ require("classes/sql.php");
  */
 require("classes/utils.php");require_once("classes/connection.php");
 
+
 /**
- * Check if the session variable "newMember" is not set, and if the user role is not "Admin" or "Coach",
- * redirect to the logout page.
+ * Check if the session variable "newMember" key is set.
  */
 if(!isset($_SESSION["newMember"])){
+
+    /**
+     * Check if the user role is not "Admin" or "Coach" and redirect to logout page if true.
+     */
     if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
         header("Location: " . Utils::$projectFilePath . "/logout.php");
       }
@@ -60,8 +64,7 @@ $address1 = $address2 = $city = $county = $postcode = "";
 $firstName = $lastName = "";
 
 /**
- * This function is used to handle form submission when the HTTP request method is POST. 
- * It validates the form inputs and processes the data accordingly.
+ * Validates the form inputs and processes the data accordingly.
  */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -199,7 +202,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Check if an address already exists in the database.
-         *
          */
         $stmt = $conn->prepare(SQL::$addressExists);
         $stmt->execute([$address1, $address2, $city, $county, $postcode]);
@@ -209,7 +211,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             /**
              * Retrieves the existing address ID from the database.
-             *
              */
             $stmt = $conn->prepare(SQL::$getExistingAddressId);
             $stmt->execute([$address1, $address2, $city, $county, $postcode]);
@@ -238,10 +239,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             /**
              * Handles the upload of a profile image file.
-             *
-             * This function checks if a profile image file has been uploaded, validates its format and size,
-             * and moves the file to the designated directory if it meets the criteria.
-             *
              */
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
@@ -269,8 +266,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             /**
              * Redirects the user based on the session data.
-             * If the session variable "newMember" is set, it sets a success message and redirects to success.php.
-             * If the session variable "newMember" is not set, it redirects to member-list.php.
              */
             if(isset($_SESSION["newMember"])){
                 $_SESSION["successMessage"] = "Registration Successful!";
@@ -405,8 +400,6 @@ enctype="multipart/form-data">
 
     /**
      * Show the tab based on the currentTab value.
-     * If currentTab is 0, display the paragraph details and hide the anchor details.
-     * If currentTab is not 0, hide the paragraph details and display the anchor details.
      */
     function showTab(){
         if ( currentTab == 0){
@@ -425,12 +418,16 @@ enctype="multipart/form-data">
     showTab();
 
     /**
-     * Functions to navigate to the next and previous tabs in a multi-step form.
+     * Increments the current tab index and displays next tab.
      */
     function nextTab(){
         currentTab += 1;
         showTab();
     }
+
+    /**
+     * Decrements the current tab index and displays previous tab.
+     */
 
     function prevTab(){
         currentTab -= 1;
@@ -439,10 +436,7 @@ enctype="multipart/form-data">
     
 
     /**
-     * Validates the form fields to ensure all required fields are filled out.
-     * Displays an alert message if any required field is empty.
-     * 
-     * @return boolean - Returns false if any required field is empty, otherwise returns true.
+     * Validates a form with multiple input fields.
      */
     function validateForm() {
         let nameInput = document.forms[0]["name"].value.trim();

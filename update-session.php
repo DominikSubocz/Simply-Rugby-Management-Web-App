@@ -163,8 +163,7 @@ $name = $coach = $squad = $start = $end = $location = "";
 $nameErr = $coachErr = $squadErr = $startErr = $endErr = $locationErr = "";
 
 /**
- * This function is used to handle form submission when the HTTP request method is POST. 
- * It validates the form inputs and processes the data accordingly.
+ * Validates the form inputs and processes the data accordingly.
  */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

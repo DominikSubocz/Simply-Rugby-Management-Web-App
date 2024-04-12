@@ -64,7 +64,7 @@ class Junior
   /**
    * Retrieves the junior skills for a specific player based on the player ID.
    *
-   * @param int $playerId The ID of the player for whom junior skills are to be retrieved.
+   * @param int $playerId The ID of the player 
    * @return array $juniors An array containing the junior skills of the player.
    */
   public static function getJuniorSkills($playerId)
@@ -87,7 +87,7 @@ class Junior
   /**
    * Retrieves the junior positions for a specific player based on the player ID.
    *
-   * @param int $playerId The ID of the player for whom junior positions are to be retrieved.
+   * @param int $playerId The ID of the player 
    * @return array $juniors An array containing the junior positions of the player.
    */
   public static function getJuniorPositions($playerId)
@@ -109,7 +109,7 @@ class Junior
   /**
    * Retrieves the junior player information based on the provided player ID.
    *
-   * @param int $playerId The ID of the player to retrieve junior information for.
+   * @param int $playerId The ID of the player
    * @return string $junior The junior player information if found, null otherwise.
    */
   public static function getJunior($playerId)
@@ -173,17 +173,17 @@ class Junior
   /**
    * Update a junior record in the database with the provided information.
    *
-   * @param int $address_id
-   * @param string $firstName
-   * @param string $lastName
-   * @param string $dob
-   * @param string $sru
-   * @param string $contactNo
-   * @param string $mobileNo
-   * @param string $email
-   * @param string $healthIssues
-   * @param string $filename
-   * @param int $juniorId
+   * @param int $addressId: ID number of specific address
+   * @param string  $firstName:  First name of junior player
+   * @param string  $lastName:  Last name of junior player
+   * @param \DateTime $dob:  Date of birth of junior player
+   * @param int  $sru: SRU of junior player
+   * @param int  $contactNo:   Contact number of junior player
+   * @param int  $mobileNo:  Mobile number of junior player
+   * @param string  $email:  Email address of junior player
+   * @param string  $healthIssues:  Health issues of junior player
+   * @param string  $filename:  filename of profile picture of junior player
+   * @param int $juniorId:  ID number of junior player
    * @throws PDOException If there is an error with the database operation. - There is a try catch code in corresponding page.
    */
   public static function updateJunior($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId){
@@ -238,16 +238,16 @@ class Junior
   /**
    * Create a new junior record in the database with the provided information.
    *
-   * @param int $addressId
-   * @param string $firstName
-   * @param string $lastName
-   * @param string $dob
-   * @param string $sru
-   * @param string $contactNo
-   * @param string $mobileNo
-   * @param string $email
-   * @param string $healthIssues
-   * @param string $filename
+   * @param int $addressId: ID number of specific address
+   * @param string  $firstName:  First name of junior player
+   * @param string  $lastName:  Last name of junior player
+   * @param \DateTime $dob:  Date of birth of junior player
+   * @param int  $sru: SRU of junior player
+   * @param int  $contactNo:   Contact number of junior player
+   * @param int  $mobileNo:  Mobile number of junior player
+   * @param string  $email:  Email address of junior player
+   * @param string  $healthIssues:  Health issues of junior player
+   * @param string  $filename:  Filename of profile picture of junior player
    * @return int The ID of the newly created junior record
    */
   public static function createNewJunior($addressId, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename){

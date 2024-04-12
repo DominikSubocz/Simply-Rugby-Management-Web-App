@@ -25,7 +25,6 @@ if(!isset($_SESSION["loggedIn"])){
 } else {
 /**
  * Check if the user role is not Admin or Coach, then redirect to logout page.
- * @param string $_SESSION["user_role"]: The role of the user stored in the session.
  */
   if($_SESSION["user_role"] != "Admin") {
     header("Location: " . Utils::$projectFilePath . "/logout.php");

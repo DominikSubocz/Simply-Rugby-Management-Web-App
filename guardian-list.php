@@ -15,8 +15,7 @@ require("classes/utils.php");require("classes/guardian.php");
 Components::pageHeader("List of Guardians", ["style"], ["mobile-nav"]); ///< Render page header
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
 
@@ -177,7 +176,6 @@ settingsBtn.onclick = function(event) {
 
 /**
  * Display or hide columns based on the checkboxes checked.
- * If a checkbox is checked, display the corresponding column; otherwise, hide it.
  */
 function displayColumn(){
 
@@ -292,10 +290,7 @@ function displayColumn(){
 displayColumn();
 
 /**
- * Changes the checkbox state by unchecking all checkboxes with class "cb" and checking the checkbox passed as a parameter.
- * Additionally, it displays buttons with the specified style.
- *
- * @param {Object} obj - The checkbox object to be checked.
+ * Unchecks all checkboxes with the class "cb" on the document when the function is called.
  */
 function cbChange(obj) {
     var cbs = document.getElementsByClassName("cb");

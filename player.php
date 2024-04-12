@@ -11,8 +11,7 @@ require("classes/components.php");
 require("classes/utils.php");require("classes/player.php");
 
 /**
- * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
- * If the user is not logged in, redirect to the login page.
+ * Check if the user is logged in; if not, redirect to login page
  */
 if(!isset($_SESSION["loggedIn"])){
 

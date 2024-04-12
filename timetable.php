@@ -99,10 +99,7 @@ let updateBtn = document.getElementById("updateBtn");
 let removeBtn = document.getElementById("removeBtn");
 
 /**
- * Changes the checkbox state by unchecking all checkboxes with class "cb" and checking the checkbox passed as a parameter.
- * Additionally, it displays buttons with the specified style.
- *
- * @param {Object} obj - The checkbox object to be checked.
+ * Unchecks all checkboxes with the class "cb" on the document when the function is called.
  */
 
 function cbChange(obj) {

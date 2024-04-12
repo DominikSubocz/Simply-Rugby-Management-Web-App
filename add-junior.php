@@ -127,8 +127,7 @@ $doctorName = $doctorContact = "";
 
 
 /**
- * This function is used to handle form submission when the HTTP request method is POST. 
- * It validates the form inputs and processes the data accordingly.
+ * Validates the form inputs and processes the data accordingly.
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name
@@ -413,8 +412,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Check if the address exists in the database based on the provided parameters.
-         * If the address does not exist, create a new address and return its ID.
-         *
          */
         $existingAddress = Address::addressExists($address1, $address2, $city, $county, $postcode);
         $guardian1Address = Address::addressExists($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
@@ -427,9 +424,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Check if a guardian already exists based on first name, last name, and contact.
-         * If the guardian exists, retrieve the guardian ID.
-         * If the guardian does not exist, create a new guardian and retrieve the guardian ID.
-         *
          */
         $existingGuardian = Guardian::guardianExists($guardianFirstName, $guardianLastName, $guardianContact);
         
@@ -444,7 +438,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             /**
              * Check if the address already exists in the database. 
-             * If it does not exist, create a new address.
              */
             $guardian2Address = Address::addressExists($guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2);
     
@@ -458,8 +451,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             /**
              * Checks if a guardian with the given first name, last name, and contact exists in the database. 
-             * If the guardian exists, retrieves the guardian ID. 
-             * If the guardian does not exist, creates a new guardian with the provided details and assigns the generated guardian ID.
              */
             $existingGuardian2 = Guardian::guardianExists($guardianFirstName2, $guardianLastName2, $guardianContact2);
             
@@ -486,8 +477,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         /**
          * Check if a doctor already exists based on first name, last name, and contact.
-         * If the doctor exists, retrieve the doctor ID. If not, create a new doctor and return the ID.
-         *
          */
         $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);
         
@@ -505,10 +494,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             /**
              * Handles the upload of a profile image file.
-             *
-             * This function checks if a profile image file has been uploaded, validates its format and size,
-             * and moves the file to the designated directory if it meets the criteria.
-             *
              */
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
@@ -537,9 +522,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             Junior::createAssociation($juniorId, $guardianId, $doctorId);
 
             /**
-             * Check if the value of the 'elementForVar1HiddenField' in the $_POST array is equal to 1.
-             * If true, create an association using the Junior model with the provided $juniorId, $guardianId2, and $doctorId.
-             *
+             * Check if the value of the hidden input is equal to 1.
              */
             if ($_POST['elementForVar1HiddenField'] == 1) {
                 Junior::createAssociation($juniorId, $guardianId2, $doctorId);
@@ -780,7 +763,7 @@ enctype="multipart/form-data">
 
     
     /**
-     * Function to check if a radio button is checked and display or hide a specific element accordingly.
+     * Check if a radio button is checked and display or hide a specific element.
      */
     function radioChecked(){
         if (document.getElementById("radio-two").checked){
@@ -802,7 +785,6 @@ enctype="multipart/form-data">
 
     /**
      * Show the tab based on the currentTab value.
-     * Display the corresponding details section based on the currentTab value.
      */
     function showTab(){
         if ( currentTab == 0){
@@ -843,12 +825,16 @@ enctype="multipart/form-data">
     showTab();
 
     /**
-     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     * Increments the current tab index and displays next tab.
      */
     function nextTab(){
         currentTab += 1;
         showTab();
     }
+
+    /**
+     * Decrements the current tab index and displays previous tab.
+     */
 
     function prevTab(){
         currentTab -= 1;
@@ -856,7 +842,7 @@ enctype="multipart/form-data">
     }
 
     /**
-     * Function to validate a form with multiple input fields.
+     * Validates a form with multiple input fields.
      */
     function validateForm() {
         let hiddenInput = document.getElementById('elementForVar1HiddenField');

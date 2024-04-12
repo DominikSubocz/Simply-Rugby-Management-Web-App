@@ -21,11 +21,11 @@ class Address
     /**
      * Check if an address already exists in the database based on the provided address details.
      *
-     * @param string $address1
-     * @param string $address2
-     * @param string $city
-     * @param string $county
-     * @param string $postcode
+     * @param string $address1 The first line of the address
+     * @param string $address2 The second line of the address
+     * @param string $city The city of the address
+     * @param string $county The county of the address
+     * @param string $postcode The postcode of the address
      * @return string $existingAddress The existing address if found, or null if not found
      */
     public static function addressExists($address1, $address2, $city, $county, $postcode){
@@ -88,11 +88,11 @@ class Address
     /**
      * Retrieves the existing address ID from the database based on the provided address details.
      *
-     * @param string $address1
-     * @param string $address2
-     * @param string $city
-     * @param string $county
-     * @param string $postcode
+     * @param string $address1 The first line of the address
+     * @param string $address2 The second line of the address
+     * @param string $city The city of the address
+     * @param string $county The county of the address
+     * @param string $postcode The postcode of the address
      * @return string $addressId The address ID if found, null otherwise
      */
     public static function getExistingAddress($address1, $address2, $city, $county, $postcode){

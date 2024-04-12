@@ -202,8 +202,7 @@ $standardErr = $spinErr = $popErr = $frontErr = $rearErr = $sideErr = $scrabbleE
 $standardComment = $spinComment = $popComment = $frontComment = $rearComment = $sideComment = $scrabbleComment = $dropComment = $puntComment = $grubberComment = $goalComment = "";
 
 /**
- * This function is used to handle form submission when the HTTP request method is POST. 
- * It validates the form inputs and processes the data accordingly.
+ * Validates the form inputs and processes the data accordingly.
  */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -573,7 +572,6 @@ function test_input($data) {
 
     /**
      * Show the tab based on the currentTab value.
-     * Display the corresponding details section based on the currentTab value.
      */
 
       function showTab(){

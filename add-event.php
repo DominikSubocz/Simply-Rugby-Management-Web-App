@@ -25,7 +25,7 @@ Components::pageHeader("Add Event", ["style"], ["mobile-nav"]);
 /**
  * Variables to store information related to a sports squad match.
  *
- * @var string $squad: The squad name
+ * @var string $squad: Squad name
  * @var string $gameName: The name of the game
  * @var string $opposition: The opposing team
  * @var \DateTime $start: The start date of the event
@@ -79,13 +79,11 @@ $squads = $stmt->fetchAll();
 
 
 /**
- * This function is used to handle form submission when the HTTP request method is POST. 
- * It validates the form inputs and processes the data accordingly.
+ * Validates the form inputs and processes the data accordingly.
  */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   /// Validate game details if value for hidden field is 0.
-  /// It is 0 by default, or if user has picked game from radio options)
   
   if ($_POST['elementForVar1HiddenField'] == 0) {
 
@@ -152,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($_POST["score"])) {
-      $score = 0; ///< Set score to 0 if not provided
+      $score = 0; ///< Set score to 0 if not entered
     } else {
         $score = test_input($_POST["score"]); ///< Sanitize score input
     }
@@ -211,11 +209,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
 
     /**
-     * 
-     * Training session validation
-     * 
      * Validate training session details if value of hidden field is not 0
-     * Only if user picks session option from the radio input
      */
 
     if (empty($_POST["sessionName"])) {
@@ -285,7 +279,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       /**
        * Check if a session already exists in the database based on session name, training start, and training end dates.
-       * If the session already exists, it outputs an error message.
        */
       $stmt = $conn->prepare(SQL::$getSession);
       $stmt->execute([$sessionName, $trainingStart, $trainingEnd]);
@@ -300,7 +293,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Checks if a coach exists in the database, based on the provided first and last name.
-         * If the coach does not exist, an error message is displayed.
          */
         $stmt = $conn->prepare(SQL::$getCoach);
         $stmt->execute([$coachFirstName, $coachLastName]);
@@ -541,8 +533,6 @@ radioChecked();
 
 /**
  * Validates the form fields based on specific conditions and displays alerts for missing or incorrect inputs.
- * 
- * @return boolean - Returns false if any required field is empty or incorrect, otherwise returns true.
  */
 function validateForm() {
   let hiddenInput = document.getElementById('elementForVar1HiddenField');
