@@ -154,12 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     
-    /**
-     * Validates form data and creates a new member if all fields are valid.
-     * 
-     * This function checks for errors in various form fields and then proceeds to create a new member in the database if no errors are found.
-     *
-     */
+    /// If there are no errors, proceed with sql querries
     if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($profileImageErr) 
     && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
     && empty ($genuineErr)) {
@@ -380,20 +375,8 @@ enctype="multipart/form-data">
     const pDetails = document.getElementById("personal-details-form");
     const aDetails = document.getElementById("address-details-form");
 
-    showTab();
 
-    /**
-     * Functions to navigate to the next and previous tabs in a multi-step form.
-     */
-    function nextTab(){
-        currentTab += 1;
-        showTab();
-    }
 
-    function prevTab(){
-        currentTab -= 1;
-        showTab();
-    }
 
     /**
      * Show the tab based on the currentTab value.
@@ -413,6 +396,22 @@ enctype="multipart/form-data">
 
         }
     }
+
+    showTab();
+
+    /**
+     * Functions to navigate to the next and previous tabs in a multi-step form.
+     */
+    function nextTab(){
+        currentTab += 1;
+        showTab();
+    }
+
+    function prevTab(){
+        currentTab -= 1;
+        showTab();
+    }
+    
 
     /**
      * Validates the form fields to ensure all required fields are filled out.

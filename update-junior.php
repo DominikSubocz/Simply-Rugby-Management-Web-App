@@ -20,7 +20,7 @@ if(!isset($_SESSION["loggedIn"])){
   
     header("Location: " . Utils::$projectFilePath . "/login.php");
   
-  }
+}
 
 /**
  * Check if the user role is not Admin or Coach, then redirect to logout page.
@@ -123,7 +123,7 @@ $ukDobPlaceholder = date( 'd/m/Y', $phpdate ); ///< Format a Unix timestamp into
 
 
 /**
- * Variables to store error messages for form validation.
+ * Variables to store error messages and input values for form validation.
  * 
  * @var string $nameErr: Error message for name field.
  * @var string $dobErr: Error message for date of birth field.
@@ -156,30 +156,11 @@ $ukDobPlaceholder = date( 'd/m/Y', $phpdate ); ///< Format a Unix timestamp into
  * @var string $doctorNameErr: Error message for Doctor's name
  * @var string $doctorContactErr: Error message for Doctor's contact number
  * @var string $genuineErr: Error message that appers on top of the form i.e "Not all input fields filled/correct"
- * @var string $profileImageErr: Error message for profile image
  * 
- * Variables to store input values for form validation.
- */
-$nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
-$guardianNameErr = $guardianContactErr = $relationshipErr = "";
-
-$guardianAddress11Err = $guardianAddress12Err = $guardianCity1Err = $guardianCounty1Err = $guardianPostcode1Err = "";
-$guardianAddress21Err = $guardianAddress22Err = $guardianCity2Err = $guardianCounty2Err = $guardianPostcode2Err = "";
-$guardianName2Err = $guardianContact2Err = $relationship2Err = "";
-$address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
-$doctorNameErr = $doctorContactErr = "";
-$genuineErr = $profileImageErr = "";
-
-$doctorId = $addressId = "";
-
-
-/**
- * Initialize variables for storing personal information, guardian information, address details, and doctor information.
- *
  * Personal Information:
  * @var string $name: Holds value for Name input field
  * @var \DateTime $dob: Holds value for Date of birth input field
- * @var string  $email: Holds value for Email addressinput field
+ * @var string  $email: Holds value for Email address input field
  * @var int  $sru: Holds value for SRU input field
  * @var int  $contactNo:  Holds value forContact number input field
  * @var int  $mobileNo: Holds value for Mobile number input field
@@ -221,7 +202,21 @@ $doctorId = $addressId = "";
  * @var string $postcode: Holds value for Postcode input field 
  * @var string $doctorName: Holds value for Doctor's name input field 
  * @var string $doctorContact: Holds value for Doctor's contact number input field 
+ * 
+ * Variables to store input values for form validation.
  */
+$nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
+$guardianNameErr = $guardianContactErr = $relationshipErr = "";
+
+$guardianAddress11Err = $guardianAddress12Err = $guardianCity1Err = $guardianCounty1Err = $guardianPostcode1Err = "";
+$guardianAddress21Err = $guardianAddress22Err = $guardianCity2Err = $guardianCounty2Err = $guardianPostcode2Err = "";
+$guardianName2Err = $guardianContact2Err = $relationship2Err = "";
+$address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
+$doctorNameErr = $doctorContactErr = "";
+$genuineErr = $profileImageErr = "";
+
+$doctorId = $addressId = "";
+
 $name = $dob = $email = $sru = $contactNo = $mobileNo = $healthIssues = $profileImage = $filename = "";
 $firstName = $lastName = "";
 
@@ -246,8 +241,7 @@ $doctorName = $doctorContact = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name
     if (empty($_POST["name"])) {
-        $name = $playerFirstName . ' ' . $playerLastName; ///< Combines the first name and last name of a player to create a full name.
-
+        $name = $playerFirstName . ' ' . $playerLastName; ///< Combines the first name and last name placeholders values if left empty
         $nameParts = explode(" ", $name); ///< Split name into first and last name
 
         /// Extract the first and last names
@@ -257,7 +251,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = test_input($_POST["name"]); ///< Sanitize name
         /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
-            $nameErr = "Only letters and white space allowed"; /// Display error message
+            $nameErr = "Only letters and white space allowed"; ///< Display error message
         }
 
         $nameParts = explode(" ", $name); ///< Split name into first and last name
@@ -275,7 +269,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = test_input($_POST["email"]); ///< Sanitize email address
         /// Check if email address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Invalid email format"; /// Display error message
+            $emailErr = "Invalid email format"; ///< Display error message
         }
     }
 
@@ -286,7 +280,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $sru = test_input($_POST["sru"]); ///< Sanitize sru number
         if (!preg_match("/^\d+$/", $sru)) {
-            $sruErr = "Only digits allowed"; /// Display error message
+            $sruErr = "Only digits allowed"; ///< Display error message
         }
     }
 
@@ -299,7 +293,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $dob = test_input($_POST["dob"]); ///< Sanitize dob
         if (!preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $dob)) {
-            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY"; /// Display error message
+            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY"; ///< Display error message
         }
 
         $sqlDate = date('Y-m-d', strtotime($dob)); ///< Converts a date of birth (dob) into a SQL date format (YYYY-MM-DD).
@@ -312,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $contactNo = test_input($_POST["contactNo"]); ///< Sanitize contact number
         if (!preg_match("/^\d+$/", $contactNo)) {
-            $contactNoErr = "Only digits allowed"; /// Display error message
+            $contactNoErr = "Only digits allowed"; ///< Display error message
         }
     }
 
@@ -322,7 +316,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $address1 = test_input($_POST["address1"]); ///< Sanitize address line 1
         if ((strlen($address1)<10) || (strlen($address1) > 50)){
-            $address1Err = "Address Line 1 must be between 10 and 50 characters long!"; /// Display error message
+            $address1Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
@@ -336,7 +330,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(!empty($_POST["mobileNo"])){
         $mobileNo = test_input($_POST["mobileNo"]); ///< Sanitize mobile number
         if (!preg_match("/^\d+$/", $mobileNo)) {
-            $mobileNoErr = "Only digits allowed"; /// Display error message
+            $mobileNoErr = "Only digits allowed"; ///< Display error message
         }
     } else {
         $mobileNo = $mobileNumberPlaceholder; ///< Set value to placeholder if left empty
@@ -348,14 +342,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $city = test_input($_POST["city"]); ///< Sanitize city
         if ((strlen($city)<5) || (strlen($city) > 50)){
-            $cityErr = "City must be between 10 and 50 characters long!"; /// Display error message
+            $cityErr = "City must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
     if(!empty($_POST["county"])){
         $county = test_input($_POST["county"]); ///< Sanitize county
         if ((strlen($county)<5) || (strlen($county) > 50)){
-            $countyErr = "County must be between 10 and 50 characters long!"; /// Display error message
+            $countyErr = "County must be between 10 and 50 characters long!"; ///< Display error message
         }
     } else {
         $county = $countyPlaceholder; ///< Set value to placeholder if left empty
@@ -367,7 +361,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $postcode = test_input($_POST["postcode"]); ///< Sanitize postcode
         if ((strlen($postcode)<6) || (strlen($postcode) > 8)){
-            $postcodeErr = "Postcode must be 6 characters long!"; /// Display error message
+            $postcodeErr = "Postcode must be 6 characters long!"; ///< Display error message
         }
     }
 
@@ -389,7 +383,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $guardianName = test_input($_POST["guardianName"]); ///< Sanitize guardian's name
         /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $guardianName)) {
-            $guardianNameErr = "Only letters and white space allowed"; /// Display error message
+            $guardianNameErr = "Only letters and white space allowed"; ///< Display error message
         }
 
         $guardianNameParts = explode(" ", $guardianName); ///< Split name into first and last name
@@ -405,7 +399,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $guardianContact = test_input($_POST["guardianContact"]); ///< Sanitize guardian's contact number
         if (!preg_match("/^\d+$/", $guardianContact)) {
-            $guardianContactErr = "Only digits allowed"; /// Display error message
+            $guardianContactErr = "Only digits allowed"; ///< Display error message
         }
     }
 
@@ -415,7 +409,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $relationship = test_input($_POST["relationship"]); ///< Sanitize relationship
         /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship)) {
-            $relationshipErr = "Only letters and white space allowed"; /// Display error message
+            $relationshipErr = "Only letters and white space allowed"; ///< Display error message
         }
     }
 
@@ -426,7 +420,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $guardianAddress11 = test_input($_POST["guardianAddress11"]); ///< Sanitize address line 1 of guardian 1
         if ((strlen($guardianAddress11)<10) || (strlen($guardianAddress11) > 50)){
-            $guardianAddress11Err = "Address Line 1 must be between 10 and 50 characters long!"; /// Display error message
+            $guardianAddress11Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
@@ -442,14 +436,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $guardianCity1 = test_input($_POST["guardianCity1"]); ///< Sanitize city of guardian 1
         if ((strlen($guardianCity1)<5) || (strlen($guardianCity1) > 50)){
-            $guardianCity1Err = "City must be between 10 and 50 characters long!"; /// Display error message
+            $guardianCity1Err = "City must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
     if(!empty($_POST["guardianCounty1"])){
         $guardianCounty1 = test_input($_POST["guardianCounty1"]); ///< Sanitize county of guardian 1
         if ((strlen($guardianCounty1)<5) || (strlen($guardianCounty1) > 50)){
-            $guardianCounty1Err = "County must be between 10 and 50 characters long!"; /// Display error message
+            $guardianCounty1Err = "County must be between 10 and 50 characters long!"; ///< Display error message
         }
     } else {
         $guardianCounty1 = $guardianCountyPlaceholder1; ///< Set value to placeholder if left empty
@@ -461,7 +455,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $guardianPostcode1 = test_input($_POST["guardianPostcode1"]); ///< Sanitize postcode of guardian 1
         if ((strlen($guardianPostcode1)<6) || (strlen($guardianPostcode1) > 8)){
-            $guardianPostcode1Err = "Postcode must be 6 characters long!"; /// Display error message
+            $guardianPostcode1Err = "Postcode must be 6 characters long!"; ///< Display error message
         }
     }
 
@@ -476,7 +470,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if($_POST['elementForVar1HiddenField'] == 1){
         if(empty($_POST["guardianName2"])){
             if(isset($guardianFirstNamePlaceholder2) && isset ( $guardianLastNamePlaceholder2)){
-                $guardianName2 = $guardianFirstNamePlaceholder2 . ' ' . $guardianLastNamePlaceholder2; ///< Combines the first and last name placeholders to create the full name of the guardian.
+                $guardianName2 = $guardianFirstNamePlaceholder2 . ' ' . $guardianLastNamePlaceholder2; ///< Combines the first name and last name placeholders values if left empty
 
                 
                 $guardianNameParts2 = explode(" ", $guardianName2); ///< Split name into first and last name
@@ -489,7 +483,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $guardianName2 = test_input($_POST["guardianName2"]); ///< Sanitize name of guardian 2
             /// Check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z-' ]*$/", $guardianName2)) {
-                $guardianName2Err = "Only letters and white space allowed"; /// Display error message
+                $guardianName2Err = "Only letters and white space allowed"; ///< Display error message
             }
     
             $guardianNameParts2 = explode(" ", $guardianName2); ///< Split name into first and last name
@@ -509,7 +503,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $guardianContact2 = test_input($_POST["guardianContact"]); ///< Sanitize contact number of guardian 2
             if (!preg_match("/^\d+$/", $guardianContact2)) {
-                $guardianContact2Err = "Only digits allowed"; /// Display error message
+                $guardianContact2Err = "Only digits allowed"; ///< Display error message
             }
         }
     
@@ -521,7 +515,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $relationship2 = test_input($_POST["relationship2"]); ///< Sanitize relationship of guardian 2
             /// Check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship2)) {
-                $relationship2Err = "Only letters and white space allowed"; /// Display error message
+                $relationship2Err = "Only letters and white space allowed"; ///< Display error message
             }
         }
 
@@ -533,7 +527,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $guardianAddress21 = test_input($_POST["guardianAddress21"]); ///< Sanitize address line 1 of guardian 2
             if ((strlen($guardianAddress21)<10) || (strlen($guardianAddress21) > 50)){
-                $guardianAddress21Err = "Address Line 1 must be between 10 and 50 characters long!"; /// Display error message
+                $guardianAddress21Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
             }
         }
     
@@ -554,14 +548,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $guardianCity2 = test_input($_POST["guardianCity2"]); ///< Sanitize city of guardian 2
             if ((strlen($guardianCity2)<5) || (strlen($guardianCity2) > 50)){
-                $guardianCity2Err = "City must be between 10 and 50 characters long!"; /// Display error message
+                $guardianCity2Err = "City must be between 10 and 50 characters long!"; ///< Display error message
             }
         }
     
         if(!empty($_POST["guardianCounty2"])){
             $guardianCounty2 = test_input($_POST["guardianCounty2"]); ///< Sanitize county of guardian 2
             if ((strlen($guardianCounty2)<5) || (strlen($guardianCounty2) > 50)){
-                $guardianCounty2Err = "County must be between 10 and 50 characters long!"; /// Display error message
+                $guardianCounty2Err = "County must be between 10 and 50 characters long!"; ///< Display error message
             }
         } else {
             if(isset($guardianCountyPlaceholder2)){
@@ -577,7 +571,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $guardianPostcode2 = test_input($_POST["guardianPostcode2"]); ///< Sanitize postcode of guardian 2
             if ((strlen($guardianPostcode2)<6) || (strlen($guardianPostcode2) > 8)){
-                $guardianPostcode2Err = "Postcode must be 6 characters long!"; /// Display error message
+                $guardianPostcode2Err = "Postcode must be 6 characters long!"; ///< Display error message
             }
         }
     }
@@ -598,7 +592,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $doctorName = test_input($_POST["doctorName"]); ///< Sanitize doctor's name
         /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
-            $doctorNameErr = "Only letters and white space allowed";  /// Display error message
+            $doctorNameErr = "Only letters and white space allowed";  ///< Display error message
         }
 
         $doctorNameParts = explode(" ", $doctorName); ///< Split name into first and last name
@@ -614,7 +608,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $doctorContact = test_input($_POST["doctorContact"]); ///< Sanitize doctor's contact number
         if (!preg_match("/^\d+$/", $doctorContact)) {
-            $doctorContactErr = "Only digits allowed";  /// Display error message
+            $doctorContactErr = "Only digits allowed";  ///< Display error message
         }
     }
 
@@ -1016,21 +1010,9 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
         }
     }
 
-    showTab();
     radioChecked();
 
-    /**
-     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
-     */
-    function nextTab(){
-        currentTab += 1;
-        showTab();
-    }
 
-    function prevTab(){
-        currentTab -= 1;
-        showTab();
-    }
 
     /**
      * Show the tab based on the currentTab value.
@@ -1070,6 +1052,21 @@ components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
 
 
         }
+    }
+
+    showTab();
+
+    /**
+     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     */
+    function nextTab(){
+        currentTab += 1;
+        showTab();
+    }
+
+    function prevTab(){
+        currentTab -= 1;
+        showTab();
     }
 
 

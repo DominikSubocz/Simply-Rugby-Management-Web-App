@@ -454,22 +454,6 @@ enctype="multipart/form-data">
     const kDetails = document.getElementById("kin-details-form");
     const dDetails = document.getElementById("doctor-details-form");
 
-    showTab();
-
-
-    /**
-     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
-     */
-    function nextTab(){
-        currentTab += 1;
-        showTab();
-    }
-
-    function prevTab(){
-        currentTab -= 1;
-        showTab();
-    }
-
     /**
      * Show the tab based on the value of the currentTab variable.
      * Depending on the value of currentTab, display the corresponding tab details.
@@ -508,6 +492,21 @@ enctype="multipart/form-data">
 
 
         }
+    }
+
+    showTab();
+
+    /**
+     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     */
+    function nextTab(){
+        currentTab += 1;
+        showTab();
+    }
+
+    function prevTab(){
+        currentTab -= 1;
+        showTab();
     }
 
     /**

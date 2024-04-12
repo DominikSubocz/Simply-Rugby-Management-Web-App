@@ -1,5 +1,6 @@
 <?php
-
+/// This must come first when we need access to the current session
+session_start();
 require("classes/components.php");
 /**
  * Included for the postValuesAreEmpty() and
@@ -9,39 +10,57 @@ require("classes/utils.php");require("classes/player.php");
 
 
 
-/// This must come first when we need access to the current session
-session_start();
 
+
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ * 
+ * If the user is logged in check priveledge level, and proceed.
+ */
+if(!isset($_SESSION["loggedIn"])){
+  
+  header("Location: " . Utils::$projectFilePath . "/login.php");
+
+}
+/**
+ * Check if the user role is not Admin or Coach, then redirect to logout page.
+ */
 if(($_SESSION["user_role"] != "Admin") &&($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
-/*
-  Attempt to get the id from the URL parameter.
-  If it isn't set or it isn't a number, redirect
-  to player list page.
-*/
+/**
+ * Redirects to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   header("Location: " . Utils::$projectFilePath . "/player-list.php");
 }
 
-if(!isset($_SESSION["loggedIn"])){
 
-  header("Location: " . Utils::$projectFilePath . "/login.php");
+$player = Player::getplayer($_GET["id"]); ///< Get player's details
+$playerId = $player['player_id']; ///< Get ID of player
 
-}
+$pageTitle = "player not found"; ///< Default title
 
-$player = Player::getplayer($_GET["id"]);
-$playerId = $player['player_id'];
-
-/// Set the document title to the title and author of the player if it exists
-$pageTitle = "player not found";
+/**
+ * Set the page title to display the details of player if the player array is not empty.
+ *
+ * @param array $player An array containing information about the player.
+ */
 
 if (!empty($player)) {
   $pageTitle = "Update " . $player["first_name"] . "'s Skills";
 }
 
-$playerSkills = Player::getPlayerSkills($_GET["id"]);
+$playerSkills = Player::getPlayerSkills($_GET["id"]); ///< Get skills of specific player
+
+/**
+ * Escape and assign values from the $playerSkills array to respective variables for security purposes.
+ *
+ * @param array $playerSkills An array containing information about the player skills.
+ * 
+ */
 
 $standardPlaceholder = Utils::escape($playerSkills[0]["skill_level"]);
 $spinPlaceholder = Utils::escape($playerSkills[1]["skill_level"]);
@@ -70,16 +89,22 @@ $goalCommentPlaceholder = Utils::escape($playerSkills[10]["comment"]);
 
 
 
-Components::pageHeader("$pageTitle", ["style"], ["mobile-nav"]);
+Components::pageHeader("$pageTitle", ["style"], ["mobile-nav"]); ///< Render page header
+
+/**
+ * Get level of each skill for specific player
+ */
 
 foreach($playerSkills as $playerSkill){
   $skillLevel = Utils::escape($playerSkill["skill_level"]);
 
 }
 
-foreach($playerSkills as $playerSkill){
-
-}
+/**
+ * Array with error messages for each skill name
+ * 
+ * If the skill name matches the one in the array, appropiate error message will be assigned.
+ */
 
 $errorMessages = [
     'standard' => 'standardErr',
@@ -95,6 +120,11 @@ $errorMessages = [
     'goal' => 'goalErr'
 ];
 
+/**
+ * Array with placeholder variable names for each skill name
+ * 
+ * If skill name matches the one in the array, appropiate placeholder variable will be assigned.
+ */
 
 $placeHolders = [
   'standard' => 'standardPlaceholder',
@@ -121,6 +151,49 @@ $placeHolders = [
   'goalComment' => 'goalCommentPlaceholder'
 ];
 
+/**
+ * Variables to hold error messages for form validation.
+ *
+ * @var string $standardErr - Error message for standard skill validation
+ * @var string $spinErr - Error message for spin skill validation
+ * @var string $popErr - Error message for pop skill validation
+ * @var string $frontErr - Error message for front skill validation
+ * @var string $rearErr - Error message for rear skill validation
+ * @var string $sideErr - Error message for side skill validation
+ * @var string $scrabbleErr - Error message for srabble skill validation
+ * @var string $dropErr - Error message for drop skill validation
+ * @var string $puntErr - Error message for punt skill validation
+ * @var string $grubberErr - Error message for grubber skill validation
+ * @var string $goalErr - Error message for goal skill validation
+ *
+ * Variables to hold form input values.
+ *
+ * @var int $standard - String containing standard skill level information
+ * @var int $spin - String containing spin skill level information
+ * @var int $pop - String containing pop skill level information
+ * @var int $front - String containing front skill level information
+ * @var int $rear - String containing rear skill level information
+ * @var int $side - String containing side skill level information
+ * @var int $scrabble - String containing scrabble skill level information
+ * @var int $drop - String containing drop skill level information
+ * @var int $punt - String containing punt skill level information
+ * @var int $grubber - String containing grubber skill level information
+ * @var int $goal - String containing goal skill skill level information
+ * 
+ * @var string $standardComment - String containing coach's comment for standard skill.
+ * @var string $spinComment - String containing coach's comment for spin skill.
+ * @var string $popComment  - String containing coach's comment for pop skill.
+ * @var string $frontComment  - String containing coach's comment for front skill.
+ * @var string $rearComment  - String containing coach's comment for rear skill.
+ * @var string $sideComment  - String containing coach's comment for side skill.
+ * @var string $scrabbleComment  - String containing coach's comment for scrabble skill.
+ * @var string $dropComment  - String containing coach's comment for drop skill.
+ * @var string $puntComment  - String containing coach's comment for punt skill.
+ * @var string $grubberComment  - String containing coach's comment for grubber skill.
+ * @var string $goalComment  - String containing coach's comment for goal skill.
+ * 
+**/
+
 
 
 $standard = $spin = $pop = $front = $rear = $side = $scrabble = $drop = $punt = $grubber = $goal = "";
@@ -137,35 +210,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   /// Passing Skills
   if (empty($_POST["standard"])){
-    $standard = $standardPlaceholder;
+    $standard = $standardPlaceholder; ///< Set value to placeholder's value if left empty
 
 
   } else {
-    $standard = test_input($_POST["standard"]);
+    $standard = test_input($_POST["standard"]); ///< Sanitize standard skill value.
     if (!preg_match("/^\d+$/", $standard)) {
-        $standardErr = "Only digits allowed";
+        $standardErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   if (empty($_POST["standard"])){
-    $spin = $spinPlaceholder;
+    $spin = $spinPlaceholder; ///< Set value to placeholder's value if left empty
 
 
   } else {
-    $spin = test_input($_POST["spin"]);
+    $spin = test_input($_POST["spin"]); ///< Sanitize spin skill value.
     if (!preg_match("/^\d+$/", $spin)) {
-        $spinErr = "Only digits allowed";
+        $spinErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   if (empty($_POST["pop"])){
-    $pop = $popPlaceholder;
+    $pop = $popPlaceholder; ///< Set value to placeholder's value if left empty
 
 
   } else {
-    $pop = test_input($_POST["pop"]);
+    $pop = test_input($_POST["pop"]); ///< Sanitize pop skill value.
     if (!preg_match("/^\d+$/", $pop)) {
-        $popErr = "Only digits allowed";
+        $popErr = "Only digits allowed"; ///< Display error message
     }
   }
 
@@ -173,174 +246,183 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   if (empty($_POST["front"])){
-    $front = $frontPlaceholder;
+    $front = $frontPlaceholder; ///< Set value to placeholder's value if left empty
 
 
   } else {
-    $front = test_input($_POST["front"]);
+    $front = test_input($_POST["front"]); ///< Sanitize front skill value.
     if (!preg_match("/^\d+$/", $front)) {
-        $frontErr = "Only digits allowed";
+        $frontErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   if (empty($_POST["rear"])){
-    $rear = $rearPlaceholder;
+    $rear = $rearPlaceholder; ///< Set value to placeholder's value if left empty
 
 
   } else {
-    $rear = test_input($_POST["rear"]);
+    $rear = test_input($_POST["rear"]); ///< Sanitize rear skill value.
     if (!preg_match("/^\d+$/", $rear)) {
-        $rearErr = "Only digits allowed";
+        $rearErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   if (empty($_POST["side"])){
-    $side = $sidePlaceholder;
+    $side = $sidePlaceholder; ///< Set value to placeholder's value if left empty
 
 
   } else {
-    $side = test_input($_POST["side"]);
+    $side = test_input($_POST["side"]); ///< Sanitize side skill value.
     if (!preg_match("/^\d+$/", $side)) {
-        $sideErr = "Only digits allowed";
+        $sideErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   if (empty($_POST["scrabble"])){
-    $scrabble = $scrabblePlaceholder;
+    $scrabble = $scrabblePlaceholder; ///< Set value to placeholder's value if left empty
 
 
   } else {
-    $scrabble = test_input($_POST["scrabble"]);
+    $scrabble = test_input($_POST["scrabble"]); ///< Sanitize scrabble skill value.
     if (!preg_match("/^\d+$/", $scrabble)) {
-        $scrabbleErr = "Only digits allowed";
+        $scrabbleErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   /// Kicking Category
 
   if (empty($_POST["drop"])){
-    $drop = $dropPlaceholder;
+    $drop = $dropPlaceholder; ///< Set value to placeholder's value if left empty
 
   } else {
-    $drop = test_input($_POST["drop"]);
+    $drop = test_input($_POST["drop"]); ///< Sanitize drop skill value.
     if (!preg_match("/^\d+$/", $drop)) {
-        $dropErr = "Only digits allowed";
+        $dropErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   if (empty($_POST["punt"])){
-    $punt = $puntPlaceholder;
+    $punt = $puntPlaceholder; ///< Set value to placeholder's value if left empty
 
   } else {
-    $punt = test_input($_POST["punt"]);
+    $punt = test_input($_POST["punt"]); ///< Sanitize punt skill value.
     if (!preg_match("/^\d+$/", $punt)) {
-        $puntErr = "Only digits allowed";
+        $puntErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   if (empty($_POST["grubber"])){
-    $grubber = $grubberPlaceholder;
+    $grubber = $grubberPlaceholder; ///< Set value to placeholder's value if left empty
 
   } else {
-    $grubber = test_input($_POST["grubber"]);
+    $grubber = test_input($_POST["grubber"]);  ///< Sanitize grubber skill value.
     if (!preg_match("/^\d+$/", $grubber)) {
-        $grubberErr = "Only digits allowed";
+        $grubberErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   if (empty($_POST["goal"])){
-    $goal = $goalPlaceholder;
+    $goal = $goalPlaceholder; ///< Set value to placeholder's value if left empty
 
   } else {
-    $goal = test_input($_POST["goal"]);
+    $goal = test_input($_POST["goal"]); ///< Sanitize goal skill value.
     if (!preg_match("/^\d+$/", $goal)) {
-        $goalErr = "Only digits allowed";
+        $goalErr = "Only digits allowed"; ///< Display error message
     }
   }
 
   ///Comment Validation
 
   if(empty($_POST["standardComment"])){
-    $standardComment = $standardCommentPlaceholder;
+    $standardComment = $standardCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $standardComment = test_input($_POST["standardComment"]);
+    $standardComment = test_input($_POST["standardComment"]); ///< Sanitize standard comment
   }
 
   if(empty($_POST["spinComment"])){
-    $spinComment = $spinCommentPlaceholder;
+    $spinComment = $spinCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $spinComment = test_input($_POST["spinComment"]);
+    $spinComment = test_input($_POST["spinComment"]); ///< Sanitize spin comment
   }
 
   if(empty($_POST["popComment"])){
-    $popComment = $popCommentPlaceholder;
+    $popComment = $popCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $popComment = test_input($_POST["popComment"]);
+    $popComment = test_input($_POST["popComment"]); ///< Sanitize pop comment
   }
 
   if(empty($_POST["frontComment"])){
-    $frontComment = $frontCommentPlaceholder;
+    $frontComment = $frontCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $frontComment = test_input($_POST["frontComment"]);
+    $frontComment = test_input($_POST["frontComment"]); ///< Sanitize front comment
   }
 
   if(empty($_POST["rearComment"])){
-    $rearComment = $rearCommentPlaceholder;
+    $rearComment = $rearCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $rearComment = test_input($_POST["rearComment"]);
+    $rearComment = test_input($_POST["rearComment"]); ///< Sanitize rear comment
   }
 
   if(empty($_POST["sideComment"])){
-    $sideComment = $sideCommentPlaceholder;
+    $sideComment = $sideCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $sideComment = test_input($_POST["sideComment"]);
+    $sideComment = test_input($_POST["sideComment"]); ///< Sanitize side comment
   }
 
   if(empty($_POST["scrabbleComment"])){
-    $scrabbleComment = $scrabbleCommentPlaceholder;
+    $scrabbleComment = $scrabbleCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $scrabbleComment = test_input($_POST["scrabbleComment"]);
+    $scrabbleComment = test_input($_POST["scrabbleComment"]); ///< Sanitize scrabble comment
   }
 
   if(empty($_POST["dropComment"])){
-    $dropComment = $dropCommentPlaceholder;
+    $dropComment = $dropCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $dropComment = test_input($_POST["dropComment"]);
+    $dropComment = test_input($_POST["dropComment"]); ///< Sanitize drop comment
   }
 
   if(empty($_POST["puntComment"])){
-    $puntComment = $puntCommentPlaceholder;
+    $puntComment = $puntCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $puntComment = test_input($_POST["puntComment"]);
+    $puntComment = test_input($_POST["puntComment"]); ///< Sanitize punt comment
   }
 
   if(empty($_POST["grubberComment"])){
-    $grubberComment = $grubberCommentPlaceholder;
+    $grubberComment = $grubberCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $grubberComment = test_input($_POST["grubberComment"]);
+    $grubberComment = test_input($_POST["grubberComment"]); ///< Sanitize grubber comment
   }
 
   if(empty($_POST["goalComment"])){
-    $goal = $goalCommentPlaceholder;
+    $goal = $goalCommentPlaceholder;  ///< Set value to placeholder's value if left empty
 
   } else {
-    $goalComment = test_input($_POST["goalComment"]);
+    $goalComment = test_input($_POST["goalComment"]); ///< Sanitize goal comment
   }
 
+  /// If there are no errors, proceed with sql querries
   if(empty($standardErr) && empty($spinErr) && empty($popErr) 
   && empty($frontErr) && empty($rearErr) && empty($sideErr) && empty($scrabbleErr) 
   && empty($dropErr) && empty($puntErr) && empty($grubberErr) && empty($goalErr)){
 
+    /**
+     * Update the skills of a player with the provided parameters.
+     *
+     * @param int $skill - Int containing skill level to be updated
+     * @param string $comment - String containing coach's comment for that skill
+     * @param int $skillId - Int containing ID of skill to be updated
+     * @param int $juniorId - Int containing ID of player for which skill will be updated.
+     */
 
     Player::upatePlayerSkills($standard, $standardComment, 1, $playerId);
     Player::upatePlayerSkills($spin, $spinComment, 2, $playerId);
@@ -383,28 +465,30 @@ function test_input($data) {
       method="POST"
       action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $player["player_id"];?>">
       <div id="passing-form">
+        <!-- Populate dropdown with records from database -->
         <h2>Passing Category</h2>
         <?php foreach ($playerSkills as $playerSkill): ?>
             <?php
         
-            $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
+            $inputName = strtolower(Utils::escape($playerSkill["skill_name"])); 
 
-            $errorMsg = $errorMessages[$inputName] ?? '';
-            $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
-            $commentField = strtolower($inputName) . 'Comment';
+            $errorMsg = $errorMessages[$inputName] ?? ''; ///< Check if $inputName matches a key in the $errorMessage array, and assign error message if there's a match
+            $skillLevelPlaceholder = $placeHolders[$inputName] ?? ''; ///< Check if $inputName matches a key in the $placeHolders array, and assign placeholder variable for skill level if there's a match.
+            $commentField = strtolower($inputName) . 'Comment'; ///< convert $inputName to lower case and add 'Comment' at the end to create a commentField variable.
 
 
-            $commentPlaceholder = $placeHolders[$commentField] ?? '';
+            $commentPlaceholder = $placeHolders[$commentField] ?? ''; ///< Check if $commentField matches a key in the $placeholders array, and assign placeholder variable for comment if there's a match
 
             
 
             ?>
         
+        <!-- Check for specific skill category, and only output records under that category -->
         <?php if (Utils::escape($playerSkill["category"]) == "Passing"){
             ?>
             <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
-            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo ${$skillLevelPlaceholder}; ?>" value="<?php echo ${strtolower($inputName)};?>">
-            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
+            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo ${$skillLevelPlaceholder}; ?>" value="<?php echo ${strtolower($inputName)};?>"> <!-- Get placeholder from the array, and use the right value -->
+            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br> <!-- Get error message from the array -->
 
             <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Passing"){echo'Comment';} ?></label><br>
             <input type="text" name="<?php echo $commentField; ?>" placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
@@ -421,21 +505,21 @@ function test_input($data) {
         
         $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
 
-        $errorMsg = $errorMessages[$inputName] ?? '';
-        $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
-        $commentField = strtolower($inputName) . 'Comment';
+        $errorMsg = $errorMessages[$inputName] ?? ''; //< Check if $inputName matches a key in the $errorMessage array, and assign error message if there's a match
+        $skillLevelPlaceholder = $placeHolders[$inputName] ?? ''; ///< Check if $inputName matches a key in the $placeHolders array, and assign placeholder variable for skill level if there's a match.
+        $commentField = strtolower($inputName) . 'Comment';  ///< convert $inputName to lower case and add 'Comment' at the end to create a commentField variable.
 
 
         $commentPlaceholder = $placeHolders[$commentField] ?? '';
 
             ?>
-        
+        <!-- Check for specific skill category, and only output records under that category -->
         <?php if (Utils::escape($playerSkill["category"]) == "Tackling"){
             ?>
             <h3><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?> </h3>
-            <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Tackling"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
+            <label  class="col-sm-2 col-form-label-sm"for="<?php echo strtolower($inputName); ?>"><?php if($playerSkill["category"] == "Tackling"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br> <!-- Get placeholder from the array, and use the right value -->
             <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>">
-            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
+            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br> <!-- Get error message from the array -->
 
             <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Tackling"){echo'Comment';} ?></label><br>
             <input type="text" name="<?php echo $commentField; ?>" placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
@@ -454,21 +538,21 @@ function test_input($data) {
         
         $inputName = strtolower(Utils::escape($playerSkill["skill_name"]));
 
-        $errorMsg = $errorMessages[$inputName] ?? '';
-        $skillLevelPlaceholder = $placeHolders[$inputName] ?? '';
-        $commentField = strtolower($inputName) . 'Comment';
+        $errorMsg = $errorMessages[$inputName] ?? '';  //< Check if $inputName matches a key in the $errorMessage array, and assign error message if there's a match
+        $skillLevelPlaceholder = $placeHolders[$inputName] ?? ''; ///< Check if $inputName matches a key in the $placeHolders array, and assign placeholder variable for skill level if there's a match.
+        $commentField = strtolower($inputName) . 'Comment'; ///< convert $inputName to lower case and add 'Comment' at the end to create a commentField variable.
 
 
         $commentPlaceholder = $placeHolders[$commentField] ?? '';
         
             ?>
-        
+        <!-- Check for specific skill category, and only output records under that category -->
         <?php if (Utils::escape($playerSkill["category"]) == "Kicking"){
             ?>
             <h3><?php if($playerSkill["category"] == "Passing"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?> </h3>
             <label  class="col-sm-2 col-form-label-sm"for="dob"><?php if($playerSkill["category"] == "Kicking"){ echo Utils::escape($playerSkill["skill_name"]) . ' Skill';} ?></label><br>
-            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>">
-            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br>
+            <input type="text" name="<?php echo strtolower($inputName); ?>" placeholder="<?php echo Utils::escape($playerSkill["skill_level"]);?>" value="<?php echo ${strtolower($inputName)};?>"> <!-- Get placeholder from the array, and use the right value -->
+            <p class="alert alert-danger"><?php echo ${$errorMsg}; ?></p><br> <!-- Get error message from the array -->
 
             <label  class="col-sm-2 col-form-label-sm"for="<?php echo $commentField; ?>"><?php if($playerSkill["category"] == "Kicking"){echo'Comment';} ?></label><br>
             <input type="text" name="<?php echo $commentField; ?>"placeholder="<?php echo ${$commentPlaceholder};?>" value="<?php echo ${$commentField};?>">
@@ -487,17 +571,10 @@ function test_input($data) {
       const tForm = document.getElementById("tackling-form");
       const kForm = document.getElementById("kicking-form");
 
-      showTab();
-
-      function nextTab(){
-          currentTab += 1;
-          showTab();
-      }
-
-      function prevTab(){
-          currentTab -= 1;
-          showTab();
-      }
+    /**
+     * Show the tab based on the currentTab value.
+     * Display the corresponding details section based on the currentTab value.
+     */
 
       function showTab(){
           if ( currentTab == 0){
@@ -518,6 +595,22 @@ function test_input($data) {
             kForm.style.display = "block";
 
           }
+      }
+
+      showTab();
+
+      /**
+       * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+       */
+
+      function nextTab(){
+          currentTab += 1;
+          showTab();
+      }
+
+      function prevTab(){
+          currentTab -= 1;
+          showTab();
       }
 
     </script>

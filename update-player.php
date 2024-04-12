@@ -10,20 +10,43 @@ require("classes/player.php");
 require("classes/doctor.php");
 require("classes/address.php");
 
+/**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ * 
+ * If the user is logged in check priveledge level, and proceed.
+ */
+if(!isset($_SESSION["loggedIn"])){
+  
+    header("Location: " . Utils::$projectFilePath . "/login.php");
+  
+}
+
+/**
+ * Check if the user role is not Admin or Coach, then redirect to logout page.
+ */
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
 
 
-$conn = Connection::connect();
+$conn = Connection::connect(); ///< Connect to database
 
 
-Components::pageHeader("Login", ["style"], ["mobile-nav"]);
+Components::pageHeader("Login", ["style"], ["mobile-nav"]); ///< Render page header
 
-$playerId = $_GET["id"];
+$playerId = $_GET["id"]; ///< Get ID of specific player
 
 
-$player = Player::getplayer($playerId);
+$player = Player::getplayer($playerId); ///< Get details about that player based on the ID number
+
+/**
+ * Escape and assign values from the $player array to respective variables for security purposes.
+ *
+ * @param array $player An array containing information about the player.
+ * 
+ */
+
 
 $playerFirstName = Utils::escape($player["first_name"]);
 $playerLastName = Utils::escape($player["last_name"]);
@@ -48,9 +71,41 @@ $doctorFirstNamePlaceholder = Utils::escape($player["doctor_first_name"]);
 $doctorLastNamePlaceholder = Utils::escape($player["doctor_last_name"]);
 $doctorContactPlaceholder = Utils::escape($player["doctor_contact_no"]);
 
-$phpdate = strtotime( $dobPlaceholder );
-$ukDobPlaceholder = date( 'd/m/Y', $phpdate );
+$phpdate = strtotime( $dobPlaceholder ); ///< Converts a date of birth (dob) into a SQL date format (YYYY-MM-DD).
+$ukDobPlaceholder = date( 'd/m/Y', $phpdate ); ///< Format a Unix timestamp into a UK date of birth placeholder string.
 
+/**
+ * Variables to store error messages and input values for form validation.
+ * 
+ * @var string $nameErr: Error message for name field.
+ * @var string $dobErr: Error message for date of birth field.
+ * @var string $emailErr: Error message for email field.
+ * @var string $sruErr: Error message for SRU field.
+ * @var string $contactNoErr: Error message for contact number field.
+ * @var string $mobileNoErr: Error message for mobile number field.
+ * @var string $healthIssuesErr: Error message for health issues field.
+ * @var string $profileImageErr: Error message for profile image field.
+ * 
+ * @var string $address1Err: Error message for Address Line 1
+ * @var string $address2Err: Error message for Address Line 2
+ * @var string $cityErr: Error message for City
+ * @var string $countyErr: Error message for County
+ * @var string $postcodeErr: Error message for Postcode
+ * @var string $genuineErr: Error message that appers on top of the form i.e "Not all input fields filled/correct"
+ * 
+ * Personal Information:
+ * @var string $name: Holds value for Name input field
+ * @var \DateTime $dob: Holds value for Date of birth input field
+ * @var string  $email: Holds value for Email address input field
+ * @var int  $sru: Holds value for SRU input field
+ * @var int  $contactNo:  Holds value forContact number input field
+ * @var int  $mobileNo: Holds value for Mobile number input field
+ * @var string  $healthIssues: Holds value for Health issues input field
+ * @var string  $profileImage: Holds value for Profile image input field
+ * @var string  $filename: Holds value for Filename image validation
+ * @var string  $firstName: Holds value for First name after the splitting process
+ * @var string  $lastName: Holds value for Last name after the splitting process
+ */
 
 $nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
 $address1Err = $address2Err = $cityErr = $countyErr = $postcodeErr = "";
@@ -73,12 +128,12 @@ $kin = $kinContact = $doctorName = $doctorContact = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Validate name
     if (empty($_POST["name"])) {
-        $name = $playerFirstName . ' ' . $playerLastName;
+        $name = $playerFirstName . ' ' . $playerLastName; ///< Combines the first name and last name placeholders values if left empty
     } else {
-        $name = test_input($_POST["name"]);
+        $name = test_input($_POST["name"]); ///< Sanitize name
         /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
-            $nameErr = "Only letters and white space allowed";
+            $nameErr = "Only letters and white space allowed";  ///< Display error message
         }
 
         $nameParts = explode(" ", $name); ///< Split name into first and last name
@@ -91,103 +146,103 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     /// Validate email
     if (empty($_POST["email"])) {
-        $email = $emailAddressPlaceholder;
+        $email = $emailAddressPlaceholder; //< Set value to placeholder if left empty
     } else {
-        $email = test_input($_POST["email"]);
+        $email = test_input($_POST["email"]); ///< Sanitize email address
         /// Check if email address is well-formed
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Invalid email format";
+            $emailErr = "Invalid email format";  ///< Display error message
         }
     }
 
     if (empty($_POST["sru"])){
-        $sru = $sruNumberPlaceholder;
+        $sru = $sruNumberPlaceholder; //< Set value to placeholder if left empty
 
 
     } else {
-        $sru = test_input($_POST["sru"]);
+        $sru = test_input($_POST["sru"]); ///< Sanitize sru number
         if (!preg_match("/^\d+$/", $sru)) {
-            $sruErr = "Only digits allowed";
+            $sruErr = "Only digits allowed";  ///< Display error message
         }
     }
 
     if (empty($_POST["dob"])){
-        $dob = date('d/m/Y', strtotime($dobPlaceholder));;
+        $dob = date('d/m/Y', strtotime($dobPlaceholder));
 
-        $sqlDate = date('Y-m-d', strtotime($dob));
+        $sqlDate = date('Y-m-d', strtotime($dob)); ///< Converts a date of birth (dob) into a SQL date format (YYYY-MM-DD).
 
 
     } else {
-        $dob = test_input($_POST["dob"]);
+        $dob = test_input($_POST["dob"]); ///< Sanitize dob
         if (!preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $dob)) {
-            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";
+            $dobErr = "Invalid date of birth format. Please use DD/MM/YYYY";  ///< Display error message
         }
 
-        $sqlDate = date('Y-m-d', strtotime($dob));
+        $sqlDate = date('Y-m-d', strtotime($dob)); ///< Converts a date of birth (dob) into a SQL date format (YYYY-MM-DD).
 
     }
 
     if(empty($_POST["contactNo"])){
-        $contactNo = $contactNumberPlaceholder;
+        $contactNo = $contactNumberPlaceholder; //< Set value to placeholder if left empty
 
     } else {
-        $contactNo = test_input($_POST["contactNo"]);
+        $contactNo = test_input($_POST["contactNo"]); ///< Sanitize contact number
         if (!preg_match("/^\d+$/", $contactNo)) {
-            $contactNoErr = "Only digits allowed";
+            $contactNoErr = "Only digits allowed";  ///< Display error message
         }
     }
 
     if(empty($_POST["address1"])){
-        $address1 = $address1Placeholder;
+        $address1 = $address1Placeholder; //< Set value to placeholder if left empty
 
     } else {
-        $address1 = test_input($_POST["address1"]);
+        $address1 = test_input($_POST["address1"]); ///< Sanitize address line 1
         if ((strlen($address1)<10) || (strlen($address1) > 50)){
-            $address1Err = "Address Line 1 must be between 10 and 50 characters long!";
+            $address1Err = "Address Line 1 must be between 10 and 50 characters long!";  ///< Display error message
         }
     }
 
     if(!empty($_POST["address2"])){
-        $address2 = test_input($_POST["address2"]);
+        $address2 = test_input($_POST["address2"]); ///< Sanitize address line 2
     } else {
-        $address2 = $address2Placeholder;
+        $address2 = $address2Placeholder; //< Set value to placeholder if left empty
     }
 
     if(!empty($_POST["mobileNo"])){
-        $mobileNo = test_input($_POST["mobileNo"]);
+        $mobileNo = test_input($_POST["mobileNo"]); ///< Sanitize mobile number
         if (!preg_match("/^\d+$/", $mobileNo)) {
-            $mobileNoErr = "Only digits allowed";
+            $mobileNoErr = "Only digits allowed";  ///< Display error message
         }
     } else {
-        $mobileNo = $mobileNumberPlaceholder;
+        $mobileNo = $mobileNumberPlaceholder; //< Set value to placeholder if left empty
     }
 
     if(empty($_POST["city"])){
-        $city = $cityPlaceholder;
+        $city = $cityPlaceholder; //< Set value to placeholder if left empty
 
     } else {
-        $city = test_input($_POST["city"]);
+        $city = test_input($_POST["city"]); ///< Sanitize city
         if ((strlen($city)<5) || (strlen($city) > 50)){
-            $cityErr = "City must be between 10 and 50 characters long!";
+            $cityErr = "City must be between 10 and 50 characters long!";  ///< Display error message
         }
     }
 
     if(!empty($_POST["county"])){
-        $county = test_input($_POST["county"]);
+        $county = test_input($_POST["county"]); ///< Sanitize county
         if ((strlen($county)<5) || (strlen($county) > 50)){
-            $countyErr = "County must be between 10 and 50 characters long!";
+            $countyErr = "County must be between 10 and 50 characters long!";  ///< Display error message
         }
     } else { 
-        $county = $countyPlaceholder;
+        $county = $countyPlaceholder; //< Set value to placeholder if left empty
     }
 
     if(empty($_POST["postcode"])){
-        $postcode = $postcodePlaceholder;
+        $postcode = $postcodePlaceholder; //< Set value to placeholder if left empty
 
     } else {
-        $postcode = test_input($_POST["postcode"]);
+        $postcode = test_input($_POST["postcode"]); ///< Sanitize postcode
         if ((strlen($postcode)<6) || (strlen($postcode) > 8)){
-            $postcodeErr = "Postcode must be 6 characters long!";
+            $postcodeErr = "Postcode must be 6 characters long!";  ///< Display error message
         }
     }
 
@@ -198,22 +253,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /// Emergency Contact Details
 
     if (empty($_POST["kin"])) {
-        $kin = $nextOfKinPlaceholder;
+        $kin = $nextOfKinPlaceholder; //< Set value to placeholder if left empty
     } else {
-        $kin = test_input($_POST["kin"]);
+        $kin = test_input($_POST["kin"]); ///< Sanitize next of kin
         /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $kin)) {
-            $kinErr = "Only letters and white space allowed";
+            $kinErr = "Only letters and white space allowed";  ///< Display error message
         }
     }
 
     if(empty($_POST["kinContact"])){
-        $kinContact = $kinContactNumberPlaceholder;
+        $kinContact = $kinContactNumberPlaceholder; //< Set value to placeholder if left empty
 
     } else {
-        $kinContact = test_input($_POST["kinContact"]);
+        $kinContact = test_input($_POST["kinContact"]); ///< Sanitize next of kin's contact number
         if (!preg_match("/^\d+$/", $kinContact)) {
-            $kinContactErr = "Only digits allowed";
+            $kinContactErr = "Only digits allowed";  ///< Display error message
         }
     }
 
@@ -221,22 +276,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     /// Validate name
     if (empty($_POST["doctorName"])) {
-        $doctorName = $doctorFirstNamePlaceholder . ' ' . $doctorLastNamePlaceholder;
+        $doctorName = $doctorFirstNamePlaceholder . ' ' . $doctorLastNamePlaceholder; ///< Combines the first name and last name placeholders values if left empty
 
-        $doctorNameParts = explode(" ", $doctorName);
+        $doctorNameParts = explode(" ", $doctorName); ///< Split name into first and last name
 
         /// Extract the first and last names
         $doctorFirstName = $doctorNameParts[0];
         $doctorLastName = end($doctorNameParts);
 
     } else {
-        $doctorName = test_input($_POST["doctorName"]);
+        $doctorName = test_input($_POST["doctorName"]); ///< Sanitize doctor's name
         /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $doctorName)) {
-            $doctorNameErr = "Only letters and white space allowed";
+            $doctorNameErr = "Only letters and white space allowed";  ///< Display error message
         }
 
-        $doctorNameParts = explode(" ", $doctorName);
+        $doctorNameParts = explode(" ", $doctorName); ///< Split name into first and last name
 
         /// Extract the first and last names
         $doctorFirstName = $doctorNameParts[0];
@@ -244,17 +299,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if(empty($_POST["doctorContact"])){
-        $doctorContact = $doctorContactPlaceholder;
+        $doctorContact = $doctorContactPlaceholder; //< Set value to placeholder if left empty
 
     } else {
-        $doctorContact = test_input($_POST["doctorContact"]);
+        $doctorContact = test_input($_POST["doctorContact"]); ///< Sanitize doctor's contact number
         if (!preg_match("/^\d+$/", $kinContact)) {
-            $doctorContactErr = "Only digits allowed";
+            $doctorContactErr = "Only digits allowed";  ///< Display error message
         }
     }
 
     if(empty($_POST["healthIssues"])){
-        $healthIssues = $healthIssuesPlaceholder;
+        $healthIssues = $healthIssuesPlaceholder; //< Set value to placeholder if left empty
     }
 
     
@@ -265,40 +320,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     && empty($kinErr) && empty($kinContactErr) && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
 
 
+        /**
+         * Check if a player with the given details already exists in the database.
+         */
         $existingUser = Player::playerExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo);
 
         
+        /**
+         * Checks if an address already exists in the database based on the provided address details. 
+         * If the address already exists, retrieves the existing address ID.
+         * Otherwise, creates a new address and return the newly created address ID.
+         */
         $existingAddress = Address::addressExists($address1, $address2, $city, $county, $postcode);
 
         if($existingAddress){
-
             $addressId = Address::getExistingAddress($address1, $address2, $city, $county, $postcode);
-        
-        }
-
-        else{
-
+        }else{
             $addressId = Address::createNewAddress($address1, $address2, $city, $county, $postcode);
-
         }
+
+        /**
+         * Checks if an doctor already exists in the database based on the provided doctor details. 
+         * If the doctor already exists, retrieves the existing doctor ID.
+         * Otherwise, creates a new doctor and return the newly created doctor ID.
+         */
 
         $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);
 
         if($existingDoctor){
-
             $doctorId = Doctor::existingDoctorId($doctorFirstName, $doctorLastName, $doctorContact);
-        
-        }
-
-        else{
-  
+        }else{
             $doctorId = Doctor::createNewDoctor($doctorFirstName, $doctorLastName, $doctorContact);
-        
         }
 
-
-
+    /// If there are no errors, proceed with sql querries
         if(empty($genuineErr)){
+            /**
+             * Handles the upload of a profile image file.
+             *
+             * This function checks if a profile image file has been uploaded, validates its format and size,
+             * and moves the file to the designated directory if it meets the criteria.
+             *
+             */
             if (!empty($_FILES["profileImage"]["name"])) {
                 $filename = $_FILES["profileImage"]["name"];
                 $filetype = Utils::getFileExtension($filename);
@@ -320,9 +383,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             }   
-  
-        
 
+            /**
+             * Update player information in the database.
+             */
             Player::updatePlayer($addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId);
 
         }
@@ -465,18 +529,10 @@ function test_input($data) {
     const kDetails = document.getElementById("kin-details-form");
     const dDetails = document.getElementById("doctor-details-form");
 
-    showTab();
-
-    function nextTab(){
-        currentTab += 1;
-        showTab();
-    }
-
-    function prevTab(){
-        currentTab -= 1;
-        showTab();
-    }
-
+    /**
+     * Show the tab based on the currentTab value.
+     * Display the corresponding details section based on the currentTab value.
+     */
     function showTab(){
         if ( currentTab == 0){
             pDetails.style.display = "block";
@@ -511,6 +567,21 @@ function test_input($data) {
 
 
         }
+    }
+
+    showTab();
+
+    /**
+     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     */
+    function nextTab(){
+        currentTab += 1;
+        showTab();
+    }
+
+    function prevTab(){
+        currentTab -= 1;
+        showTab();
     }
 
 

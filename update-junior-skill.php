@@ -42,8 +42,7 @@ $junior = Junior::getJunior($_GET["id"]); ///< Get junior's details by it's ID
   
 $juniorId = $junior['junior_id']; ///< Get ID of junior
 
-/// Set the document title to the title and author of the junior if it exists
-$pageTitle = "junior not found";
+$pageTitle = "junior not found"; ///< Default title
 
 /**
  * Set the page title to display the details of junior if the junior array is not empty.
@@ -57,9 +56,9 @@ if (!empty($junior)) {
 $juniorSkills = Junior::getJuniorSkills($_GET["id"]); ///< Get skills of specific junior
 
 /**
- * Escape and assign values from the $game array to respective variables for security purposes.
+ * Escape and assign values from the $juniorSkills array to respective variables for security purposes.
  *
- * @param array $game An array containing information about the game.
+ * @param array $juniorSkills An array containing information about the junior skills.
  * 
  */
 
@@ -570,21 +569,7 @@ function test_input($data) {
       const tForm = document.getElementById("tackling-form");
       const kForm = document.getElementById("kicking-form");
 
-      showTab();
 
-    /**
-     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
-     */
-
-      function nextTab(){
-          currentTab += 1;
-          showTab();
-      }
-
-      function prevTab(){
-          currentTab -= 1;
-          showTab();
-      }
 
     /**
      * Show the tab based on the currentTab value.
@@ -611,6 +596,22 @@ function test_input($data) {
 
           }
       }
+
+      showTab();
+
+      /**
+       * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+       */
+
+        function nextTab(){
+            currentTab += 1;
+            showTab();
+        }
+
+        function prevTab(){
+            currentTab -= 1;
+            showTab();
+        }
 
     </script>
   </main>

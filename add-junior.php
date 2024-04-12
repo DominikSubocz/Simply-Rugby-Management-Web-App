@@ -720,21 +720,9 @@ enctype="multipart/form-data">
         }
     }
 
-    showTab();
     radioChecked();
 
-    /**
-     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
-     */
-    function nextTab(){
-        currentTab += 1;
-        showTab();
-    }
 
-    function prevTab(){
-        currentTab -= 1;
-        showTab();
-    }
 
     /**
      * Show the tab based on the currentTab value.
@@ -774,6 +762,21 @@ enctype="multipart/form-data">
 
 
         }
+    }
+    
+    showTab();
+
+    /**
+     * Function to navigate to the next tab by incrementing the current tab index and displaying the tab.
+     */
+    function nextTab(){
+        currentTab += 1;
+        showTab();
+    }
+
+    function prevTab(){
+        currentTab -= 1;
+        showTab();
     }
 
     /**

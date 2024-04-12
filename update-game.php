@@ -13,6 +13,19 @@ require("classes/connection.php");
 require("classes/sql.php");
 
 /**
+ * Check if the user is logged in by verifying the presence of the 'loggedIn' key in the session.
+ * If the user is not logged in, redirect to the login page.
+ * 
+ * If the user is logged in check priveledge level, and proceed.
+ */
+if(!isset($_SESSION["loggedIn"])){
+  
+    header("Location: " . Utils::$projectFilePath . "/login.php");
+  
+}
+  
+
+/**
  * Check if the user role is not Admin or Coach, then redirect to logout page.
  */
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
@@ -20,10 +33,10 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
 }
 
 /**
- * Redirects to the player list page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
+ * Redirects to the player timetable page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
  */
 if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
-    header("Location: " . Utils::$projectFilePath . "/player-list.php");
+    header("Location: " . Utils::$projectFilePath . "/timetable.php");
 } 
 
 $game = Events::getGame($_GET["id"]); ///< Get game's details based on the ID number
@@ -256,43 +269,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         /**
          * Update a game with the provided details.
-         *
-         * @param int $squadId The ID of the squad associated with the game
-         * @param string $name The name of the game
-         * @param string $opposition The opposing team
-         * @param string $start The start date and time of the game
-         * @param string $end The end date and time of the game
-         * @param string $location The location of the game
-         * @param string $kickoff The kickoff time of the game
-         * @param string $result The result of the game
-         * @param string $score The score of the game
-         * @param int $gameId The ID of the game to update
          */
         Events::updateGame($squadId, $name, $opposition, $start, $end, $location, $kickoff, $result, $score, $gameId);
 
         /**
          * Update the game half details with the provided information.
-         *
-         * @param int $gameHalfId1 The ID of the game half to update.
-         * @param string $squad The squad information.
-         * @param int $homeScore1 The home team score.
-         * @param string $homeComment1 The comment for the home team.
-         * @param string $opposition The opposition team information.
-         * @param int $oppositionScore1 The opposition team score.
-         * @param string $oppositionComment1 The comment for the opposition team.
          */
         Events::updateGameHalf($gameHalfId1, $squad, $homeScore1, $homeComment1, $opposition, $oppositionScore1, $oppositionComment1);
 
         /**
          * Update the game half details with the provided information.
-         *
-         * @param int $gameHalfId2 The ID of the game half to update.
-         * @param string $squad The squad information.
-         * @param int $homeScore2 The home team's score.
-         * @param string $homeComment2 The home team's comment.
-         * @param string $opposition The opposition team's information.
-         * @param int $oppositionScore2 The opposition team's score.
-         * @param string $oppositionComment2 The opposition team's comment.
          */
         Events::updateGameHalf($gameHalfId2, $squad, $homeScore2, $homeComment2, $opposition, $oppositionScore2, $oppositionComment2);
 
@@ -336,10 +322,6 @@ function test_input($data) {
             <?php
             /**
              * Loops through an array of squads and creates an <option> element for each squad.
-             *
-             * @param array $squads An array of squads to generate dropdown options for.
-             * @param string $homeTeam The name of the home team to mark as selected.
-             * @return string The HTML dropdown options for the squads.
              */
             foreach($squads as $squad){
                 ?>
@@ -459,23 +441,8 @@ function test_input($data) {
         const basicDetails = document.getElementById("basic-game-details");
         const halfDetails = document.getElementById("game-half-form");
 
-        showTab();
 
-        /**
-         * Increases the current tab index by 1 and displays the next tab.
-         */
-        function nextTab(){
-            currentTab += 1;
-            showTab();
-        }
 
-        /**
-         * Decrements the current tab index by 1 and displays the updated tab.
-         */
-        function prevTab(){
-            currentTab -= 1;
-            showTab();
-        }
 
         /**
          * Show the tab based on the currentTab value.
@@ -494,6 +461,25 @@ function test_input($data) {
                 halfDetails.style.display = "block";
 
             }
+        }
+
+        showTab();
+
+
+        /**
+         * Increases the current tab index by 1 and displays the next tab.
+         */
+        function nextTab(){
+            currentTab += 1;
+            showTab();
+        }
+
+        /**
+         * Decrements the current tab index by 1 and displays the updated tab.
+         */
+        function prevTab(){
+            currentTab -= 1;
+            showTab();
         }
 
 
