@@ -22,10 +22,7 @@ class SQL {
   public static $getAllCoaches = "SELECT * FROM simplyrugby.coaches"; ///< Select all records from coaches table
 
   /**
-   * 
-   * @brief Gets records from left table and matches them with records from the right table, if available.
-   * 
-   * This allows us to perform a LEFT JOIn command to get all information we want from both tables with one command.
+   * Gets records from left table and matches them with records from the right table.
    */
 
   public static $getAllGuardians = "SELECT g.*, a.*
@@ -33,16 +30,9 @@ class SQL {
   LEFT JOIN simplyrugby.addresses a ON g.address_id = a.address_id"; 
 
   /**
-   * 
-   * @brief Gets records from left table and matches them with records from the right table, if available.
-   * 
-   * Just like with the guardians table, address_id is a foreign key in the juniors table.
-   * junior_id is a foreign key inside the junior_skills table.
-   * skill_id is a foreign key inside junior_skills table.
-   * junior_id is a foreign key inside junior_associations table, which contains associated ids (guardians, doctors, etc)
-   * doctor_id is a foreign key inside junior_associations table
-   * 
+   * Gets records from left table and matches them with records from the right table.
    */
+
 
   public static $getJunior = "SELECT j.*, a.*, d.*, s.category, s.skill_name, js.skill_level, js.comment
   FROM simplyrugby.juniors j 
@@ -57,12 +47,8 @@ class SQL {
   public static $deleteDoctor = "DELETE FROM simplyrugby.doctors WHERE doctor_id = ?"; ///< Delete doctor with specific ID number
 
 
-   /**
-   * 
-   * Gets records from left table and matches them with records from the right table, if available.
-   * 
-   * One command to get matching records from multiple tables - joins matching records and retrieves information as one new table.
-   * 
+  /**
+   * Gets records from left table and matches them with records from the right table.
    */
 
   public static $getJuniorGuardians = "SELECT j.*, g.*

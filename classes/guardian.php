@@ -65,7 +65,6 @@ class Guardian
         }
 
    /**
-    *     * 
     * Retrieves the guardian information for a given junior ID.
     *
     *  @note The name of the function isn't quite right, I think it's meant to be called get Guardians.
