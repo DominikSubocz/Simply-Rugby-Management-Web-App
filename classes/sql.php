@@ -314,4 +314,6 @@ public static $checkCoach = "SELECT * FROM simplyrugby.coaches WHERE first_name 
 
 public static $createPlayerSkills = "INSERT INTO simplyrugby.player_skills (player_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)";
 
+public static $createJuniorSkills = "INSERT INTO simplyrugby.junior_skills (junior_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)";
+
 }

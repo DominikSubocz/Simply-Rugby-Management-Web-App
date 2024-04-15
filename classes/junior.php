@@ -279,5 +279,13 @@ class Junior
 
   }
 
+  public static function createJuniorSkills($juniorId, $skillId, $squadId, $skillLevel, $comment){
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$createJuniorSkills);
+    $stmt->execute([$juniorId, $skillId, $squadId, $skillLevel, $comment]);
+
+  }
+
 
 }

@@ -127,6 +127,13 @@ $address1 = $address2 = $city = $county = $postcode = "";
 $doctorName = $doctorContact = "";
 
 
+/// Retrieve squads from the database
+
+$conn = Connection::connect();
+$stmt = $conn->prepare(SQL::$getSquads);
+$stmt->execute();
+$squads = $stmt->fetchAll();
+
 /**
  * Validates the form inputs and processes the data accordingly.
  */
@@ -168,6 +175,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sruErr = "Only digits allowed";
         }
     }
+
+    if (empty($_POST["squad"])){
+        $squadErr = "Squad is required"; ///< Display error message
+  
+      } else {
+          $squad = test_input($_POST["squad"]); ///< Sanitize squad name input
+      }
 
     /// Validate date of birth
     if (empty($_POST["dob"])){
@@ -513,9 +527,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             }
+
+            /**
+             * Get the squad information from the database.
+             */
+            $stmt = $conn->prepare(SQL::$getSquad);
+            $stmt->execute([$squad]);
+            $squadExists = $stmt->fetch();
+            $squadId = $squadExists['squad_id'];
             /// Create a new junior junior 
             $juniorId = Junior::createNewJunior($addressId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename);
-
+            for ($x = 1; $x <= 11; $x++) {
+                jUNIOR::createJuniorSkills($juniorId, $x, $squadId, 1, "Sample comment");
+            }
 
             /**
              * Create a new association between a junior, guardian, and doctor.
@@ -583,6 +607,20 @@ enctype="multipart/form-data">
       <label for="sru"><span class="required">*</span>SRU Number:</label><br>
       <input type="text" name="sru" value="<?php echo $sru;?>">
       <p class="alert alert-danger"><?php echo $sruErr;?></p><br>
+
+    <!-- Generates a dropdown list of squad numbers based on the provided array of squads. -->
+    <label for="squad">Squad number:</label><br>
+      <select name="squad">
+      <?php
+      foreach($squads as $squad){
+        ?>
+        <option value="<?php echo $squad["squad_name"]; ?>">
+        <?php echo $squad["squad_name"]; ?>
+        </option>
+        <?php
+        }
+        ?>
+      </select><br><br>
 
       <label for="dob"><span class="required">*</span>Date of Birth:</label><br>
       <input type="text" name="dob" value="<?php echo $dob;?>">

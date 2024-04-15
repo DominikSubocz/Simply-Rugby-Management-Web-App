@@ -422,7 +422,7 @@ enctype="multipart/form-data">
       <p class="alert alert-danger"><?php echo $sruErr;?></p><br>
 
       <!-- Generates a dropdown list of squad numbers based on the provided array of squads. -->
-        <label for="squad">Squad number:</label><br>
+    <label for="squad">Squad number:</label><br>
       <select name="squad">
       <?php
       foreach($squads as $squad){
@@ -433,7 +433,7 @@ enctype="multipart/form-data">
         <?php
         }
         ?>
-      </select><br>
+      </select><br><br>
 
       <label class="col-sm-2 col-form-label-sm"for="dob"><span class="required">*</span>Date of Birth:</label><br>
       <input type="text" name="dob" value="<?php echo $dob;?>">
