@@ -312,8 +312,8 @@ public static $createNewCoach = "INSERT INTO simplyrugby.coaches (first_name,	la
 
 public static $checkCoach = "SELECT * FROM simplyrugby.coaches WHERE first_name = ? AND last_name = ? AND email_address = ?"; ///< Check if a coach exists
 
-public static $createPlayerSkills = "INSERT INTO simplyrugby.player_skills (player_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)";
+public static $createPlayerSkills = "INSERT INTO simplyrugby.player_skills (player_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)"; ///< Create new player skills record
 
-public static $createJuniorSkills = "INSERT INTO simplyrugby.junior_skills (junior_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)";
+public static $createJuniorSkills = "INSERT INTO simplyrugby.junior_skills (junior_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)"; ///< Create new junior skills record
 
 }
