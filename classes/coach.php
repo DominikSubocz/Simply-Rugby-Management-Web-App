@@ -92,5 +92,31 @@ class Coach {
         $stmt = $conn->prepare(SQL::$updateCoach); 
         $stmt->execute([$firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId]); 
     }
+
+    /**
+     * Creates new coach record
+     */
+
+     public static function createCoach($firstName,	$lastName, $dob, $contactNo, $mobileNo, $email, $filename){
+        $conn = Connection::connect();  
+        
+        $stmt = $conn->prepare(SQL::$createNewCoach); 
+        $stmt->execute([$firstName,	$lastName,	$dob, $contactNo, $mobileNo, $email, $filename]); 
+     }
+     
+     /**
+      * Check if a coach with the given first name, last name, and email exists in the database.
+      */
+     public static function checkCoach($firstName,	$lastName, $email){
+        $conn = Connection::connect();
+        
+        $stmt = $conn->prepare(SQL::$checkCoach); 
+        $stmt->execute([$firstName,	$lastName, $email]); 
+
+        $coach = $stmt->fetch();
+
+        return $coach;
+
+     }
 }
 

@@ -7,7 +7,8 @@ require("classes/components.php");
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");require_once("classes/connection.php");
+require("classes/utils.php");
+require_once("classes/connection.php");
 require("classes/junior.php");
 require("classes/address.php");
 require("classes/guardian.php");

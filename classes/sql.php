@@ -307,4 +307,11 @@ WHERE g.guardian_id = ?";
 public static $getGuardianById = "SELECT * FROM simplyrugby.guardians WHERE guardian_id = ?"; ///< Get specific guardian
 
 public static $deleteGuardian = "DELETE * FROM simplyrugby.guardians WHERE guardian_id = ?"; ///< Delete specific guardian (only works if guardian isn't present in other tables)
+
+public static $createNewCoach = "INSERT INTO simplyrugby.coaches (first_name,	last_name,	dob, contact_no, mobile_no, email_address, filename) VALUES (?,	?,	?, ?, ?, ?, ?)"; ///< Create new coach record
+
+public static $checkCoach = "SELECT * FROM simplyrugby.coaches WHERE first_name = ? AND last_name = ? AND email_address = ?"; ///< Check if a coach exists
+
+public static $createPlayerSkills = "INSERT INTO simplyrugby.player_skills (player_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)";
+
 }

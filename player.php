@@ -26,8 +26,6 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   header("Location: " . Utils::$projectFilePath . "/player-list.php");
 }
 
-
-
 $player = Player::getplayer($_GET["id"]); ///< Get player's details based on their ID number
 
 $pageTitle = "player not found"; ///< Default title

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Future Additions/Fixes
+ * 
+ * @todo Move $stmt code into a class
+ * 
+ */
 
 
 /// This must come first when we need access to the current session

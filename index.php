@@ -71,9 +71,13 @@ Components::pageHeader("Dashboard", ["style"], ["mobile-nav"]);
             </div>
             <div class="col col5 card my-1  py-4">
             <a href="doctor-list.php">Doctor Management <i class="fa fa-user-md"></i></a>
+        </div>
+        <div class="row">
+            <div class="col col6 card my-1  py-4">
+            <a href="coach-list.php">List of Coaches<i class="fa fa-futbol-o"></i></a>
             </div>
         </div>
-        
+        </div>
     </div>
 
     <div class="alert alert-info my-3">

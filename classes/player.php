@@ -219,5 +219,12 @@ class player
 
   }
 
+  public static function createPlayerSkills($playerId, $skillId, $squadId, $skillLevel, $comment){
+    $conn = Connection::connect();
+
+    $stmt = $conn->prepare(SQL::$createPlayerSkills);
+    $stmt->execute([$playerId, $skillId, $squadId, $skillLevel, $comment]);
+  }
+
 
 }

@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * Future Additions/Fixes
+ * 
+ * @todo Move $stmt code into a class
+ * 
+ */
+
 /// This must come first when we need access to the current session
 session_start();
 
@@ -8,12 +16,14 @@ require("classes/sql.php");
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");require_once("classes/connection.php");
+require("classes/utils.php");
+require_once("classes/connection.php");
+require("classes/player.php");
 
 /// Check if the user role is not Admin or Coach, then redirect to the logout page.
 if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
-  }
+}
 
 /**
  * Variables to store error messages and input values for form validation.
@@ -60,6 +70,13 @@ $firstName = $lastName = "";
 $address1 = $address2 = $city = $county = $postcode = "";
 $kin = $kinContact = $doctorName = $doctorContact = "";
 
+/// Retrieve squads from the database
+
+$conn = Connection::connect();
+$stmt = $conn->prepare(SQL::$getSquads);
+$stmt->execute();
+$squads = $stmt->fetchAll();
+
 
 /**
  * Validates the form inputs and processes the data accordingly.
@@ -103,6 +120,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sruErr = "Only digits allowed"; ///< Display error message
         }
     }
+
+    if (empty($_POST["squad"])){
+        $squadErr = "Squad is required"; ///< Display error message
+  
+      } else {
+          $squad = test_input($_POST["squad"]); ///< Sanitize squad name input
+      }
 
     if (empty($_POST["dob"])){
         $dobErr = "Date of birth is required"; ///< Display error message
@@ -325,7 +349,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             /// Create a new player in the database
             $stmt = $conn->prepare(SQL::$createNewPlayer);
             $stmt->execute([$addressId, $doctorId, $firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename]);
-        
+            $playerId = $conn-> lastInsertId();
+
+            /**
+             * Get the squad information from the database.
+             */
+            $stmt = $conn->prepare(SQL::$getSquad);
+            $stmt->execute([$squad]);
+            $squadExists = $stmt->fetch();
+            $squadId = $squadExists['squad_id'];
+
+
+            for ($x = 1; $x <= 11; $x++) {
+                Player::createPlayerSkills($playerId, $x, $squadId, 1, "Sample comment");
+            }
+
+
         
 
             header("Location: " . Utils::$projectFilePath . "/player-list.php");
@@ -381,6 +420,20 @@ enctype="multipart/form-data">
       <label class="col-sm-2 col-form-label-sm"for="sru"><span class="required">*</span>SRU Number:</label><br>
       <input type="text" name="sru" value="<?php echo $sru;?>">
       <p class="alert alert-danger"><?php echo $sruErr;?></p><br>
+
+      <!-- Generates a dropdown list of squad numbers based on the provided array of squads. -->
+        <label for="squad">Squad number:</label><br>
+      <select name="squad">
+      <?php
+      foreach($squads as $squad){
+        ?>
+        <option value="<?php echo $squad["squad_name"]; ?>">
+        <?php echo $squad["squad_name"]; ?>
+        </option>
+        <?php
+        }
+        ?>
+      </select><br>
 
       <label class="col-sm-2 col-form-label-sm"for="dob"><span class="required">*</span>Date of Birth:</label><br>
       <input type="text" name="dob" value="<?php echo $dob;?>">

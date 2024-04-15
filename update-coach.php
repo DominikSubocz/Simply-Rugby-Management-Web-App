@@ -8,7 +8,8 @@ require("classes/sql.php");
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");require_once("classes/connection.php");
+require("classes/utils.php");
+require_once("classes/connection.php");
 require("classes/coach.php");
 require("classes/address.php");
 
