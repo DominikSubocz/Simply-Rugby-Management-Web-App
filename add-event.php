@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["opposition"])) {
       $oppositionErr = "Opposition's name is required"; ///< Display error message
     } else {
-        $opposition = test_input($_POST["opposition"]); ///< Sanitize oppisition name input
+        $opposition = test_input($_POST["opposition"]); ///< Sanitize opposition name input
     }
 
     /// Date validation
@@ -161,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $score = test_input($_POST["score"]); ///< Sanitize score input
     }
 
-    if (empty($gameNameErr) && empty($squadErr) && empty($oppisitionErr) && empty($startErr)  && empty($endErr)  && empty($locationErr) && empty($kickoffErr)){
+    if (empty($gameNameErr) && empty($squadErr) && empty($oppositionErr) && empty($startErr)  && empty($endErr)  && empty($locationErr) && empty($kickoffErr)){
       $conn = Connection::connect(); ///< Connect to database
 
       /**
@@ -202,12 +202,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
            * Creates a new game record & two game half records in the database.
            */
           $stmt = $conn->prepare(SQL::$createGame);
-          $stmt->execute([$squadId, $gameName, $oppisition, $sqlStart, $sqlEnd, $location, $kickoff, $result, $score]);
+          $stmt->execute([$squadId, $gameName, $opposition, $sqlStart, $sqlEnd, $location, $kickoff, $result, $score]);
           $gameId = $conn->lastInsertId();
 
           $stmt = $conn->prepare(SQL::$createGameHalf);
-          $result1 = $stmt->execute([$gameId, 1, $squad, $oppisition]);
-          $result2 = $stmt->execute([$gameId, 2, $squad, $oppisition]);
+          $result1 = $stmt->execute([$gameId, 1, $squad, $opposition]);
+          $result2 = $stmt->execute([$gameId, 2, $squad, $opposition]);
 
         }
       }
@@ -414,8 +414,8 @@ function test_input($data) {
             </select>
             <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
     
-            <label for="oppisition"><span class="required">*</span>Opposition team name:</label><br>
-            <input type="text" name="oppisition" value="<?php echo $opposition;?>">
+            <label for="opposition"><span class="required">*</span>Opposition team name:</label><br>
+            <input type="text" name="opposition" value="<?php echo $opposition;?>">
             <p class="alert alert-danger"><?php echo $oppositionErr;?></p><br>
     
             <label for="start"><span class="required">*</span>Start Date:</label><br>
@@ -543,7 +543,7 @@ radioChecked();
 function validateForm() {
   let hiddenInput = document.getElementById('elementForVar1HiddenField');
   let gameNameInput = document.forms[0]["gameName"].value.trim(); ///< Session's name
-  let oppositionInput = document.forms[0]["oppisition"].value.trim(); ///< Opposition name
+  let oppositionInput = document.forms[0]["opposition"].value.trim(); ///< Opposition name
   let startInput = document.forms[0]["start"].value.trim(); ///< Start date
   let endInput = document.forms[0]["end"].value.trim(); ///< End date
   let locationInput = document.forms[0]["location"].value.trim(); ///< location

@@ -9,8 +9,8 @@
  *  - Updating records in the Games & Session tables.
  *  - Deleting records from database.
  * 
- * Future Additions:
- *  @todo - Move $stmt code from the add-event.php page here.
+ * @todo 
+ *  - Move $stmt code from the add-event.php page here.
  */
 
 class Events {

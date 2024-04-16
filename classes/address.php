@@ -10,9 +10,9 @@
  *  - Creating new records in database.
  *  - Deleting records from database.
  * 
- * Future Additions:
- *  @todo - Update record function.
- *  @todo - Remove redundant functions.
+ *  @todo 
+ *  - Update record function.
+ *  - Remove redundant functions.
  */
 
 
@@ -28,6 +28,7 @@ class Address
      * @param string $postcode The postcode of the address
      * @return string $existingAddress The existing address if found, or null if not found
      */
+
     public static function addressExists($address1, $address2, $city, $county, $postcode){
 
     $conn = Connection::connect();
@@ -49,6 +50,7 @@ class Address
      *
      * @return array $addresses An array containing all addresses fetched from the database.
      */
+
     public static function getAllAddresses(){
 
         $conn = Connection::connect();
@@ -73,6 +75,7 @@ class Address
      * @param string $postcode The postcode of the address
      * @return int $addressId The ID of the newly created address record
      */
+
     public static function createNewAddress($address1, $address2, $city, $county, $postcode){
 
         $conn = Connection::connect();
@@ -95,6 +98,7 @@ class Address
      * @param string $postcode The postcode of the address
      * @return string $addressId The address ID if found, null otherwise
      */
+
     public static function getExistingAddress($address1, $address2, $city, $county, $postcode){
 
         $conn = Connection::connect();
@@ -114,6 +118,7 @@ class Address
      * @param int $addressId The ID of the address to retrieve
      * @return array $addresses The address details as an associative array, or null if address not found
      */
+
     public static function getAddress($addressId){
         $conn = Connection::connect();
         $stmt = $conn->prepare(SQL::$getAddress); 
@@ -132,6 +137,7 @@ class Address
      * @param int $addressId The ID of the address to be deleted.
      * @throws PDOException If there is an error with the database operation. - There is a try catch code in corresponding page.
      */
+    
     public static function deleteAddress($addressId){
         
         $conn = Connection::connect();

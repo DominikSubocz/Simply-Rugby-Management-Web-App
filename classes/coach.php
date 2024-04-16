@@ -8,9 +8,6 @@
  *  - Retrieving records from database (Multiple & Single).
  *  - Deleting records from database.
  * 
- * Future Additions:
- *  @todo - Update record function.
- *  @todo - Create coach function.
  */
 
 class Coach {
@@ -93,10 +90,19 @@ class Coach {
         $stmt->execute([$firstName, $lastName, $dob, $contactNo, $mobileNo, $email, $filename, $coachId]); 
     }
 
-    /**
-     * Creates new coach record
-     */
+   
 
+     /**
+      * Creates a new coach with the provided details and stores it in the database.
+      *
+      * @param string $firstName The first name of the coach.
+      * @param string $lastName The last name of the coach.
+      * @param string $dob The date of birth of the coach.
+      * @param string $contactNo The contact number of the coach.
+      * @param string $mobileNo The mobile number of the coach.
+      * @param string $email The email address of the coach.
+      * @param string $filename The filename associated with the coach.
+      */
      public static function createCoach($firstName,	$lastName, $dob, $contactNo, $mobileNo, $email, $filename){
         $conn = Connection::connect();  
         
@@ -104,8 +110,14 @@ class Coach {
         $stmt->execute([$firstName,	$lastName,	$dob, $contactNo, $mobileNo, $email, $filename]); 
      }
      
+
      /**
       * Check if a coach with the given first name, last name, and email exists in the database.
+      *
+      * @param string $firstName The first name of the coach
+      * @param string $lastName The last name of the coach
+      * @param string $email The email of the coach
+      * @return array $coach Array containing coach data
       */
      public static function checkCoach($firstName,	$lastName, $email){
         $conn = Connection::connect();

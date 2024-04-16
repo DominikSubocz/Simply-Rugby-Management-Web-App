@@ -8,9 +8,9 @@
  *  - Retrieving records from database (Multiple & Single).
  *  - Deleting records from database.
  * 
- * Future Additions:
- *  @todo - Move $stmt code from the add-event.php page here.
- *  @todo - Update record function.
+ * @todo 
+ * - Move $stmt code from the add-event.php page here.
+ * - Update record function.
  * 
  */
 

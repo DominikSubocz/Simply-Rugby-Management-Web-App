@@ -1,5 +1,6 @@
 <?php
 
+/// A class representing a database connection.
 class Connection {
   /**
    * Return a new PDO database connection object.

@@ -9,8 +9,8 @@
  *  - Card containers.
  *  - Single Profile Pages.
  *  
- * Future Additions:
- *  @todo - Possibly more components, and some tweaks :)
+ *  @todo 
+ *  - Possibly more components, and some tweaks :)
  */
 
 class Components {

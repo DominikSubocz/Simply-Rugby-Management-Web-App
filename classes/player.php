@@ -17,7 +17,7 @@ require_once("classes/utils.php");
  * 
  */
 
-class player
+class Player
 {
 
   

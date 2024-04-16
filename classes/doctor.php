@@ -9,16 +9,12 @@
  * - Creating new records in database.
  * - Deleting records from database.
  * 
- * Future Additions:
- *  @todo - Update record function.
- *  @todo - Remove redundant functions.
+ * @todo 
+ *  - Update record function. 
+ *  - Remove redundant functions.
  */
 
 class Doctor{
-
-
-    
-
 
     /**
      * Check if a doctor exists based on the provided first name, last name, and contact number.
