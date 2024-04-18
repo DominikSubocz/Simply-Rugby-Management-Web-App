@@ -29,7 +29,7 @@ if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
 $conn = Connection::connect(); ///< Connect to database
 
 
-Components::pageHeader("Login", ["style"], ["mobile-nav"]); ///< Render page header
+Components::pageHeader("Update Player", ["style"], ["mobile-nav"]); ///< Render page header
 
 $playerId = $_GET["id"]; ///< Get ID of specific player
 

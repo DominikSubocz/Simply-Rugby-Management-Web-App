@@ -29,7 +29,7 @@ $pageTitle = "Game not found"; ///< Default title
  * @param array $game The game array containing the game details.
  */
 if(!empty($game)){
-    $pageTitle = $game["name"] . "'s Details";
+    $pageTitle = $game["name"] . "'s Game Details";
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]); ///< Render page header

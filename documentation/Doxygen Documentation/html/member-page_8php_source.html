@@ -94,13 +94,13 @@ $(document).ready(function(){initNavTree('member-page_8php_source.html',''); ini
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordflow">if</span>(!isset($_SESSION[<span class="stringliteral">&quot;loggedIn&quot;</span>])){</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordflow">if</span> (!isset($_GET[<span class="stringliteral">&quot;id&quot;</span>]) || !is_numeric($_GET[<span class="stringliteral">&quot;id&quot;</span>])) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/member-list.php&quot;</span>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/member-list.php&quot;</span>);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
@@ -121,7 +121,6 @@ $(document).ready(function(){initNavTree('member-page_8php_source.html',''); ini
 <div class="ttc" id="aclassComponents_html_ad7df9e348792beb5fc11c540f6cd43a2"><div class="ttname"><a href="classComponents.html#ad7df9e348792beb5fc11c540f6cd43a2">Components\pageFooter</a></div><div class="ttdeci">static pageFooter()</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00036">components.php:36</a></div></div>
 <div class="ttc" id="aclassComponents_html_add114d59545c4dbf01a9675882df47fb"><div class="ttname"><a href="classComponents.html#add114d59545c4dbf01a9675882df47fb">Components\pageHeader</a></div><div class="ttdeci">static pageHeader($pageTitle, $stylesheets, $scripts)</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00024">components.php:24</a></div></div>
 <div class="ttc" id="aclassMember_html_a3dd987a7f27dd4d85dd5111e59b349b8"><div class="ttname"><a href="classMember.html#a3dd987a7f27dd4d85dd5111e59b349b8">Member\getMember</a></div><div class="ttdeci">static getMember($playerId)</div><div class="ttdef"><b>Definition:</b> <a href="member_8php_source.html#l00051">member.php:51</a></div></div>
-<div class="ttc" id="aclassUtils_html_aa7fc4f4c5861cc1071d37a6cb2e048ef"><div class="ttname"><a href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils\$projectFilePath</a></div><div class="ttdeci">static $projectFilePath</div><div class="ttdoc">public static $projectFilePath = &quot;http:///localhost/Simply-Rugby-Management-Web-App&quot;; /// Comment lin...</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00007">utils.php:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

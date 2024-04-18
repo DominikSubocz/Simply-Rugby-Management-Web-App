@@ -29,7 +29,7 @@ $pageTitle = "Session not found"; ///< Default page title
  * @param array $session An array containing session information.
  */
 if(!empty($session)){
-    $pageTitle = $session["name"] . "Details";
+    $pageTitle = $session["name"] . "'s Session Details";
 }
 
 Components::pageHeader($pageTitle, ["style"], ["mobile-nav"]); ///< Render page header

@@ -1,6 +1,8 @@
 var files_dup =
 [
     [ "classes", "dir_b02e4219757ae4e3a0f1714873865bbf.html", "dir_b02e4219757ae4e3a0f1714873865bbf" ],
+    [ "components", "dir_409f97388efe006bc3438b95e9edef48.html", "dir_409f97388efe006bc3438b95e9edef48" ],
+    [ "includes", "dir_09e761304027c904456130627fd4dcf5.html", "dir_09e761304027c904456130627fd4dcf5" ],
     [ "add-coach.php", "add-coach_8php_source.html", null ],
     [ "add-event.php", "add-event_8php_source.html", null ],
     [ "add-junior.php", "add-junior_8php_source.html", null ],
@@ -32,6 +34,7 @@ var files_dup =
     [ "register.php", "register_8php_source.html", null ],
     [ "session.php", "session_8php_source.html", null ],
     [ "success.php", "success_8php_source.html", null ],
+    [ "temp.php", "temp_8php_source.html", null ],
     [ "timetable.php", "timetable_8php_source.html", null ],
     [ "update-coach.php", "update-coach_8php_source.html", null ],
     [ "update-game.php", "update-game_8php_source.html", null ],

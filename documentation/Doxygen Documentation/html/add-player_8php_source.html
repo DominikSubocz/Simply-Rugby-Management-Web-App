@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('add-player_8php_source.html',''); init
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>require(<span class="stringliteral">&quot;classes/player.php&quot;</span>);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordflow">if</span>(($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Admin&quot;</span>) &amp;&amp; ($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Coach&quot;</span>)) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>$nameErr = $dobErr = $emailErr = $websiteErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  <span class="stringliteral">&quot;&quot;</span>;</div>
@@ -377,7 +377,7 @@ $(document).ready(function(){initNavTree('add-player_8php_source.html',''); init
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        </div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span> </div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>            header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/player-list.php&quot;</span>);</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>            header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/player-list.php&quot;</span>);</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        }</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    }</div>
@@ -682,7 +682,6 @@ $(document).ready(function(){initNavTree('add-player_8php_source.html',''); init
 <div class="ttc" id="aclassSQL_html_ac4230d9fb48c5f0aa78dbe8137d1a98f"><div class="ttname"><a href="classSQL.html#ac4230d9fb48c5f0aa78dbe8137d1a98f">SQL\$createNewDoctor</a></div><div class="ttdeci">static $createNewDoctor</div><div class="ttdoc">Create new doctor record.</div><div class="ttdef"><b>Definition:</b> <a href="sql_8php_source.html#l00143">sql.php:143</a></div></div>
 <div class="ttc" id="aclassSQL_html_af5c9c846f027e8b1e4133ef9b1a30ac3"><div class="ttname"><a href="classSQL.html#af5c9c846f027e8b1e4133ef9b1a30ac3">SQL\$doctorExists</a></div><div class="ttdeci">static $doctorExists</div><div class="ttdoc">Get doctor with specific personal details.</div><div class="ttdef"><b>Definition:</b> <a href="sql_8php_source.html#l00122">sql.php:122</a></div></div>
 <div class="ttc" id="aclassUtils_html_a5062aea98b8a83a9017f92c435342362"><div class="ttname"><a href="classUtils.html#a5062aea98b8a83a9017f92c435342362">Utils\getFileExtension</a></div><div class="ttdeci">static getFileExtension($filename)</div><div class="ttdoc">Get the file extension of a given file.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00038">utils.php:38</a></div></div>
-<div class="ttc" id="aclassUtils_html_aa7fc4f4c5861cc1071d37a6cb2e048ef"><div class="ttname"><a href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils\$projectFilePath</a></div><div class="ttdeci">static $projectFilePath</div><div class="ttdoc">public static $projectFilePath = &quot;http:///localhost/Simply-Rugby-Management-Web-App&quot;; /// Comment lin...</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00007">utils.php:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

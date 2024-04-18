@@ -783,7 +783,7 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-components::pageHeader("Add Player", ["style"], ["mobile-nav"]);
+components::pageHeader("Update Junior Player", ["style"], ["mobile-nav"]);
 ?>
 
 <main class="content-wrapper contact-content">

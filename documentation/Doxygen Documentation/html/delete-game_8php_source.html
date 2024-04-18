@@ -96,18 +96,18 @@ $(document).ready(function(){initNavTree('delete-game_8php_source.html',''); ini
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordflow">if</span>(!isset($_SESSION[<span class="stringliteral">&quot;loggedIn&quot;</span>])){</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keywordflow">if</span>(($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Admin&quot;</span>) &amp;&amp;($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Coach&quot;</span>)) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  }</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <a class="code hl_function" href="classComponents.html#a6128e5839a873666874d2ba0ecea85e5">Components::blankPageHeader</a>(<span class="stringliteral">&quot;Delete game&quot;</span>, [<span class="stringliteral">&quot;style&quot;</span>], [<span class="stringliteral">&quot;mobile-nav&quot;</span>]); </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <span class="keywordflow">if</span> (!isset($_GET[<span class="stringliteral">&quot;id&quot;</span>]) || !is_numeric($_GET[<span class="stringliteral">&quot;id&quot;</span>])) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/timetable.php&quot;</span>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>      header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/timetable.php&quot;</span>);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  </div>
@@ -121,7 +121,7 @@ $(document).ready(function(){initNavTree('delete-game_8php_source.html',''); ini
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordflow">try</span>{</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_function" href="classEvents.html#a1563e42c813ede5e7752f6b0919a3171">Events::deleteGame</a>($gameId);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/timetable.php&quot;</span>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/timetable.php&quot;</span>);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  }</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>   <span class="keywordflow">catch</span>(PDOException $e) {</div>
@@ -136,7 +136,6 @@ $(document).ready(function(){initNavTree('delete-game_8php_source.html',''); ini
 <div class="ttc" id="aclassComponents_html_a6128e5839a873666874d2ba0ecea85e5"><div class="ttname"><a href="classComponents.html#a6128e5839a873666874d2ba0ecea85e5">Components\blankPageHeader</a></div><div class="ttdeci">static blankPageHeader($pageTitle, $stylesheets, $scripts)</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00028">components.php:28</a></div></div>
 <div class="ttc" id="aclassEvents_html_a1563e42c813ede5e7752f6b0919a3171"><div class="ttname"><a href="classEvents.html#a1563e42c813ede5e7752f6b0919a3171">Events\deleteGame</a></div><div class="ttdeci">static deleteGame($gameId)</div><div class="ttdef"><b>Definition:</b> <a href="events_8php_source.html#l00089">events.php:89</a></div></div>
 <div class="ttc" id="aclassEvents_html_a3d73242ec5c2122c57b0eefba7d50557"><div class="ttname"><a href="classEvents.html#a3d73242ec5c2122c57b0eefba7d50557">Events\getGame</a></div><div class="ttdeci">static getGame($gameId)</div><div class="ttdef"><b>Definition:</b> <a href="events_8php_source.html#l00047">events.php:47</a></div></div>
-<div class="ttc" id="aclassUtils_html_aa7fc4f4c5861cc1071d37a6cb2e048ef"><div class="ttname"><a href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils\$projectFilePath</a></div><div class="ttdeci">static $projectFilePath</div><div class="ttdoc">public static $projectFilePath = &quot;http:///localhost/Simply-Rugby-Management-Web-App&quot;; /// Comment lin...</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00007">utils.php:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

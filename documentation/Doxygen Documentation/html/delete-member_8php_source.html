@@ -95,17 +95,17 @@ $(document).ready(function(){initNavTree('delete-member_8php_source.html',''); i
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordflow">if</span>(!isset($_SESSION[<span class="stringliteral">&quot;loggedIn&quot;</span>])){</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keywordflow">if</span>(($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Admin&quot;</span>) &amp;&amp;($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Coach&quot;</span>)) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  }</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  </div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keywordflow">if</span> (!isset($_GET[<span class="stringliteral">&quot;id&quot;</span>]) || !is_numeric($_GET[<span class="stringliteral">&quot;id&quot;</span>])) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/member-list.php&quot;</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/member-list.php&quot;</span>);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  </div>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('delete-member_8php_source.html',''); i
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keywordflow">try</span>{</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_function" href="classMember.html#ac62e7aebc64e18bcf07d8bfbd147f137">Member::deleteMember</a>($memberId);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/member-list.php&quot;</span>);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/member-list.php&quot;</span>);</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  }</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>   <span class="keywordflow">catch</span>(PDOException $e) {</div>
@@ -135,7 +135,6 @@ $(document).ready(function(){initNavTree('delete-member_8php_source.html',''); i
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="ttc" id="aclassMember_html_a3dd987a7f27dd4d85dd5111e59b349b8"><div class="ttname"><a href="classMember.html#a3dd987a7f27dd4d85dd5111e59b349b8">Member\getMember</a></div><div class="ttdeci">static getMember($playerId)</div><div class="ttdef"><b>Definition:</b> <a href="member_8php_source.html#l00051">member.php:51</a></div></div>
 <div class="ttc" id="aclassMember_html_ac62e7aebc64e18bcf07d8bfbd147f137"><div class="ttname"><a href="classMember.html#ac62e7aebc64e18bcf07d8bfbd147f137">Member\deleteMember</a></div><div class="ttdeci">static deleteMember($playerId)</div><div class="ttdef"><b>Definition:</b> <a href="member_8php_source.html#l00071">member.php:71</a></div></div>
-<div class="ttc" id="aclassUtils_html_aa7fc4f4c5861cc1071d37a6cb2e048ef"><div class="ttname"><a href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils\$projectFilePath</a></div><div class="ttdeci">static $projectFilePath</div><div class="ttdoc">public static $projectFilePath = &quot;http:///localhost/Simply-Rugby-Management-Web-App&quot;; /// Comment lin...</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00007">utils.php:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

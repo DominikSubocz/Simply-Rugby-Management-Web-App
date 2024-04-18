@@ -97,13 +97,13 @@ $(document).ready(function(){initNavTree('update-member_8php_source.html',''); i
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordflow">if</span>(!isset($_SESSION[<span class="stringliteral">&quot;loggedIn&quot;</span>])){</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keywordflow">if</span>(($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Admin&quot;</span>) &amp;&amp; ($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Coach&quot;</span>)) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>$memberId = $_GET[<span class="stringliteral">&quot;id&quot;</span>]; </div>
@@ -464,7 +464,6 @@ $(document).ready(function(){initNavTree('update-member_8php_source.html',''); i
 <div class="ttc" id="aclassMember_html_a85d9b11555f044d622772f58dfde52bc"><div class="ttname"><a href="classMember.html#a85d9b11555f044d622772f58dfde52bc">Member\updateMember</a></div><div class="ttdeci">static updateMember($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $filename, $memberId)</div><div class="ttdef"><b>Definition:</b> <a href="member_8php_source.html#l00099">member.php:99</a></div></div>
 <div class="ttc" id="aclassUtils_html_a5062aea98b8a83a9017f92c435342362"><div class="ttname"><a href="classUtils.html#a5062aea98b8a83a9017f92c435342362">Utils\getFileExtension</a></div><div class="ttdeci">static getFileExtension($filename)</div><div class="ttdoc">Get the file extension of a given file.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00038">utils.php:38</a></div></div>
 <div class="ttc" id="aclassUtils_html_a50b5a2a7d22b05fb16a5b39d321c1a4b"><div class="ttname"><a href="classUtils.html#a50b5a2a7d22b05fb16a5b39d321c1a4b">Utils\escape</a></div><div class="ttdeci">static escape($input)</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00033">utils.php:33</a></div></div>
-<div class="ttc" id="aclassUtils_html_aa7fc4f4c5861cc1071d37a6cb2e048ef"><div class="ttname"><a href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils\$projectFilePath</a></div><div class="ttdeci">static $projectFilePath</div><div class="ttdoc">public static $projectFilePath = &quot;http:///localhost/Simply-Rugby-Management-Web-App&quot;; /// Comment lin...</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00007">utils.php:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

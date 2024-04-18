@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('add-member_8php_source.html',''); init
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordflow">if</span>(!isset($_SESSION[<span class="stringliteral">&quot;newMember&quot;</span>])){</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">if</span>(($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Admin&quot;</span>) &amp;&amp; ($_SESSION[<span class="stringliteral">&quot;user_role&quot;</span>] != <span class="stringliteral">&quot;Coach&quot;</span>)) {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/logout.php&quot;</span>);</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>      }</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
@@ -271,11 +271,11 @@ $(document).ready(function(){initNavTree('add-member_8php_source.html',''); init
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <span class="keywordflow">if</span>(isset($_SESSION[<span class="stringliteral">&quot;newMember&quot;</span>])){</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                $_SESSION[<span class="stringliteral">&quot;successMessage&quot;</span>] = <span class="stringliteral">&quot;Registration Successful!&quot;</span>;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/success.php&quot;</span>);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/success.php&quot;</span>);</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            }</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            <span class="keywordflow">else</span>{</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>                header(<span class="stringliteral">&quot;Location: &quot;</span> . <a class="code hl_variable" href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils::$projectFilePath</a> . <span class="stringliteral">&quot;/member-list.php&quot;</span>);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>                header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/member-list.php&quot;</span>);</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            }</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
@@ -490,7 +490,6 @@ $(document).ready(function(){initNavTree('add-member_8php_source.html',''); init
 <div class="ttc" id="aclassSQL_html_aa3c097339dba67e36b57b49a45dd878a"><div class="ttname"><a href="classSQL.html#aa3c097339dba67e36b57b49a45dd878a">SQL\$createNewAddress</a></div><div class="ttdeci">static $createNewAddress</div><div class="ttdoc">Create new address record.</div><div class="ttdef"><b>Definition:</b> <a href="sql_8php_source.html#l00140">sql.php:140</a></div></div>
 <div class="ttc" id="aclassSQL_html_ac933cd6419a1b498e7fa457fa5ecc3a0"><div class="ttname"><a href="classSQL.html#ac933cd6419a1b498e7fa457fa5ecc3a0">SQL\$memberExists</a></div><div class="ttdeci">static $memberExists</div><div class="ttdoc">Get member with specific personal details.</div><div class="ttdef"><b>Definition:</b> <a href="sql_8php_source.html#l00118">sql.php:118</a></div></div>
 <div class="ttc" id="aclassUtils_html_a5062aea98b8a83a9017f92c435342362"><div class="ttname"><a href="classUtils.html#a5062aea98b8a83a9017f92c435342362">Utils\getFileExtension</a></div><div class="ttdeci">static getFileExtension($filename)</div><div class="ttdoc">Get the file extension of a given file.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00038">utils.php:38</a></div></div>
-<div class="ttc" id="aclassUtils_html_aa7fc4f4c5861cc1071d37a6cb2e048ef"><div class="ttname"><a href="classUtils.html#aa7fc4f4c5861cc1071d37a6cb2e048ef">Utils\$projectFilePath</a></div><div class="ttdeci">static $projectFilePath</div><div class="ttdoc">public static $projectFilePath = &quot;http:///localhost/Simply-Rugby-Management-Web-App&quot;; /// Comment lin...</div><div class="ttdef"><b>Definition:</b> <a href="utils_8php_source.html#l00007">utils.php:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

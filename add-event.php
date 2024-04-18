@@ -211,6 +211,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
       }
+
+      header("Location: " . Utils::$projectFilePath . "/timetable.php");
+
     }
   } else {
 
@@ -339,9 +342,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute([$sessionId, $coachId, $squadId]);
           } 
 
-          
+
         }
       }
+
+      header("Location: " . Utils::$projectFilePath . "/timetable.php");
+
     }
 
   }
@@ -366,7 +372,7 @@ function test_input($data) {
 }
 ?>
 
-<main class="content-wrapper contact-content">
+<main class="content-wrapper contact-content my-4">
 
 <!--  
 
