@@ -13,7 +13,7 @@ if(isset($_POST["updateSubmit"])){
 <form
       method="post"
       action="">
-  
+      <input type="hidden" id="hidden-role-field" name="hidden-role-field" value="<?php echo $_SESSION["user_role"];?>">
       <input type="submit" id="removeBtn" class="btn btn-danger mx-2 my-2" value="Delete Session">
       <input type="submit" id="updateBtn" name="updateSubmit" class="btn btn-warning mx-2 my-2" value="Update Session">
   </form>
@@ -67,13 +67,17 @@ if(isset($_POST["updateSubmit"])){
 <script>
   var modal = document.getElementById("myModal");
   var updateModal = document.getElementById("updateModal");
-
+  var role = document.getElementById("hidden-role-field");
 
   /// Get the button that opens the modal
   var delBtn = document.getElementById("removeBtn");
 
   var cancelBtn = document.getElementById("cancel");
 
+  if((role.value != "Coach") && (role.value != "Admin")){
+    delBtn.style.display="none";
+    updateBtn.style.display="none";
+  }
 
   /// Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];

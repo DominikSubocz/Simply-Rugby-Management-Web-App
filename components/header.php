@@ -61,7 +61,6 @@
             } else if ($_SESSION["user_role"] === "Coach"){
               $profileId = $_SESSION["profileId"];
               echo "<li><a href='$profileId'>Profile</a></li>
-              <li><a href='index.php'>Dashboard</a></li>
               <div class='dropdown'>
               <button class='dropBTN'>Member Management ▼</button>
               <div class='dropdown-content'>

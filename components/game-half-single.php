@@ -17,9 +17,9 @@
 
     <tr class="hover-overlay" >
             <td data-th="Home Score" class="home-score-label"><p><?php echo $homeScore; ?></p></td>
-            <td data-th="Home Comments" class="home-comment-label"><p><?php echo 'Accidents: '.$homeComment; ?></p></td>
-            <td data-th="Opposition Score" class="opposition-score-label"><p><?php echo 'Injuries: '.$oppositionScore; ?></p></td>
-            <td data-th="Opposition Comments" class="oppotision-comment-label"><p><?php echo 'Injuries: '.$oppositionComment ; ?></p></td>
+            <td data-th="Home Comments" class="home-comment-label"><p><?php echo $homeComment; ?></p></td>
+            <td data-th="Opposition Score" class="opposition-score-label"><p><?php echo $oppositionScore; ?></p></td>
+            <td data-th="Opposition Comments" class="oppotision-comment-label"><p><?php echo $oppositionComment ; ?></p></td>
         </a>
     </tr>
 

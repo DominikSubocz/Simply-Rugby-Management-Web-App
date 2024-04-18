@@ -65,6 +65,7 @@ if(isset($_POST['removeSubmit'])){
   <input class="btn btn-primary mx-2 my-2" type="submit" id="addBtn" name="addSubmit" value="Add Event">
   <input class="btn btn-secondary mx-2 my-2" type="submit" id="updateBtn" name="updateSubmit" value="Update Event">
   <input class="btn btn-danger mx-2 my-2" type="submit" id="removeBtn" name="removeSubmit" value="Remove Event">
+  <input type="hidden" id="hidden-role-field" name="hidden-role-field" value="<?php echo $_SESSION["user_role"];?>">
   <input type="button" id="settingsBtn" class="btn btn-info ms-auto my-2" value="Settings">  
 </div>
 <table class="table" id="customDataTable">
@@ -96,7 +97,9 @@ if(isset($_POST['removeSubmit'])){
 <script>
 
 let updateBtn = document.getElementById("updateBtn");
+let addBtn = document.getElementById("addBtn");
 let removeBtn = document.getElementById("removeBtn");
+var role = document.getElementById("hidden-role-field");
 
 /**
  * Selects one checkbox while hiding others and displays buttons
@@ -109,6 +112,10 @@ function cbChange(obj) {
     }
     obj.checked = true;
     displayButtons("block");
+}
+
+if((role.value != "Coach") && (role.value != "Admin")){
+  addBtn.style.display="none";
 }
 
 /**

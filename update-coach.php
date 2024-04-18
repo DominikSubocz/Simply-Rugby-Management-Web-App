@@ -17,7 +17,7 @@ require("classes/address.php");
 /**
  * Check if the user role is not Admin or Coach, and redirect to logout page if true.
  */
-if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+if($_SESSION["user_role"] != "Admin") {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 

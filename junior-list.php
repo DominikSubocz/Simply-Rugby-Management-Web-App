@@ -180,13 +180,6 @@ let updateSkillBtn = document.getElementById("updateSkillBtn");
 let addBtn = document.getElementById("addBtn");
 var role = document.getElementById("hidden-role-field");
 
-/**
- * Hide the add button if the role value is "Coach".
- */
-if(role.value ==="Coach"){
-  addBtn.style.display="none";
-}
-
 var modal = document.getElementById("myModal");
 let settingsBtn = document.getElementById("settingsBtn");
 var span = document.getElementsByClassName("close")[0];
@@ -323,26 +316,16 @@ function cbChange(obj) {
 
 function displayButtons(type){
   if(type == "block"){
-    if(role.value === "Coach"){
-      updateSkillBtn.style.display="block";
-    } else{
+    updateSkillBtn.style.display="block";
     updateBtn.style.display="block";
     removeBtn.style.display="block";
     updateSkillBtn.style.display="block";
 
-    }
-
-  } else {
-
-    if(role === "Coach"){
-      updateSkillBtn.style.display="none";
     } else{
+    updateSkillBtn.style.display="none";
     removeBtn.style.display="none";
     updateBtn.style.display="none";
     updateSkillBtn.style.display="none";
-
-    }
-
   }
 }
 

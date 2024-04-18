@@ -162,10 +162,6 @@ let addBtn = document.getElementById("addBtn");
 
 var role = document.getElementById("hidden-role-field");
 
-if(role.value ==="Coach"){
-  addBtn.style.display="none";
-}
-
 var modal = document.getElementById("myModal");
 let settingsBtn = document.getElementById("settingsBtn");
 var span = document.getElementsByClassName("close")[0];
@@ -303,24 +299,13 @@ function cbChange(obj) {
  */
 function displayButtons(type){
   if(type == "block"){
-    if(role.value === "Coach"){
-      updateBtn.style.display="none";
-      removeBtn.style.display="none";
-    } else {
       updateBtn.style.display="block";
       removeBtn.style.display="block";
-    }
 
   } else {
-    if(role.value === "Coach"){
-      updateBtn.style.display="none";
-      removeBtn.style.display="none";
-    } else {
-      updateBtn.style.display="none";
+    updateBtn.style.display="none";
     removeBtn.style.display="none";
 }
-
-  }
 }
 
 displayButtons("none");

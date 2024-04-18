@@ -15,7 +15,7 @@ if(isset($_POST["updateSubmit"])){
 <form
       method="post"
       action="">
-  
+      <input type="hidden" id="hidden-role-field" name="hidden-role-field" value="<?php echo $_SESSION["user_role"];?>">
       <input type="submit" id="removeBtn" class="btn btn-danger mx-2 my-2" value="Delete Game">
       <input type="submit" id="updateBtn" name="updateSubmit" class="btn btn-warning mx-2 my-2" value="Update Game">
   </form>
@@ -55,7 +55,7 @@ if(isset($_POST["updateSubmit"])){
     <form 
             method="post" 
             action="">
-
+            <input type="button" id="settingsBtn" class="btn btn-info ms-auto my-2" value="Settings">  
             <input type="submit" name="confirmDelete" class="btn btn-danger" value="Yes">  
             <input type="submit" id="cancel" class="btn btn-warning" value="No"> 
     </div>
@@ -64,6 +64,7 @@ if(isset($_POST["updateSubmit"])){
 <script>
   var modal = document.getElementById("myModal");
   var updateModal = document.getElementById("updateModal");
+  var role = document.getElementById("hidden-role-field");
 
 
   /// Get the button that opens the modal
@@ -74,6 +75,12 @@ if(isset($_POST["updateSubmit"])){
 
   /// Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
+
+  if((role.value != "Coach") && (role.value != "Admin")){
+    delBtn.style.display="none";
+    updateBtn.style.display="none";
+
+  }
 
   /// When the user clicks on the button, open the modal
   delBtn.onclick = function(event) {
@@ -86,7 +93,6 @@ if(isset($_POST["updateSubmit"])){
     /// Prevent the default form submission action
     event.preventDefault();
     modal.style.display = "none";
-
   }
 
   /// When the user clicks on <span> (x), close the modal

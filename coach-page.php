@@ -12,6 +12,7 @@ require("classes/utils.php");require("classes/coach.php");
 require("classes/connection.php");
 require("classes/sql.php");
 
+$username = $_SESSION["username"];
 
 /**
  * Check if the user is logged in; if not, redirect to login page
@@ -38,7 +39,7 @@ if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
 
 $coach = Coach::getCoach($_GET["id"]); ///< Get coach's details based on ID number.
 
-Components::pageHeader("List of Addresses", ["style"], ["mobile-nav"]); ///< Render page header
+Components::pageHeader("$username's Profile", ["style"], ["mobile-nav"]); ///< Render page header
 
 Components::singleCoach($coach); ///< Render coach's profile
 
