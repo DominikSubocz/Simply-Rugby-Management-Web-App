@@ -1,9 +1,9 @@
 <?php
 
 /// If one of these file has already been included, do not do so again
-require_once("classes/connection.php");
-require_once("classes/sql.php");
-require_once("classes/utils.php");
+require_once ("classes/connection.php");
+require_once ("classes/sql.php");
+require_once ("classes/utils.php");
 
 /**
  * 
@@ -68,7 +68,8 @@ class Member
    *
    * @param int $playerId The ID of the player to be deleted.
    */
-  public static function deleteMember ($playerId){
+  public static function deleteMember($playerId)
+  {
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$deleteMember);
@@ -77,7 +78,7 @@ class Member
     $conn = null;
 
 
-    }
+  }
 
 
 
@@ -96,7 +97,8 @@ class Member
    * @param string $filename The filename of the member
    * @param int $memberId The ID of the member to update
    */
-  public static function updateMember($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $filename, $memberId){
+  public static function updateMember($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $filename, $memberId)
+  {
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$updateMember);
@@ -120,7 +122,8 @@ class Member
    * @param string $mobileNo The mobile number of the member
    * @return array $existingUser Array containing existing user if found, or null if not found
    */
-  public static function memberExists($firstName, $lastName, $dob, $sru, $contactNo, $mobileNo){
+  public static function memberExists($firstName, $lastName, $dob, $sru, $contactNo, $mobileNo)
+  {
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$memberExists);

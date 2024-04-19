@@ -13,7 +13,8 @@
  *  - Possibly more components, and some tweaks :)
  */
 
-class Components {
+class Components
+{
   /**
    * Output a standard page header with customisable options.
    *
@@ -21,20 +22,23 @@ class Components {
    * $stylesheets - array - List of stylesheets.
    * $scripts - array - List of scripts.
    */
-  public static function pageHeader($pageTitle, $stylesheets, $scripts) {
-    require("components/header.php"); ///< Output header component.
+  public static function pageHeader($pageTitle, $stylesheets, $scripts)
+  {
+    require ("components/header.php"); ///< Output header component.
   }
 
-  public static function blankPageHeader($pageTitle, $stylesheets, $scripts) {
-    require("components/header-blank.php"); ///< Output blank header component.
+  public static function blankPageHeader($pageTitle, $stylesheets, $scripts)
+  {
+    require ("components/header-blank.php"); ///< Output blank header component.
   }
 
 
   /**
    * Output a standard page footer.
    */
-  public static function pageFooter() {
-    require("components/footer.php"); ///< Output footer component.
+  public static function pageFooter()
+  {
+    require ("components/footer.php"); ///< Output footer component.
   }
 
 
@@ -66,11 +70,11 @@ class Components {
         $filename = Utils::escape($player["filename"]);
 
 
-        require("components/player-card.php"); ///< Output information on each player.
+        require ("components/player-card.php"); ///< Output information on each player.
       }
     } else {
-       
-      require("components/no-players-found.php"); ///< Output a message if the $players array is empty
+
+      require ("components/no-players-found.php"); ///< Output a message if the $players array is empty
     }
   }
 
@@ -95,9 +99,9 @@ class Components {
         $emailAddress = Utils::escape($coach["email_address"]);
         $filename = Utils::escape($coach["filename"]);
 
-        require("components/coach-card.php"); ///< Output information on each coach.
+        require ("components/coach-card.php"); ///< Output information on each coach.
       }
-    } 
+    }
   }
 
   /**
@@ -107,9 +111,10 @@ class Components {
    *  
    */
 
-  public static function allGuardians($guardians){
-    if(!empty($guardians)){
-      foreach($guardians as $guardian){
+  public static function allGuardians($guardians)
+  {
+    if (!empty($guardians)) {
+      foreach ($guardians as $guardian) {
         $guardianId = Utils::escape($guardian["guardian_id"]);
         $firstName = Utils::escape($guardian["guardian_first_name"]);
         $lastName = Utils::escape($guardian["guardian_last_name"]);
@@ -121,7 +126,7 @@ class Components {
         $county = Utils::escape($guardian["county"]);
         $postcode = Utils::escape($guardian["postcode"]);
 
-        require("components/guardian-card.php"); ///< Output information on each guardian.
+        require ("components/guardian-card.php"); ///< Output information on each guardian.
 
       }
     }
@@ -136,7 +141,8 @@ class Components {
    *  
    */
 
-  public static function singleCoach($coach){
+  public static function singleCoach($coach)
+  {
     if (!empty($coach)) {
       $coachId = Utils::escape($coach["coach_id"]);
       $firstName = Utils::escape($coach["first_name"]);
@@ -147,7 +153,7 @@ class Components {
       $emailAddress = Utils::escape($coach["email_address"]);
       $filename = Utils::escape($coach["filename"]);
 
-      require("components/coach-single.php"); ///< Output information on single coach.
+      require ("components/coach-single.php"); ///< Output information on single coach.
 
     }
 
@@ -160,7 +166,8 @@ class Components {
    *  
    */
 
-  public static function allDoctors($doctors){
+  public static function allDoctors($doctors)
+  {
     if (!empty($doctors)) {
       foreach ($doctors as $doctor) {
         $doctorId = Utils::escape($doctor["doctor_id"]);
@@ -168,11 +175,11 @@ class Components {
         $lastName = Utils::escape($doctor["doctor_last_name"]);
         $contactNumber = Utils::escape($doctor["doctor_contact_no"]);
 
-        require("components/doctor-card.php"); ///< Output information on each doctor.
+        require ("components/doctor-card.php"); ///< Output information on each doctor.
 
       }
+    }
   }
-}
 
   /**
    *  Renders an array of addresses as table rows. 
@@ -194,10 +201,10 @@ class Components {
 
 
 
-        require("components/address-card.php"); ///< Output information on each address 
+        require ("components/address-card.php"); ///< Output information on each address 
       }
     } else {
-      require("components/no-players-found.php"); ///< Output a message if the $addresses array is empty
+      require ("components/no-players-found.php"); ///< Output a message if the $addresses array is empty
     }
   }
 
@@ -234,11 +241,11 @@ class Components {
       $doctorLastName = Utils::escape($player["doctor_last_name"]);
       $doctorContact = Utils::escape($player["doctor_contact_no"]);
 
-       
-      require("components/player-single.php"); ///< Output information on a single player
+
+      require ("components/player-single.php"); ///< Output information on a single player
     } else {
-       
-      require("components/no-single-player-found.php");  ///< Output a message if the $players array is empty
+
+      require ("components/no-single-player-found.php");  ///< Output a message if the $players array is empty
     }
   }
 
@@ -269,10 +276,10 @@ class Components {
 
 
 
-        require("components/junior-card.php"); ///<  Output information on each junior.
+        require ("components/junior-card.php"); ///<  Output information on each junior.
       }
     } else {
-      require("components/no-players-found.php");  ///< Output a message if the $juniors array is empty
+      require ("components/no-players-found.php");  ///< Output a message if the $juniors array is empty
     }
   }
 
@@ -308,10 +315,10 @@ class Components {
       $doctorContact = Utils::escape($junior["doctor_contact_no"]);
 
 
-      require("components/junior-single.php"); ///<  Output information on a single junior
+      require ("components/junior-single.php"); ///<  Output information on a single junior
     } else {
-       
-      require("components/no-single-player-found.php"); ///< Output a message if the $juniors array is empty
+
+      require ("components/no-single-player-found.php"); ///< Output a message if the $juniors array is empty
     }
   }
 
@@ -333,15 +340,15 @@ class Components {
         $guardianContactNum = Utils::escape($junior["guardian_contact_no"]);
         $relationship = Utils::escape($junior["relationship"]);
 
-        require("components/guardian-single.php"); ///<  Output information on a each Guardians associated with a Junior.
+        require ("components/guardian-single.php"); ///<  Output information on a each Guardians associated with a Junior.
 
 
 
 
       }
     } else {
-       
-      require("components/no-players-found.php"); ///<  Output a message if the $juniors array is empty
+
+      require ("components/no-players-found.php"); ///<  Output a message if the $juniors array is empty
     }
   }
 
@@ -362,16 +369,16 @@ class Components {
         $skillLevel = Utils::escape($junior["skill_level"]);
         $comment = Utils::escape($junior["comment"]);
 
-        if($skillCategory == "Passing"){
-          require("components/junior-skill.php"); ///<  Output information on a each junior skill under "Passing" category
+        if ($skillCategory == "Passing") {
+          require ("components/junior-skill.php"); ///<  Output information on a each junior skill under "Passing" category
         }
 
 
 
       }
     } else {
-      
-      require("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
+
+      require ("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
     }
   }
 
@@ -392,16 +399,16 @@ class Components {
         $skillLevel = Utils::escape($junior["skill_level"]);
         $comment = Utils::escape($junior["comment"]);
 
-        if($skillCategory == "Tackling"){
-          require("components/junior-skill.php"); ///<  Output information on a each junior skill under "Tackling" category
+        if ($skillCategory == "Tackling") {
+          require ("components/junior-skill.php"); ///<  Output information on a each junior skill under "Tackling" category
         }
 
 
 
       }
     } else {
-      
-      require("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
+
+      require ("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
     }
   }
 
@@ -422,16 +429,16 @@ class Components {
         $skillLevel = Utils::escape($junior["skill_level"]);
         $comment = Utils::escape($junior["comment"]);
 
-        if($skillCategory == "Kicking"){
-          require("components/junior-skill.php"); ///<  Output information on a each junior skill under "Kicking" category
+        if ($skillCategory == "Kicking") {
+          require ("components/junior-skill.php"); ///<  Output information on a each junior skill under "Kicking" category
         }
 
 
 
       }
     } else {
-       
-      require("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
+
+      require ("components/no-players-found.php"); ///< Output a message if the $juniors array is empty
     }
   }
 
@@ -445,15 +452,15 @@ class Components {
   public static function playerPassingSkill($players)
   {
     if (!empty($players)) {
-     /// Output a player skill card for each player in the $players array
+      /// Output a player skill card for each player in the $players array
       foreach ($players as $player) {
         $skillCategory = Utils::escape($player["category"]);
         $skillName = Utils::escape($player["skill_name"]);
         $skillLevel = Utils::escape($player["skill_level"]);
         $comment = Utils::escape($player["comment"]);
 
-        if($skillCategory == "Passing"){
-          require("components/junior-skill.php"); ///<  Output information on a each player skill under "Passing" category
+        if ($skillCategory == "Passing") {
+          require ("components/junior-skill.php"); ///<  Output information on a each player skill under "Passing" category
         }
 
 
@@ -461,7 +468,7 @@ class Components {
       }
     } else {
 
-      require("components/no-players-found.php"); ///< Output a message if the $players array is empty
+      require ("components/no-players-found.php"); ///< Output a message if the $players array is empty
     }
   }
 
@@ -475,22 +482,22 @@ class Components {
   public static function playerTacklingSkill($players)
   {
     if (!empty($players)) {
-     /// Output a player skill card for each player in the $players array
+      /// Output a player skill card for each player in the $players array
       foreach ($players as $player) {
         $skillCategory = Utils::escape($player["category"]);
         $skillName = Utils::escape($player["skill_name"]);
         $skillLevel = Utils::escape($player["skill_level"]);
         $comment = Utils::escape($player["comment"]);
 
-        if($skillCategory == "Tackling"){
-          require("components/junior-skill.php");  ///<  Output information on a each player skill under "Tackling" category
+        if ($skillCategory == "Tackling") {
+          require ("components/junior-skill.php");  ///<  Output information on a each player skill under "Tackling" category
         }
 
 
 
       }
     } else {
-      require("components/no-players-found.php"); ///<  Output a message if the $players array is empty
+      require ("components/no-players-found.php"); ///<  Output a message if the $players array is empty
     }
   }
 
@@ -511,16 +518,16 @@ class Components {
         $skillLevel = Utils::escape($player["skill_level"]);
         $comment = Utils::escape($player["comment"]);
 
-        if($skillCategory == "Kicking"){
-          require("components/junior-skill.php"); ///<  Output information on a each player skill under "Kicking" category
+        if ($skillCategory == "Kicking") {
+          require ("components/junior-skill.php"); ///<  Output information on a each player skill under "Kicking" category
         }
 
 
 
       }
     } else {
-       
-      require("components/no-players-found.php"); ///<  Output a message if the $players array is empty
+
+      require ("components/no-players-found.php"); ///<  Output a message if the $players array is empty
     }
   }
 
@@ -539,24 +546,24 @@ class Components {
         $position = Utils::escape($junior["position"]);
 
 
-        require("components/junior-positions.php"); ///<  Output information on a each junior position.
+        require ("components/junior-positions.php"); ///<  Output information on a each junior position.
 
 
 
 
       }
     } else {
-       
-      require("components/no-players-found.php"); ///<  Output a message if the $juniors array is empty
+
+      require ("components/no-players-found.php"); ///<  Output a message if the $juniors array is empty
     }
   }
-  
+
   /**
    *  Renders an array of player positions as a div card.
    *  @param players - Array containing all records from the JOIN SQL command, which joins Players, Player Positions and Positions tables.
    *  
    */
-  
+
 
   public static function playerPositions($players)
   {
@@ -566,19 +573,19 @@ class Components {
         $position = Utils::escape($player["position"]);
 
 
-        require("components/junior-positions.php");  ///<  Output information on a each player position.
+        require ("components/junior-positions.php");  ///<  Output information on a each player position.
 
 
 
 
       }
     } else {
-       
-      require("components/no-players-found.php"); ///<  Output a message if the $players array is empty
+
+      require ("components/no-players-found.php"); ///<  Output a message if the $players array is empty
     }
   }
 
-  
+
   /**
    *  Renders an array of members as table rows.
    * 
@@ -609,11 +616,11 @@ class Components {
 
 
 
-        require("components/member-card.php"); ///<  Output information on a single player.
+        require ("components/member-card.php"); ///<  Output information on a single player.
       }
     } else {
-       
-      require("components/no-players-found.php"); ///<  Output a message if the $players array is empty
+
+      require ("components/no-players-found.php"); ///<  Output a message if the $players array is empty
     }
   }
 
@@ -644,9 +651,9 @@ class Components {
       $postcode = Utils::escape($member["postcode"]);
 
 
-      require("components/member-single.php"); ///<  Output information on a single player.
+      require ("components/member-single.php"); ///<  Output information on a single player.
     } else {
-      require("components/no-single-player-found.php"); ///<  Output a message if the $players array is empty
+      require ("components/no-single-player-found.php"); ///<  Output a message if the $players array is empty
     }
   }
 
@@ -657,14 +664,15 @@ class Components {
    *  
    */
 
-  public static function allEvents($events){
+  public static function allEvents($events)
+  {
     if (!empty($events)) {
       /// Output a event card for each event in the $events array
       foreach ($events as $event) {
 
         $type = Utils::escape($event["type"]); /// Retrieve the type of event
 
-        if($type == "game_id"){
+        if ($type == "game_id") {
           $eventType = "Game";
           $pageType = "game";
 
@@ -682,9 +690,9 @@ class Components {
 
 
 
-        require("components/event-card.php");  ///<  Output information on each event.
+        require ("components/event-card.php");  ///<  Output information on each event.
       }
-    } 
+    }
   }
 
   /**
@@ -708,7 +716,7 @@ class Components {
       $gameResult = Utils::escape($game["result"]);
       $gameScore = Utils::escape($game["score"]);
 
-      require("components/game-single.php");  ///<  Output information on a single game.
+      require ("components/game-single.php");  ///<  Output information on a single game.
     }
   }
 
@@ -719,22 +727,23 @@ class Components {
    *  
    */
 
-  public static function gameHalves($gameHalves){
+  public static function gameHalves($gameHalves)
+  {
 
-    if(!empty($gameHalves)){
-      foreach($gameHalves as $gameHalf){
+    if (!empty($gameHalves)) {
+      foreach ($gameHalves as $gameHalf) {
 
         $gameHalfId = Utils::escape($gameHalf["game_half_id"]);
         $gameHalfNumber = Utils::escape($gameHalf["half_number"]);
         $homeTeam = Utils::escape($gameHalf["home_team"]);
-        $homeScore =  Utils::escape($gameHalf["home_score"]);
+        $homeScore = Utils::escape($gameHalf["home_score"]);
         $homeComment = Utils::escape($gameHalf["home_comment"]);
         $oppositionScore = Utils::escape($gameHalf["opposition_score"]);
         $oppositionComment = Utils::escape($gameHalf["opposition_comment"]);
 
-        require("components/game-half-single.php");  ///<  Output information on each game half.
+        require ("components/game-half-single.php");  ///<  Output information on each game half.
 
-      } 
+      }
     }
 
   }
@@ -746,24 +755,25 @@ class Components {
    *  
    */
 
-  public static function trainingDetails($trainingDetails){
+  public static function trainingDetails($trainingDetails)
+  {
 
-    if(!empty($trainingDetails)){
-      foreach($trainingDetails as $trainingDetail){
+    if (!empty($trainingDetails)) {
+      foreach ($trainingDetails as $trainingDetail) {
 
         $trainingDetailId = Utils::escape($trainingDetail["training_details_id"]);
         $sessionId = Utils::escape($trainingDetail["session_id"]);
         $coachId = Utils::escape($trainingDetail["coach_id"]);
-        $squadId =  Utils::escape($trainingDetail["squad_id"]);
+        $squadId = Utils::escape($trainingDetail["squad_id"]);
         $skills = Utils::escape($trainingDetail["skills"]);
         $activities = Utils::escape($trainingDetail["activities"]);
         $presentPlayers = Utils::escape($trainingDetail["present_players"]);
         $accidents = Utils::escape($trainingDetail["accidents"]);
         $injuries = Utils::escape($trainingDetail["injuries"]);
 
-        require("components/training-detail-single.php");  ///<  Output information on each training details.
+        require ("components/training-detail-single.php");  ///<  Output information on each training details.
 
-      } 
+      }
     }
 
   }
@@ -791,10 +801,10 @@ class Components {
 
 
 
-      require("components/session-single.php"); ///<  Output information on a single player
+      require ("components/session-single.php"); ///<  Output information on a single player
 
     } else {
-      require("components/no-single-player-found.php"); ///< Output a message if the $players array is empty
+      require ("components/no-single-player-found.php"); ///< Output a message if the $players array is empty
     }
   }
 }

@@ -9,37 +9,38 @@
 /// This must come first when we need access to the current session
 session_start();
 
-require("classes/components.php");
+require ("classes/components.php");
 /**
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");require("classes/events.php");
-require("classes/connection.php");
-require("classes/sql.php");
+require ("classes/utils.php");
+require ("classes/events.php");
+require ("classes/connection.php");
+require ("classes/sql.php");
 
 /**
  * Check if the user is logged in; if not, redirect to login page
  */
-if(!isset($_SESSION["loggedIn"])){
-  
+if (!isset($_SESSION["loggedIn"])) {
+
     header("Location: " . Utils::$projectFilePath . "/login.php");
-  
+
 }
-  
+
 
 /// Redirect to logout page if user role is neither Admin nor Coach
 
-if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+if (($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
 /**
  * Redirects to the timetable page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
  */
-if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
+if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     header("Location: " . Utils::$projectFilePath . "/timetable.php");
-} 
+}
 
 $game = Events::getGame($_GET["id"]); ///< Get game's details based on the ID number
 $pageTitle = "Game not found"; ///< Default title
@@ -49,7 +50,7 @@ $pageTitle = "Game not found"; ///< Default title
  *
  * @param array $game An array containing information about the game.
  */
-if(!empty($game)){
+if (!empty($game)) {
     $pageTitle = $game["name"] . "'s Details";
 }
 
@@ -116,7 +117,7 @@ $gameHalves = Events::getGameHalves($gameId); ///< Get all game halves (2) for a
  *
  * @param array $gameHalves An array containing game halves data.
  */
-foreach($gameHalves as $gameHalf){
+foreach ($gameHalves as $gameHalf) {
     $gameHalfNumber = Utils::escape($gameHalf["half_number"]);
     $homeTeam = Utils::escape($gameHalf["home_team"]);
 }
@@ -171,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $start = $gameStartPlaceholder; ///< Set value to placeholder if left empty
     } else {
         $start = test_input($_POST["start"]);
-        
+
         $sqlStart = date('Y-m-d H:i:sa', strtotime($start)); ///< Converts the given start date to a formatted SQL datetime string.
 
     }
@@ -215,49 +216,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $scoreHome1 = $homeScorePlaceholder1; ///< Set value to placeholder if left empty
     } else {
         $homeScore1 = test_input($_POST["home_score_1"]); ///< Sanitize home score for half number 1
-    } 
+    }
 
     if (empty($_POST["home_comment_1"])) {
         $commentHome1 = $homeCommentPlaceholder1; ///< Set value to placeholder if left empty
     } else {
         $homeComment1 = test_input($_POST["home_comment_1"]); ///< Sanitize home team's comment for half number 1
-    } 
+    }
 
     if (empty($_POST["opposition_score_1"])) {
         $scoreOpposition1 = $oppositionScorePlaceholder1; ///< Set value to placeholder if left empty
     } else {
         $oppositionScore1 = test_input($_POST["opposition_score_1"]); ///< Sanitize opposition score for half number 1
-    } 
+    }
 
     if (empty($_POST["opposition_comment_1"])) {
         $commentOpposition1 = $oppositionCommentPlaceholder1; ///< Set value to placeholder if left empty
     } else {
         $oppositionComment1 = test_input($_POST["opposition_comment_1"]); ///< Sanitize opposition team's comment for half number 1
-    } 
+    }
 
     if (empty($_POST["home_score_2"])) {
         $scoreHome2E = $homeScorePlaceholder2; ///< Set value to placeholder if left empty
     } else {
         $homeScore2 = test_input($_POST["home_score_2"]); ///< Sanitize home score for half number 2
-    } 
+    }
 
     if (empty($_POST["home_comment_2"])) {
         $commentHome2 = $homeCommentPlaceholder2; ///< Set value to placeholder if left empty
     } else {
         $homeComment2 = test_input($_POST["home_comment_2"]);  ///< Sanitize home team's comment for half number 2
-    } 
+    }
 
     if (empty($_POST["opposition_score_2"])) {
         $scoreOpposition2 = $oppositionScorePlaceholder2; ///< Set value to placeholder if left empty
     } else {
         $oppositionScore2 = test_input($_POST["opposition_score_2"]); //< Sanitize opposition score for half number 2
-    } 
+    }
 
     if (empty($_POST["opposition_comment_2"])) {
         $commentOpposition2 = $oppositionCommentPlaceholder2; ///< Set value to placeholder if left empty
     } else {
         $oppositionComment2 = test_input($_POST["opposition_comment_2"]); ///< Sanitize opposition team's comment for half number 2
-    } 
+    }
 
     /**
      * Validates all the error messages and if there are no errors, updates the game details in the database.
@@ -298,141 +299,188 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  * 
  */
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}?>
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+} ?>
 <main class="content-wrapper profile-list-content">
 
     <h2>Update Game Details</h2>
-    <form 
-        method="POST"
-        action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $game["game_id"];?>">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $game["game_id"]; ?>">
 
 
-    
-    <div id="basic-game-details">
-        <label class="col-sm-2 col-form-label-sm"for="name">Name:</label><br>
-        <input type="text" name="name" placeholder="<?php echo $gameName;?>" value="<?php echo $name;?>">
-        <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
 
-        <!-- Populate dropdown with values from database -->
-        <label for="squad">Home Team:</label><br>
+        <div id="basic-game-details">
+            <label class="col-sm-2 col-form-label-sm" for="name">Name:</label><br>
+            <input type="text" name="name" placeholder="<?php echo $gameName; ?>" value="<?php echo $name; ?>">
+            <p class="alert alert-danger"><?php echo $nameErr; ?></p><br>
+
+            <!-- Populate dropdown with values from database -->
+            <label for="squad">Home Team:</label><br>
             <select name="squad">
-            <?php
-            /**
-             * Loops through an array of squads and creates an <option> element for each squad.
-             */
-            foreach($squads as $squad){
-                ?>
-                <option value="<?php echo $squad["squad_name"]; ?>" <?php if($squad['squad_name'] == $homeTeam) {echo "selected";}?>>
-                <?php echo $squad["squad_name"]; ?>
-                </option>
                 <?php
-            }
-            ?>
+                /**
+                 * Loops through an array of squads and creates an <option> element for each squad.
+                 */
+                foreach ($squads as $squad) {
+                    ?>
+                    <option value="<?php echo $squad["squad_name"]; ?>" <?php if ($squad['squad_name'] == $homeTeam) {
+                           echo "selected";
+                       } ?>>
+                        <?php echo $squad["squad_name"]; ?>
+                    </option>
+                    <?php
+                }
+                ?>
             </select>
-            <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
+            <p class="alert alert-danger"><?php echo $squadErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="opposition">Opposition Team:</label><br>
-        <input type="text" name="opposition" placeholder="<?php echo $oppositionName;?>" value="<?php echo $opposition;?>">
-        <p class="alert alert-danger"><?php echo $oppositionErr;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="opposition">Opposition Team:</label><br>
+            <input type="text" name="opposition" placeholder="<?php echo $oppositionName; ?>"
+                value="<?php echo $opposition; ?>">
+            <p class="alert alert-danger"><?php echo $oppositionErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="start">Start Date:</label><br>
-        <input type="datetime-local" name="start" placeholder="<?php echo $start;?>" value="<?php echo $start;?>">
-        <p class="alert alert-danger"><?php echo $startErr;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="start">Start Date:</label><br>
+            <input type="datetime-local" name="start" placeholder="<?php echo $start; ?>" value="<?php echo $start; ?>">
+            <p class="alert alert-danger"><?php echo $startErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="end">End Date:</label><br>
-        <input type="datetime-local" name="end" placeholder="<?php echo $end;?>" value="<?php echo $end;?>">
-        <p class="alert alert-danger"><?php echo $endErr;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="end">End Date:</label><br>
+            <input type="datetime-local" name="end" placeholder="<?php echo $end; ?>" value="<?php echo $end; ?>">
+            <p class="alert alert-danger"><?php echo $endErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="location">Game Location:</label><br>
-        <input type="text" name="location" placeholder="<?php echo $gameLocation;?>" value="<?php echo $location;?>">
-        <p class="alert alert-danger"><?php echo $locationErr;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="location">Game Location:</label><br>
+            <input type="text" name="location" placeholder="<?php echo $gameLocation; ?>"
+                value="<?php echo $location; ?>">
+            <p class="alert alert-danger"><?php echo $locationErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="kickoff">Kickoff Time:</label><br>
-        <input type="time" name="kickoff" placeholder="<?php echo $gameKickoff;?>" value="<?php echo $kickoff;?>">
-        <p class="alert alert-danger"><?php echo $kickoffErr;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="kickoff">Kickoff Time:</label><br>
+            <input type="time" name="kickoff" placeholder="<?php echo $gameKickoff; ?>" value="<?php echo $kickoff; ?>">
+            <p class="alert alert-danger"><?php echo $kickoffErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="result">Final Result:</label><br>
-        <input type="text" name="result" placeholder="<?php echo $gameResult;?>" value="<?php echo $result;?>">
-        <p class="alert alert-danger"><?php echo $resultErr;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="result">Final Result:</label><br>
+            <input type="text" name="result" placeholder="<?php echo $gameResult; ?>" value="<?php echo $result; ?>">
+            <p class="alert alert-danger"><?php echo $resultErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="score">Final Score:</label><br>
-        <input type="text" name="score" placeholder="<?php echo $gameScore;?>" value="<?php echo $score;?>">
-        <p class="alert alert-danger"><?php echo $scoreErr;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="score">Final Score:</label><br>
+            <input type="text" name="score" placeholder="<?php echo $gameScore; ?>" value="<?php echo $score; ?>">
+            <p class="alert alert-danger"><?php echo $scoreErr; ?></p><br>
 
 
-        <input type="button" value="Next" onclick="nextTab()">
-    </div>
-    <div id="game-half-form">
-        <?php foreach ($gameHalves as $gameHalf): ?>
-            <div class="game-half">
-                <!-- Generates HTML code for displaying a form input field for home score based on the game half number. -->
-                <h3>Game Half <?php echo $gameHalf["half_number"]; ?></h3>
-                <label class="col-sm-2 col-form-label-sm"for="home_score_<?php echo $gameHalf["half_number"]; ?>">Home Score:</label><br>
-                <input type="text" name="home_score_<?php echo $gameHalf["half_number"]; ?>" placeholder="<?php if($gameHalf["half_number"] == 1){echo $homeScorePlaceholder1;} else{ echo $homeScorePlaceholder2;}?>" value="<?php if ($gameHalf["half_number"] == 1){echo $homeScore1;}else{echo $homeScore2;}?>"><br>
-                <!--
+            <input type="button" value="Next" onclick="nextTab()">
+        </div>
+        <div id="game-half-form">
+            <?php foreach ($gameHalves as $gameHalf): ?>
+                <div class="game-half">
+                    <!-- Generates HTML code for displaying a form input field for home score based on the game half number. -->
+                    <h3>Game Half <?php echo $gameHalf["half_number"]; ?></h3>
+                    <label class="col-sm-2 col-form-label-sm" for="home_score_<?php echo $gameHalf["half_number"]; ?>">Home
+                        Score:</label><br>
+                    <input type="text" name="home_score_<?php echo $gameHalf["half_number"]; ?>"
+                        placeholder="<?php if ($gameHalf["half_number"] == 1) {
+                            echo $homeScorePlaceholder1;
+                        } else {
+                            echo $homeScorePlaceholder2;
+                        } ?>"
+                        value="<?php if ($gameHalf["half_number"] == 1) {
+                            echo $homeScore1;
+                        } else {
+                            echo $homeScore2;
+                        } ?>"><br>
+                    <!--
                  * Display an alert message based on the half number of the game.
                  *
                  * If the half number is 1, display the $scoreHome1Err message in a red alert box.
                  * If the half number is not 1, display the $scoreHome2Err message in a red alert box.
                 -->
-                <?php if ($gameHalf["half_number"] == 1){
-                    ?>
-                    <p class="alert alert-danger"><?php echo $scoreHome1Err;?></p><br>
-                    <?php
-                } else {
-                    ?>
-                    <p class="alert alert-danger"><?php echo $scoreHome2Err;?></p><br>
-                    <?php
-                }?>
+                    <?php if ($gameHalf["half_number"] == 1) {
+                        ?>
+                        <p class="alert alert-danger"><?php echo $scoreHome1Err; ?></p><br>
+                        <?php
+                    } else {
+                        ?>
+                        <p class="alert alert-danger"><?php echo $scoreHome2Err; ?></p><br>
+                        <?php
+                    } ?>
 
-                <label class="col-sm-2 col-form-label-sm"for="home_comment_<?php echo $gameHalf["half_number"]; ?>">Home Comment:</label><br>
-                <input type="text" name="home_comment_<?php echo $gameHalf["half_number"]; ?>" placeholder="<?php if($gameHalf["half_number"] == 1){echo $homeCommentPlaceholder1;} else{ echo $homeCommentPlaceholder2;}?>" value="<?php if ($gameHalf["half_number"] == 1){echo $homeComment1;}else{echo $homeComment2;}?>"><br>
-                <?php if ($gameHalf["half_number"] == 1){
-                    ?>
-                    <p class="alert alert-danger"><?php echo $commentHome1Err;?></p><br>
-                    <?php
-                } else {
-                    ?>
-                    <p class="alert alert-danger"><?php echo $commentHome2Err;?></p><br>
-                    <?php
-                }?>
+                    <label class="col-sm-2 col-form-label-sm"
+                        for="home_comment_<?php echo $gameHalf["half_number"]; ?>">Home Comment:</label><br>
+                    <input type="text" name="home_comment_<?php echo $gameHalf["half_number"]; ?>"
+                        placeholder="<?php if ($gameHalf["half_number"] == 1) {
+                            echo $homeCommentPlaceholder1;
+                        } else {
+                            echo $homeCommentPlaceholder2;
+                        } ?>"
+                        value="<?php if ($gameHalf["half_number"] == 1) {
+                            echo $homeComment1;
+                        } else {
+                            echo $homeComment2;
+                        } ?>"><br>
+                    <?php if ($gameHalf["half_number"] == 1) {
+                        ?>
+                        <p class="alert alert-danger"><?php echo $commentHome1Err; ?></p><br>
+                        <?php
+                    } else {
+                        ?>
+                        <p class="alert alert-danger"><?php echo $commentHome2Err; ?></p><br>
+                        <?php
+                    } ?>
 
-                <!-- Opposition team bit -->
-                <label class="col-sm-2 col-form-label-sm"for="opposition_score_<?php echo $gameHalf["half_number"]; ?>">Opposition Score:</label><br>
-                <input type="text" name="opposition_score_<?php echo $gameHalf["half_number"]; ?>" placeholder="<?php if($gameHalf["half_number"] == 1){echo $oppositionScorePlaceholder1;} else{ echo $oppositionScorePlaceholder2;}?>" value="<?php if ($gameHalf["half_number"] == 1){echo $oppositionScore1;}else{echo $oppositionScore2;}?>"><br>
-                <?php if ($gameHalf["half_number"] == 1){
-                    ?>
-                    <p class="alert alert-danger"><?php echo $scoreOpposition1Err;?></p><br>
-                    <?php
-                } else {
-                    ?>
-                    <p class="alert alert-danger"><?php echo $scoreOpposition2Err;?></p><br>
-                    <?php
-                }?>
-                <label class="col-sm-2 col-form-label-sm"for="opposition_comment_<?php echo $gameHalf["half_number"]; ?>">Opposition Comment:</label><br>
-                <input type="text" name="opposition_comment_<?php echo $gameHalf["half_number"]; ?>" placeholder="<?php if($gameHalf["half_number"] == 1){echo $oppositionCommentPlaceholder1;} else{ echo $oppositionCommentPlaceholder2;}?>" value="<?php if ($gameHalf["half_number"] == 1){echo $oppositionComment1;}else{echo $oppositionComment2;}?>"><br>
-                <?php if ($gameHalf["half_number"] == 1){
-                    ?>
-                    <p class="alert alert-danger"><?php echo $commentOpposition1Err;?></p><br>
-                    <?php
-                } else {
-                    ?>
-                    <p class="alert alert-danger"><?php echo $commentOpposition2Err;?></p><br>
-                    <?php
-                }?>
-        
-            </div>
-        <?php endforeach; ?>
+                    <!-- Opposition team bit -->
+                    <label class="col-sm-2 col-form-label-sm"
+                        for="opposition_score_<?php echo $gameHalf["half_number"]; ?>">Opposition Score:</label><br>
+                    <input type="text" name="opposition_score_<?php echo $gameHalf["half_number"]; ?>"
+                        placeholder="<?php if ($gameHalf["half_number"] == 1) {
+                            echo $oppositionScorePlaceholder1;
+                        } else {
+                            echo $oppositionScorePlaceholder2;
+                        } ?>"
+                        value="<?php if ($gameHalf["half_number"] == 1) {
+                            echo $oppositionScore1;
+                        } else {
+                            echo $oppositionScore2;
+                        } ?>"><br>
+                    <?php if ($gameHalf["half_number"] == 1) {
+                        ?>
+                        <p class="alert alert-danger"><?php echo $scoreOpposition1Err; ?></p><br>
+                        <?php
+                    } else {
+                        ?>
+                        <p class="alert alert-danger"><?php echo $scoreOpposition2Err; ?></p><br>
+                        <?php
+                    } ?>
+                    <label class="col-sm-2 col-form-label-sm"
+                        for="opposition_comment_<?php echo $gameHalf["half_number"]; ?>">Opposition Comment:</label><br>
+                    <input type="text" name="opposition_comment_<?php echo $gameHalf["half_number"]; ?>"
+                        placeholder="<?php if ($gameHalf["half_number"] == 1) {
+                            echo $oppositionCommentPlaceholder1;
+                        } else {
+                            echo $oppositionCommentPlaceholder2;
+                        } ?>"
+                        value="<?php if ($gameHalf["half_number"] == 1) {
+                            echo $oppositionComment1;
+                        } else {
+                            echo $oppositionComment2;
+                        } ?>"><br>
+                    <?php if ($gameHalf["half_number"] == 1) {
+                        ?>
+                        <p class="alert alert-danger"><?php echo $commentOpposition1Err; ?></p><br>
+                        <?php
+                    } else {
+                        ?>
+                        <p class="alert alert-danger"><?php echo $commentOpposition2Err; ?></p><br>
+                        <?php
+                    } ?>
 
-        <input type="button" value="Previous" onclick="prevTab()">
+                </div>
+            <?php endforeach; ?>
 
-    </div>
-    <input type="submit" name="submit" value="Submit">  
+            <input type="button" value="Previous" onclick="prevTab()">
+
+        </div>
+        <input type="submit" name="submit" value="Submit">
 
 
     </form>
@@ -449,14 +497,14 @@ function test_input($data) {
         /**
          * Show the tab based on the currentTab value.
          */
-        function showTab(){
-            if ( currentTab == 0){
+        function showTab() {
+            if (currentTab == 0) {
                 basicDetails.style.display = "block";
                 halfDetails.style.display = "none";
 
             }
 
-            else{
+            else {
                 basicDetails.style.display = "none";
                 halfDetails.style.display = "block";
 
@@ -469,7 +517,7 @@ function test_input($data) {
         /**
          * Increases the current tab index by 1 and displays the next tab.
          */
-        function nextTab(){
+        function nextTab() {
             currentTab += 1;
             showTab();
         }
@@ -477,7 +525,7 @@ function test_input($data) {
         /**
          * Decrements the current tab index by 1 and displays the updated tab.
          */
-        function prevTab(){
+        function prevTab() {
             currentTab -= 1;
             showTab();
         }
@@ -486,4 +534,3 @@ function test_input($data) {
     </script>
 
 </main>
-

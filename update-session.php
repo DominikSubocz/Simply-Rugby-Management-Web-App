@@ -9,37 +9,38 @@
 /// This must come first when we need access to the current session
 session_start();
 
-require("classes/components.php");
+require ("classes/components.php");
 /**
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");require("classes/events.php");
-require("classes/connection.php");
-require("classes/sql.php");
+require ("classes/utils.php");
+require ("classes/events.php");
+require ("classes/connection.php");
+require ("classes/sql.php");
 
 /**
  * Check if the user is logged in; if not, redirect to login page
  */
-if(!isset($_SESSION["loggedIn"])){
-  
+if (!isset($_SESSION["loggedIn"])) {
+
     header("Location: " . Utils::$projectFilePath . "/login.php");
-  
+
 }
-  
+
 
 /// Redirect to logout page if user role is neither Admin nor Coach
 
-if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+if (($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
-  }
+}
 
 /**
  * Redirects to the timetable page if the 'id' parameter is not set in the GET request or if it is not a numeric value.
  */
-if(!isset($_GET["id"]) || !is_numeric($_GET["id"])){
+if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     header("Location: " . Utils::$projectFilePath . "/timetable.php");
-} 
+}
 
 /**
  * Retrieves data from the 'coaches' and 'squads' tables.
@@ -67,7 +68,7 @@ $pageTitle = "Session not found"; ///< Default title
 /**
  * If the $session variable is not empty, set the title of the page to the session name.
  */
-if(!empty($session)){
+if (!empty($session)) {
     $pageTitle = $session["name"] . "Details";
 }
 
@@ -111,11 +112,11 @@ $coachResults = $stmt->fetch();
 $coachFirstNamePlaceholder = $coachResults['first_name'];
 $coachLastNamePlaceholder = $coachResults['last_name'];
 
-$coachNamePlaceholder = $coachFirstNamePlaceholder. ' ' . $coachLastNamePlaceholder;
+$coachNamePlaceholder = $coachFirstNamePlaceholder . ' ' . $coachLastNamePlaceholder;
 
 
 $trainingDetails = Events::getTrainingDetails($sessionId);
-foreach($trainingDetails as $trainingDetail){
+foreach ($trainingDetails as $trainingDetail) {
     $trainingDetailId = Utils::escape($trainingDetail["training_details_id"]);
     $skillsPlaceholder = Utils::escape($trainingDetail["skills"]);
     $activitiesPlaceholder = Utils::escape($trainingDetail["activities"]);
@@ -176,98 +177,100 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = test_input($_POST["name"]); ///< Sanitize name
     }
 
-        /// Validate name
-        if (empty($_POST["coach"])) {
-            $coach = $coachNamePlaceholder; ///< Set value to placeholder if left empty
-        } else {
-            $coach = test_input($_POST["coach"]); ///< Sanitize coach's name
-        }
+    /// Validate name
+    if (empty($_POST["coach"])) {
+        $coach = $coachNamePlaceholder; ///< Set value to placeholder if left empty
+    } else {
+        $coach = test_input($_POST["coach"]); ///< Sanitize coach's name
+    }
 
-        if (empty($_POST["squad"])) {
-            $squad = $squadNamePlaceholder; ///< Set value to placeholder if left empty
-        } else {
-            $squad = test_input($_POST["squad"]); ///< Sanitize squad's name
-        }
+    if (empty($_POST["squad"])) {
+        $squad = $squadNamePlaceholder; ///< Set value to placeholder if left empty
+    } else {
+        $squad = test_input($_POST["squad"]); ///< Sanitize squad's name
+    }
 
-        if (empty($_POST["start"])) {
-            $start = $sessionStart; ///< Set value to placeholder if left empty
-        } else {
-            $start = test_input($_POST["start"]); ///< Sanitize start date
-        }
+    if (empty($_POST["start"])) {
+        $start = $sessionStart; ///< Set value to placeholder if left empty
+    } else {
+        $start = test_input($_POST["start"]); ///< Sanitize start date
+    }
 
-        if (empty($_POST["end"])) {
-            $end = $sessionEnd; ///< Set value to placeholder if left empty
-        } else {
-            $end = test_input($_POST["end"]); ///< Sanitize end date
-        }
+    if (empty($_POST["end"])) {
+        $end = $sessionEnd; ///< Set value to placeholder if left empty
+    } else {
+        $end = test_input($_POST["end"]); ///< Sanitize end date
+    }
 
-        if (empty($_POST["location"])) {
-            $location = $sessionLocation; ///< Set value to placeholder if left empty
-        } else {
-            $location = test_input($_POST["location"]); ///< Sanitize location
-        }
+    if (empty($_POST["location"])) {
+        $location = $sessionLocation; ///< Set value to placeholder if left empty
+    } else {
+        $location = test_input($_POST["location"]); ///< Sanitize location
+    }
 
-        /// Training Details
+    /// Training Details
 
-        /// Validate name
-        if (empty($_POST["skills"])) {
-            $skills = $skillsPlaceholder; ///< Set value to placeholder if left empty
-        } else {
-            $skills = test_input($_POST["skills"]); ///< Sanitize skills
-        }
+    /// Validate name
+    if (empty($_POST["skills"])) {
+        $skills = $skillsPlaceholder; ///< Set value to placeholder if left empty
+    } else {
+        $skills = test_input($_POST["skills"]); ///< Sanitize skills
+    }
 
-        if (empty($_POST["activities"])) {
-            $activities = $activitiesPlaceholder; ///< Set value to placeholder if left empty
-        } else {
-            $activities = test_input($_POST["activities"]); ///< Sanitize activities
-        }
+    if (empty($_POST["activities"])) {
+        $activities = $activitiesPlaceholder; ///< Set value to placeholder if left empty
+    } else {
+        $activities = test_input($_POST["activities"]); ///< Sanitize activities
+    }
 
-        if (empty($_POST["present_players"])) {
-            $playersPresent = $presentPlayersPlaceholder; ///< Set value to placeholder if left empty
-        } else {
-            $playersPresent = test_input($_POST["present_players"]); ///< Sanitize present players
-        }
+    if (empty($_POST["present_players"])) {
+        $playersPresent = $presentPlayersPlaceholder; ///< Set value to placeholder if left empty
+    } else {
+        $playersPresent = test_input($_POST["present_players"]); ///< Sanitize present players
+    }
 
-        if (empty($_POST["accidents"])) {
-            $accidents = $accidentsPlaceholder; ///< Set value to placeholder if left empty
-        } else {
-            $accidents = test_input($_POST["accidents"]); ///< Sanitize accidents
-        }
+    if (empty($_POST["accidents"])) {
+        $accidents = $accidentsPlaceholder; ///< Set value to placeholder if left empty
+    } else {
+        $accidents = test_input($_POST["accidents"]); ///< Sanitize accidents
+    }
 
-        if (empty($_POST["injuries"])) {
-            $injuries = $injuriesPlaceholder; ///< Set value to placeholder if left empty
-        } else {
-            $injuries = test_input($_POST["injuries"]); ///< Sanitize injuries
-        }
+    if (empty($_POST["injuries"])) {
+        $injuries = $injuriesPlaceholder; ///< Set value to placeholder if left empty
+    } else {
+        $injuries = test_input($_POST["injuries"]); ///< Sanitize injuries
+    }
 
-        /// If there are no errors, proceed with sql querries
-        if (empty($nameErr) && empty($coachErr) && empty($squadErr) && empty($startErr) && empty($endErr) && empty($locationErr) 
-        && empty($skillsErr) && empty($activitiesErr) && empty($playersPresentErr) && empty($accidentsErr) && empty($injuriesErr)){
-    
-            /**
-             * Retrieves the coach ID from the database using the provided first name and last name placeholders.
-             */
-            $stmt = $conn->prepare(SQL::$getCoach);
-            $stmt->execute([$coachFirstNamePlaceholder, $coachLastNamePlaceholder]);
-            $coachIdResults = $stmt->fetch();
-            $coachId = $coachIdResults["coach_id"];
+    /// If there are no errors, proceed with sql querries
+    if (
+        empty($nameErr) && empty($coachErr) && empty($squadErr) && empty($startErr) && empty($endErr) && empty($locationErr)
+        && empty($skillsErr) && empty($activitiesErr) && empty($playersPresentErr) && empty($accidentsErr) && empty($injuriesErr)
+    ) {
 
-            /**
-             * Retrieves the squad ID from the database based on the provided squad name.
-             */
-            $stmt = $conn->prepare(SQL::$getSquad);
-            $stmt->execute([$squad]);
-            $squadIdResults = $stmt->fetch();
-            $squadId = $squadIdResults["squad_id"];
+        /**
+         * Retrieves the coach ID from the database using the provided first name and last name placeholders.
+         */
+        $stmt = $conn->prepare(SQL::$getCoach);
+        $stmt->execute([$coachFirstNamePlaceholder, $coachLastNamePlaceholder]);
+        $coachIdResults = $stmt->fetch();
+        $coachId = $coachIdResults["coach_id"];
 
-            /**
-             * Update session details in the Events class.
-             */
-            Events::updateSession($coachId, $squadId, $name, $start, $end, $location, $skills, $activities, $playersPresent, $accidents, $injuries, $sessionId, $trainingDetailId);
-        
-            header("Location: " . Utils::$projectFilePath . "/timetable.php"); ///< Redirect back to timetable page
+        /**
+         * Retrieves the squad ID from the database based on the provided squad name.
+         */
+        $stmt = $conn->prepare(SQL::$getSquad);
+        $stmt->execute([$squad]);
+        $squadIdResults = $stmt->fetch();
+        $squadId = $squadIdResults["squad_id"];
 
-        }
+        /**
+         * Update session details in the Events class.
+         */
+        Events::updateSession($coachId, $squadId, $name, $start, $end, $location, $skills, $activities, $playersPresent, $accidents, $injuries, $sessionId, $trainingDetailId);
+
+        header("Location: " . Utils::$projectFilePath . "/timetable.php"); ///< Redirect back to timetable page
+
+    }
 
 }
 
@@ -282,103 +285,112 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  * 
  */
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}?>
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+} ?>
 
 <main class="content-wrapper profile-list-content">
-    <form 
-        method="POST"
-        action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $session["session_id"];?>">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $session["session_id"]; ?>">
 
 
-    
-    <div id="basic-session-details">
-        <label for="name">Name:</label><br>
-        <input type="text" name="name" placeholder="<?php echo $sessionName;?>" value="<?php echo $name;?>">
-        <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
-        <!-- Populate dropdown with values from database -->
-        <label for="coach">Coach:</label><br>
+
+        <div id="basic-session-details">
+            <label for="name">Name:</label><br>
+            <input type="text" name="name" placeholder="<?php echo $sessionName; ?>" value="<?php echo $name; ?>">
+            <p class="alert alert-danger"><?php echo $nameErr; ?></p><br>
+            <!-- Populate dropdown with values from database -->
+            <label for="coach">Coach:</label><br>
             <select name="coach">
-            <?php
-            /**
-             * Loops through an array of squads and creates an <option> element for each squad.
-             */
-            foreach($coaches as $coach){
-                $coachName = $coach["first_name"] . ' ' . $coach["last_name"];
-                ?>
-                <option value="<?php echo $coachName; ?>" <?php if ($coachName == $coachNamePlaceholder){echo "selected";}?>>
-                <?php echo $coach["first_name"] . ' ' . $coach["last_name"]; ?>
-                </option>
                 <?php
-            }
-            ?>
+                /**
+                 * Loops through an array of squads and creates an <option> element for each squad.
+                 */
+                foreach ($coaches as $coach) {
+                    $coachName = $coach["first_name"] . ' ' . $coach["last_name"];
+                    ?>
+                    <option value="<?php echo $coachName; ?>" <?php if ($coachName == $coachNamePlaceholder) {
+                           echo "selected";
+                       } ?>>
+                        <?php echo $coach["first_name"] . ' ' . $coach["last_name"]; ?>
+                    </option>
+                    <?php
+                }
+                ?>
             </select>
-            <p class="alert alert-danger"><?php echo $coachErr;?></p><br>
+            <p class="alert alert-danger"><?php echo $coachErr; ?></p><br>
 
-        <!-- Populate dropdown with values from database -->
-        <label for="squad">Home Team:</label><br>
+            <!-- Populate dropdown with values from database -->
+            <label for="squad">Home Team:</label><br>
             <select name="squad">
-            <?php
-            /**
-             * Loops through an array of squads and creates an <option> element for each squad.
-             */
-            foreach($squads as $squad){
-                ?>
-                <option value="<?php echo $squad["squad_name"]; ?>" <?php if($squad['squad_name'] == $squadNamePlaceholder) {echo "selected";}?>>
-                <?php echo $squad["squad_name"]; ?>
-                </option>
                 <?php
-            }
-            ?>
+                /**
+                 * Loops through an array of squads and creates an <option> element for each squad.
+                 */
+                foreach ($squads as $squad) {
+                    ?>
+                    <option value="<?php echo $squad["squad_name"]; ?>" <?php if ($squad['squad_name'] == $squadNamePlaceholder) {
+                           echo "selected";
+                       } ?>>
+                        <?php echo $squad["squad_name"]; ?>
+                    </option>
+                    <?php
+                }
+                ?>
             </select>
-            <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
+            <p class="alert alert-danger"><?php echo $squadErr; ?></p><br>
 
-        <label for="start">Start:</label><br>
-        <input type="datetime-local" name="start" value="<?php echo $start;?>">
-        <p class="alert alert-danger"><?php echo $startErr;?></p><br>
+            <label for="start">Start:</label><br>
+            <input type="datetime-local" name="start" value="<?php echo $start; ?>">
+            <p class="alert alert-danger"><?php echo $startErr; ?></p><br>
 
-        <label for="end">End:</label><br>
-        <input type="datetime-local" name="end" value="<?php echo $end;?>">
-        <p class="alert alert-danger"><?php echo $endErr;?></p><br>
+            <label for="end">End:</label><br>
+            <input type="datetime-local" name="end" value="<?php echo $end; ?>">
+            <p class="alert alert-danger"><?php echo $endErr; ?></p><br>
 
-        <label for="location">Location:</label><br>
-        <input type="text" name="location" placeholder="<?php echo $sessionLocation;?>" value="<?php echo $location;?>">
-        <p class="alert alert-danger"><?php echo $locationErr;?></p><br>
+            <label for="location">Location:</label><br>
+            <input type="text" name="location" placeholder="<?php echo $sessionLocation; ?>"
+                value="<?php echo $location; ?>">
+            <p class="alert alert-danger"><?php echo $locationErr; ?></p><br>
 
-        <input type="button" value="Next" onclick="nextTab()">
-    </div>
-    
-    <div id="training-details-form">
+            <input type="button" value="Next" onclick="nextTab()">
+        </div>
 
-        <label for="skills">Skills Practiced:</label><br>
-        <input type="text" name="skills" placeholder="<?php echo $skillsPlaceholder;?>" value="<?php echo $skills;?>">
-        <p class="alert alert-danger"><?php echo $skillsErr;?></p><br>
+        <div id="training-details-form">
 
-        <label for="activities">Activities Practiced:</label><br>
-        <input type="text" name="activities" placeholder="<?php echo $activitiesPlaceholder;?>" value="<?php echo $activities;?>">
-        <p class="alert alert-danger"><?php echo $activitiesErr;?></p><br>
+            <label for="skills">Skills Practiced:</label><br>
+            <input type="text" name="skills" placeholder="<?php echo $skillsPlaceholder; ?>"
+                value="<?php echo $skills; ?>">
+            <p class="alert alert-danger"><?php echo $skillsErr; ?></p><br>
 
-        <label for="present_players">Players Present:</label><br>
-        <input type="text" name="present_players" placeholder="<?php echo $presentPlayersPlaceholder;?>" value="<?php echo $playersPresent;?>">
-        <p class="alert alert-danger"><?php echo $playersPresentErr;?></p><br>
+            <label for="activities">Activities Practiced:</label><br>
+            <input type="text" name="activities" placeholder="<?php echo $activitiesPlaceholder; ?>"
+                value="<?php echo $activities; ?>">
+            <p class="alert alert-danger"><?php echo $activitiesErr; ?></p><br>
 
-        <label for="accidents">Accidents:</label><br>
-        <input type="text" name="accidents" placeholder="<?php echo $accidentsPlaceholder;?>" value="<?php echo $accidents;?>">
-        <p class="alert alert-danger"><?php echo $accidentsErr;?></p><br>
+            <label for="present_players">Players Present:</label><br>
+            <input type="text" name="present_players" placeholder="<?php echo $presentPlayersPlaceholder; ?>"
+                value="<?php echo $playersPresent; ?>">
+            <p class="alert alert-danger"><?php echo $playersPresentErr; ?></p><br>
 
-        <label for="injuries">Injuries:</label><br>
-        <input type="text" name="injuries" placeholder="<?php echo $injuriesPlaceholder;?>" value="<?php echo $injuries;?>">
-        <p class="alert alert-danger"><?php echo $injuriesErr;?></p><br>
+            <label for="accidents">Accidents:</label><br>
+            <input type="text" name="accidents" placeholder="<?php echo $accidentsPlaceholder; ?>"
+                value="<?php echo $accidents; ?>">
+            <p class="alert alert-danger"><?php echo $accidentsErr; ?></p><br>
 
-        <input type="button" value="Previous" onclick="prevTab()">
+            <label for="injuries">Injuries:</label><br>
+            <input type="text" name="injuries" placeholder="<?php echo $injuriesPlaceholder; ?>"
+                value="<?php echo $injuries; ?>">
+            <p class="alert alert-danger"><?php echo $injuriesErr; ?></p><br>
 
-    </div>
+            <input type="button" value="Previous" onclick="prevTab()">
 
-    <input type="submit" name="submit" value="Submit">  
+        </div>
+
+        <input type="submit" name="submit" value="Submit">
 
 
     </form>
@@ -392,14 +404,14 @@ function test_input($data) {
         /**
          * Show the tab based on the currentTab value.
          */
-        function showTab(){
-            if ( currentTab == 0){
+        function showTab() {
+            if (currentTab == 0) {
                 basicDetails.style.display = "block";
                 trainingDetails.style.display = "none";
 
             }
 
-            else{
+            else {
                 basicDetails.style.display = "none";
                 trainingDetails.style.display = "block";
 
@@ -408,14 +420,14 @@ function test_input($data) {
         /**
          * Increases the current tab index by 1 and displays the next tab.
          */
-        function nextTab(){
+        function nextTab() {
             currentTab += 1;
             showTab();
         }
         /**
          * Decrements the current tab index by 1 and displays the updated tab.
          */
-        function prevTab(){
+        function prevTab() {
             currentTab -= 1;
             showTab();
         }

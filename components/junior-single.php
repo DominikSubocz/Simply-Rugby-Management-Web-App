@@ -1,19 +1,19 @@
 <?php
 
-if(isset($_POST["confirmDelete"])){
+if (isset($_POST["confirmDelete"])) {
 
   Junior::deleteJunior($junior_id);
 
 
 }
 
-if(isset($_POST["updateSubmit"])){
+if (isset($_POST["updateSubmit"])) {
 
   header("Location: " . Utils::$projectFilePath . "/update-junior.php?id=$junior_id");
 
 }
 
-if(isset($_POST["updateSkillSubmit"])){
+if (isset($_POST["updateSkillSubmit"])) {
 
   header("Location: " . Utils::$projectFilePath . "/update-junior-skill.php?id=$junior_id");
 
@@ -24,19 +24,20 @@ if(isset($_POST["updateSkillSubmit"])){
 <main class="content-wrapper profile-content">
   <div class="profile-content-container">
 
-  <div class="profile-container">
+    <div class="profile-container">
       <div>
-        <img class="profile-img" src="images/<?php echo $filename; ?>" alt="Cover of <?php echo $firstName; ?>" class="profile-img">
-        <form 
-          method="post" 
-          action="">
+        <img class="profile-img" src="images/<?php echo $filename; ?>" alt="Cover of <?php echo $firstName; ?>"
+          class="profile-img">
+        <form method="post" action="">
 
-          <input type="submit" id="deleteBtn" class="btn btn-danger my-2" value="Delete">  
-          <input type="submit" class="btn btn-warning my-2" name="updateSubmit" value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
-          <input type="submit" class="btn btn-warning my-2" name="updateSkillSubmit" value="<?php echo 'Update ', $firstName. '\'s Skills'; ?>">
+          <input type="submit" id="deleteBtn" class="btn btn-danger my-2" value="Delete">
+          <input type="submit" class="btn btn-warning my-2" name="updateSubmit"
+            value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
+          <input type="submit" class="btn btn-warning my-2" name="updateSkillSubmit"
+            value="<?php echo 'Update ', $firstName . '\'s Skills'; ?>">
         </form>
       </div>
-  </div>
+    </div>
 
     <div class="profile-container">
       <div class="profile-items">
@@ -52,12 +53,12 @@ if(isset($_POST["updateSkillSubmit"])){
         <p><?php echo 'Known Health Issues: ', $healthIssues; ?></p>
       </div>
       <div class="profile-items">
-      <h2>Guardian Contact Details</h2>
+        <h2>Guardian Contact Details</h2>
 
-      <?php
-          $skill = Junior::getGuardians($_GET["id"]);
-          Components::juniorGuardians($skill);
-          ?>
+        <?php
+        $skill = Junior::getGuardians($_GET["id"]);
+        Components::juniorGuardians($skill);
+        ?>
 
       </div>
       <div class="profile-items">
@@ -74,8 +75,8 @@ if(isset($_POST["updateSkillSubmit"])){
           <h3>Passing</h3>
         </div>
         <?php
-          $skill = Junior::getJuniorSkills($_GET["id"]);
-          Components::juniorPassingSkill($skill);
+        $skill = Junior::getJuniorSkills($_GET["id"]);
+        Components::juniorPassingSkill($skill);
         ?>
       </div>
 
@@ -85,8 +86,8 @@ if(isset($_POST["updateSkillSubmit"])){
           <h3>Tackling</h3>
         </div>
         <?php
-          $skill = Junior::getJuniorSkills($_GET["id"]);
-          Components::juniorTacklingSkill($skill);
+        $skill = Junior::getJuniorSkills($_GET["id"]);
+        Components::juniorTacklingSkill($skill);
         ?>
       </div>
 
@@ -96,86 +97,82 @@ if(isset($_POST["updateSkillSubmit"])){
           <h3>Kicking</h3>
         </div>
         <?php
-          $skill = Junior::getJuniorSkills($_GET["id"]);
-          Components::juniorKickingSkill($skill);
+        $skill = Junior::getJuniorSkills($_GET["id"]);
+        Components::juniorKickingSkill($skill);
         ?>
       </div>
     </div>
   </div>
-<!-- The Modal -->
-<div id="myModal" class="modal">
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content w-50">
-    <span class="close">&times;</span>
-    <p><?php echo 'Are you sure you want to delete: ', $firstName, ' ', $lastName; ?>?</p>
-    <form 
-          method="post" 
-          action="">
+    <!-- Modal content -->
+    <div class="modal-content w-50">
+      <span class="close">&times;</span>
+      <p><?php echo 'Are you sure you want to delete: ', $firstName, ' ', $lastName; ?>?</p>
+      <form method="post" action="">
 
-          <input type="submit" name="confirmDelete" class="btn btn-danger my-2" value="Yes">  
-          <input type="submit" id="cancel" class="btn btn-warning my-2" value="No"> 
+        <input type="submit" name="confirmDelete" class="btn btn-danger my-2" value="Yes">
+        <input type="submit" id="cancel" class="btn btn-warning my-2" value="No">
       </form>
 
+    </div>
+
   </div>
 
-</div>
+  <div id="updateModal" class="modal">
 
-<div id="updateModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content w-50">
+      <span class="close">&times;</span>
+      <p><?php echo 'Are you sure you want to delete: ', $firstName, ' ', $lastName; ?>?</p>
+      <form method="post" action="">
 
-  <!-- Modal content -->
-  <div class="modal-content w-50">
-    <span class="close">&times;</span>
-    <p><?php echo 'Are you sure you want to delete: ', $firstName, ' ', $lastName; ?>?</p>
-    <form 
-          method="post" 
-          action="">
+        <input type="submit" id="cancel" class="button" value="Update">
+    </div>
 
-          <input type="submit" id="cancel" class="button" value="Update"> 
   </div>
 
-</div>
-
-<script>
-  var modal = document.getElementById("myModal");
-  var updateModal = document.getElementById("updateModal");
+  <script>
+    var modal = document.getElementById("myModal");
+    var updateModal = document.getElementById("updateModal");
 
 
-  /// Get the button that opens the modal
-  var delBtn = document.getElementById("deleteBtn");
+    /// Get the button that opens the modal
+    var delBtn = document.getElementById("deleteBtn");
 
-  var cancelBtn = document.getElementById("cancel");
+    var cancelBtn = document.getElementById("cancel");
 
-  /// Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
+    /// Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
 
 
-  /// When the user clicks on the button, open the modal
-  delBtn.onclick = function(event) {
-    /// Prevent the default form submission action
-    event.preventDefault();
-    modal.style.display = "block";
-  }
+    /// When the user clicks on the button, open the modal
+    delBtn.onclick = function (event) {
+      /// Prevent the default form submission action
+      event.preventDefault();
+      modal.style.display = "block";
+    }
 
-  cancelBtn.onclick = function(event) {
-    /// Prevent the default form submission action
-    event.preventDefault();
-    modal.style.display = "none";
+    cancelBtn.onclick = function (event) {
+      /// Prevent the default form submission action
+      event.preventDefault();
+      modal.style.display = "none";
 
-  }
+    }
 
-  /// When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-  /// When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
+    /// When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
       modal.style.display = "none";
     }
-  }
-</script>
+
+    /// When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 
 </main>

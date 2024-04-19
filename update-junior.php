@@ -2,26 +2,26 @@
 /// This must come first when we need access to the current session
 session_start();
 
-require("classes/components.php");
-require("classes/connection.php");
-require("classes/sql.php");
-require("classes/guardian.php");
-require("classes/doctor.php");
-require("classes/address.php");
-require("classes/junior.php");
+require ("classes/components.php");
+require ("classes/connection.php");
+require ("classes/sql.php");
+require ("classes/guardian.php");
+require ("classes/doctor.php");
+require ("classes/address.php");
+require ("classes/junior.php");
 
 /**
  * Check if the user is logged in; if not, redirect to login page
  */
-if(!isset($_SESSION["loggedIn"])){
-  
+if (!isset($_SESSION["loggedIn"])) {
+
     header("Location: " . Utils::$projectFilePath . "/login.php");
-  
+
 }
 
 /// Redirect to logout page if user role is neither Admin nor Coach
 
-if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+if (($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
@@ -98,7 +98,7 @@ if (count($guardians) == 1) {
     $guardianRelationshipPlaceholder2 = Utils::escape($guardians[1]["relationship"]);
 
     $guardianAddresses2 = Guardian::getGuardianAddress($guardianIdPlaceholder2);
-    
+
     $guardianAddress1Placeholder2 = Utils::escape($guardianAddresses2["address_line"]);
     $guardianAddress2Placeholder2 = Utils::escape($guardianAddresses2["address_line2"]);
     $guardianCityPlaceholder2 = Utils::escape($guardianAddresses2["city"]);
@@ -112,8 +112,8 @@ if (count($guardians) == 1) {
 
 
 
-$phpdate = strtotime( $dobPlaceholder ); ///< Converts a date of birth (dob) into a SQL date format (YYYY-MM-DD).
-$ukDobPlaceholder = date( 'd/m/Y', $phpdate ); ///< Format a Unix timestamp into a UK date of birth placeholder string.
+$phpdate = strtotime($dobPlaceholder); ///< Converts a date of birth (dob) into a SQL date format (YYYY-MM-DD).
+$ukDobPlaceholder = date('d/m/Y', $phpdate); ///< Format a Unix timestamp into a UK date of birth placeholder string.
 
 
 /**
@@ -198,7 +198,7 @@ $ukDobPlaceholder = date( 'd/m/Y', $phpdate ); ///< Format a Unix timestamp into
  * @var string $doctorContact: Holds value for Doctor's contact number input field 
  * 
  */
-$nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr =  "";
+$nameErr = $dobErr = $emailErr = $sruErr = $contactNoErr = $mobileNoErr = $healthIssuesErr = $profileImageErr = "";
 $guardianNameErr = $guardianContactErr = $relationshipErr = "";
 
 $guardianAddress11Err = $guardianAddress12Err = $guardianCity1Err = $guardianCounty1Err = $guardianPostcode1Err = "";
@@ -218,8 +218,8 @@ $guardianFirstName = $guardianLastName = "";
 $guardianName = $guardianContact = $relationship = "";
 $guardianAddress11 = $guardianAddress12 = $guardianCity1 = $guardianCounty1 = $guardianPostcode1 = "";
 
-$guardianFirstName2 = $guardianLastName2 ="";
-$guardianName2 = $guardianContact2 = $relationship2 ="";
+$guardianFirstName2 = $guardianLastName2 = "";
+$guardianName2 = $guardianContact2 = $relationship2 = "";
 $guardianAddress21 = $guardianAddress22 = $guardianCity2 = $guardianCounty2 = $guardianPostcode2 = "";
 
 
@@ -265,7 +265,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if (empty($_POST["sru"])){
+    if (empty($_POST["sru"])) {
         $sru = $sruNumberPlaceholder;
 
 
@@ -276,7 +276,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if (empty($_POST["dob"])){
+    if (empty($_POST["dob"])) {
         $dob = date('d/m/Y', strtotime($dobPlaceholder));  ///< Format a Unix timestamp into a UK date of birth placeholder string.
 
         $sqlDate = date('Y-m-d', strtotime($dob)); ///< Converts a date string to a Unix timestamp.
@@ -292,7 +292,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 
-    if(empty($_POST["contactNo"])){
+    if (empty($_POST["contactNo"])) {
         $contactNo = $contactNumberPlaceholder; ///< Set value to placeholder if left empty
 
     } else {
@@ -302,24 +302,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if(empty($_POST["address1"])){
+    if (empty($_POST["address1"])) {
         $address1 = $address1Placeholder; ///< Set value to placeholder if left empty
 
     } else {
         $address1 = test_input($_POST["address1"]); ///< Sanitize address line 1
-        if ((strlen($address1)<10) || (strlen($address1) > 50)){
+        if ((strlen($address1) < 10) || (strlen($address1) > 50)) {
             $address1Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
-    if(!empty($_POST["address2"])){
+    if (!empty($_POST["address2"])) {
         $address2 = test_input($_POST["address2"]); ///< Sanitize address line 2
     } else {
         $address2 = $address2Placeholder; ///< Set value to placeholder if left empty
 
     }
 
-    if(!empty($_POST["mobileNo"])){
+    if (!empty($_POST["mobileNo"])) {
         $mobileNo = test_input($_POST["mobileNo"]); ///< Sanitize mobile number
         if (!preg_match("/^\d+$/", $mobileNo)) {
             $mobileNoErr = "Only digits allowed"; ///< Display error message
@@ -328,37 +328,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mobileNo = $mobileNumberPlaceholder; ///< Set value to placeholder if left empty
     }
 
-    if(empty($_POST["city"])){
+    if (empty($_POST["city"])) {
         $city = $cityPlaceholder; ///< Set value to placeholder if left empty
 
     } else {
         $city = test_input($_POST["city"]); ///< Sanitize city
-        if ((strlen($city)<5) || (strlen($city) > 50)){
+        if ((strlen($city) < 5) || (strlen($city) > 50)) {
             $cityErr = "City must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
-    if(!empty($_POST["county"])){
+    if (!empty($_POST["county"])) {
         $county = test_input($_POST["county"]); ///< Sanitize county
-        if ((strlen($county)<5) || (strlen($county) > 50)){
+        if ((strlen($county) < 5) || (strlen($county) > 50)) {
             $countyErr = "County must be between 10 and 50 characters long!"; ///< Display error message
         }
     } else {
         $county = $countyPlaceholder; ///< Set value to placeholder if left empty
     }
 
-    if(empty($_POST["postcode"])){
+    if (empty($_POST["postcode"])) {
         $postcode = $postcodePlaceholder; ///< Set value to placeholder if left empty
 
     } else {
         $postcode = test_input($_POST["postcode"]); ///< Sanitize postcode
-        if ((strlen($postcode)<6) || (strlen($postcode) > 8)){
+        if ((strlen($postcode) < 6) || (strlen($postcode) > 8)) {
             $postcodeErr = "Postcode must be 6 characters long!"; ///< Display error message
         }
     }
 
 
- 
+
 
 
     /// Guardian Contact Details
@@ -385,7 +385,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $guardianLastName = end($guardianNameParts);
     }
 
-    if(empty($_POST["guardianContact"])){
+    if (empty($_POST["guardianContact"])) {
         $guardianContact = $guardianContactPlaceholder1; ///< Set value to placeholder if left empty
 
     } else {
@@ -395,9 +395,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if(empty($_POST["relationship"])){
+    if (empty($_POST["relationship"])) {
         $relationship = $guardianRelationshipPlaceholder1; ///< Set value to placeholder if left empty
-    } else{
+    } else {
         $relationship = test_input($_POST["relationship"]); ///< Sanitize relationship
         /// Check if name only contains letters and whitespace
         if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship)) {
@@ -406,47 +406,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    if(empty($_POST["guardianAddress11"])){
+    if (empty($_POST["guardianAddress11"])) {
         $guardianAddress11 = $guardianAddress1Placeholder1; ///< Set value to placeholder if left empty
 
     } else {
         $guardianAddress11 = test_input($_POST["guardianAddress11"]); ///< Sanitize address line 1 of guardian 1
-        if ((strlen($guardianAddress11)<10) || (strlen($guardianAddress11) > 50)){
+        if ((strlen($guardianAddress11) < 10) || (strlen($guardianAddress11) > 50)) {
             $guardianAddress11Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
-    if(!empty($_POST["guardianAddress12"])){
+    if (!empty($_POST["guardianAddress12"])) {
         $guardianAddress12 = test_input($_POST["guardianAddress12"]); ///< Sanitize address line 2 of guardian 1
     } else {
         $guardianAddress12 = $guardianAddress2Placeholder1; ///< Set value to placeholder if left empty
     }
 
-    if(empty($_POST["guardianCity1"])){
+    if (empty($_POST["guardianCity1"])) {
         $guardianCity1 = $guardianCityPlaceholder1; ///< Set value to placeholder if left empty
 
     } else {
         $guardianCity1 = test_input($_POST["guardianCity1"]); ///< Sanitize city of guardian 1
-        if ((strlen($guardianCity1)<5) || (strlen($guardianCity1) > 50)){
+        if ((strlen($guardianCity1) < 5) || (strlen($guardianCity1) > 50)) {
             $guardianCity1Err = "City must be between 10 and 50 characters long!"; ///< Display error message
         }
     }
 
-    if(!empty($_POST["guardianCounty1"])){
+    if (!empty($_POST["guardianCounty1"])) {
         $guardianCounty1 = test_input($_POST["guardianCounty1"]); ///< Sanitize county of guardian 1
-        if ((strlen($guardianCounty1)<5) || (strlen($guardianCounty1) > 50)){
+        if ((strlen($guardianCounty1) < 5) || (strlen($guardianCounty1) > 50)) {
             $guardianCounty1Err = "County must be between 10 and 50 characters long!"; ///< Display error message
         }
     } else {
         $guardianCounty1 = $guardianCountyPlaceholder1; ///< Set value to placeholder if left empty
     }
 
-    if(empty($_POST["guardianPostcode1"])){
+    if (empty($_POST["guardianPostcode1"])) {
         $guardianPostcode1 = $guardianPostcodePlaceholder1; ///< Set value to placeholder if left empty
 
     } else {
         $guardianPostcode1 = test_input($_POST["guardianPostcode1"]); ///< Sanitize postcode of guardian 1
-        if ((strlen($guardianPostcode1)<6) || (strlen($guardianPostcode1) > 8)){
+        if ((strlen($guardianPostcode1) < 6) || (strlen($guardianPostcode1) > 8)) {
             $guardianPostcode1Err = "Postcode must be 6 characters long!"; ///< Display error message
         }
     }
@@ -455,55 +455,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    
+
 
     ///Secondary Guradian Validation
 
-    if($_POST['elementForVar1HiddenField'] == 1){
-        if(empty($_POST["guardianName2"])){
-            if(isset($guardianFirstNamePlaceholder2) && isset ( $guardianLastNamePlaceholder2)){
+    if ($_POST['elementForVar1HiddenField'] == 1) {
+        if (empty($_POST["guardianName2"])) {
+            if (isset($guardianFirstNamePlaceholder2) && isset($guardianLastNamePlaceholder2)) {
                 $guardianName2 = $guardianFirstNamePlaceholder2 . ' ' . $guardianLastNamePlaceholder2; ///< Combines the first name and last name placeholders values if left empty
 
-                
+
                 $guardianNameParts2 = explode(" ", $guardianName2); ///< Split name into first and last name
-        
+
                 /// Extract the first and last names
                 $guardianFirstName2 = $guardianNameParts2[0];
                 $guardianLastName2 = end($guardianNameParts2);
-            } 
+            }
         } else {
             $guardianName2 = test_input($_POST["guardianName2"]); ///< Sanitize name of guardian 2
             /// Check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z-' ]*$/", $guardianName2)) {
                 $guardianName2Err = "Only letters and white space allowed"; ///< Display error message
             }
-    
+
             $guardianNameParts2 = explode(" ", $guardianName2); ///< Split name into first and last name
-    
+
             /// Extract the first and last names
             $guardianFirstName2 = $guardianNameParts2[0];
             $guardianLastName2 = end($guardianNameParts2);
         }
-    
-        if(empty($_POST["guardianContact2"])){
-            if(isset($guardianContactPlaceholder2)){
+
+        if (empty($_POST["guardianContact2"])) {
+            if (isset($guardianContactPlaceholder2)) {
                 $guardianContact2 = $guardianContactPlaceholder2; ///< Set value to placeholder if left empty
 
 
             }
-    
+
         } else {
             $guardianContact2 = test_input($_POST["guardianContact"]); ///< Sanitize contact number of guardian 2
             if (!preg_match("/^\d+$/", $guardianContact2)) {
                 $guardianContact2Err = "Only digits allowed"; ///< Display error message
             }
         }
-    
-        if(empty($_POST["relationship2"])){
-            if(isset($guardianRelationshipPlaceholder2)){
+
+        if (empty($_POST["relationship2"])) {
+            if (isset($guardianRelationshipPlaceholder2)) {
                 $relationship2 = $guardianRelationshipPlaceholder2; ///< Set value to placeholder if left empty
             }
-        } else{
+        } else {
             $relationship2 = test_input($_POST["relationship2"]); ///< Sanitize relationship of guardian 2
             /// Check if name only contains letters and whitespace
             if (!preg_match("/^[a-zA-Z-' ]*$/", $relationship2)) {
@@ -511,63 +511,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        if(empty($_POST["guardianAddress21"])){
-            if(isset($guardianAddress1Placeholder2)){
+        if (empty($_POST["guardianAddress21"])) {
+            if (isset($guardianAddress1Placeholder2)) {
                 $guardianAddress21 = $guardianAddress1Placeholder2; ///< Set value to placeholder if left empty
             }
-    
+
         } else {
             $guardianAddress21 = test_input($_POST["guardianAddress21"]); ///< Sanitize address line 1 of guardian 2
-            if ((strlen($guardianAddress21)<10) || (strlen($guardianAddress21) > 50)){
+            if ((strlen($guardianAddress21) < 10) || (strlen($guardianAddress21) > 50)) {
                 $guardianAddress21Err = "Address Line 1 must be between 10 and 50 characters long!"; ///< Display error message
             }
         }
-    
-        if(!empty($_POST["guardianAddress22"])){
+
+        if (!empty($_POST["guardianAddress22"])) {
             $guardianAddress22 = test_input($_POST["guardianAddress22"]); ///< Sanitize address line 2 of guardian 2
         } else {
-            if(isset($guardianAddress2Placeholder2)){
+            if (isset($guardianAddress2Placeholder2)) {
                 $guardianAddress22 = $guardianAddress2Placeholder2; ///< Set value to placeholder if left empty
 
             }
         }
-    
-        if(empty($_POST["guardianCity2"])){
-            if(isset($guardianCityPlaceholder2)){
+
+        if (empty($_POST["guardianCity2"])) {
+            if (isset($guardianCityPlaceholder2)) {
                 $guardianCity2 = $guardianCityPlaceholder2;  ///< Set value to placeholder if left empty
 
             }
         } else {
             $guardianCity2 = test_input($_POST["guardianCity2"]); ///< Sanitize city of guardian 2
-            if ((strlen($guardianCity2)<5) || (strlen($guardianCity2) > 50)){
+            if ((strlen($guardianCity2) < 5) || (strlen($guardianCity2) > 50)) {
                 $guardianCity2Err = "City must be between 10 and 50 characters long!"; ///< Display error message
             }
         }
-    
-        if(!empty($_POST["guardianCounty2"])){
+
+        if (!empty($_POST["guardianCounty2"])) {
             $guardianCounty2 = test_input($_POST["guardianCounty2"]); ///< Sanitize county of guardian 2
-            if ((strlen($guardianCounty2)<5) || (strlen($guardianCounty2) > 50)){
+            if ((strlen($guardianCounty2) < 5) || (strlen($guardianCounty2) > 50)) {
                 $guardianCounty2Err = "County must be between 10 and 50 characters long!"; ///< Display error message
             }
         } else {
-            if(isset($guardianCountyPlaceholder2)){
+            if (isset($guardianCountyPlaceholder2)) {
                 $guardianCounty2 = $guardianCountyPlaceholder2; ///< Set value to placeholder if left empty
             }
         }
-    
-        if(empty($_POST["guardianPostcode2"])){
-            if(isset($guardianPostcodePlaceholder2)){
+
+        if (empty($_POST["guardianPostcode2"])) {
+            if (isset($guardianPostcodePlaceholder2)) {
                 $guardianPostcode2 = $guardianPostcodePlaceholder2; ///< Set value to placeholder if left empty
             }
-    
+
         } else {
             $guardianPostcode2 = test_input($_POST["guardianPostcode2"]); ///< Sanitize postcode of guardian 2
-            if ((strlen($guardianPostcode2)<6) || (strlen($guardianPostcode2) > 8)){
+            if ((strlen($guardianPostcode2) < 6) || (strlen($guardianPostcode2) > 8)) {
                 $guardianPostcode2Err = "Postcode must be 6 characters long!"; ///< Display error message
             }
         }
     }
-  
+
 
     /// Doctor Details Validation
 
@@ -594,7 +594,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $doctorLastName = end($doctorNameParts);
     }
 
-    if(empty($_POST["doctorContact"])){
+    if (empty($_POST["doctorContact"])) {
         $doctorContact = $doctorContactPlaceholder; ///< Set value to placeholder if left empty
 
     } else {
@@ -604,16 +604,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    
+
 
     /// If there are no errors, proceed with sql querries
-    if (empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr) 
+    if (
+        empty($nameErr) && empty($dobErr) && empty($emailErr) && empty($websiteErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($healthIssuesErr) && empty($profileImageErr)
         && empty($address1Err) && empty($address2Err) && empty($cityErr) && empty($countyErr) && empty($postcodeErr)
-        && empty($guardianNameErr) && empty($guardianContactErr) && empty($relationshipErr) 
+        && empty($guardianNameErr) && empty($guardianContactErr) && empty($relationshipErr)
         && empty($guardianAddress11Err) && empty($guardianAddress12Err) && empty($guardianCity1Err) && empty($guardianCounty1Err) && empty($guardianPostcode1Err)
         && empty($guardianAddress21Err) && empty($guardianAddress22Err) && empty($guardianCity2Err) && empty($guardianCounty2Err) && empty($guardianPostcode2Err)
-        && empty($guardianName2Err) && empty($guardianContact2Err) && empty($relationship2Err)  
-        && empty($doctorNameErr) && empty($doctorContactErr) && empty ($genuineErr)) {
+        && empty($guardianName2Err) && empty($guardianContact2Err) && empty($relationship2Err)
+        && empty($doctorNameErr) && empty($doctorContactErr) && empty($genuineErr)
+    ) {
 
         $conn = Connection::connect(); ///< Connect to database
 
@@ -637,7 +639,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
          * Checks if the address for guardian 1 exists in the database. If it does not exist, a new address is created.
          */
         $guardian1Address = Address::addressExists($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
-        
+
         if (!$guardian1Address) {
             /// Create guardian address if it doesn't exist
             $guardian1AddressId = Address::createNewAddress($guardianAddress11, $guardianAddress12, $guardianCity1, $guardianCounty1, $guardianPostcode1);
@@ -647,7 +649,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $existingGuardian = Guardian::guardianExists($guardianFirstName, $guardianLastName, $guardianContact);
-        
+
         if ($existingGuardian) {
             $guardianId = $existingGuardian["guardian_id"];
         } else {
@@ -655,11 +657,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         /// Same as above but for guardian 2
-        
+
         if ($_POST['elementForVar1HiddenField'] == 1) {
 
             $guardian2Address = Address::addressExists($guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2);
-    
+
             if (!$guardian2Address) {
                 /// Create guardian address if it doesn't exist
                 $guardian2AddressId = Address::createNewAddress($guardianAddress21, $guardianAddress22, $guardianCity2, $guardianCounty2, $guardianPostcode2);
@@ -668,7 +670,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             $existingGuardian2 = Guardian::guardianExists($guardianFirstName2, $guardianLastName2, $guardianContact2);
-            
+
             if ($existingGuardian2) {
                 $guardianId2 = $existingGuardian2['guardian_id'];
             } else {
@@ -677,18 +679,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             }
         }
-        
+
 
 
 
         /**
          * Checks if an existing address exists based on the provided address details. 
-         */ 
-        if($existingAddress){
+         */
+        if ($existingAddress) {
             $addressId = Address::getExistingAddress($address1, $address2, $city, $county, $postcode);
-        }
-
-        else{
+        } else {
 
             $addressId = Address::createNewAddress($address1, $address2, $city, $county, $postcode);
 
@@ -700,19 +700,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $existingDoctor = Doctor::doctorExists($doctorFirstName, $doctorLastName, $doctorContact);
 
-        if($existingDoctor){
+        if ($existingDoctor) {
 
             $doctorId = Doctor::existingDoctorId($doctorFirstName, $doctorLastName, $doctorContact);
-        }
-
-        else{
+        } else {
 
             $doctorId = Doctor::createNewDoctor($doctorFirstName, $doctorLastName, $doctorContact);
         }
 
-        
 
-        if(empty($genuineErr)){
+
+        if (empty($genuineErr)) {
 
             /**
              * Handles the upload of a profile image file.
@@ -721,22 +719,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $filename = $_FILES["profileImage"]["name"];
                 $filetype = Utils::getFileExtension($filename);
                 $isValidImage = in_array($filetype, ["jpg", "jpeg", "png", "gif"]);
-            
+
                 $isValidSize = $_FILES["profileImage"]["size"] <= 1000000;
-            
+
                 if (!$isValidImage || !$isValidSize) {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: Invalid file size/format</p>";
                 }
-            
+
                 $tmpname = $_FILES["profileImage"]["tmp_name"];
-            
+
                 if (!move_uploaded_file($tmpname, "images/$filename")) {
                     $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>";
                 }
             } else {
                 $filename = $filenamePlaceholder; /// Okay this is very funny, this line of code works here as well but not in member.
 
-                
+
                 /// PS: The issue was that instead of getting the filename from '$member' I was getting it from '$player' which didnt exist.
                 /// Fixed it by swapping '$player' with '$member'
             }
@@ -755,16 +753,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 Junior::updateJuniorAssociation($guardianId2, $doctorId, $juniorId);
 
-                
+
             }
 
             header("Location: " . Utils::$projectFilePath . "/junior-list.php"); ///< Redirect back to junior list
         }
 
-    }
-
-    else{
-        $genuineErr = "ERROR: Not all form inputs filled/correct!"; 
+    } else {
+        $genuineErr = "ERROR: Not all form inputs filled/correct!";
     }
 }
 
@@ -777,285 +773,293 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  * 
  */
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 components::pageHeader("Update Junior Player", ["style"], ["mobile-nav"]);
 ?>
 
 <main class="content-wrapper contact-content">
 
-<h2>Add New Player</h2>
-<form 
-    method="POST"
-    action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $junior["junior_id"];?>"
-    enctype="multipart/form-data">
+    <h2>Add New Player</h2>
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $junior["junior_id"]; ?>"
+        enctype="multipart/form-data">
 
-  <p class="alert alert-danger"><?php echo $genuineErr;?></p><br>
-
-  
-  <div id="personal-details-form">
-      <label  class="col-sm-2 col-form-label-sm" for="name">Name:</label><br>
-      <input type="text" name="name" placeholder="<?php echo $playerFirstName. ' '. $playerLastName?>" value="<?php echo $name;?>">
-      <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
-
-      <label  class="col-sm-2 col-form-label-sm"for="sru">SRU Number:</label><br>
-      <input type="text" name="sru" placeholder="<?php echo $sruNumberPlaceholder;?>" value="<?php echo $sru;?>">
-      <p class="alert alert-danger"><?php echo $sruErr;?></p><br>
-
-      <label  class="col-sm-2 col-form-label-sm"for="dob">Date of Birth:</label><br>
-      <input type="text" name="dob" placeholder="<?php echo $ukDobPlaceholder;?>" value="<?php echo $dob;?>">
-      <p class="alert alert-danger"><?php echo $dobErr;?></p><br>
-
-      <label  class="col-sm-2 col-form-label-sm"for="email">Email:</label><br>
-      <input type="text" name="email" placeholder="<?php echo $emailAddressPlaceholder;?>" value="<?php echo $email;?>">
-      <p class="alert alert-danger"><?php echo $emailErr;?></p><br>
-
-      <label  class="col-sm-2 col-form-label-sm"for="contactNo">Contact Number:</label><br>
-      <input type="text" name="contactNo" placeholder="<?php echo $contactNumberPlaceholder;?>" value="<?php echo $contactNo;?>">
-      <p class="alert alert-danger"><?php echo $contactNoErr;?></p><br>
-
-      <label  class="col-sm-2 col-form-label-sm"for="mobileNo">Mobile Number:</label><br>
-      <input type="text" name="mobileNo" placeholder="<?php echo $mobileNumberPlaceholder;?>" value="<?php echo $mobileNo;?>">
-      <p class="alert alert-danger"><?php echo $mobileNoErr;?></p><br>
-
-      <label  class="col-sm-2 col-form-label-sm"for="healthIssues">Health Issues:</label><br>
-      <input type="text" name="healthIssues" placeholder="<?php echo $healthIssuesPlaceholder;?>" value="<?php echo $healthIssues;?>">
-      <p class="alert alert-danger"><?php echo $healthIssuesErr;?></p><br>
-
-      <label>Profile image</label>
-      <input type="file" name="profileImage" value="">
-      <p class="alert alert-danger"><?php echo $profileImageErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $genuineErr; ?></p><br>
 
 
-      <input type="button" value="Next" onclick="nextTab()">
-  </div>
+        <div id="personal-details-form">
+            <label class="col-sm-2 col-form-label-sm" for="name">Name:</label><br>
+            <input type="text" name="name" placeholder="<?php echo $playerFirstName . ' ' . $playerLastName ?>"
+                value="<?php echo $name; ?>">
+            <p class="alert alert-danger"><?php echo $nameErr; ?></p><br>
 
-  <div id="address-details-form" class="add-form-section">
-    <label  class="col-sm-2 col-form-label-sm"for="address1">Address Line 1:</label><br>
-        <input type="text" name="address1"  placeholder="<?php echo $address1Placeholder;?>" value="<?php echo $address1;?>">
-        <p class="alert alert-danger"><?php echo $address1Err;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="sru">SRU Number:</label><br>
+            <input type="text" name="sru" placeholder="<?php echo $sruNumberPlaceholder; ?>" value="<?php echo $sru; ?>">
+            <p class="alert alert-danger"><?php echo $sruErr; ?></p><br>
 
-    <label  class="col-sm-2 col-form-label-sm"for="address2">Address Line 2:</label><br>
-        <input type="text" name="address2"  placeholder="<?php echo $address2Placeholder;?>" value="<?php echo $address2;?>">
-        <p class="alert alert-danger"><?php echo $address2Err;?></p><br>   
+            <label class="col-sm-2 col-form-label-sm" for="dob">Date of Birth:</label><br>
+            <input type="text" name="dob" placeholder="<?php echo $ukDobPlaceholder; ?>" value="<?php echo $dob; ?>">
+            <p class="alert alert-danger"><?php echo $dobErr; ?></p><br>
 
-    <label  class="col-sm-2 col-form-label-sm"for="city">City:</label><br>
-        <input type="text" name="city"  placeholder="<?php echo $cityPlaceholder;?>" value="<?php echo $city;?>">
-        <p class="alert alert-danger"><?php echo $cityErr;?></p><br>  
+            <label class="col-sm-2 col-form-label-sm" for="email">Email:</label><br>
+            <input type="text" name="email" placeholder="<?php echo $emailAddressPlaceholder; ?>"
+                value="<?php echo $email; ?>">
+            <p class="alert alert-danger"><?php echo $emailErr; ?></p><br>
 
-    <label  class="col-sm-2 col-form-label-sm"for="county">County:</label><br>
-        <input type="text" name="county"  placeholder="<?php echo $countyPlaceholder;?>" value="<?php echo $county;?>">
-        <p class="alert alert-danger"><?php echo $countyErr;?></p><br>  
+            <label class="col-sm-2 col-form-label-sm" for="contactNo">Contact Number:</label><br>
+            <input type="text" name="contactNo" placeholder="<?php echo $contactNumberPlaceholder; ?>"
+                value="<?php echo $contactNo; ?>">
+            <p class="alert alert-danger"><?php echo $contactNoErr; ?></p><br>
 
-    <label  class="col-sm-2 col-form-label-sm"for="postcode">Postcode:</label><br>
-        <input type="text" name="postcode"  placeholder="<?php echo $postcodePlaceholder;?>" value="<?php echo $postcode;?>">
-        <p class="alert alert-danger"><?php echo $postcodeErr;?></p><br>  
-        <div>
-            <input type="button" value="Previous" onclick="prevTab()">
+            <label class="col-sm-2 col-form-label-sm" for="mobileNo">Mobile Number:</label><br>
+            <input type="text" name="mobileNo" placeholder="<?php echo $mobileNumberPlaceholder; ?>"
+                value="<?php echo $mobileNo; ?>">
+            <p class="alert alert-danger"><?php echo $mobileNoErr; ?></p><br>
+
+            <label class="col-sm-2 col-form-label-sm" for="healthIssues">Health Issues:</label><br>
+            <input type="text" name="healthIssues" placeholder="<?php echo $healthIssuesPlaceholder; ?>"
+                value="<?php echo $healthIssues; ?>">
+            <p class="alert alert-danger"><?php echo $healthIssuesErr; ?></p><br>
+
+            <label>Profile image</label>
+            <input type="file" name="profileImage" value="">
+            <p class="alert alert-danger"><?php echo $profileImageErr; ?></p><br>
+
+
             <input type="button" value="Next" onclick="nextTab()">
         </div>
 
- </div>
+        <div id="address-details-form" class="add-form-section">
+            <label class="col-sm-2 col-form-label-sm" for="address1">Address Line 1:</label><br>
+            <input type="text" name="address1" placeholder="<?php echo $address1Placeholder; ?>"
+                value="<?php echo $address1; ?>">
+            <p class="alert alert-danger"><?php echo $address1Err; ?></p><br>
 
- <div id="guardian-details-form" class="add-form-section">
+            <label class="col-sm-2 col-form-label-sm" for="address2">Address Line 2:</label><br>
+            <input type="text" name="address2" placeholder="<?php echo $address2Placeholder; ?>"
+                value="<?php echo $address2; ?>">
+            <p class="alert alert-danger"><?php echo $address2Err; ?></p><br>
 
-    <div class="radio-container">
-        <label class="radio" >One
-        <input type="radio" id="radio-one" checked="checked" name="radio" onclick="radioChecked()">
-        <span class="checkmark"></span>
-        </label>
-        <label class="radio" >Two
-        <input type="radio" id="radio-two" name="radio" onclick="radioChecked()">
-        <span class="checkmark"></span>
-        </label>
-    </div>
-    
-    <label  class="col-sm-2 col-form-label-sm"for="guardianName">Guardian's name:</label><br>
-        <input type="text" name="guardianName" value="<?php echo $guardianName;?>">
-        <p class="alert alert-danger"><?php echo $guardianNameErr;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="city">City:</label><br>
+            <input type="text" name="city" placeholder="<?php echo $cityPlaceholder; ?>" value="<?php echo $city; ?>">
+            <p class="alert alert-danger"><?php echo $cityErr; ?></p><br>
 
-    <label  class="col-sm-2 col-form-label-sm"for="guardianContact">Contact Number:</label><br>
-        <input type="text" name="guardianContact" value="<?php echo $guardianContact;?>">
-        <p class="alert alert-danger"><?php echo $guardianContactErr;?></p><br>   
+            <label class="col-sm-2 col-form-label-sm" for="county">County:</label><br>
+            <input type="text" name="county" placeholder="<?php echo $countyPlaceholder; ?>"
+                value="<?php echo $county; ?>">
+            <p class="alert alert-danger"><?php echo $countyErr; ?></p><br>
 
-    <label  class="col-sm-2 col-form-label-sm"for="relationship">Relationship:</label><br>
-        <input type="text" name="relationship" value="<?php echo $relationship;?>">
-        <p class="alert alert-danger"><?php echo $relationshipErr;?></p><br>  
-        
-    
-    <label  class="col-sm-2 col-form-label-sm"for="guardianAddress11">Address Line 1:</label><br>
-        <input type="text" name="guardianAddress11" value="<?php echo $guardianAddress11;?>">
-        <p class="alert alert-danger"><?php echo $guardianAddress11Err;?></p><br>
+            <label class="col-sm-2 col-form-label-sm" for="postcode">Postcode:</label><br>
+            <input type="text" name="postcode" placeholder="<?php echo $postcodePlaceholder; ?>"
+                value="<?php echo $postcode; ?>">
+            <p class="alert alert-danger"><?php echo $postcodeErr; ?></p><br>
+            <div>
+                <input type="button" value="Previous" onclick="prevTab()">
+                <input type="button" value="Next" onclick="nextTab()">
+            </div>
 
-    <label  class="col-sm-2 col-form-label-sm"for="guardianAddress12">Address Line 2:</label><br>
-        <input type="text" name="guardianAddress12" value="<?php echo $guardianAddress12;?>">
-        <p class="alert alert-danger"><?php echo $guardianAddress12Err;?></p><br>   
-
-    <label  class="col-sm-2 col-form-label-sm"for="guardianCity1">City:</label><br>
-        <input type="text" name="guardianCity1" value="<?php echo $guardianCity1;?>">
-        <p class="alert alert-danger"><?php echo $guardianCity1Err;?></p><br>  
-
-    <label  class="col-sm-2 col-form-label-sm"for="guardianCounty1">County:</label><br>
-        <input type="text" name="guardianCounty1" value="<?php echo $guardianCounty1;?>">
-        <p class="alert alert-danger"><?php echo $guardianCounty1Err;?></p><br>  
-
-    <label  class="col-sm-2 col-form-label-sm"for="guardianPostcode1">Postcode:</label><br>
-        <input type="text" name="guardianPostcode1" value="<?php echo $guardianPostcode1;?>">
-        <p class="alert alert-danger"><?php echo $guardianPostcode1Err;?></p><br>  
-
-        <div id="second-guardian-form">
-            <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
-            <label  class="col-sm-2 col-form-label-sm"for="guardianName">Guardian's name:</label><br>
-            <input type="text" name="guardianName2" value="<?php echo $guardianName2;?>">
-            <p class="alert alert-danger"><?php echo $guardianName2Err;?></p><br>
-
-        <label  class="col-sm-2 col-form-label-sm"for="guardianContact">Contact Number:</label><br>
-            <input type="text" name="guardianContact2" value="<?php echo $guardianContact2;?>">
-            <p class="alert alert-danger"><?php echo $guardianContact2Err;?></p><br>   
-
-        <label  class="col-sm-2 col-form-label-sm"for="relationship2">Relationship:</label><br>
-            <input type="text" name="relationship2" value="<?php echo $relationship2;?>">
-            <p class="alert alert-danger"><?php echo $relationship2Err;?></p><br>
-            
-        <label  class="col-sm-2 col-form-label-sm"for="guardianAddress21">Address Line 1:</label><br>
-            <input type="text" name="guardianAddress21" value="<?php echo $guardianAddress21;?>">
-            <p class="alert alert-danger"><?php echo $guardianAddress21Err;?></p><br>
-
-        <label  class="col-sm-2 col-form-label-sm"for="guardianAddress22">Address Line 2:</label><br>
-            <input type="text" name="guardianAddress22" value="<?php echo $guardianAddress22;?>">
-            <p class="alert alert-danger"><?php echo $guardianAddress22Err;?></p><br>   
-
-        <label  class="col-sm-2 col-form-label-sm"for="guardianCity2">City:</label><br>
-            <input type="text" name="guardianCity2" value="<?php echo $guardianCity2;?>">
-            <p class="alert alert-danger"><?php echo $guardianCity2Err;?></p><br>  
-
-        <label  class="col-sm-2 col-form-label-sm"for="guardianCounty2">County:</label><br>
-            <input type="text" name="guardianCounty2" value="<?php echo $guardianCounty2;?>">
-            <p class="alert alert-danger"><?php echo $guardianCounty2Err;?></p><br>  
-
-        <label  class="col-sm-2 col-form-label-sm"for="guardianPostcode2">Postcode:</label><br>
-            <input type="text" name="guardianPostcode2" value="<?php echo $guardianPostcode2;?>">
-            <p class="alert alert-danger"><?php echo $guardianPostcode2Err;?></p><br>  
         </div>
 
-        <div>
+        <div id="guardian-details-form" class="add-form-section">
+
+            <div class="radio-container">
+                <label class="radio">One
+                    <input type="radio" id="radio-one" checked="checked" name="radio" onclick="radioChecked()">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="radio">Two
+                    <input type="radio" id="radio-two" name="radio" onclick="radioChecked()">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <label class="col-sm-2 col-form-label-sm" for="guardianName">Guardian's name:</label><br>
+            <input type="text" name="guardianName" value="<?php echo $guardianName; ?>">
+            <p class="alert alert-danger"><?php echo $guardianNameErr; ?></p><br>
+
+            <label class="col-sm-2 col-form-label-sm" for="guardianContact">Contact Number:</label><br>
+            <input type="text" name="guardianContact" value="<?php echo $guardianContact; ?>">
+            <p class="alert alert-danger"><?php echo $guardianContactErr; ?></p><br>
+
+            <label class="col-sm-2 col-form-label-sm" for="relationship">Relationship:</label><br>
+            <input type="text" name="relationship" value="<?php echo $relationship; ?>">
+            <p class="alert alert-danger"><?php echo $relationshipErr; ?></p><br>
+
+
+            <label class="col-sm-2 col-form-label-sm" for="guardianAddress11">Address Line 1:</label><br>
+            <input type="text" name="guardianAddress11" value="<?php echo $guardianAddress11; ?>">
+            <p class="alert alert-danger"><?php echo $guardianAddress11Err; ?></p><br>
+
+            <label class="col-sm-2 col-form-label-sm" for="guardianAddress12">Address Line 2:</label><br>
+            <input type="text" name="guardianAddress12" value="<?php echo $guardianAddress12; ?>">
+            <p class="alert alert-danger"><?php echo $guardianAddress12Err; ?></p><br>
+
+            <label class="col-sm-2 col-form-label-sm" for="guardianCity1">City:</label><br>
+            <input type="text" name="guardianCity1" value="<?php echo $guardianCity1; ?>">
+            <p class="alert alert-danger"><?php echo $guardianCity1Err; ?></p><br>
+
+            <label class="col-sm-2 col-form-label-sm" for="guardianCounty1">County:</label><br>
+            <input type="text" name="guardianCounty1" value="<?php echo $guardianCounty1; ?>">
+            <p class="alert alert-danger"><?php echo $guardianCounty1Err; ?></p><br>
+
+            <label class="col-sm-2 col-form-label-sm" for="guardianPostcode1">Postcode:</label><br>
+            <input type="text" name="guardianPostcode1" value="<?php echo $guardianPostcode1; ?>">
+            <p class="alert alert-danger"><?php echo $guardianPostcode1Err; ?></p><br>
+
+            <div id="second-guardian-form">
+                <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
+                <label class="col-sm-2 col-form-label-sm" for="guardianName">Guardian's name:</label><br>
+                <input type="text" name="guardianName2" value="<?php echo $guardianName2; ?>">
+                <p class="alert alert-danger"><?php echo $guardianName2Err; ?></p><br>
+
+                <label class="col-sm-2 col-form-label-sm" for="guardianContact">Contact Number:</label><br>
+                <input type="text" name="guardianContact2" value="<?php echo $guardianContact2; ?>">
+                <p class="alert alert-danger"><?php echo $guardianContact2Err; ?></p><br>
+
+                <label class="col-sm-2 col-form-label-sm" for="relationship2">Relationship:</label><br>
+                <input type="text" name="relationship2" value="<?php echo $relationship2; ?>">
+                <p class="alert alert-danger"><?php echo $relationship2Err; ?></p><br>
+
+                <label class="col-sm-2 col-form-label-sm" for="guardianAddress21">Address Line 1:</label><br>
+                <input type="text" name="guardianAddress21" value="<?php echo $guardianAddress21; ?>">
+                <p class="alert alert-danger"><?php echo $guardianAddress21Err; ?></p><br>
+
+                <label class="col-sm-2 col-form-label-sm" for="guardianAddress22">Address Line 2:</label><br>
+                <input type="text" name="guardianAddress22" value="<?php echo $guardianAddress22; ?>">
+                <p class="alert alert-danger"><?php echo $guardianAddress22Err; ?></p><br>
+
+                <label class="col-sm-2 col-form-label-sm" for="guardianCity2">City:</label><br>
+                <input type="text" name="guardianCity2" value="<?php echo $guardianCity2; ?>">
+                <p class="alert alert-danger"><?php echo $guardianCity2Err; ?></p><br>
+
+                <label class="col-sm-2 col-form-label-sm" for="guardianCounty2">County:</label><br>
+                <input type="text" name="guardianCounty2" value="<?php echo $guardianCounty2; ?>">
+                <p class="alert alert-danger"><?php echo $guardianCounty2Err; ?></p><br>
+
+                <label class="col-sm-2 col-form-label-sm" for="guardianPostcode2">Postcode:</label><br>
+                <input type="text" name="guardianPostcode2" value="<?php echo $guardianPostcode2; ?>">
+                <p class="alert alert-danger"><?php echo $guardianPostcode2Err; ?></p><br>
+            </div>
+
+            <div>
+                <input type="button" value="Previous" onclick="prevTab()">
+                <input type="button" value="Next" onclick="nextTab()">
+            </div>
+
+
+        </div>
+
+        <div id="doctor-details-form">
+            <label class="col-sm-2 col-form-label-sm" for="doctorName">Doctor Name:</label><br>
+            <input type="text" name="doctorName" value="<?php echo $doctorName; ?>">
+            <p class="alert alert-danger"><?php echo $doctorNameErr; ?></p><br>
+
+            <label class="col-sm-2 col-form-label-sm" for="doctorContact">Contact Number:</label><br>
+            <input type="text" name="doctorContact" value="<?php echo $doctorContact; ?>">
+            <p class="alert alert-danger"><?php echo $doctorContactErr; ?></p><br>
             <input type="button" value="Previous" onclick="prevTab()">
-            <input type="button" value="Next" onclick="nextTab()">
         </div>
 
+        <input type="submit" name="submit" value="Submit">
 
- </div>
+    </form>
 
- <div id="doctor-details-form">
-    <label  class="col-sm-2 col-form-label-sm"for="doctorName">Doctor Name:</label><br>
-        <input type="text" name="doctorName" value="<?php echo $doctorName;?>">
-        <p class="alert alert-danger"><?php echo $doctorNameErr;?></p><br>
+    <script>
 
-    <label  class="col-sm-2 col-form-label-sm"for="doctorContact">Contact Number:</label><br>
-        <input type="text" name="doctorContact" value="<?php echo $doctorContact;?>">
-        <p class="alert alert-danger"><?php echo $doctorContactErr;?></p><br>   
-        <input type="button" value="Previous" onclick="prevTab()">
- </div>
+        var currentTab = 0;
+        const pDetails = document.getElementById("personal-details-form");
+        const aDetails = document.getElementById("address-details-form");
+        const gDetails = document.getElementById("guardian-details-form");
+        const dDetails = document.getElementById("doctor-details-form");
 
-  <input type="submit" name="submit" value="Submit">  
+        const sGuardDetails = document.getElementById("second-guardian-form");
 
-</form>
+        /**
+         * Check if a radio button is checked and display or hide a specific element.
+         */
+        function radioChecked() {
+            if (document.getElementById("radio-two").checked) {
+                sGuardDetails.style.display = "block";
+                document.getElementById('elementForVar1HiddenField').value = 1;
 
-<script>
+            }
 
-    var currentTab = 0;
-    const pDetails = document.getElementById("personal-details-form");
-    const aDetails = document.getElementById("address-details-form");
-    const gDetails = document.getElementById("guardian-details-form");
-    const dDetails = document.getElementById("doctor-details-form");
+            else {
+                sGuardDetails.style.display = "none";
+                document.getElementById('elementForVar1HiddenField').value = 0;
 
-    const sGuardDetails = document.getElementById("second-guardian-form");
-
-    /**
-     * Check if a radio button is checked and display or hide a specific element.
-     */
-    function radioChecked(){
-        if (document.getElementById("radio-two").checked){
-            sGuardDetails.style.display = "block";
-            document.getElementById('elementForVar1HiddenField').value = 1;
-
+            }
         }
 
-        else{
-            sGuardDetails.style.display = "none";
-            document.getElementById('elementForVar1HiddenField').value = 0;
+        radioChecked();
 
+
+
+        /**
+         * Show the tab based on the currentTab value.
+         */
+        function showTab() {
+            if (currentTab == 0) {
+                pDetails.style.display = "block";
+                aDetails.style.display = "none";
+                gDetails.style.display = "none";
+                dDetails.style.display = "none";
+
+            }
+
+            else if (currentTab == 1) {
+                pDetails.style.display = "none";
+                aDetails.style.display = "block";
+                gDetails.style.display = "none";
+                dDetails.style.display = "none";
+
+            }
+
+            else if (currentTab == 2) {
+                pDetails.style.display = "none";
+                aDetails.style.display = "none";
+                gDetails.style.display = "block";
+                dDetails.style.display = "none";
+
+            }
+
+            else {
+                pDetails.style.display = "none";
+                aDetails.style.display = "none";
+                gDetails.style.display = "none";
+                dDetails.style.display = "block";
+
+
+
+            }
         }
-    }
 
-    radioChecked();
-
-
-
-    /**
-     * Show the tab based on the currentTab value.
-     */
-    function showTab(){
-        if ( currentTab == 0){
-            pDetails.style.display = "block";
-            aDetails.style.display = "none";
-            gDetails.style.display = "none";
-            dDetails.style.display = "none";
-
-        }
-
-        else if (currentTab == 1){
-            pDetails.style.display = "none";
-            aDetails.style.display = "block";
-            gDetails.style.display = "none";
-            dDetails.style.display = "none";
-
-        }
-
-        else if (currentTab == 2) {
-            pDetails.style.display = "none";
-            aDetails.style.display = "none";
-            gDetails.style.display = "block";
-            dDetails.style.display = "none";
-
-        }
-
-        else{
-            pDetails.style.display = "none";
-            aDetails.style.display = "none";
-            gDetails.style.display = "none";
-            dDetails.style.display = "block";
-
-
-
-        }
-    }
-
-    showTab();
-
-    /**
-     * Increments the current tab index and displays next tab.
-     */
-    function nextTab(){
-        currentTab += 1;
         showTab();
-    }
 
-    /**
-     * Decrements the current tab index and displays previous tab.
-     */
+        /**
+         * Increments the current tab index and displays next tab.
+         */
+        function nextTab() {
+            currentTab += 1;
+            showTab();
+        }
 
-    function prevTab(){
-        currentTab -= 1;
-        showTab();
-    }
+        /**
+         * Decrements the current tab index and displays previous tab.
+         */
+
+        function prevTab() {
+            currentTab -= 1;
+            showTab();
+        }
 
 
-</script>
+    </script>
 </main>
 
 <?php

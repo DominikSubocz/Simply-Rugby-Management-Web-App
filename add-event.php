@@ -9,17 +9,17 @@
 
 /// This must come first when we need access to the current session
 session_start();
-require("classes/components.php");
-require("classes/connection.php");
-require("classes/sql.php");
-require("classes/events.php");
+require ("classes/components.php");
+require ("classes/connection.php");
+require ("classes/sql.php");
+require ("classes/events.php");
 /**
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");
+require ("classes/utils.php");
 /// Redirect to logout page if user role is neither Admin nor Coach
-if(($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
+if (($_SESSION["user_role"] != "Admin") && ($_SESSION["user_role"] != "Coach")) {
   header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 
@@ -90,7 +90,7 @@ $squads = $stmt->fetchAll();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   /// Validate game details if value for hidden field is 0.
-  
+
   if ($_POST['elementForVar1HiddenField'] == 0) {
 
     /// Game name validation
@@ -98,16 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["gameName"])) {
       $gameNameErr = "Name of the game is required"; ///< Display error message
     } else {
-        $gameName = test_input($_POST["gameName"]); ///< Sanitize game name input
+      $gameName = test_input($_POST["gameName"]); ///< Sanitize game name input
     }
 
     /// Squad validation
 
-    if (empty($_POST["squad"])){
+    if (empty($_POST["squad"])) {
       $squadErr = "Squad is required"; ///< Display error message
 
     } else {
-        $squad = test_input($_POST["squad"]); ///< Sanitize squad name input
+      $squad = test_input($_POST["squad"]); ///< Sanitize squad name input
     }
 
 
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["opposition"])) {
       $oppositionErr = "Opposition's name is required"; ///< Display error message
     } else {
-        $opposition = test_input($_POST["opposition"]); ///< Sanitize opposition name input
+      $opposition = test_input($_POST["opposition"]); ///< Sanitize opposition name input
     }
 
     /// Date validation
@@ -124,18 +124,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["start"])) {
       $startErr = "Start date is required"; ///< Display error message
     } else {
-        $start = test_input($_POST["start"]);
+      $start = test_input($_POST["start"]);
 
-        
-        $sqlStart = date('Y-m-d H:i:s', strtotime($start)); ///< Format start date for SQL
+
+      $sqlStart = date('Y-m-d H:i:s', strtotime($start)); ///< Format start date for SQL
     }
 
     if (empty($_POST["end"])) {
       $endErr = "End date is required"; ///< Display error message
     } else {
-        $end = test_input($_POST["end"]);
+      $end = test_input($_POST["end"]);
 
-        $sqlEnd = date('Y-m-d H:i:s', strtotime($end)); ///< Format end date for SQL
+      $sqlEnd = date('Y-m-d H:i:s', strtotime($end)); ///< Format end date for SQL
 
     }
 
@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["location"])) {
       $locationErr = "Location is required"; ///< Display error message
     } else {
-        $location = test_input($_POST["location"]); ///< Sanitize location input
+      $location = test_input($_POST["location"]); ///< Sanitize location input
     }
 
     /// Kickoff time validation
@@ -152,16 +152,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["kickoff"])) {
       $kickoffErr = "Kickoff time is required"; ///< Display error message
     } else {
-        $kickoff = test_input($_POST["kickoff"]); ///< Sanitize game name input
+      $kickoff = test_input($_POST["kickoff"]); ///< Sanitize game name input
     }
 
     if (empty($_POST["score"])) {
       $score = 0; ///< Set score to 0 if not entered
     } else {
-        $score = test_input($_POST["score"]); ///< Sanitize score input
+      $score = test_input($_POST["score"]); ///< Sanitize score input
     }
 
-    if (empty($gameNameErr) && empty($squadErr) && empty($oppositionErr) && empty($startErr)  && empty($endErr)  && empty($locationErr) && empty($kickoffErr)){
+    if (empty($gameNameErr) && empty($squadErr) && empty($oppositionErr) && empty($startErr) && empty($endErr) && empty($locationErr) && empty($kickoffErr)) {
       $conn = Connection::connect(); ///< Connect to database
 
       /**
@@ -172,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->execute([$gameName, $start, $end]);
       $game = $stmt->fetch();
 
-      if($game){
+      if ($game) {
 
         ///Probably easy way, but I plan to rework it in future version.
 
@@ -187,10 +187,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([$squad]);
         $squadExists = $stmt->fetch();
         $squadId = $squadExists['squad_id'];
-        
 
-  
-        if(!$squad){
+
+
+        if (!$squad) {
           /**
            * I changed way of selecting squad so there's no way this will run.
            * I'll fix it in future update
@@ -224,36 +224,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["sessionName"])) {
       $sessionNameErr = "Name of the session is required";  ///< Display error message
     } else {
-        $sessionName = test_input($_POST["sessionName"]); ///< Sanitize session name input
+      $sessionName = test_input($_POST["sessionName"]); ///< Sanitize session name input
     }
 
-        /// Coach name validation
+    /// Coach name validation
 
 
     if (empty($_POST["coachName"])) {
       $coachNameErr = "Coach name is required"; ///< Display error message
     } else {
-        $coachName = test_input($_POST["coachName"]);
-        $coachNameParts = explode(" ", $coachName); ///< Split coach name into first and last name
+      $coachName = test_input($_POST["coachName"]);
+      $coachNameParts = explode(" ", $coachName); ///< Split coach name into first and last name
 
-        /// Extract the first and last names
-        $coachFirstName = $coachNameParts[0];
-        $coachLastName = end($coachNameParts);
+      /// Extract the first and last names
+      $coachFirstName = $coachNameParts[0];
+      $coachLastName = end($coachNameParts);
     }
 
     if (empty($_POST["trainingSquad"])) {
       $trainingSquadErr = "Squad is required";  ///< Display error message
 
     } else {
-        $trainingSquad = test_input($_POST["trainingSquad"]); ///< Sanitize squad input
+      $trainingSquad = test_input($_POST["trainingSquad"]); ///< Sanitize squad input
     }
 
     if (empty($_POST["trainingStart"])) {
       $trainingStartErr = "Start date is required"; ///< Display error message
     } else {
-        $trainingStart = test_input($_POST["trainingStart"]); ///< Sanitize training start date
-        
-        $sqlTrainingStart = date('Y-m-d H:i:s', strtotime($trainingStart)); ///< Format start date for SQL
+      $trainingStart = test_input($_POST["trainingStart"]); ///< Sanitize training start date
+
+      $sqlTrainingStart = date('Y-m-d H:i:s', strtotime($trainingStart)); ///< Format start date for SQL
 
 
     }
@@ -261,9 +261,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["trainingEnd"])) {
       $trainingEndErr = "End date is required"; ///< Display error message
     } else {
-        $trainingEnd = test_input($_POST["trainingEnd"]); ///< Sanitize training end date
+      $trainingEnd = test_input($_POST["trainingEnd"]); ///< Sanitize training end date
 
-        $sqlTrainingEnd = date('Y-m-d H:i:s', strtotime($trainingEnd)); ///< Format end date for SQL
+      $sqlTrainingEnd = date('Y-m-d H:i:s', strtotime($trainingEnd)); ///< Format end date for SQL
 
 
     }
@@ -273,7 +273,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["trainingLocation"])) {
       $trainingLocationErr = "Location is required"; ///< Display error message
     } else {
-        $trainingLocation = test_input($_POST["trainingLocation"]); ///< Sanitize location input
+      $trainingLocation = test_input($_POST["trainingLocation"]); ///< Sanitize location input
     }
 
 
@@ -281,8 +281,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /**
      * Checks if all the error messages are empty, and proceed with SQL querries.
      */
-    if (empty($sessionNameErr) && empty($coachNameErr) && empty($trainingSquadErr)  && empty($trainingStartErr)  && empty($trainingEndErr)  && empty($trainingLocationErr)){
-      
+    if (empty($sessionNameErr) && empty($coachNameErr) && empty($trainingSquadErr) && empty($trainingStartErr) && empty($trainingEndErr) && empty($trainingLocationErr)) {
+
       $conn = Connection::connect(); ///< Connect to database
 
 
@@ -293,7 +293,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->execute([$sessionName, $trainingStart, $trainingEnd]);
       $session = $stmt->fetch();
 
-      if($session){
+      if ($session) {
         /// Will be improved in future updates.
         var_dump("ERROR: Session already exists"); ///< Display error 
       } else {
@@ -307,7 +307,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([$coachFirstName, $coachLastName]);
         $coach = $stmt->fetch();
 
-        if(!$coach){
+        if (!$coach) {
           /// Will be improved in future updates.
           var_dump("ERROR: Coach doesn't exist"); ///< Display error 
         } else {
@@ -322,7 +322,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $stmt->execute([$trainingSquad]);
           $squadExists = $stmt->fetch();
 
-          if(!$squadExists){
+          if (!$squadExists) {
             /// Will be improved in future updates.
 
             var_dump("ERROR: Squad doesn't exist"); ///< Display error 
@@ -340,7 +340,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $stmt = $conn->prepare(SQL::$createTrainingDetails);
             $stmt->execute([$sessionId, $coachId, $squadId]);
-          } 
+          }
 
 
         }
@@ -364,7 +364,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  * 
  */
 
-function test_input($data) {
+function test_input($data)
+{
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
@@ -374,149 +375,147 @@ function test_input($data) {
 
 <main class="content-wrapper contact-content my-4">
 
-<!--  
+  <!--  
 
   On submit form will be validated using JavaScript.
 
   Further form validation will be carried out using PHP.
 
 -->
-    <div class="form-container">
-        <form
-        method="POST"
-        action="<?php echo $_SERVER["PHP_SELF"]; ?>"
-        class="form"
-        onsubmit="return validateForm()">
-    
-        <div id="radio-container">
-            <label class="radio" >Game
-            <input type="radio" id="radio-one" checked="checked" name="radio" onclick="radioChecked()"> <!-- This function will check which radio input is checked -->
-            <span class="checkmark"></span>
-            </label>
-            <label class="radio" >Training Session
-            <input type="radio" id="radio-two" name="radio" onclick="radioChecked()">
-            <span class="checkmark"></span>
-            </label>
-        </div>
+  <div class="form-container">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="form" onsubmit="return validateForm()">
 
-        <div id="game-form">
-            <label for="gameName"><span class="required">*</span>Game name:</label><br>
-            <input type="text" name="gameName" value="<?php echo $gameName;?>">  <!-- Empty by default, but will be set after you fill it and once you submit -->
-            <p class="alert alert-danger"><?php echo $gameNameErr;?></p><br> <!-- Error variable -->
-    
+      <div id="radio-container">
+        <label class="radio">Game
+          <input type="radio" id="radio-one" checked="checked" name="radio" onclick="radioChecked()">
+          <!-- This function will check which radio input is checked -->
+          <span class="checkmark"></span>
+        </label>
+        <label class="radio">Training Session
+          <input type="radio" id="radio-two" name="radio" onclick="radioChecked()">
+          <span class="checkmark"></span>
+        </label>
+      </div>
 
-            <!-- Generates a dropdown list of squad numbers based on the provided array of squads. -->
-            <label for="squad">Squad number:</label><br>
-            <select name="squad">
-            <?php
-            foreach($squads as $squad){
-                ?>
-                <option value="<?php echo $squad["squad_name"]; ?>">
-                <?php echo $squad["squad_name"]; ?>
-                </option>
-                <?php
-            }
+      <div id="game-form">
+        <label for="gameName"><span class="required">*</span>Game name:</label><br>
+        <input type="text" name="gameName" value="<?php echo $gameName; ?>">
+        <!-- Empty by default, but will be set after you fill it and once you submit -->
+        <p class="alert alert-danger"><?php echo $gameNameErr; ?></p><br> <!-- Error variable -->
+
+
+        <!-- Generates a dropdown list of squad numbers based on the provided array of squads. -->
+        <label for="squad">Squad number:</label><br>
+        <select name="squad">
+          <?php
+          foreach ($squads as $squad) {
             ?>
-            </select>
-            <p class="alert alert-danger"><?php echo $squadErr;?></p><br>
-    
-            <label for="opposition"><span class="required">*</span>Opposition team name:</label><br>
-            <input type="text" name="opposition" value="<?php echo $opposition;?>">
-            <p class="alert alert-danger"><?php echo $oppositionErr;?></p><br>
-    
-            <label for="start"><span class="required">*</span>Start Date:</label><br>
-            <input type="datetime-local" id="start" name="start" >
-            <p class="alert alert-danger"><?php echo $startErr;?></p><br>
-    
-            <label for="end"><span class="required">*</span>End Date:</label><br>
-            <input type="datetime-local" id="end" name="end" >
-            <p class="alert alert-danger"><?php echo $endErr;?></p><br>
-    
-            <label for="location"><span class="required">*</span>Location:</label><br>
-            <input type="text" name="location" value="<?php echo $location;?>">
-            <p class="alert alert-danger"><?php echo $locationErr;?></p><br>
-    
-            <label for="kickoff"><span class="required">*</span>Kickoff Time:</label><br>
-            <input type="time" id="kickoff" name="kickoff">
-            <p class="alert alert-danger"><?php echo $kickoffErr;?></p><br>
-    
-            <label for="result">Result:</label><br>
-            <input type="text" name="result" value="<?php echo $result;?>">
-            <p class="alert alert-danger"><?php echo $resultErr;?></p><br>
-    
-            <label for="score">Score:</label><br>
-            <input type="text" name="score" value="<?php echo $score;?>">
-            <p class="alert alert-danger"><?php echo $scoreErr;?></p><br>
-        </div>
-    
-        <div id="training-form">
+            <option value="<?php echo $squad["squad_name"]; ?>">
+              <?php echo $squad["squad_name"]; ?>
+            </option>
+            <?php
+          }
+          ?>
+        </select>
+        <p class="alert alert-danger"><?php echo $squadErr; ?></p><br>
+
+        <label for="opposition"><span class="required">*</span>Opposition team name:</label><br>
+        <input type="text" name="opposition" value="<?php echo $opposition; ?>">
+        <p class="alert alert-danger"><?php echo $oppositionErr; ?></p><br>
+
+        <label for="start"><span class="required">*</span>Start Date:</label><br>
+        <input type="datetime-local" id="start" name="start">
+        <p class="alert alert-danger"><?php echo $startErr; ?></p><br>
+
+        <label for="end"><span class="required">*</span>End Date:</label><br>
+        <input type="datetime-local" id="end" name="end">
+        <p class="alert alert-danger"><?php echo $endErr; ?></p><br>
+
+        <label for="location"><span class="required">*</span>Location:</label><br>
+        <input type="text" name="location" value="<?php echo $location; ?>">
+        <p class="alert alert-danger"><?php echo $locationErr; ?></p><br>
+
+        <label for="kickoff"><span class="required">*</span>Kickoff Time:</label><br>
+        <input type="time" id="kickoff" name="kickoff">
+        <p class="alert alert-danger"><?php echo $kickoffErr; ?></p><br>
+
+        <label for="result">Result:</label><br>
+        <input type="text" name="result" value="<?php echo $result; ?>">
+        <p class="alert alert-danger"><?php echo $resultErr; ?></p><br>
+
+        <label for="score">Score:</label><br>
+        <input type="text" name="score" value="<?php echo $score; ?>">
+        <p class="alert alert-danger"><?php echo $scoreErr; ?></p><br>
+      </div>
+
+      <div id="training-form">
 
         <!-- 
           Hidden input that is used to determine which section should not be validated because it's hidden.
 
           This will change depending on the radio option picked by user.
         -->
-            <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" /> 
-    
-            <label for="sessionName"><span class="required">*</span>Training session name:</label><br>
-            <input type="text" name="sessionName" value="<?php echo $sessionName;?>">
-            <p class="alert alert-danger"><?php echo $sessionNameErr;?></p><br>
-    
-          <!-- Generates a dropdown list of coach numbers based on the provided array of coaches-->
+        <input type="hidden" id="elementForVar1HiddenField" name="elementForVar1HiddenField" value="0" />
 
-            <label for="coachName"><span class="required">*</span>Coach:</label><br>
-            <select name="coachName">
-            <?php
-            foreach($coaches as $coach){
-                ?>
-                <option value="<?php echo $coach["first_name"] . ' ' . $coach["last_name"]; ?>">
-                <?php echo $coach["first_name"] . ' ' . $coach["last_name"]; ?>
-                </option>
-                <?php
-            }
-            ?>
-            </select>
-            <p class="alert alert-danger"><?php echo $coachNameErr;?></p><br>
-            <br>
+        <label for="sessionName"><span class="required">*</span>Training session name:</label><br>
+        <input type="text" name="sessionName" value="<?php echo $sessionName; ?>">
+        <p class="alert alert-danger"><?php echo $sessionNameErr; ?></p><br>
 
-            <!-- Generates a dropdown list of squad numbers based on the provided array of squads. -->
-            <label for="trainingSquad"><span class="required">*</span>Squad number:</label><br>
-            <select name="trainingSquad">
-            <?php
-            foreach($squads as $squad){
-                ?>
-                <option value="<?php echo $squad["squad_name"]; ?>">
-                <?php echo $squad["squad_name"]; ?>
-                </option>
-                <?php
-            }
+        <!-- Generates a dropdown list of coach numbers based on the provided array of coaches-->
+
+        <label for="coachName"><span class="required">*</span>Coach:</label><br>
+        <select name="coachName">
+          <?php
+          foreach ($coaches as $coach) {
             ?>
-            </select>
-            <p class="alert alert-danger"><?php echo $trainingSquadErr;?></p><br>
-            <br>
-    
-    
-            <label for="trainingStart"><span class="required">*</span>Start Date:</label><br>
-            <input type="datetime-local" id="trainingStart" name="trainingStart"  >
-            <p class="alert alert-danger"><?php echo $trainingStartErr;?></p><br>
-    
-            <label for="trainingEnd"><span class="required">*</span>End Date:</label><br>
-            <input type="datetime-local" id="trainingEnd" name="trainingEnd"  >
-            <p class="alert alert-danger"><?php echo $trainingEndErr;?></p><br>
-    
-    
-            <label for="trainingLocation"><span class="required">*</span>Location:</label><br>
-            <input type="text" name="trainingLocation" value="<?php echo $trainingLocation;?>">
-            <p class="alert alert-danger"><?php echo $trainingLocationErr;?></p><br>
-        </div>
-    
-    
-    
-        <input type="submit" name="submit" onclick="return validateForm()"value="Submit">
-    
-    
-        </form>
-    </div>
+            <option value="<?php echo $coach["first_name"] . ' ' . $coach["last_name"]; ?>">
+              <?php echo $coach["first_name"] . ' ' . $coach["last_name"]; ?>
+            </option>
+            <?php
+          }
+          ?>
+        </select>
+        <p class="alert alert-danger"><?php echo $coachNameErr; ?></p><br>
+        <br>
+
+        <!-- Generates a dropdown list of squad numbers based on the provided array of squads. -->
+        <label for="trainingSquad"><span class="required">*</span>Squad number:</label><br>
+        <select name="trainingSquad">
+          <?php
+          foreach ($squads as $squad) {
+            ?>
+            <option value="<?php echo $squad["squad_name"]; ?>">
+              <?php echo $squad["squad_name"]; ?>
+            </option>
+            <?php
+          }
+          ?>
+        </select>
+        <p class="alert alert-danger"><?php echo $trainingSquadErr; ?></p><br>
+        <br>
+
+
+        <label for="trainingStart"><span class="required">*</span>Start Date:</label><br>
+        <input type="datetime-local" id="trainingStart" name="trainingStart">
+        <p class="alert alert-danger"><?php echo $trainingStartErr; ?></p><br>
+
+        <label for="trainingEnd"><span class="required">*</span>End Date:</label><br>
+        <input type="datetime-local" id="trainingEnd" name="trainingEnd">
+        <p class="alert alert-danger"><?php echo $trainingEndErr; ?></p><br>
+
+
+        <label for="trainingLocation"><span class="required">*</span>Location:</label><br>
+        <input type="text" name="trainingLocation" value="<?php echo $trainingLocation; ?>">
+        <p class="alert alert-danger"><?php echo $trainingLocationErr; ?></p><br>
+      </div>
+
+
+
+      <input type="submit" name="submit" onclick="return validateForm()" value="Submit">
+
+
+    </form>
+  </div>
 </main>
 
 <script>
@@ -525,100 +524,100 @@ function test_input($data) {
   const tForm = document.getElementById("training-form"); ///< ID of div containing form to add a training session
 
 
-    /**
-     * Check if a radio button is checked and display or hide a specific element.
-     */
-function radioChecked(){
-  if (document.getElementById("radio-two").checked){
-    gForm.style.display = "none";
-    tForm.style.display = "block";
-    document.getElementById('elementForVar1HiddenField').value = 1; ///< Game form won't be validated
+  /**
+   * Check if a radio button is checked and display or hide a specific element.
+   */
+  function radioChecked() {
+    if (document.getElementById("radio-two").checked) {
+      gForm.style.display = "none";
+      tForm.style.display = "block";
+      document.getElementById('elementForVar1HiddenField').value = 1; ///< Game form won't be validated
 
-  } else {
+    } else {
       gForm.style.display = "block";
       tForm.style.display = "none";
       document.getElementById('elementForVar1HiddenField').value = 0; ///< Session form won't be validated
     }
-}
-
-radioChecked(); 
-
-    /**
-     * Validates a form with multiple input fields.
-     */
-function validateForm() {
-  let hiddenInput = document.getElementById('elementForVar1HiddenField');
-  let gameNameInput = document.forms[0]["gameName"].value.trim(); ///< Session's name
-  let oppositionInput = document.forms[0]["opposition"].value.trim(); ///< Opposition name
-  let startInput = document.forms[0]["start"].value.trim(); ///< Start date
-  let endInput = document.forms[0]["end"].value.trim(); ///< End date
-  let locationInput = document.forms[0]["location"].value.trim(); ///< location
-  let kickoffInput = document.forms[0]["kickoff"].value.trim(); ///< kickoff time
-
-  let sessionNameInput = document.forms[0]["sessionName"].value.trim(); ///< Session name
-  let sessionStartInput = document.forms[0]["trainingStart"].value.trim(); ///<
-  let sessionEndInput = document.forms[0]["trainingEnd"].value.trim(); ///<
-  let sessionLocationInput = document.forms[0]["trainingLocation"].value.trim(); ///<
-
-  /// Validate game if hidden input is set to 0
-  if(hiddenInput.value == 0){
-    if (gameNameInput == "") {
-      alert("Name of the game must be filled out"); ///< Display alert
-      return false;
-    }
-
-    if (oppositionInput == "") {
-      alert("Opposition name must be filled out");
-      return false;
-    }
-
-    
-    if (startInput == "") {
-      alert("Start date must be filled out");
-      return false;
-    }
-
-    if (endInput == "") {
-      alert("End date must be filled out");
-      return false;
-    }
-
-    if (locationInput == "") {
-      alert("Location of the game must be filled out");
-      return false;
-    }
-
-    if (kickoffInput == "") {
-      alert("Kickoff time must be filled out");
-      return false;
-    }
-  } 
-  
-  /// If hidden element's value is not 0 validate Session form.
-  else {
-    if (sessionNameInput == "") {
-      alert("Name of the training session must be filled out");
-      return false;
-    }
-
-    if (sessionStartInput == "") {
-      alert("Start date must be filled out");
-      return false;
-    }
-
-    if (sessionEndInput == "") {
-      alert("End date must be filled out");
-      return false;
-    }
-
-    if (sessionLocationInput == "") {
-      alert("Location of training session be filled out");
-      return false;
-    }
   }
 
+  radioChecked();
 
-}
+  /**
+   * Validates a form with multiple input fields.
+   */
+  function validateForm() {
+    let hiddenInput = document.getElementById('elementForVar1HiddenField');
+    let gameNameInput = document.forms[0]["gameName"].value.trim(); ///< Session's name
+    let oppositionInput = document.forms[0]["opposition"].value.trim(); ///< Opposition name
+    let startInput = document.forms[0]["start"].value.trim(); ///< Start date
+    let endInput = document.forms[0]["end"].value.trim(); ///< End date
+    let locationInput = document.forms[0]["location"].value.trim(); ///< location
+    let kickoffInput = document.forms[0]["kickoff"].value.trim(); ///< kickoff time
+
+    let sessionNameInput = document.forms[0]["sessionName"].value.trim(); ///< Session name
+    let sessionStartInput = document.forms[0]["trainingStart"].value.trim(); ///<
+    let sessionEndInput = document.forms[0]["trainingEnd"].value.trim(); ///<
+    let sessionLocationInput = document.forms[0]["trainingLocation"].value.trim(); ///<
+
+    /// Validate game if hidden input is set to 0
+    if (hiddenInput.value == 0) {
+      if (gameNameInput == "") {
+        alert("Name of the game must be filled out"); ///< Display alert
+        return false;
+      }
+
+      if (oppositionInput == "") {
+        alert("Opposition name must be filled out");
+        return false;
+      }
+
+
+      if (startInput == "") {
+        alert("Start date must be filled out");
+        return false;
+      }
+
+      if (endInput == "") {
+        alert("End date must be filled out");
+        return false;
+      }
+
+      if (locationInput == "") {
+        alert("Location of the game must be filled out");
+        return false;
+      }
+
+      if (kickoffInput == "") {
+        alert("Kickoff time must be filled out");
+        return false;
+      }
+    }
+
+    /// If hidden element's value is not 0 validate Session form.
+    else {
+      if (sessionNameInput == "") {
+        alert("Name of the training session must be filled out");
+        return false;
+      }
+
+      if (sessionStartInput == "") {
+        alert("Start date must be filled out");
+        return false;
+      }
+
+      if (sessionEndInput == "") {
+        alert("End date must be filled out");
+        return false;
+      }
+
+      if (sessionLocationInput == "") {
+        alert("Location of training session be filled out");
+        return false;
+      }
+    }
+
+
+  }
 
 
 </script>

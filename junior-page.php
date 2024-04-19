@@ -3,17 +3,18 @@
 /// This must come first when we need access to the current session
 session_start();
 
-require("classes/components.php");
+require ("classes/components.php");
 /**
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");require("classes/junior.php");
+require ("classes/utils.php");
+require ("classes/junior.php");
 
 /**
  * Check if the user is logged in; if not, redirect to login page
  */
-if(!isset($_SESSION["loggedIn"])){
+if (!isset($_SESSION["loggedIn"])) {
   header("Location: " . Utils::$projectFilePath . "/login.php");
 }
 

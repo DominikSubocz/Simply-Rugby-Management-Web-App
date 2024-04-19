@@ -1,9 +1,9 @@
 <?php
 
 
-require_once("classes/connection.php");
-require_once("classes/sql.php");
-require_once("classes/utils.php");
+require_once ("classes/connection.php");
+require_once ("classes/sql.php");
+require_once ("classes/utils.php");
 
 
 /**
@@ -50,7 +50,8 @@ class Junior
    * @param int $skillId The ID of the skill to be updated.
    * @param int $playerId The ID of the player whose skill is being updated.
    */
-  public static function updateJuniorSkills($skillLevel, $comment, $skillId, $playerId){
+  public static function updateJuniorSkills($skillLevel, $comment, $skillId, $playerId)
+  {
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updateJuniorSkills);
     $stmt->execute([$skillLevel, $comment, $skillId, $playerId]);
@@ -151,7 +152,8 @@ class Junior
    *
    * @param int $playerId The ID of the player to be deleted
    */
-  public static function deleteJunior($playerId){
+  public static function deleteJunior($playerId)
+  {
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$deleteJuniorAssociation);
@@ -186,7 +188,8 @@ class Junior
    * @param int $juniorId:  ID number of junior player
    * @throws PDOException If there is an error with the database operation. - There is a try catch code in corresponding page.
    */
-  public static function updateJunior($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId){
+  public static function updateJunior($address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId)
+  {
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updateJunior);
     $stmt->execute([$address_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename, $juniorId]);
@@ -202,7 +205,8 @@ class Junior
    * @param int $doctorId The ID of the doctor
    * @param int $juniorId The ID of the junior
    */
-  public static function updateJuniorAssociation($guardianId, $doctorId, $juniorId){
+  public static function updateJuniorAssociation($guardianId, $doctorId, $juniorId)
+  {
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updateJuniorAssociations);
     $stmt->execute([$guardianId, $doctorId, $juniorId]);
@@ -223,7 +227,8 @@ class Junior
    * @param string $mobileNo The mobile number of the junior user
    * @return string $existingUser The existing user if found, or null if not found
    */
-  public static function juniorExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo){
+  public static function juniorExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo)
+  {
 
     $conn = Connection::connect();
 
@@ -250,7 +255,8 @@ class Junior
    * @param string  $filename:  Filename of profile picture of junior player
    * @return int The ID of the newly created junior record
    */
-  public static function createNewJunior($addressId, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename){
+  public static function createNewJunior($addressId, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $healthIssues, $filename)
+  {
 
     $conn = Connection::connect();
 
@@ -270,7 +276,8 @@ class Junior
    * @param int $guardianId The ID of the guardian
    * @param int $doctorId The ID of the doctor
    */
-  public static function createAssociation($juniorId, $guardianId, $doctorId){
+  public static function createAssociation($juniorId, $guardianId, $doctorId)
+  {
 
     $conn = Connection::connect();
 
@@ -279,7 +286,8 @@ class Junior
 
   }
 
-  public static function createJuniorSkills($juniorId, $skillId, $squadId, $skillLevel, $comment){
+  public static function createJuniorSkills($juniorId, $skillId, $squadId, $skillLevel, $comment)
+  {
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$createJuniorSkills);

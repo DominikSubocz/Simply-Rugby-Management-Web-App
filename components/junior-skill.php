@@ -12,10 +12,10 @@
 </div>
 
 <script>
-/// Select the level-bar element using a unique id for each row
-var l = document.getElementById("level-bar-<?php echo $skillName; ?>");
+    /// Select the level-bar element using a unique id for each row
+    var l = document.getElementById("level-bar-<?php echo $skillName; ?>");
 
-l.style.width = "<?php echo 20 * $skillLevel ?>%";
-l.style.height = "10px";
+    l.style.width = "<?php echo 20 * $skillLevel ?>%";
+    l.style.height = "10px";
 
 </script>

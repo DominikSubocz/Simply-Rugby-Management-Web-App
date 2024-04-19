@@ -14,7 +14,8 @@
  *  - Remove redundant functions.
  */
 
-class Doctor{
+class Doctor
+{
 
     /**
      * Check if a doctor exists based on the provided first name, last name, and contact number.
@@ -24,7 +25,8 @@ class Doctor{
      * @param string $contactNo The contact number of the doctor
      * @return string $doctor The doctor information if found, null otherwise
      */
-    public static function doctorExists($firstName, $lastName, $contactNo){
+    public static function doctorExists($firstName, $lastName, $contactNo)
+    {
         $conn = Connection::connect();
 
         $stmt = $conn->prepare(SQL::$doctorExists);
@@ -44,7 +46,8 @@ class Doctor{
      * @param string $contactNo The contact number of the doctor.
      * @return string $doctorid The existing doctor ID if found, otherwise null.
      */
-    public static function existingDoctorId($firstName, $lastName, $contactNo){
+    public static function existingDoctorId($firstName, $lastName, $contactNo)
+    {
 
         $conn = Connection::connect();
 
@@ -65,7 +68,8 @@ class Doctor{
      * @param string $contactNo The contact number of the doctor
      * @return int $id The ID of the newly created doctor
      */
-    public static function createNewDoctor($firstName, $lastName, $contactNo){
+    public static function createNewDoctor($firstName, $lastName, $contactNo)
+    {
 
         $conn = Connection::connect();
 
@@ -73,8 +77,8 @@ class Doctor{
         $stmt->execute([$firstName, $lastName, $contactNo]);
 
 
-        $id = $conn->lastinsertId(); 
-        return $id; 
+        $id = $conn->lastinsertId();
+        return $id;
 
     }
 
@@ -85,7 +89,8 @@ class Doctor{
      *
      * @return array $doctors An array containing all the doctors fetched from the database.
      */
-    public static function getAllDoctors(){
+    public static function getAllDoctors()
+    {
         $conn = Connection::connect();
 
         $stmt = $conn->prepare(SQL::$getAllDoctors);
@@ -104,7 +109,8 @@ class Doctor{
      * @param int $doctorId The ID of the doctor to retrieve.
      * @return string $doctor The details of the doctor if found, or null if not found.
      */
-    public static function getDoctor($doctorId){
+    public static function getDoctor($doctorId)
+    {
         $conn = Connection::connect();
 
         $stmt = $conn->prepare(SQL::$getDoctor);
@@ -121,7 +127,8 @@ class Doctor{
      *
      * @param int $doctorId The ID of the doctor to be deleted.
      */
-    public static function deleteDoctor($doctorId){
+    public static function deleteDoctor($doctorId)
+    {
         $conn = Connection::connect();
 
         $stmt = $conn->prepare(SQL::$deleteDoctor);

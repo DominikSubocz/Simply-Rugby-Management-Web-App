@@ -3,25 +3,26 @@
 /// This must come first when we need access to the current session
 session_start();
 
-require("classes/components.php");
+require ("classes/components.php");
 /**
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");require("classes/player.php");
+require ("classes/utils.php");
+require ("classes/player.php");
 
 /**
  * Check if the user is logged in; if not, redirect to login page
  */
-if(!isset($_SESSION["loggedIn"])){
+if (!isset($_SESSION["loggedIn"])) {
 
   header("Location: " . Utils::$projectFilePath . "/login.php");
 
 }
 
-  /**
-   * Redirects the user to the player-list.php page if the "id" parameter is not set in the GET request or is not numeric.
-   */
+/**
+ * Redirects the user to the player-list.php page if the "id" parameter is not set in the GET request or is not numeric.
+ */
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
   header("Location: " . Utils::$projectFilePath . "/player-list.php");
 }

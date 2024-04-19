@@ -7,7 +7,7 @@ session_start();
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");
+require ("classes/utils.php");
 $_SESSION = [];
 
 session_destroy(); ///< Destroys all data registered to a session

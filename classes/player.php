@@ -1,9 +1,9 @@
 <?php
 
 /// If one of these file has already been included, do not do so again
-require_once("classes/connection.php");
-require_once("classes/sql.php");
-require_once("classes/utils.php");
+require_once ("classes/connection.php");
+require_once ("classes/sql.php");
+require_once ("classes/utils.php");
 
 
 /**
@@ -20,7 +20,7 @@ require_once("classes/utils.php");
 class Player
 {
 
-  
+
   /**
    * Retrieves all players from the database.
    * 
@@ -112,7 +112,8 @@ class Player
    * @param int $skillId The ID of the skill to update.
    * @param int $playerId The ID of the player whose skill is being updated.
    */
-  public static function upatePlayerSkills($skillLevel, $comment, $skillId, $playerId){
+  public static function upatePlayerSkills($skillLevel, $comment, $skillId, $playerId)
+  {
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updatePlayerSkill);
     $stmt->execute([$skillLevel, $comment, $skillId, $playerId]);
@@ -134,7 +135,7 @@ class Player
 
   ///   $conn = null;
 
-      
+
   /// }
 
 
@@ -143,7 +144,8 @@ class Player
    *
    * @param int $playerId The ID of the player to be deleted.
    */
-  public static function deletePlayer($playerId){
+  public static function deletePlayer($playerId)
+  {
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$deletePlayerSkill);
     $stmt->execute([$playerId]);
@@ -156,7 +158,7 @@ class Player
 
     $conn = null;
 
-    
+
   }
 
 
@@ -181,9 +183,10 @@ class Player
    */
 
 
- 
-  
-  public static function updatePlayer($address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId){
+
+
+  public static function updatePlayer($address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId)
+  {
     $conn = Connection::connect();
     $stmt = $conn->prepare(SQL::$updatePlayer);
     $stmt->execute([$address_id, $doctor_id, $firstName, $lastName, $dob, $sru, $contactNo, $mobileNo, $email, $kin, $kinContact, $healthIssues, $filename, $playerId]);
@@ -207,8 +210,9 @@ class Player
    * @param string $mobileNo The mobile number of the player
    * @return string $existingUser The existing user data if found, otherwise null
    */
-  public static function playerExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo){
-    
+  public static function playerExists($firstName, $lastName, $sqlDate, $sru, $contactNo, $mobileNo)
+  {
+
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$playerExists);
@@ -219,7 +223,8 @@ class Player
 
   }
 
-  public static function createPlayerSkills($playerId, $skillId, $squadId, $skillLevel, $comment){
+  public static function createPlayerSkills($playerId, $skillId, $squadId, $skillLevel, $comment)
+  {
     $conn = Connection::connect();
 
     $stmt = $conn->prepare(SQL::$createPlayerSkills);

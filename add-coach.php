@@ -2,18 +2,18 @@
 /// This must come first when we need access to the current session
 session_start();
 
-require("classes/components.php");
-require("classes/sql.php");
+require ("classes/components.php");
+require ("classes/sql.php");
 /**
  * Included for the postValuesAreEmpty() and
  * escape() functions and the project file path.
  */
-require("classes/utils.php");
-require_once("classes/connection.php");
-require("classes/coach.php");
+require ("classes/utils.php");
+require_once ("classes/connection.php");
+require ("classes/coach.php");
 
 /// Check if the user role is not Admin, then redirect to the logout page.
-if($_SESSION["user_role"] != "Admin") {
+if ($_SESSION["user_role"] != "Admin") {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
 }
 /**
@@ -39,11 +39,11 @@ if($_SESSION["user_role"] != "Admin") {
  * @var string  $lastName: Holds value for Last name after the splitting proces
  */
 
- $nameErr = $dobErr = $emailErr = $contactNoErr = $mobileNoErr = $profileImageErr = $genuineErr = "";
- $name = $dob = $email = $contactNo = $mobileNo = $profileImage = $filename = "";
- $firstName = $lastName = "";
+$nameErr = $dobErr = $emailErr = $contactNoErr = $mobileNoErr = $profileImageErr = $genuineErr = "";
+$name = $dob = $email = $contactNo = $mobileNo = $profileImage = $filename = "";
+$firstName = $lastName = "";
 
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     /// Validate name
     if (empty($_POST["name"])) {
@@ -73,7 +73,7 @@ if($_SESSION["user_role"] != "Admin") {
         }
     }
 
-    if (empty($_POST["dob"])){
+    if (empty($_POST["dob"])) {
         $dobErr = "Date of birth is required"; ///< Display error message
 
 
@@ -86,8 +86,8 @@ if($_SESSION["user_role"] != "Admin") {
         $dateTime = DateTime::createFromFormat('d/m/Y', $dob); ///< Create a DateTime object from the formatted date
         $sqlDate = $dateTime->format('Y-m-d'); ///< Format the date as YYYY-MM-DD
     }
-    
-    if(empty($_POST["contactNo"])){
+
+    if (empty($_POST["contactNo"])) {
         $contactNoErr = "Contact Number is required"; ///< Display error message
 
     } else {
@@ -97,53 +97,53 @@ if($_SESSION["user_role"] != "Admin") {
         }
     }
 
-    if(!empty($_POST["mobileNo"])){
+    if (!empty($_POST["mobileNo"])) {
         $mobileNo = test_input($_POST["mobileNo"]); ///< Sanitize mobile number
         if (!preg_match("/^\d+$/", $mobileNo)) {
             $mobileNoErr = "Only digits allowed"; ///< Display error message
         }
-    } 
+    }
 
-    if(empty($nameErr) && empty($dobErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($emailErr)){
-       
+    if (empty($nameErr) && empty($dobErr) && empty($contactNoErr) && empty($mobileNoErr) && empty($emailErr)) {
+
         $existingCoach = Coach::checkCoach($firstName, $lastName, $email);
 
-        if($existingCoach){
+        if ($existingCoach) {
             $genuineErr = "Coach already exists!";
         } else {
 
-            if(empty($genuineErr)){
-            /**
-             * Handles the upload of a profile image file.
-             */
-            if (!empty($_FILES["profileImage"]["name"])) {
-                $filename = $_FILES["profileImage"]["name"];
-                $filetype = Utils::getFileExtension($filename);
-                $isValidImage = in_array($filetype, ["jpg", "jpeg", "png", "gif"]);
-            
-                $isValidSize = $_FILES["profileImage"]["size"] <= 1000000;
-            
-                if (!$isValidImage || !$isValidSize) {
-                    $profileImageErr = "<p class='alert alert-danger'>ERROR: Invalid file size/format</p>"; ///< Display error message
-                }
-            
-                $tmpname = $_FILES["profileImage"]["tmp_name"];
-            
-                if (!move_uploaded_file($tmpname, "images/$filename")) {
-                    $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>"; ///< Display error message
-                }
-            }
+            if (empty($genuineErr)) {
+                /**
+                 * Handles the upload of a profile image file.
+                 */
+                if (!empty($_FILES["profileImage"]["name"])) {
+                    $filename = $_FILES["profileImage"]["name"];
+                    $filetype = Utils::getFileExtension($filename);
+                    $isValidImage = in_array($filetype, ["jpg", "jpeg", "png", "gif"]);
 
-            Coach::createCoach($firstName, $lastName, $sqlDate, $contactNo, $mobileNo, $email, $filename);
+                    $isValidSize = $_FILES["profileImage"]["size"] <= 1000000;
+
+                    if (!$isValidImage || !$isValidSize) {
+                        $profileImageErr = "<p class='alert alert-danger'>ERROR: Invalid file size/format</p>"; ///< Display error message
+                    }
+
+                    $tmpname = $_FILES["profileImage"]["tmp_name"];
+
+                    if (!move_uploaded_file($tmpname, "images/$filename")) {
+                        $profileImageErr = "<p class='alert alert-danger'>ERROR: File was not uploaded</p>"; ///< Display error message
+                    }
+                }
+
+                Coach::createCoach($firstName, $lastName, $sqlDate, $contactNo, $mobileNo, $email, $filename);
 
             }
         }
     }
 
 
- }
+}
 
- /**
+/**
  * 
  * Sanitizes input data to prevent SQL injection and cross-siste scripting (XSS) attacks.
  * 
@@ -152,88 +152,87 @@ if($_SESSION["user_role"] != "Admin") {
  * 
  */
 
-function test_input($data) {
+function test_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
-  }
+}
 
-  components::pageHeader("Add Coach", ["style"], ["mobile-nav"]);
+components::pageHeader("Add Coach", ["style"], ["mobile-nav"]);
 ?>
 <main class="content-wrapper contact-content my-5">
     <h2>Add New Coach</h2>
     <div class="alert alert-info">
         <p><strong>NOTE: </strong> Fields marked with <span class="required">*</span> are mandatory.</p>
     </div>
-    <form 
-        method="post" 
-        action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"
-        enctype="multipart/form-data">
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
 
-        <p class="alert alert-danger"><?php echo $genuineErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $genuineErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="name"><span class="required">*</span>Name:</label><br>
-        <input type="text" name="name" value="<?php echo $name;?>">
-        <p class="alert alert-danger"><?php echo $nameErr;?></p><br>
+        <label class="col-sm-2 col-form-label-sm" for="name"><span class="required">*</span>Name:</label><br>
+        <input type="text" name="name" value="<?php echo $name; ?>">
+        <p class="alert alert-danger"><?php echo $nameErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="dob"><span class="required">*</span>Date of Birth:</label><br>
-        <input type="text" name="dob" value="<?php echo $dob;?>">
-        <p class="alert alert-danger"><?php echo $dobErr;?></p><br>
+        <label class="col-sm-2 col-form-label-sm" for="dob"><span class="required">*</span>Date of Birth:</label><br>
+        <input type="text" name="dob" value="<?php echo $dob; ?>">
+        <p class="alert alert-danger"><?php echo $dobErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="contactNo"><span class="required">*</span>Contact Number:</label><br>
-        <input type="text" name="contactNo" value="<?php echo $contactNo;?>">
-        <p class="alert alert-danger"><?php echo $contactNoErr;?></p><br>
+        <label class="col-sm-2 col-form-label-sm" for="contactNo"><span class="required">*</span>Contact
+            Number:</label><br>
+        <input type="text" name="contactNo" value="<?php echo $contactNo; ?>">
+        <p class="alert alert-danger"><?php echo $contactNoErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="mobileNo">Mobile Number:</label><br>
-        <input type="text" name="mobileNo" value="<?php echo $mobileNo;?>">
-        <p class="alert alert-danger"><?php echo $mobileNoErr;?></p><br>
+        <label class="col-sm-2 col-form-label-sm" for="mobileNo">Mobile Number:</label><br>
+        <input type="text" name="mobileNo" value="<?php echo $mobileNo; ?>">
+        <p class="alert alert-danger"><?php echo $mobileNoErr; ?></p><br>
 
-        <label class="col-sm-2 col-form-label-sm"for="email"><span class="required">*</span>Email:</label><br>
-        <input type="text" name="email" value="<?php echo $email;?>">
-        <p class="alert alert-danger"><?php echo $emailErr;?></p><br>
+        <label class="col-sm-2 col-form-label-sm" for="email"><span class="required">*</span>Email:</label><br>
+        <input type="text" name="email" value="<?php echo $email; ?>">
+        <p class="alert alert-danger"><?php echo $emailErr; ?></p><br>
 
         <label><span class="required">*</span>Profile image</label>
         <input type="file" name="profileImage" value="">
-        <p class="alert alert-danger"><?php echo $profileImageErr;?></p><br>
+        <p class="alert alert-danger"><?php echo $profileImageErr; ?></p><br>
 
-        <input class="btn btn-dark" type="submit" name="submit" onclick="return validateForm()" value="Submit">  
+        <input class="btn btn-dark" type="submit" name="submit" onclick="return validateForm()" value="Submit">
 
-</form>
-<script>
+    </form>
+    <script>
 
-function validateForm() {
-        let nameInput = document.forms[0]["name"].value.trim();
-        let dobInput = document.forms[0]["dob"].value.trim();
-        let emailInput = document.forms[0]["email"].value.trim();
-        let contactInput = document.forms[0]["contactNo"].value.trim();
-        let pfpInput = document.forms[0]["profileImage"].value.trim();
+        function validateForm() {
+            let nameInput = document.forms[0]["name"].value.trim();
+            let dobInput = document.forms[0]["dob"].value.trim();
+            let emailInput = document.forms[0]["email"].value.trim();
+            let contactInput = document.forms[0]["contactNo"].value.trim();
+            let pfpInput = document.forms[0]["profileImage"].value.trim();
 
-        
-        if (nameInput == "") {
-            alert("Name must be filled out");
-            return false;
+
+            if (nameInput == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+
+            if (dobInput == "") {
+                alert("Date of Birth must be filled out");
+                return false;
+            }
+
+            if (emailInput == "") {
+                alert("Email Address must be filled out");
+                return false;
+            }
+
+            if (contactInput == "") {
+                alert("Contact Number must be filled out");
+                return false;
+            }
+
+            if (pfpInput == "") {
+                alert("Profile picture must be selected.");
+                return false;
+            }
         }
 
-        if (dobInput == "") {
-            alert("Date of Birth must be filled out");
-            return false;
-        }
-
-        if (emailInput == "") {
-            alert("Email Address must be filled out");
-            return false;
-        }
-
-        if (contactInput == "") {
-            alert("Contact Number must be filled out");
-            return false;
-        }
-
-        if (pfpInput == "") {
-            alert("Profile picture must be selected.");
-            return false;
-        }
-    }
-
-</script>
+    </script>

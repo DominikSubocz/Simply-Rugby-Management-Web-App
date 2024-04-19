@@ -14,7 +14,8 @@
  * 
  */
 
-class SQL {
+class SQL
+{
   public static $getallPlayers = "SELECT * FROM players"; ///< Select all records from players table
   public static $getAllJuniors = "SELECT * FROM juniors"; ///< Select all records from juniors table
   public static $getAllMembers = "SELECT * FROM members"; ///< Select all records from members table
@@ -27,7 +28,7 @@ class SQL {
 
   public static $getAllGuardians = "SELECT g.*, a.*
   FROM simplyrugby.guardians g 
-  LEFT JOIN simplyrugby.addresses a ON g.address_id = a.address_id"; 
+  LEFT JOIN simplyrugby.addresses a ON g.address_id = a.address_id";
 
   /**
    * Gets records from left table and matches them with records from the right table.
@@ -59,13 +60,13 @@ class SQL {
 
   public static $getGame = "SELECT * FROM simplyrugby.games WHERE name = ? AND start = ? AND end = ?"; ///< Get game that starts and ends at specific date.
   public static $getSession = "SELECT * FROM simplyrugby.sessions WHERE name = ? AND start = ? AND end = ?"; ///< Get training session that starts and ends at specific date.
-  
+
 
   public static $getSessionId = "SELECT * FROM simplyrugby.sessions WHERE session_id = ?"; ///< Get ID number of specific Training Session
 
 
   public static $createSession = "INSERT INTO simplyrugby.sessions (coach_id, squad_id, name, start, end, location) VALUES (?, ?, ?, ?, ?, ?)";  ///< Create new training session record
-  public static $getCoach  = "SELECT * FROM simplyrugby.coaches WHERE first_name = ? AND last_name = ?";  ///< Get coach with specific personal details
+  public static $getCoach = "SELECT * FROM simplyrugby.coaches WHERE first_name = ? AND last_name = ?";  ///< Get coach with specific personal details
   public static $getCoachById = "SELECT * FROM simplyrugby.coaches WHERE coach_id = ?"; ///< Get speficic coach by his ID number
 
   public static $createGame = "INSERT INTO simplyrugby.games (squad_id, name, opposition_team	, start, end, location, kickoff_time, result, score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"; ///< Create new game record
@@ -83,11 +84,11 @@ class SQL {
    * Gets records from left table and matches them with records from the right table, if available. 
    */
 
-  public static $getMember =   "SELECT m.*, a.* FROM simplyrugby.members m LEFT JOIN simplyrugby.addresses a ON m.address_id = a.address_id WHERE m.member_id = ?";  ///< Get member & address information of specific member
+  public static $getMember = "SELECT m.*, a.* FROM simplyrugby.members m LEFT JOIN simplyrugby.addresses a ON m.address_id = a.address_id WHERE m.member_id = ?";  ///< Get member & address information of specific member
   public static $getplayer = "SELECT p.*, a.*, d.* FROM simplyrugby.players p LEFT JOIN simplyrugby.addresses a ON p.address_id = a.address_id LEFT JOIN simplyrugby.doctors d ON p.doctor_id = d.doctor_id WHERE p.player_id = ?"; ///< Get player, address & doctor information of speficic member
   public static $getUser = "SELECT user_id, username, password, user_role FROM users WHERE username = ?";  ///< Get user with speficic details (Register/Login - check if user exists)
   public static $createUser = "INSERT INTO users (username, email, password, user_role) VALUES (?,?,?,?)"; ///< Create new user record in users table (Register page)
-  
+
   public static $updatePlayer = "UPDATE simplyrugby.players
   SET address_id = ?, doctor_id = ?, first_name = ?, last_name = ?, dob = ?, sru_no = ?, contact_no = ?, mobile_no = ?, email_address = ?, next_of_kin = ?, kin_contact_no = ?, health_issues = ?, filename = ?
   WHERE player_id = ?";  ///< Update existing player record
@@ -113,11 +114,11 @@ class SQL {
 
   public static $juniorExists = "SELECT * FROM simplyrugby.juniors 
   WHERE first_name = ? AND last_name = ? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?"; ///< Get junior with specific personal details
-  
+
 
   public static $memberExists = "SELECT * FROM members
   WHERE first_name = ? AND last_name =? AND dob = ? AND sru_no = ? AND contact_no = ? AND mobile_no = ?"; ///< Get member with specific personal details
-  
+
 
   public static $doctorExists = "SELECT * FROM doctors 
   WHERE doctor_first_name = ? AND doctor_last_name = ? AND doctor_contact_no = ?"; ///< Get doctor with specific personal details
@@ -126,7 +127,7 @@ class SQL {
   WHERE guardian_first_name = ? AND guardian_last_name = ? AND guardian_contact_no = ?"; ///< Get guardian with specific personal details
 
   public static $getExistingDoctorId = "SELECT doctor_id FROM doctors WHERE doctor_first_name = ? AND doctor_last_name = ? AND doctor_contact_no = ?"; ///< Only get doctor_id of doctor with specific personal details
-  
+
   public static $getExistingAddressId = "SELECT address_id FROM addresses WHERE address_line = ? AND address_line2 = ? AND city = ? AND county = ? AND postcode = ?"; ///< Only get address_id of address with specific details
 
   public static $getAddress = "SELECT * FROM simplyrugby.addresses WHERE address_id = ?"; ///< Get specific address
@@ -146,10 +147,10 @@ class SQL {
   public static $createNewGuardian = "INSERT INTO simplyrugby.guardians (address_id, guardian_first_name, guardian_last_name, guardian_contact_no, relationship)
   VALUES  (?, ?, ?, ?, ?)"; ///< Create new guardian record
 
-  public static $createNewPlayer ="INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
+  public static $createNewPlayer = "INSERT INTO simplyrugby.players (address_id, doctor_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, next_of_kin, kin_contact_no, health_issues, filename)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; ///< Create new player record
 
-  public static $createNewMember ="INSERT INTO simplyrugby.members (address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, filename)
+  public static $createNewMember = "INSERT INTO simplyrugby.members (address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, filename)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"; ///< Create new member record
 
   public static $createNewJunior = "INSERT INTO simplyrugby.juniors(address_id, first_name, last_name, dob, sru_no, contact_no, mobile_no, email_address, health_issues, filename) 
@@ -163,7 +164,7 @@ class SQL {
   FROM simplyrugby.juniors j 
   LEFT JOIN simplyrugby.junior_skills js ON j.junior_id = js.junior_id 
   LEFT JOIN simplyrugby.skills s ON js.skill_id = s.skill_id 
-  WHERE j.junior_id = ?"; 
+  WHERE j.junior_id = ?";
 
   /**
    * Gets records from left table and matches them with records from the right table, if available.
@@ -173,8 +174,8 @@ class SQL {
   FROM simplyrugby.players p 
   LEFT JOIN simplyrugby.player_skills ps ON p.player_id = ps.player_id 
   LEFT JOIN simplyrugby.skills s ON ps.skill_id = s.skill_id 
-  WHERE p.player_id = ?"; 
-  
+  WHERE p.player_id = ?";
+
 
   public static $updateJuniorSkills = "UPDATE simplyrugby.junior_skills SET skill_level = ?, comment = ? WHERE skill_id = ? AND junior_id = ?"; ///< Update existing junior_skills record
 
@@ -221,8 +222,8 @@ class SQL {
    * 
    */
 
-  public static $assignUserId = "UPDATE %s SET user_id = ? WHERE email_address = ?"; 
- 
+  public static $assignUserId = "UPDATE %s SET user_id = ? WHERE email_address = ?";
+
   public static $deleteJunior = "DELETE FROM juniors WHERE junior_id = ?"; ///< Delete speficic junior from database
   public static $deleteJuniorAssociation = "DELETE FROM junior_associations WHERE junior_id = ?"; ///< Delete association of specific junior from database
   public static $deleteJuniorPosition = "DELETE FROM junior_positions WHERE junior_id = ?";  ///< Delete position of specific junior from database
@@ -281,7 +282,7 @@ FROM
   simplyrugby.guardians g
 LEFT JOIN
   simplyrugby.junior_associations ja ON g.guardian_id = ja.guardian_id
-  WHERE ja.junior_id = ?"; 
+  WHERE ja.junior_id = ?";
 
 
   /**
@@ -304,16 +305,16 @@ LEFT JOIN
   simplyrugby.addresses a ON g.address_id = a.address_id
 WHERE g.guardian_id = ?";
 
-public static $getGuardianById = "SELECT * FROM simplyrugby.guardians WHERE guardian_id = ?"; ///< Get specific guardian
+  public static $getGuardianById = "SELECT * FROM simplyrugby.guardians WHERE guardian_id = ?"; ///< Get specific guardian
 
-public static $deleteGuardian = "DELETE * FROM simplyrugby.guardians WHERE guardian_id = ?"; ///< Delete specific guardian (only works if guardian isn't present in other tables)
+  public static $deleteGuardian = "DELETE * FROM simplyrugby.guardians WHERE guardian_id = ?"; ///< Delete specific guardian (only works if guardian isn't present in other tables)
 
-public static $createNewCoach = "INSERT INTO simplyrugby.coaches (first_name,	last_name,	dob, contact_no, mobile_no, email_address, filename) VALUES (?,	?,	?, ?, ?, ?, ?)"; ///< Create new coach record
+  public static $createNewCoach = "INSERT INTO simplyrugby.coaches (first_name,	last_name,	dob, contact_no, mobile_no, email_address, filename) VALUES (?,	?,	?, ?, ?, ?, ?)"; ///< Create new coach record
 
-public static $checkCoach = "SELECT * FROM simplyrugby.coaches WHERE first_name = ? AND last_name = ? AND email_address = ?"; ///< Check if a coach exists
+  public static $checkCoach = "SELECT * FROM simplyrugby.coaches WHERE first_name = ? AND last_name = ? AND email_address = ?"; ///< Check if a coach exists
 
-public static $createPlayerSkills = "INSERT INTO simplyrugby.player_skills (player_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)"; ///< Create new player skills record
+  public static $createPlayerSkills = "INSERT INTO simplyrugby.player_skills (player_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)"; ///< Create new player skills record
 
-public static $createJuniorSkills = "INSERT INTO simplyrugby.junior_skills (junior_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)"; ///< Create new junior skills record
+  public static $createJuniorSkills = "INSERT INTO simplyrugby.junior_skills (junior_id, skill_id, squad_id, skill_level, comment) VALUES (?, ?, ?, ?, ?)"; ///< Create new junior skills record
 
 }

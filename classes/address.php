@@ -17,7 +17,7 @@
 
 
 class Address
-    {
+{
     /**
      * Check if an address already exists in the database based on the provided address details.
      *
@@ -29,16 +29,17 @@ class Address
      * @return string $existingAddress The existing address if found, or null if not found
      */
 
-    public static function addressExists($address1, $address2, $city, $county, $postcode){
+    public static function addressExists($address1, $address2, $city, $county, $postcode)
+    {
 
-    $conn = Connection::connect();
+        $conn = Connection::connect();
 
 
-    $stmt = $conn->prepare(SQL::$addressExists); 
-    $stmt->execute([$address1, $address2, $city, $county, $postcode]); 
-    $existingAddress = $stmt->fetch(PDO::FETCH_COLUMN); 
+        $stmt = $conn->prepare(SQL::$addressExists);
+        $stmt->execute([$address1, $address2, $city, $county, $postcode]);
+        $existingAddress = $stmt->fetch(PDO::FETCH_COLUMN);
 
-    return $existingAddress;
+        return $existingAddress;
 
     }
 
@@ -51,20 +52,21 @@ class Address
      * @return array $addresses An array containing all addresses fetched from the database.
      */
 
-    public static function getAllAddresses(){
+    public static function getAllAddresses()
+    {
 
         $conn = Connection::connect();
-    
-    
-        $stmt = $conn->prepare(SQL::$getAllAddresses);
-        $stmt->execute(); 
-        $addreses = $stmt->fetchAll();  
-    
-        return $addreses; 
-    
-        }
 
- 
+
+        $stmt = $conn->prepare(SQL::$getAllAddresses);
+        $stmt->execute();
+        $addreses = $stmt->fetchAll();
+
+        return $addreses;
+
+    }
+
+
     /**
      * Creates a new address record in the database with the provided address details.
      *
@@ -76,15 +78,16 @@ class Address
      * @return int $addressId The ID of the newly created address record
      */
 
-    public static function createNewAddress($address1, $address2, $city, $county, $postcode){
+    public static function createNewAddress($address1, $address2, $city, $county, $postcode)
+    {
 
         $conn = Connection::connect();
 
-        $stmt = $conn->prepare(SQL::$createNewAddress); 
-        $stmt->execute([$address1, $address2, $city, $county, $postcode]); 
-        $addressId = $conn->lastInsertId(); 
+        $stmt = $conn->prepare(SQL::$createNewAddress);
+        $stmt->execute([$address1, $address2, $city, $county, $postcode]);
+        $addressId = $conn->lastInsertId();
 
-        return $addressId; 
+        return $addressId;
     }
 
 
@@ -99,15 +102,16 @@ class Address
      * @return string $addressId The address ID if found, null otherwise
      */
 
-    public static function getExistingAddress($address1, $address2, $city, $county, $postcode){
+    public static function getExistingAddress($address1, $address2, $city, $county, $postcode)
+    {
 
         $conn = Connection::connect();
 
-        $stmt = $conn->prepare(SQL::$getExistingAddressId); 
-        $stmt->execute([$address1, $address2, $city, $county, $postcode]); 
-        $addressId = $stmt->fetch(PDO::FETCH_COLUMN); 
+        $stmt = $conn->prepare(SQL::$getExistingAddressId);
+        $stmt->execute([$address1, $address2, $city, $county, $postcode]);
+        $addressId = $stmt->fetch(PDO::FETCH_COLUMN);
 
-        return $addressId; 
+        return $addressId;
 
     }
 
@@ -119,14 +123,15 @@ class Address
      * @return array $addresses The address details as an associative array, or null if address not found
      */
 
-    public static function getAddress($addressId){
+    public static function getAddress($addressId)
+    {
         $conn = Connection::connect();
-        $stmt = $conn->prepare(SQL::$getAddress); 
-        $stmt->execute([$addressId]); 
-        
-        $address = $stmt->fetch(); 
+        $stmt = $conn->prepare(SQL::$getAddress);
+        $stmt->execute([$addressId]);
 
-        return $address; 
+        $address = $stmt->fetch();
+
+        return $address;
     }
 
 
@@ -137,12 +142,13 @@ class Address
      * @param int $addressId The ID of the address to be deleted.
      * @throws PDOException If there is an error with the database operation. - There is a try catch code in corresponding page.
      */
-    
-    public static function deleteAddress($addressId){
-        
+
+    public static function deleteAddress($addressId)
+    {
+
         $conn = Connection::connect();
-        $stmt = $conn->prepare(SQL::$deleteAddress); 
-        $stmt->execute([$addressId]); 
-        
+        $stmt = $conn->prepare(SQL::$deleteAddress);
+        $stmt->execute([$addressId]);
+
     }
 }
