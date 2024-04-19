@@ -27,7 +27,7 @@ if (!isset($_SESSION["loggedIn"])) {
     header("Location: " . Utils::$projectFilePath . "/logout.php");
   }
 
-  Components::blankPageHeader("Delete game", ["style"], ["mobile-nav"]); ///< Doesn't render anything it's just for keeping stylesheets on, etc.
+  Components::blankPageHeader("Delete session", ["style"], ["mobile-nav"]); ///< Doesn't render anything it's just for keeping stylesheets on, etc.
 
   /**
    * Redirects the user back to the timetable.php page if the "id" parameter is not set in the GET request or is not numeric.
@@ -38,28 +38,28 @@ if (!isset($_SESSION["loggedIn"])) {
 
 
 
-  $game = Events::getGame($_GET["id"]); ///< Get details of game
-  $gameId = $game['game_id']; ///< Get ID of that game
+  $session = Events::getSession($_GET["id"]); ///< Get details of training session
+  $sessionId = $session['session_id']; ///< Get ID of that session
 
-  $pageTitle = "Game Deletion";
+  $pageTitle = "Training Session Deletion";
 
 
 
   /**
-   * Try to delete an game by its ID. If successful, redirect to the game list page.
-   * If game is used elsewhere, error will be thrown.
+   * Try to delete an session by its ID. If successful, redirect to the session list page.
+   * If session is used elsewhere, error will be thrown.
    *
-   * @param int $gameId The ID of the game to delete
+   * @param int $sessionId The ID of the session to delete
    */
 
 
   try {
-    Events::deleteGame($gameId);
+    Events::deleteSession($sessionId);
     header("Location: " . Utils::$projectFilePath . "/timetable.php");
 
   } catch (PDOException $e) {
     echo "<div class='alert alert-danger my-3'>
-    <p>Error: Cannot delete game, because it is used in another table!</p>
+    <p>Error: Cannot delete training session, because it is used in another table!</p>
           <a href='timetable.php'><i class='fa fa-chevron-left' aria-hidden='true'></i> Click here to go back.</a>
           </div>";
   }
