@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
         Please note that only users with admin priveledge level are able to access this page.
         </dd>
       </dl>
-    <p>This page provides a comprehensive overview of the user interface (UI) of our software/service. Understanding the various elements and functionalities of the UI is essential for effectively using our application.</p>
+    <p>This page provides a comprehensive overview of the user interface (UI) of the software/service. Understanding the various elements and functionalities of the UI is essential for effectively using the application.</p>
   
     <div class="memitem" id="table-section">
       <div class="memproto">
@@ -137,20 +137,105 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
       </table>
     </td>
       </div><div class="memdoc">
-        This page will walk you through the steps required to create an account and gain access to different features and functionalities.<br><br>
 
         <h3>Brief Overview</h3><br>
+
+        You can either sign up as an existing member or as a new member.<br><br>
+        To sign up as an existing member, all you have to do is use same email address that your record uses. The system will compare username and email address, 
+        and check if the email address exists in any of the tables, and if username doesn't contain words like admin or coach at the start.<br><br>
+
+        This isn't the best way to sign up a user, but I plan to rework it in the future.<br><br>
+
+        If you are a new member, just sign up as you normally would, once you click on register button, you will be redirected to another page where you will be asked to prompt your details to complete registration.
+        
+        <h4>Fields</h4>
         <ul>
-            <li><b>Username:</b> Your username goes here.</li>
-            <li><b>Email Address:</b> Your email goes here.</li>
-            <li><b>Password One:</b> Your email goes here.</li>
-            <li><b>Password Two:</b> Your email goes here.</li>
+            <li><b>Username:</b> Choose a unique username to identify yourself within the application.</li>
+            <li><b>Email Address:</b> Provide a valid email address for account verification and communication purposes.</li>
+            <li><b>Password One:</b> Choose a strong password to secure your account. Ensure it meets the specified criteria for security purposes.</li>
+            <li><b>Password Two:</b> Re-enter your chosen password, make sure it's the same as the first password.</li>
 
 
         </ul>
       </div>
     </div>
 
+    <div class="memitem" id="guide-section">
+      <div class="memproto">
+      <table class="mlabels">
+        <tr>
+        <td class="mlabels-left">
+            <table class="memname">
+              <tr>
+                <td class="memname">2. Sign Up Guide</td>
+              </tr>
+            </table>
+        </td>
+        <td class="mlabels-right">
+          <a href="#table-section">Go Back <i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+        </tr>
+        </tr>
+      </table>
+    </td>
+      </div><div class="memdoc">
+
+        <h3>Sign Up Guide</h3><br>
+        <hr>
+        <h4>Existing Member</h4>
+        <ol>
+          <li><strong>Navigate to the Sign Up Page</strong></li>
+          <p>To begin the sign-up process, navigate to the sign-up page by clicking on the "Sign Up" button located on the login page.</p>
+          <li><strong>Provide Account Information</strong></li>
+          <p>Once on the sign-up page, you'll be prompted to provide your account information. This includes:<br>
+          <ul>
+            <li>Full Name: Enter your full name.</li>
+            <li>Email Address: Provide same email address that is associated with your record.</li>
+            <li>Password One: Choose a strong password to secure your account.</li>
+            <li>Password Two: Enter same password that you entered in first password field.</li>
+          </ul></p>
+          <li><strong>Submit the Form</strong></li>
+          <p>After filling out the required fields, review the information to ensure it's accurate. Then, click the "Sign Up" button to submit the form.</p>
+          <li><strong>Confirmation</strong></li>
+          <p>Upon submitting the form, you will be redirected to success page, where after 5 seconds you will be redirected back to your profile.</p>
+          <li><strong>Welcome to the Application</strong></li>
+          <p>
+            Once your account is confirmed, you'll be redirected to your profile page, where you can start exploring the features and functionalities of the application.<br>
+
+            That's it! You've successfully completed the sign-up process and are now ready to use the application. If you encounter any issues or have questions, don't hesitate to reach out to the support team for assistance.
+            </p>
+        </ol><br>
+
+        <h4>New Member</h4>
+        <ol>
+          <li><strong>Navigate to the Sign Up Page</strong></li>
+          <p>To begin the sign-up process, navigate to the sign-up page by clicking on the "Sign Up" button located on the login page.</p>
+          <li><strong>Provide Account Information</strong></li>
+          <p>Once on the sign-up page, you'll be prompted to provide your account information. This includes:<br>
+          <ul>
+            <li>Full Name: Enter your full name.</li>
+            <li>Email Address: Provide a valid email address.</li>
+            <li>Password One: Choose a strong password to secure your account.</li>
+            <li>Password Two: Enter same password that you entered in first password field.</li>
+          </ul></p>
+          <li><strong>Submit the Form</strong></li>
+          <p>After filling out the required fields, review the information to ensure it's accurate. Then, click the "Sign Up" button to submit the form.</p>
+          <li><strong>Personal Information</strong></li>
+          <p>Upon submitting the form, you will be another page to fill out your personal details and upload a picture of yourself for your profile picture.</p>
+          <li><strong>Review & Submit</strong></li>
+          <p>
+            After filling out the required fields, review the information to ensure it's accurate. Then click the "Sign Up" or "Add Member" button to submit the form.<br>
+            Upon submitting the form, you will be redirected to logout page and will need to log in again.
+          </p>
+          <li><strong>Log In</strong></li>
+          <p>
+            Once your account has been successfully created, you'll need to sign in to access the application.<br>
+            Simply navigate to the login page and enter your newly created username along with your password.<br><br>
+            After successfully logging in, you'll be redirected to your profile where you can begin exploring all the features and functionalities available to you as a member.
+          </p>
+        </ol><br>
+
+      </div>
+    </div>
 
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -160,6 +245,9 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </body>
 </html>
+
+
+
 
 
 
