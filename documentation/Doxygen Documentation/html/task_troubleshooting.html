@@ -122,7 +122,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
         <td class="mlabels-left">
             <table class="memname">
               <tr>
-                <td class="memname">1. Deleting Data</td>
+                <td class="memname">1. Deletion Error</td>
               </tr>
             </table>
         </td>
@@ -134,29 +134,22 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
     </td>
       </div><div class="memdoc">
 
-        <h3>Deleting Data</h3><br>
+        <h3>Deletion Error</h3><br>
 
+        <p><b>Problem:</b>This error message shows up when you try to delete data that is used in another table.</p>
+        <p><b>Cause:</b> The error occurs because the data you are trying to delete is referenced in another table, creating a dependency between the two tables.</p>
         <p>
-            To delete data from the system, follow these steps:
-        </p>
+            <b>Fix:</b><br>
             <ol>
-                <li>Navigate to Respective List:</li>
-                <p>Go to the list from which you want to delete data.</p>
-                <li>Select Record to Delete:</li>
-                <p>Either:</p>
-                <ul>
-                    <li>Tick the checkbox next to the record you want to delete.</li>
-                    <li>Navigate to the profile of the record and click the "Delete" button.</li>
-                </ul>
-                <li>Click Delete Button</li>
-                <li>Return to List:</li>
-                <p>After submitting, you will be redirected back to the respective list.</p>
+                <li>Find the record where that data is used. (Sometimes it might be multiple records in different tables)</li>
+                <li>Update these records with new information</li>
+                <li>Try deleting again</li>
             </ol>
-
+        </p>
         <dl class="note"><dt><b>Note:</b></dt><dd>
-          Error message will show up if the data is used in another table and cannot be removed.<br>
-          To resolve this: simply find where the data is used, update that record where the data is used to new one, then try deleting again.</dd>
+            This error message only shows up when you try to delete data but it is used elsewhere.</dd>
         </dl>
+
 
       </div>
     </div>

@@ -43,12 +43,7 @@ var NAVTREE =
     ] ],
     [ "Task-based Tutorials", "task_tuts.html", [
       [ "Step-by-Step Guides", "task_step_guides.html"],
-      [ "Common Tasks", "task_common.html"],
-      [ "How-To-Articles", "task_how_to.html"],
       [ "Troubleshooting", "task_troubleshooting.html"],
-    ] ],
-    [ "FAQs", "faqs.html", [
-      [ "Frequently Asked Questions", "faqs_questions.html"],
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
