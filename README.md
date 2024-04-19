@@ -27,3 +27,21 @@ To run the Simply Rugby Management Web App locally, follow these steps:
 3. Access the web app in your web browser at http://localhost (or at the address you specified in the XAMPP configuration)
 4. From the list click on the 'Simply-Rugby-Management-Web-App'
 5. That's it!
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to the Simply Rugby Management Web App, please follow these steps:
+
+1. Fork the repository
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your changes to your fork.
+5. Submit a pull request to the main repository
+
+## License
+
+This project is licensed under the [GNU Affero General Public License (AGPL)](LICENSE).
+
+The GNU Affero General Public License is a copyleft license, meaning that any modification to the code must be released under the same license. This ensures that improvements to the software are shared back with the community, even if the software is used over the internet as a web service.
+
+For more details, please use the [LICENSE](LICENSE) file.
