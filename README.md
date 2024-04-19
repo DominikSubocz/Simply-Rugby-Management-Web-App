@@ -44,4 +44,4 @@ This project is licensed under the [GNU Affero General Public License (AGPL)](LI
 
 The GNU Affero General Public License is a copyleft license, meaning that any modification to the code must be released under the same license. This ensures that improvements to the software are shared back with the community, even if the software is used over the internet as a web service.
 
-For more details, please use the [LICENSE](LICENSE) file.
+For more details, please use the [LICENSE](LICENSE.txt) file.
