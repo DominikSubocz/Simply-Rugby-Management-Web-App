@@ -33,7 +33,7 @@ var NAVTREE =
     [ "Account Management", "user_mng_list.html", [
       [ "Creating an Account", "user_create.html"],
       [ "Logging In/Out", "user_loginout.html"],
-      [ "Profile Settings", "user_settings.html"],
+      [ "Profile Page", "user_settings.html"],
     ] ],
     [ "Data Management", "data_mng_list.html", [
       [ "Adding Data", "data_add.html"],
