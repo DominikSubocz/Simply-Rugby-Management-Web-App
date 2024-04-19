@@ -26,6 +26,30 @@ var NAVTREE =
 [
   [ "Graded Unit | Simply Rugby", "index.html", [
     [ "Todo List", "todo.html", null ],
+    [ "User Interface", "ui_list.html", [
+      [ "Overview", "ui_overview.html"],
+      [ "Pages & Navigation", "ui_navigation.html"],
+    ] ],
+    [ "Account Management", "user_mng_list.html", [
+      [ "Creating an Account", "user_create.html"],
+      [ "Logging In/Out", "user_loginout.html"],
+      [ "Profile Settings", "user_settings.html"],
+    ] ],
+    [ "Data Management", "data_mng_list.html", [
+      [ "Adding Data", "data_add.html"],
+      [ "Editing Data", "data_edit.html"],
+      [ "Deleting Data", "data_del.html"],
+      [ "Display Options", "data_display.html"],
+    ] ],
+    [ "Task-based Tutorials", "task_tuts.html", [
+      [ "Step-by-Step Guides", "task_step_guides.html"],
+      [ "Common Tasks", "task_common.html"],
+      [ "How-To-Articles", "task_how_to.html"],
+      [ "Troubleshooting", "task_troubleshooting.html"],
+    ] ],
+    [ "FAQs", "faqs.html", [
+      [ "Frequently Asked Questions", "faqs_questions.html"],
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
