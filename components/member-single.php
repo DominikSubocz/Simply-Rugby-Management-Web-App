@@ -24,9 +24,10 @@ if (isset($_POST["updateSubmit"])) {
           class="profile-img">
 
         <form method="post" action="">
-
+          <input type="hidden" id="hidden-role-field" name="hidden-role-field"
+            value="<?php echo $_SESSION["user_role"]; ?>">
           <input type="submit" id="deleteBtn" class="btn btn-danger my-2 my-2" value="Delete">
-          <input type="submit" class="btn btn-warning my-2" name="updateSubmit"
+          <input type="submit" id="updateBtn" class="btn btn-warning my-2" name="updateSubmit"
             value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
         </form>
       </div>
@@ -79,7 +80,9 @@ if (isset($_POST["updateSubmit"])) {
   <script>
     var modal = document.getElementById("myModal");
     var updateModal = document.getElementById("updateModal");
+    var updateBtn = document.getElementById("updateBtn");
 
+    var role = document.getElementById("hidden-role-field");
 
     /// Get the button that opens the modal
     var delBtn = document.getElementById("deleteBtn");
@@ -89,6 +92,11 @@ if (isset($_POST["updateSubmit"])) {
     /// Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
+    if ((role.value != "Coach") && (role.value != "Admin")) {
+      delBtn.style.display = "none";
+      updateBtn.style.display = "none";
+
+    }
 
     /// When the user clicks on the button, open the modal
     delBtn.onclick = function (event) {

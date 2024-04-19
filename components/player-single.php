@@ -26,11 +26,12 @@ if (isset($_POST["updateSkillSubmit"])) {
           class="profile-img">
 
         <form method="post" action="">
-
+          <input type="hidden" id="hidden-role-field" name="hidden-role-field"
+            value="<?php echo $_SESSION["user_role"]; ?>">
           <input type="submit" id="deleteBtn" class="btn btn-danger my-2" value="Delete">
-          <input type="submit" class="btn btn-warning my-2" name="updateSubmit"
+          <input type="submit" id="updateBtn" class="btn btn-warning my-2" name="updateSubmit"
             value="<?php echo 'Update ', $firstName, ' ', $lastName; ?>">
-          <input type="submit" class="btn btn-warning my-2" name="updateSkillSubmit"
+          <input id="updateSkillBtn" type="submit" class="btn btn-warning my-2" name="updateSkillSubmit"
             value="<?php echo 'Update ', $firstName . '\'s Skills'; ?>">
         </form>
 
@@ -125,12 +126,21 @@ if (isset($_POST["updateSkillSubmit"])) {
   <script>
     var modal = document.getElementById("myModal");
     var updateModal = document.getElementById("updateModal");
-
+    var role = document.getElementById("hidden-role-field");
+    var updateBtn = document.getElementById("updateBtn");
+    var updateSkillBtn = document.getElementById("updateSkillBtn");
 
     /// Get the button that opens the modal
     var delBtn = document.getElementById("deleteBtn");
 
     var cancelBtn = document.getElementById("cancel");
+
+    if ((role.value != "Coach") && (role.value != "Admin")) {
+      delBtn.style.display = "none";
+      updateBtn.style.display = "none";
+      updateSkillBtn.style.display = "none";
+
+    }
 
 
     /// Get the <span> element that closes the modal
