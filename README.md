@@ -5,9 +5,10 @@ This is a web-based application designed for managing various aspects of a rugby
 ## Table of Contents
 1. [Features](#features)
 2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Contributing](#contributing)
-5. [License](#license)
+3. [Documentation](#documentation)
+4. [Usage](#usage)
+5. [Contributing](#contributing)
+6. [License](#license)
  
 ## Features
  
@@ -27,6 +28,10 @@ To run the Simply Rugby Management Web App locally, follow these steps:
 3. Access the web app in your web browser at http://localhost (or at the address you specified in the XAMPP configuration)
 4. From the list click on the 'Simply-Rugby-Management-Web-App'
 5. That's it!
+
+## Documentation
+
+Documentation website for this project can be found [here](link). The documentation provides detailed information on how to use the Simply Rugby Management Web App, including installation instructions, usage guidelines, and feature explanations. It also includes technical details for developers interested in contributing to the project or extending its functionality. Please refer to the documentation for any questions or assistance with using the application.
 
 ## Contributing
 
