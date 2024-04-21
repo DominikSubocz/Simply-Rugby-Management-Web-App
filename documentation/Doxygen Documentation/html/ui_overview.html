@@ -91,10 +91,6 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">User Interface Overview</div></div>
 </div><!--header-->
 <div class="contents">
-    <dl class="note"><dt><b>Note:</b></dt><dd>
-        Please note that only users with admin priveledge level are able to access this page.
-        </dd>
-      </dl>
     <p>This page provides a comprehensive overview of the user interface (UI) of our software/service. Understanding the various elements and functionalities of the UI is essential for effectively using our application.</p>
   
     <div class="memitem" id="table-section">
@@ -115,11 +111,6 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
       <ol>
         <li><a href="#dashboard-section">Dashboard</a></li>
         <li><a href="#header-section">Header Bar</a></li>
-        <li><a href="#elements-section">UI Elements</a> </li>
-        <li><a href="#forms-section">Forms</a> </li>
-        <li><a href="#table-section">Tables</a></li>
-        <li><a href="#modal-section">Dialogs and Modals</a></li>
-        <li><a href="#icons-section">Icons</a></li>
       </ol> 
       </div>
     </div>
@@ -142,6 +133,10 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
       </table>
     </td>
       </div><div class="memdoc">
+        <dl class="note"><dt><b>Note:</b></dt><dd>
+          Only users with admin priveledges can access this web page.</dd>
+        </dl>
+
         Dashboard offers a visual access points to different pages within the project in a form of colorful boxes.<br><br>
         Each colorful box represents a different webpage the application, designed to help you navigate and manage your tasks efficiently. 
         Whether you need to view list of players, edit player information, or view upcoming games & events, you can do so with ease directly from the dashboard. 
@@ -211,186 +206,6 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
           <li>Timetable: Takes you to the timetable page.</li>
           <li>Logout: Takes you to the logout page, where you will be logged out.</li>
         </ul><br>
-      </div>
-    </div>
-
-    <div class="memitem" id="elements-section">
-      <div class="memproto">
-      <table class="mlabels">
-        <tr>
-        <td class="mlabels-left">
-            <table class="memname">
-              <tr>
-                <td class="memname">3. UI Elements</td>
-              </tr>
-            </table>
-        </td>
-        <td class="mlabels-right">
-          <a href="#table-section">Go Back <i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
-        </tr>
-        </tr>
-      </table>
-    </td>
-      </div><div class="memdoc">
-        UI elements play a crucial role in interacting with my application and performing various actions.<br><br>
-        Regular buttons are used for common actions such as submitting forms, confirming choices, or triggering specific functions.<br>
-        Additionally, checkboxes allow users to select single records from a list, such as selecting records as well as hiding specific columns in the settings modal.<br>
-        Together with radio buttons, which allow users to select a single option from a list, these UI elements offer intuitive ways for users to interact with my application and accomplish their tasks efficiently.
-        <h3>Login/Register Buttons</h3>
-        <img class="docs-img" src="./imgs/login buttons.png" alt="Screenshot of login and register buttons"><br>
-        <ul>
-          <li>Log In: Logs you in</li>
-          <li>Don't have an account? Click this link to register!: Takes you to the register page</li>
-        </ul><br><br>
-
-        <h3>Settings Button</h3>
-        <img class="docs-img" src="./imgs/settings btn.png" alt="Screenshot of settings button"><br>
-        <ul>
-          <li>Settings: Opens a settings modal with options to hide or show columns</li>
-        </ul><br><br>
-
-        <h3>List Checkboxes</h3>
-        <img class="docs-img" src="./imgs/checkboxes.png" alt="Screenshot of list checkboxes"><br>
-        <ul>
-          <li>Checkbox: Picks ID number of the selected record, later to be passed when form is submited</li>
-        </ul><br><br>
-
-        <h3>User Actions Buttons</h3>
-        <img class="docs-img" src="./imgs/user-actions-buttons.png" alt="Screenshot of buttons with data management options"><br>
-        <ul>
-          <li>Add Player: Takes you to the add-player page</li>
-          <li>Update Player: Takes you to the update-player page. Page to update/edit player's details</li>
-          <li>Update Player Skill: Takes you to the update-player-skill page. Page to update/edit player's skill details</li>
-          <li>Remove Player: Takes you to the remove-player page. Page to delete player record.</li>
-        </ul><br><br>
-
-        <h3>Squad/Coach Dropdowns</h3>
-        <img class="docs-img" src="./imgs/dropdown.PNG" alt="Screenshot of squad dropdown button"><br>
-        <ul>
-          <li>Dropdown Button: A dropdown button populated with SQL results of squad table. Used to assign player to squad</li>
-        </ul><br><br>
-
-        <h3>Radio Buttons</h3>
-        <img class="docs-img" src="./imgs/radio buttons.PNG" alt="Screenshot of squad dropdown button"><br>
-        <ul>
-          <li>Radio Button: A radio button which determines whether there are one or two guardians to be added<li></li>
-        </ul><br><br>
-
-        <h3>File Buttons</h3>
-        <img class="docs-img" src="./imgs/file button.PNG" alt="Screenshot of squad dropdown button"><br>
-        <ul>
-          <li>File Button: A button which uploads selected image to the database, later to be used as a profile picture.<li></li>
-        </ul><br><br>
-      </div>
-    </div>
-
-    <div class="memitem" id="forms-section">
-      <div class="memproto">
-      <table class="mlabels">
-        <tr>
-        <td class="mlabels-left">
-            <table class="memname">
-              <tr>
-                <td class="memname">4. Forms</td>
-              </tr>
-            </table>
-        </td>
-        <td class="mlabels-right">
-          <a href="#table-section">Go Back <i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
-        </tr>
-        </tr>
-      </table>
-    </td>
-      </div><div class="memdoc">
-        <p>
-          Some forms may be multi-stage, guiding users through a series of steps to complete a complex task or process. These multi-stage forms streamline the user experience, breaking down larger tasks into smaller, more manageable steps.<br>
-          Additionally, certain forms may include file upload functionality, enabling users to upload files such as profile images or documents. <br><br>
-          
-          Most forms are only accessible by Admin and Coach. The only form accessible by users with member priveledges is the add-member - this is to allow new user to prompt their information to complete registration process.
-        </p>
-
-      </div>
-    </div>
-
-    <div class="memitem" id="table-section">
-      <div class="memproto">
-      <table class="mlabels">
-        <tr>
-        <td class="mlabels-left">
-            <table class="memname">
-              <tr>
-                <td class="memname">5. Tables</td>
-              </tr>
-            </table>
-        </td>
-        <td class="mlabels-right">
-          <a href="#table-section">Go Back <i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
-        </tr>
-        </tr>
-      </table>
-    </td>
-      </div><div class="memdoc">
-        <p>
-          Whether it's viewing lists of records, analyzing metrics, or organising information, tables offer a clear and organized way to present data. The tables are designed with features such as hiding or showing columns to help users navigate large datasets easily.<br><br> 
-          Additionally, tables may include interactive elements such as clickable rows or action buttons for users to perform specific tasks directly from the table view. With user-friendly table designs and intuitive functionalities, users can efficiently access and manage data within the application.
-        </p>
-
-      </div>
-    </div>
-
-    <div class="memitem" id="modal-section">
-      <div class="memproto">
-      <table class="mlabels">
-        <tr>
-        <td class="mlabels-left">
-            <table class="memname">
-              <tr>
-                <td class="memname">6. Modals & Dialogs</td>
-              </tr>
-            </table>
-        </td>
-        <td class="mlabels-right">
-          <a href="#table-section">Go Back <i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
-        </tr>
-        </tr>
-      </table>
-    </td>
-      </div><div class="memdoc">
-        <p>
-          Modals and dialogs are interactive components used to display additional information, gather user input, or prompt for actions within the application.<br>
-          These pop-up windows are hidden by default and only appear on webpage if button trigerring them is clicked, providing focused interactions without navigating away from the current page.<br>
-          Modal windows typically contain forms, messages, or confirmations, allowing users to complete tasks or make decisions within a confined context.<br><br>
-          Dialogs, on the other hand, serve as prompts for specific actions or alerts, such as confirming a deletion or notifying users of system updates.<br><br>
-          With modals and dialogs, our application offers streamlined interactions and clear communication to enhance the user experience.
-        </p>
-
-      </div>
-    </div>
-
-    <div class="memitem" id="icons-section">
-      <div class="memproto">
-      <table class="mlabels">
-        <tr>
-        <td class="mlabels-left">
-            <table class="memname">
-              <tr>
-                <td class="memname">7. Icons</td>
-              </tr>
-            </table>
-        </td>
-        <td class="mlabels-right">
-          <a href="#table-section">Go Back <i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
-        </tr>
-        </tr>
-      </table>
-    </td>
-      </div><div class="memdoc">
-        <p>
-          Icons from Font Awesome 4 are utilized throughout our application to represent actions, features, or categories in a concise and intuitive manner.<br><br>
-          These visually appealing symbols are easily recognizable and enhance the user interface by providing clear visual cues for interaction. Whether used in navigation menus, buttons, or tooltips, Font Awesome 4 icons streamline the user experience and contribute to a more engaging interface.<br><br>
-          With a comprehensive library of icons at our disposal, our application offers users a seamless and user-friendly experience, allowing for efficient navigation and interaction.
-        </p>
-
       </div>
     </div>
 
