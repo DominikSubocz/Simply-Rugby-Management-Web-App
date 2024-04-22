@@ -25,7 +25,7 @@ To run the Simply Rugby Management Web App locally, follow these steps:
  
 1. Clone the repository to 'htdocs' folder (or download latest release)
 2. Open XAMPP and start Apache & SQL
-3. Open and copy the content of 'database.sql' file and paste it in the SQL tab (it should work firs time, but please let me know if there are errors)
+3. Open and copy the content of 'database.sql' file and paste it in the SQL tab (it should work first time, but please let me know if there are errors)
 4. Access the web app in your web browser at http://localhost (or at the address you specified in the XAMPP configuration)
 5. From the list click on the 'Simply-Rugby-Management-Web-App'
 6. That's it!
