@@ -2,8 +2,8 @@
 /// A utility class containing various static methods for common operations
 class Utils
 {
-  // public static $projectFilePath = "http:///localhost/Simply-Rugby-Management-Web-App"; /// Comment line below and uncomment this one to switch to localhost.
-  public static $projectFilePath = "http://192.168.0.14:8080/Simply-Rugby-Management-Web-App"; /// Comment line below and uncomment this one to switch to localhost.
+  public static $projectFilePath = "http:///localhost/Simply-Rugby-Management-Web-App"; /// Comment line below and uncomment this one to switch to localhost.
+  // public static $projectFilePath = "http://192.168.0.14:8080/Simply-Rugby-Management-Web-App"; /// Comment line below and uncomment this one to switch to localhost.
 
   public static $defaultplayerCover = "default.png";
 

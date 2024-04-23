@@ -91,6 +91,42 @@ if (isset($_POST['removeSubmit'])) {
       </tbody>
     </table>
   </form>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content column-settings-content  w-50">
+      <span class="close">&times;</span>
+      <h3>Column Settings</h3>
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <label class="checkbox-inline">Name</label>
+            <input type="checkbox" id="inlineCheckbox1" value="option1" onclick="displayColumn()" checked>
+          </div>
+          <div class="col">
+            <label class="checkbox-inline">Type</label>
+            <input type="checkbox" id="inlineCheckbox2" value="option2" onclick="displayColumn()" checked>
+          </div>
+          <div class="w-100"></div>
+          <div class="col">
+            <label class="checkbox-inline">Start Date</label>
+            <input type="checkbox" id="inlineCheckbox3" value="option3" onclick="displayColumn()" checked>
+          </div>
+          <div class="col">
+            <label class="checkbox-inline">End Date</label>
+            <input type="checkbox" id="inlineCheckbox4" value="option4" onclick="displayColumn()" checked>
+          </div>
+
+          <div class="w-100"></div>
+          <div class="col">
+            <label class="checkbox-inline">Location</label>
+            <input type="checkbox" id="inlineCheckbox5" value="option5" onclick="displayColumn()" checked>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 <script>
 
@@ -98,6 +134,30 @@ if (isset($_POST['removeSubmit'])) {
   let addBtn = document.getElementById("addBtn");
   let removeBtn = document.getElementById("removeBtn");
   var role = document.getElementById("hidden-role-field");
+  let settingsBtn = document.getElementById("settingsBtn");
+  var modal = document.getElementById("myModal");
+  var span = document.getElementsByClassName("close")[0];
+
+
+
+  settingsBtn.onclick = function (event) {
+    /// Prevent the default form submission action
+    event.preventDefault();
+    modal.style.display = "block";
+  }
+
+    /// When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+    modal.style.display = "none";
+  }
+
+
+  /// When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 
   /**
    * Selects one checkbox while hiding others and displays buttons
@@ -114,6 +174,74 @@ if (isset($_POST['removeSubmit'])) {
 
   if ((role.value != "Coach") && (role.value != "Admin")) {
     addBtn.style.display = "none";
+  }
+
+    /**
+   * Display or hide columns based on the checkboxes checked.
+   */
+  function displayColumn() {
+    var checkBox1 = document.getElementById("inlineCheckbox1");
+    var checkBox2 = document.getElementById("inlineCheckbox2");
+    var checkBox3 = document.getElementById("inlineCheckbox3");
+    var checkBox4 = document.getElementById("inlineCheckbox4");
+    var checkBox5 = document.getElementById("inlineCheckbox5");
+
+    var name = document.querySelectorAll(".name-label");
+    var type = document.querySelectorAll(".type-label");
+    var start = document.querySelectorAll(".start-date-label");
+    var end = document.querySelectorAll(".end-date-label");
+    var location = document.querySelectorAll(".location-label");
+
+    /// Check if checkbox 1 is checked
+    if (checkBox1.checked) {
+      for (var i = 0; i < name.length; i++) {
+        name[i].style.display = "table-cell"; ///< Display each element in the name array as a table cell.
+      }
+    } else {
+      for (var i = 0; i < name.length; i++) {
+        name[i].style.display = "none"; ///< Hide each element in the name array.
+      }
+    }
+
+    if (checkBox2.checked) {
+      for (var i = 0; i < type.length; i++) {
+        type[i].style.display = "table-cell"; ///< Display each element in the name array as a table cell.
+      }
+    } else {
+      for (var i = 0; i < type.length; i++) {
+        type[i].style.display = "none"; 
+      }
+    }
+
+    if (checkBox3.checked) {
+      for (var i = 0; i < start.length; i++) {
+        start[i].style.display = "table-cell"; 
+      }
+    } else {
+      for (var i = 0; i < start.length; i++) {
+        start[i].style.display = "none"; 
+      }
+    }
+
+    if (checkBox4.checked) {
+      for (var i = 0; i < end.length; i++) {
+        end[i].style.display = "table-cell"; 
+      }
+    } else {
+      for (var i = 0; i < end.length; i++) {
+        end[i].style.display = "none"; 
+      }
+    }
+
+    if (checkBox5.checked) {
+      for (var i = 0; i < location.length; i++) {
+        location[i].style.display = "table-cell"; 
+      }
+    } else {
+      for (var i = 0; i < location.length; i++) {
+        location[i].style.display = "none"; 
+      }
+    }
   }
 
   /**
