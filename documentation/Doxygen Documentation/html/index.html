@@ -347,6 +347,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
       </div><div class="memdoc">
         <ol>
           <li>Some add/update pages might throw SQL errors (mostly Foreign Key Violation error)</li>
+          <li>Entering date without dashes will throw error: 'Call to a member function format()'</li>
           <li>You can set any skill level for both Players and Juniors to any number (even above 5, which should be the maximum level)</li>
           <li>If the same email address is present in more than one table, the registration system might assign user_id to wrong player</li>
         </ol>
