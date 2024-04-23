@@ -785,7 +785,7 @@ components::pageHeader("Update Junior Player", ["style"], ["mobile-nav"]);
 
 <main class="content-wrapper contact-content">
 
-    <h2>Add New Player</h2>
+    <h2>Update Junior Player</h2>
     <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>?id=<?php echo $junior["junior_id"]; ?>"
         enctype="multipart/form-data">
 
