@@ -140,6 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $dateTime = DateTime::createFromFormat('d/m/Y', $dob); ///< Create a DateTime object from the formatted date
         $sqlDate = $dateTime->format('Y-m-d'); ///< Format the date as YYYY-MM-DD
+    
     }
 
     if (empty($_POST["contactNo"])) {
