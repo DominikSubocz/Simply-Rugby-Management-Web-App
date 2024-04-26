@@ -26,25 +26,58 @@ var NAVTREE =
 [
   [ "Graded Unit | Simply Rugby", "index.html", [
     [ "Todo List", "todo.html", null ],
-    [ "User Interface", "ui_list.html", [
-      [ "Overview", "ui_overview.html"],
-      [ "Pages & Navigation", "ui_navigation.html"],
-    ] ],
-    [ "Account Management", "user_mng_list.html", [
-      [ "Creating an Account", "user_create.html"],
-      [ "Logging In/Out", "user_loginout.html"],
-      [ "Profile Page", "user_settings.html"],
-    ] ],
-    [ "Data Management", "data_mng_list.html", [
-      [ "Adding Data", "data_add.html"],
-      [ "Editing Data", "data_edit.html"],
-      [ "Deleting Data", "data_del.html"],
-      [ "Display Options", "data_display.html"],
-    ] ],
-    [ "Task-based Tutorials", "task_tuts.html", [
-      [ "Step-by-Step Guides", "task_step_guides.html"],
-      [ "Troubleshooting", "task_troubleshooting.html"],
-    ] ],
+    [ "User Manuals", "manuals.html", [
+      [ "User Interface", "ui_list.html", [
+        [ "Overview", "ui_overview.html"],
+        [ "Pages & Navigation", "ui_navigation.html"],
+      ] ],
+      [ "Account Management", "user_mng_list.html", [
+        [ "Creating an Account", "user_create.html"],
+        [ "Logging In/Out", "user_loginout.html"],
+        [ "Profile Page", "user_settings.html"],
+      ] ],
+      [ "Data Management", "data_mng_list.html", [
+        [ "Adding Data", "data_add.html"],
+        [ "Editing Data", "data_edit.html"],
+        [ "Deleting Data", "data_del.html"],
+        [ "Display Options", "data_display.html"],
+      ] ],
+      [ "Task-based Tutorials", "task_tuts.html", [
+        [ "Step-by-Step Guides", "task_step_guides.html"],
+        [ "Troubleshooting", "task_troubleshooting.html"],
+      ] ],
+    ]],
+
+    [ "Developer Guides", "developer.html", [
+      ["Getting Started", "dev_start.html", [
+        ["Installation Instructions", "dev_install.html"],
+        ["Project Structure Overview", "dev_structure.html"],
+      ]],
+      ["Architecture and Design", "dev_architecture.html",[
+        ["Database Schema", "dev_database.html"],
+        ["Framework and Libraries Used", "dev_libs.html"],
+      ]],
+      ["Testing", "dev_testing", [
+        ["Test Strategy", "dev_strategy.html"],
+        ["Unit Testing", "dev_unit_testing.html"],
+        ["Functionality Testing", "dev_func_testing.html"],
+        ["Database Testing", "dev_db_testing.html"],
+        ["Usability Testing", "dev_usa_testing.html"],
+        ["Component Testing", "dev_comp_testing.html"],
+      ]],
+      ["Deployment (W.I.P)", "dev_deployment.html",[
+        ["Deployment Process", "dev_deployment.html"],
+        ["Configuration Management", "dev_configuration.html"],
+      ]],
+      ["Contribution", "dev_contribution.html",[
+        ["Contribution Guidelines", "dev_guidelines.html"],
+        ["Code Review Process", "dev_review_proces.html"],
+      ]],
+      ["Resources", "dev_resources.html",[
+        ["Support and Contact Information", "dev_contact.html"],
+      ]],
+    ]],
+
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

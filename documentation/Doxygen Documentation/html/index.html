@@ -92,24 +92,67 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
   <p><strong>Project Version: </strong>1.0.0</p>
-  <p id="date"></p>
-  <script>
-    const d = new Date();
-
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const year = d.getFullYear();
-
-    const formattedDate = `${day}/${month}/${year}`;
-    document.getElementById("date").innerHTML = "<strong>Current Date:</strong> " + formattedDate;
-
-  </script>
+  <p><strong>Release Date:</strong> 26/04/2024</p>
 
   <p><strong>Project Overview:</strong> Simply Rugby is a web application created as a part of the Graded Unit 
     for the HND Software Development (Year 2) course.</p>
   <p>Simply Rugby are a Scottish based rugby club who have squads playing at all of the age 
     grades currently supported by the Scottish Rugby Union (SRU). These include teams playing 
     at mini, midi and senior levels. </p>
+
+    <div class="memitem" id="release-section">
+      <div class="memproto">
+      <table class="mlabels">
+        <tr>
+        <td class="mlabels-left">
+            <table class="memname">
+              <tr>
+                <td class="memname">Release Notes</td>
+              </tr>
+            </table>
+        </td>
+        <td class="mlabels-right">
+
+        </tr>
+        </tr>
+      </table>
+    </td>
+      </div><div class="memdoc">
+        <h2>Release Notes</h2>
+        <hr>
+        <h3>April 2024</h3>
+        <p>Version 1.0.0 is the first stable version of the Simply Rugby Web App, here are some things that it can do as for now:</p>
+        <h4>Manage club players & members with ease.</h4>
+        <p>
+          Version 1.0.0 gives you the ability to manage members & players of the club. List of available players and members for each table is presented in form of a table.<br>
+          You can select a player simply by ticking a checkbox beside that player, and perform various actions with the selected player. Alternatively, you can click on the profile<br>
+          page of that player and the same buttons will be there as well. These actions include updating personal details, updating skill profile and removing a player. You can also<br>
+          add a new player or member, simply by clicking the add player button on the list and filling out the required fields and submiting.
+          </p>
+        <br>
+        <h4>Table Customization</h4>
+        <p>
+          Version 1.0.0 also allows for small customization of tables by giving you the ability to display or hide any fields that you want or don't want to see. Simply click the<br>
+          'settings' button on the page and untick any fields that you do not wish to see. This option is available for each table in the web app.
+        </p>
+        <br>
+        <h4>Manage Games & Training Sessions</h4>
+        <p>          
+          Version 1.0.0 also allows you to add, update and remove games and training sessions in the event schedule. You can add a event by clicking the 'Add Event' button on the<br>
+          'timetable' page, then you can pick what type of event is it you want to add, and then just fill out the form and submit. Just like with players, you can update a event by<br>
+          ticking a checkbox beside the event you want to update, clicking on the 'update button' and then filling out and submiting the form, or by clicking on its profile.<br>
+          You can remove a event by following same steps, but instead of clicking on the 'update-button', click on the 'remove' button.
+        </p>
+        <br>
+        <h4>Login System with Different User Roles</h4>        
+        <p>
+          Version 1.0.0 has a versatile login system which assigns 3 different types of roles, depending on the results fetched based on user email and username. Currently, users can sign up<br>
+          as Admin, Coach and Player. Admin role has access to every page and every action, Coach role has access to almost every page and action, and Player role has only access to certain pages.<br>
+          Player role is a single user role for all 3 types of players; senior players, junior players and non-member players. Upon sign up, user passwords are kept securely in database with encryption.<br>
+          Data from each form is also sanitized to prevent SQL Injections.
+        </p>
+      </div>
+    </div>
   
     <div class="memitem" id="table-section">
       <div class="memproto">
