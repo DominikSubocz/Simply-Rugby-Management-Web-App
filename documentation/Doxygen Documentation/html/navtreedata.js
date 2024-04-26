@@ -57,7 +57,7 @@ var NAVTREE =
         ["Database Schema", "dev_database.html"],
         ["Framework and Libraries Used", "dev_libs.html"],
       ]],
-      ["Testing", "dev_testing", [
+      ["Testing", "dev_testing.html", [
         ["Test Strategy", "dev_strategy.html"],
         ["Unit Testing", "dev_unit_testing.html"],
         ["Functionality Testing", "dev_func_testing.html"],
@@ -66,7 +66,7 @@ var NAVTREE =
         ["Component Testing", "dev_comp_testing.html"],
       ]],
       ["Deployment (W.I.P)", "dev_deployment.html",[
-        ["Deployment Process", "dev_deployment.html"],
+        ["Deployment Process", "dev_depl_process.html"],
         ["Configuration Management", "dev_configuration.html"],
       ]],
       ["Contribution", "dev_contribution.html",[
