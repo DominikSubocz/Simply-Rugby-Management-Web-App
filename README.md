@@ -32,7 +32,7 @@ To run the Simply Rugby Management Web App locally, follow these steps:
 
 ## Documentation
 
-Documentation website for this project can be found [here](link). The documentation provides detailed information on how to use the Simply Rugby Management Web App, including installation instructions, usage guidelines, and feature explanations. It also includes technical details for developers interested in contributing to the project or extending its functionality. Please refer to the documentation for any questions or assistance with using the application.
+Documentation website for this project is currently under development and will be released soon. The documentation provides detailed information on how to use the Simply Rugby Management Web App, including installation instructions, usage guidelines, and feature explanations. It also includes technical details for developers interested in contributing to the project or extending its functionality. Please refer to the documentation for any questions or assistance with using the application.
 
 ## Contributing
 
