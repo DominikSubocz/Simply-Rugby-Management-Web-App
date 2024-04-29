@@ -89,35 +89,36 @@ $(document).ready(function(){initNavTree('player_8php_source.html',''); initResi
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>session_start();</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>require(<span class="stringliteral">&quot;classes/components.php&quot;</span>);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>require(<span class="stringliteral">&quot;classes/utils.php&quot;</span>);require(<span class="stringliteral">&quot;classes/player.php&quot;</span>);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordflow">if</span>(!isset($_SESSION[<span class="stringliteral">&quot;loggedIn&quot;</span>])){</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordflow">if</span> (!isset($_GET[<span class="stringliteral">&quot;id&quot;</span>]) || !is_numeric($_GET[<span class="stringliteral">&quot;id&quot;</span>])) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/player-list.php&quot;</span>);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>$player = <a class="code hl_function" href="classPlayer.html#ad7efd2b7d1a8f06352052111bd49a57b">Player::getplayer</a>($_GET[<span class="stringliteral">&quot;id&quot;</span>]); </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>$pageTitle = <span class="stringliteral">&quot;player not found&quot;</span>; </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordflow">if</span> (!empty($player)) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  $pageTitle = $player[<span class="stringliteral">&quot;first_name&quot;</span>];</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><a class="code hl_function" href="classComponents.html#add114d59545c4dbf01a9675882df47fb">Components::pageHeader</a>($pageTitle, [<span class="stringliteral">&quot;style&quot;</span>], [<span class="stringliteral">&quot;mobile-nav&quot;</span>]); </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><a class="code hl_function" href="classComponents.html#ad560e2c6c757d7b0ad8ed3ad09d80397">Components::singleplayer</a>($player); </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><a class="code hl_function" href="classComponents.html#ad7df9e348792beb5fc11c540f6cd43a2">Components::pageFooter</a>(); </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>?&gt;</div>
-<div class="ttc" id="aclassComponents_html_ad560e2c6c757d7b0ad8ed3ad09d80397"><div class="ttname"><a href="classComponents.html#ad560e2c6c757d7b0ad8ed3ad09d80397">Components\singleplayer</a></div><div class="ttdeci">static singleplayer($player)</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00210">components.php:210</a></div></div>
-<div class="ttc" id="aclassComponents_html_ad7df9e348792beb5fc11c540f6cd43a2"><div class="ttname"><a href="classComponents.html#ad7df9e348792beb5fc11c540f6cd43a2">Components\pageFooter</a></div><div class="ttdeci">static pageFooter()</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00036">components.php:36</a></div></div>
-<div class="ttc" id="aclassComponents_html_add114d59545c4dbf01a9675882df47fb"><div class="ttname"><a href="classComponents.html#add114d59545c4dbf01a9675882df47fb">Components\pageHeader</a></div><div class="ttdeci">static pageHeader($pageTitle, $stylesheets, $scripts)</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00024">components.php:24</a></div></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>require (<span class="stringliteral">&quot;classes/components.php&quot;</span>);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>require (<span class="stringliteral">&quot;classes/utils.php&quot;</span>);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>require (<span class="stringliteral">&quot;classes/player.php&quot;</span>);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keywordflow">if</span> (!isset($_SESSION[<span class="stringliteral">&quot;loggedIn&quot;</span>])) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/login.php&quot;</span>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordflow">if</span> (!isset($_GET[<span class="stringliteral">&quot;id&quot;</span>]) || !is_numeric($_GET[<span class="stringliteral">&quot;id&quot;</span>])) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  header(<span class="stringliteral">&quot;Location: &quot;</span> . Utils::$projectFilePath . <span class="stringliteral">&quot;/player-list.php&quot;</span>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>$player = <a class="code hl_function" href="classPlayer.html#ad7efd2b7d1a8f06352052111bd49a57b">Player::getplayer</a>($_GET[<span class="stringliteral">&quot;id&quot;</span>]); </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>$pageTitle = <span class="stringliteral">&quot;player not found&quot;</span>; </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordflow">if</span> (!empty($player)) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  $pageTitle = $player[<span class="stringliteral">&quot;first_name&quot;</span>];</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><a class="code hl_function" href="classComponents.html#add114d59545c4dbf01a9675882df47fb">Components::pageHeader</a>($pageTitle, [<span class="stringliteral">&quot;style&quot;</span>], [<span class="stringliteral">&quot;mobile-nav&quot;</span>]); </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><a class="code hl_function" href="classComponents.html#ad560e2c6c757d7b0ad8ed3ad09d80397">Components::singleplayer</a>($player); </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><a class="code hl_function" href="classComponents.html#ad7df9e348792beb5fc11c540f6cd43a2">Components::pageFooter</a>(); </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>?&gt;</div>
+<div class="ttc" id="aclassComponents_html_ad560e2c6c757d7b0ad8ed3ad09d80397"><div class="ttname"><a href="classComponents.html#ad560e2c6c757d7b0ad8ed3ad09d80397">Components\singleplayer</a></div><div class="ttdeci">static singleplayer($player)</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00217">components.php:217</a></div></div>
+<div class="ttc" id="aclassComponents_html_ad7df9e348792beb5fc11c540f6cd43a2"><div class="ttname"><a href="classComponents.html#ad7df9e348792beb5fc11c540f6cd43a2">Components\pageFooter</a></div><div class="ttdeci">static pageFooter()</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00039">components.php:39</a></div></div>
+<div class="ttc" id="aclassComponents_html_add114d59545c4dbf01a9675882df47fb"><div class="ttname"><a href="classComponents.html#add114d59545c4dbf01a9675882df47fb">Components\pageHeader</a></div><div class="ttdeci">static pageHeader($pageTitle, $stylesheets, $scripts)</div><div class="ttdef"><b>Definition:</b> <a href="components_8php_source.html#l00025">components.php:25</a></div></div>
 <div class="ttc" id="aclassPlayer_html_ad7efd2b7d1a8f06352052111bd49a57b"><div class="ttname"><a href="classPlayer.html#ad7efd2b7d1a8f06352052111bd49a57b">Player\getplayer</a></div><div class="ttdeci">static getplayer($playerId)</div><div class="ttdef"><b>Definition:</b> <a href="classes_2player_8php_source.html#l00051">player.php:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

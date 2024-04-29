@@ -87,27 +87,29 @@ $(document).ready(function(){initNavTree('connection_8php_source.html',''); init
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span>&lt;?php</div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="classConnection.html">    4</a></span><span class="keyword">class </span><a class="code hl_class" href="classConnection.html">Connection</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classConnection.html#a2c8576013702fe511f6eb26ac37a7a78">    8</a></span>  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code hl_function" href="classConnection.html#a2c8576013702fe511f6eb26ac37a7a78">connect</a>() {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    require(<span class="stringliteral">&quot;includes/credentials.php&quot;</span>);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">try</span> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>      $conn = <span class="keyword">new</span> PDO(</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="stringliteral">&quot;mysql:host=&quot;</span> . $credentials[<span class="stringliteral">&quot;server&quot;</span>] . <span class="stringliteral">&quot;;dbname=&quot;</span> . $credentials[<span class="stringliteral">&quot;dbName&quot;</span>] . <span class="stringliteral">&quot;;&quot;</span>, </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        $credentials[<span class="stringliteral">&quot;user&quot;</span>], </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        $credentials[<span class="stringliteral">&quot;pass&quot;</span>]</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>      );</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>      $conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    } <span class="keywordflow">catch</span> (PDOException $e) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>      exit(<span class="stringliteral">&quot;Error: &quot;</span>. $e-&gt;getMessage());</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">return</span> $conn;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
-<div class="ttc" id="aclassConnection_html"><div class="ttname"><a href="classConnection.html">Connection</a></div><div class="ttdoc">A class representing a database connection.</div><div class="ttdef"><b>Definition:</b> <a href="connection_8php_source.html#l00004">connection.php:4</a></div></div>
-<div class="ttc" id="aclassConnection_html_a2c8576013702fe511f6eb26ac37a7a78"><div class="ttname"><a href="classConnection.html#a2c8576013702fe511f6eb26ac37a7a78">Connection\connect</a></div><div class="ttdeci">static connect()</div><div class="ttdef"><b>Definition:</b> <a href="connection_8php_source.html#l00008">connection.php:8</a></div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="classConnection.html">    4</a></span><span class="keyword">class </span><a class="code hl_class" href="classConnection.html">Connection</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classConnection.html#a2c8576013702fe511f6eb26ac37a7a78">    9</a></span>  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">function</span> <a class="code hl_function" href="classConnection.html#a2c8576013702fe511f6eb26ac37a7a78">connect</a>()</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    require (<span class="stringliteral">&quot;includes/credentials.php&quot;</span>);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>      $conn = <span class="keyword">new</span> PDO(</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="stringliteral">&quot;mysql:host=&quot;</span> . $credentials[<span class="stringliteral">&quot;server&quot;</span>] . <span class="stringliteral">&quot;;dbname=&quot;</span> . $credentials[<span class="stringliteral">&quot;dbName&quot;</span>] . <span class="stringliteral">&quot;;&quot;</span>,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        $credentials[<span class="stringliteral">&quot;user&quot;</span>],</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        $credentials[<span class="stringliteral">&quot;pass&quot;</span>]</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>      );</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>      $conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    } <span class="keywordflow">catch</span> (PDOException $e) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>      exit(<span class="stringliteral">&quot;Error: &quot;</span> . $e-&gt;getMessage());</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> $conn;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="ttc" id="aclassConnection_html"><div class="ttname"><a href="classConnection.html">Connection</a></div><div class="ttdoc">A class representing a database connection.</div><div class="ttdef"><b>Definition:</b> <a href="connection_8php_source.html#l00004">connection.php:5</a></div></div>
+<div class="ttc" id="aclassConnection_html_a2c8576013702fe511f6eb26ac37a7a78"><div class="ttname"><a href="classConnection.html#a2c8576013702fe511f6eb26ac37a7a78">Connection\connect</a></div><div class="ttdeci">static connect()</div><div class="ttdef"><b>Definition:</b> <a href="connection_8php_source.html#l00009">connection.php:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

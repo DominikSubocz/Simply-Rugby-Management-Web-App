@@ -20,6 +20,7 @@ var files_dup =
     [ "delete-junior.php", "delete-junior_8php_source.html", null ],
     [ "delete-member.php", "delete-member_8php_source.html", null ],
     [ "delete-player.php", "delete-player_8php_source.html", null ],
+    [ "delete-session.php", "delete-session_8php_source.html", null ],
     [ "doctor-list.php", "doctor-list_8php_source.html", null ],
     [ "game.php", "game_8php_source.html", null ],
     [ "guardian-list.php", "guardian-list_8php_source.html", null ],
