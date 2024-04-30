@@ -82,13 +82,51 @@ $(document).ready(function(){initNavTree('annotated.html',''); initResizable(); 
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Developer - Deployment</div></div>
+  <div class="headertitle"><div class="title">Developer - Project Structure Overview</div></div>
 </div><!--header-->
 <div class="contents">
-<ol>
-    <li><a href="dev_depl_process.html">Deployment Process</a></li>
-    <li><a href="dev_configuration.html">Configuration Management</a></li>
-</ol>
+    <div class="memitem" >
+        <div class="memproto">
+        <table class="mlabels">
+          <tr>
+          <td class="mlabels-left">
+              <table class="memname">
+                <tr>
+                  <td class="memname">Project Structure Overview</td>
+                </tr>
+              </table>
+          </td>
+          <td class="mlabels-right">
+          </tr>
+          </tr>
+        </table>
+      </td>
+        </div><div class="memdoc">
+            
+        <h2>Project Structure Overview</h2>
+        <p>The project is structured with the following directories and key files:</p>
+        <ul>
+            <li><b>/css:</b> Stores CSS stylesheets used for styling the web pages.</li>
+            <li><b>Classes:</b> Contains all PHP class files responsible for backend logic and data handling.</li>
+            <li><b>Components:</b> Houses frontend components written in HTML, CSS, JavaScript and some PHP, organized based on their functionality or feature.</li>          
+            <li><b>/js:</b> Houses JavaScript files for client-side interactivity.</li>
+            <li><b>/includes:</b> Contains PHP files for reusable components and server-side includes.</li>
+            <li><b>/index.php:</b> Main entry point of the application.</li>
+            <li><b>/login.php:</b> Login page for user authentication.</li>
+            <li><b>/register:</b> .php: Signup page for user registration.</li>  
+        </ul>
+
+
+        <p>
+            This structure helps organize the project into distinct functional components, separating concerns and making it easier to navigate and maintain.
+        </p>
+
+        <dl class="note"><dt><b>Note:</b></dt><dd>
+            If you're planning to add new directories, please label them clearly.
+            </dd>
+        </dl>
+        </div>
+      </div>
 </div><!-- directory -->
 </div><!-- contents -->
 </div><!-- doc-content -->
