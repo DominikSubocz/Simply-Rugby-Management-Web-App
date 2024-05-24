@@ -1,5 +1,5 @@
 <p align="center">
-   <img width="300" height="300" src="https://github.com/DominikSubocz/Simply-Rugby-Management-Web-App/assets/121230993/0c8af5b6-702d-4884-a0cb-30c989b67204">
+   <img width="1080" height="500" src="https://github.com/DominikSubocz/Simply-Rugby-Management-Web-App/assets/121230993/0c8af5b6-702d-4884-a0cb-30c989b67204">
 </p>
 <hr>
 
