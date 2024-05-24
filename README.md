@@ -1,3 +1,8 @@
+<p align="center">
+   <img width="1080" height="500" src="https://github.com/DominikSubocz/Simply-Rugby-Management-Web-App/assets/121230993/0c8af5b6-702d-4884-a0cb-30c989b67204">
+</p>
+<hr>
+
 # Simply Rugby Management Web App
  
 This is a web-based application designed for managing various aspects of a rugby club, including player management, training sessions, game scheduling, and more.
@@ -32,7 +37,12 @@ To run the Simply Rugby Management Web App locally, follow these steps:
 
 ## Documentation
 
-Documentation website for this project is currently under development and will be released soon. The documentation provides detailed information on how to use the Simply Rugby Management Web App, including installation instructions, usage guidelines, and feature explanations. It also includes technical details for developers interested in contributing to the project or extending its functionality. Please refer to the documentation for any questions or assistance with using the application.
+Documentation website provides detailed information on how to use the Simply Rugby webapp, including installation instructions, usage guidelines, and feature explanations. It also includes technical details for developers interested in contributing to the project or extending its functionality. Please refer to the documentation for any questions or assistance with using the application.
+
+Documentation website for this project is available on this <a href="https://pawfectcare-documentation.netlify.app/">website</a>. 
+
+![image](https://github.com/DominikSubocz/Simply-Rugby-Management-Web-App/assets/121230993/6c670338-6804-421f-ab09-4da2a424b221)
+
 
 ## Contributing
 
@@ -51,3 +61,6 @@ This project is licensed under the [GNU Affero General Public License (AGPL)](LI
 The GNU Affero General Public License is a copyleft license, meaning that any modification to the code must be released under the same license. This ensures that improvements to the software are shared back with the community, even if the software is used over the internet as a web service.
 
 For more details, please use the [LICENSE](LICENSE.txt) file.
+
+## Security Note
+Please note that while this webapp has some security measures in place, it is not fully secured. Password encryption and input sanitization are implemented; however, code can still be executed through the developer console. I plan to implement more security measures in the future. In the meantime, if you intend to use this website extensively, I recommend implementing additional security measures yourself.
