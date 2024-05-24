@@ -1,3 +1,8 @@
+<p align="center">
+   <img width="300" height="300" src="https://github.com/DominikSubocz/Simply-Rugby-Management-Web-App/assets/121230993/0c8af5b6-702d-4884-a0cb-30c989b67204">
+</p>
+<hr>
+
 # Simply Rugby Management Web App
  
 This is a web-based application designed for managing various aspects of a rugby club, including player management, training sessions, game scheduling, and more.
@@ -32,7 +37,12 @@ To run the Simply Rugby Management Web App locally, follow these steps:
 
 ## Documentation
 
-Documentation website for this project is currently under development and will be released soon. The documentation provides detailed information on how to use the Simply Rugby Management Web App, including installation instructions, usage guidelines, and feature explanations. It also includes technical details for developers interested in contributing to the project or extending its functionality. Please refer to the documentation for any questions or assistance with using the application.
+Documentation website provides detailed information on how to use the Simply Rugby webapp, including installation instructions, usage guidelines, and feature explanations. It also includes technical details for developers interested in contributing to the project or extending its functionality. Please refer to the documentation for any questions or assistance with using the application.
+
+Documentation website for this project is available on this <a href="https://pawfectcare-documentation.netlify.app/">website</a>. 
+
+![image](https://github.com/DominikSubocz/Simply-Rugby-Management-Web-App/assets/121230993/6c670338-6804-421f-ab09-4da2a424b221)
+
 
 ## Contributing
 
